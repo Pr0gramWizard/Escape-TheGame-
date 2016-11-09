@@ -28,6 +28,13 @@ void logErr(const char* pMessage, unsigned int pStatus)
 	}
 }
 
+// Converts degree to radian
+inline float toRadians(float pAngle)
+{
+	float PI = 3.14159265358979323846f;
+	return pAngle * (PI / 180.0f);
+}
+
 
 
 

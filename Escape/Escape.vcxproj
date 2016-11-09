@@ -18,6 +18,34 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="camera.cpp" />
+    <ClCompile Include="cube.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="matrix4D.cpp" />
+    <ClCompile Include="vector2D.cpp" />
+    <ClCompile Include="vector3D.cpp" />
+    <ClCompile Include="vector4D.cpp" />
+    <ClCompile Include="window.cpp" />
+    <ClCompile Include="world.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="camera.hpp" />
+    <ClInclude Include="cube.hpp" />
+    <ClInclude Include="game.hpp" />
+    <ClInclude Include="matrix4D.hpp" />
+    <ClInclude Include="utility.hpp" />
+    <ClInclude Include="vector2D.hpp" />
+    <ClInclude Include="vector3D.hpp" />
+    <ClInclude Include="vector4D.hpp" />
+    <ClInclude Include="window.hpp" />
+    <ClInclude Include="world.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="glew32.dll" />
+    <None Include="SDL2.dll" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8DE4231C-F8DD-4A3A-ADC9-9BB74012A2FB}</ProjectGuid>
     <RootNamespace>Escape</RootNamespace>
@@ -122,34 +150,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="camera.cpp" />
-    <ClCompile Include="cube.cpp" />
-    <ClCompile Include="game.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="matrix4D.cpp" />
-    <ClCompile Include="vector2D.cpp" />
-    <ClCompile Include="vector3D.cpp" />
-    <ClCompile Include="vector4D.cpp" />
-    <ClCompile Include="window.cpp" />
-    <ClCompile Include="world.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="camera.hpp" />
-    <ClInclude Include="cube.hpp" />
-    <ClInclude Include="game.hpp" />
-    <ClInclude Include="matrix4D.hpp" />
-    <ClInclude Include="utility.hpp" />
-    <ClInclude Include="vector2D.hpp" />
-    <ClInclude Include="vector3D.hpp" />
-    <ClInclude Include="vector4D.hpp" />
-    <ClInclude Include="window.hpp" />
-    <ClInclude Include="world.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="glew32.dll" />
-    <None Include="SDL2.dll" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

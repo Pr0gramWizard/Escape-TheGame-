@@ -3,17 +3,23 @@
 #include <glew.h>
 #include <glut.h>
 
-#include "utility.hpp"
+
+#include "game.hpp"
+
+#include "vector2D.hpp"
 
 int main(int args, char* argv[])
 {
 
-	logMsg("Hallo Welt");
-	
-	logErr("Dies ist ein Test", 3);
-	
+	Game* Escape;
 
-	system("PAUSE");
+	Escape = new Game();
+
+	Escape->start();
+	Escape->gameLoop();
+
+	delete Escape;
+
 
 	return 0;
 }
