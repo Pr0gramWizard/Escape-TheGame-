@@ -45,6 +45,8 @@ struct Matrix4D
 	// Multiplication Assignment operator
 	Matrix4D& operator*=(const Matrix4D& pOtherMatrix);
 
+	Matrix4D& lookAt(const Vector3D& Eye, const Vector3D& Center, const Vector3D& Up);
+
 	void Print();
 };
 

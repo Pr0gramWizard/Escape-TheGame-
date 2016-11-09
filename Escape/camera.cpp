@@ -1,97 +1,182 @@
 #include "camera.hpp"
 
 
-
+// Constructor with vectors
 Camera::Camera()
 {
+	this->setPosition(Vector3D(0.0f,0.0f,0.0f));
+	this->setWorldUp(Vector3D(0.0f,1.0f,0.0f));
+	this->setFront(Vector3D(0.0f, 0.0f, -1.0f));
+	this->setYaw(YAW);
+	this->setPitch(PITCH);
+	this->setMovementSpeed(SPEED);
+	this->setMouseSensitivity(SENSITIVTY);
+	this->setZoom(ZOOM);
+	this->updateCameraVectors();
+}
+
+Camera::Camera(GLfloat pPosX, GLfloat pPosY, GLfloat pPosZ, GLfloat pUpX, GLfloat pUpY, GLfloat pUpZ, GLfloat pYaw, GLfloat pPitch) 
+{
+	this->setFront(Vector3D(0.0f, 0.0f, -1.0f));
+	this->setMovementSpeed(SPEED);
+	this->setMouseSensitivity(SENSITIVTY);
+	this->setZoom(ZOOM);
+	this->setPosition(Vector3D(pPosX, pPosY, pPosZ));
+	this->setWorldUp(Vector3D(pUpX, pUpY, pUpZ));
+	this->setYaw(pYaw);
+	this->setPitch(pPitch);
+	this->updateCameraVectors();
+}
+
+Matrix4D Camera::GetViewMatrix()
+{
+	return Matrix4D();
+}
 
 
+void Camera::ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime)
+{
+	GLfloat velocity = this->getMovementSpeed() * deltaTime;
 
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);
-	glMatrixMode(GL_PROJECTION);
+	if (pDirection == FORWARD)
+		this->setPosition(this->getPosition() + (this->getFront() * velocity));
+	if (pDirection == BACKWARD)
+		this->setPosition(this->getPosition() - (this->getFront() * velocity));
+	if (pDirection == LEFT)
+		this->setPosition(this->getPosition() - (this->getRight() * velocity));
+	if (pDirection == RIGHT)
+		this->setPosition(this->getPosition() + (this->getRight() * velocity));
+}
 
-	glLoadIdentity();
-	gluPerspective(0.0, 0.0, 0.0, 0.0);
+void Camera::ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset)
+{
+	GLboolean constrainPitch = true;
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	pXOffset *= this->getMouseSensitivity();
+	pYOffset *= this->getMouseSensitivity();
 
+	this->setYaw(this->getYaw() + pXOffset);
+	this->setPitch(this->getPitch() + pYOffset);
 
-	if (glGetError() != GL_NO_ERROR)
+	// Make sure that when pitch is out of bounds, screen doesn't get flipped
+	if (constrainPitch)
 	{
-		std::clog << "There was an error starting OpenGL! " << glGetError() << std::endl;
+		if (this->getPitch() > 89.0f)
+			this->setPitch(89.0f);
+		if (this->getPitch() < -89.0f)
+			this->setPitch(-89.0f);
 	}
 
-	std::clog << "OpenGL was started successfully!" << std::endl;
+	// Update Front, Right and Up Vectors using the updated Eular angles
+	this->updateCameraVectors();
 }
 
-void Camera::setWindow(Window* pCurrentWindow)
+void Camera::ProcessMouseScroll(GLfloat pYOffset)
 {
-	mCurrentWindow = pCurrentWindow;
+	if (this->getZoom() >= 1.0f && this->getZoom() <= 45.0f)
+		this->setZoom(this->getZoom() - pYOffset);
+	if (this->getZoom() <= 1.0f)
+		this->setZoom(1.0f);
+	if (this->getZoom() >= 45.0f)
+		this->setZoom(45.0f);
 }
 
 
 
-Camera::~Camera()
+void Camera::updateCameraVectors()
 {
+	Vector3D Front;
+
+	Front.x = cos(toRadians(this->getYaw())) * cos(toRadians(this->getPitch()));
+	Front.y = sin(toRadians(this->getPitch()));
+	Front.z = sin(toRadians(this->getYaw())) * cos(toRadians(this->getPitch()));
+
+	this->setFront(Front.normalize());
+
+	this->setRight(this->getFront().crossproduct(this->getWorldUp()).normalize());
+	this->setUp(this->getRight().crossproduct(this->getFront()).normalize);
+
 }
 
-void Camera::lookAt(double pFovy, double pAspect, double pZNear, double pZFar)
-{
-	setFovy(pFovy);
-	setAspect(pAspect);
-	setZNear(pZNear);
-	setZFar(pZFar);
-	gluPerspective(getFovy(), getAspect(), getZNear(), getZFar());
-}
 
-unsigned int Camera::getCurrentWindowHeight()
-{
-	return mCurrentWindow->getWindowHeight();
-}
 
-unsigned int Camera::getCurrentWindowWidth()
+Vector3D Camera::getPosition() const
 {
-	return mCurrentWindow->getWindowWidth();
+	return mPosition;
 }
-
-GLdouble Camera::getFovy() const
+Vector3D Camera::getFront() const
 {
-	return mFovy;
+	return mFront;
 }
-
-GLdouble Camera::getAspect() const
+Vector3D Camera::getUp() const
 {
-	return mAspect;
+	return mUp;
 }
-
-GLdouble Camera::getZNear() const
+Vector3D Camera::getRight() const
 {
-	return mZNear;
+	return mRight;
 }
-
-GLdouble Camera::getZFar() const
+Vector3D Camera::getWorldUp() const
 {
-	return mZFar;
+	return mWorldUp;
 }
-
-void Camera::setFovy(GLdouble pFovy)
+GLfloat Camera::getYaw() const
 {
-	mFovy = pFovy;
+	return mYaw;
 }
-
-void Camera::setAspect(GLdouble pAspect)
+GLfloat Camera::getPitch() const
 {
-	mAspect = pAspect;
+	return mPitch;
 }
-
-void Camera::setZNear(GLdouble pZNear)
+GLfloat Camera::getMovementSpeed() const
 {
-	mZNear = pZNear;
+	return mMovementSpeed;
 }
-
-void Camera::setZFar(GLdouble pZFar)
+GLfloat Camera::getMouseSensitivity() const
 {
-	mZFar = pZFar;
+	return mMouseSensitivity;
+}
+GLfloat Camera::getZoom() const
+{
+	return mZoom;
+}
+void Camera::setPosition(Vector3D pPosition)
+{
+	mPosition = pPosition;
+}
+void Camera::setFront(Vector3D pFront)
+{
+	mFront = pFront;
+}
+void Camera::setUp(Vector3D pUp)
+{
+	mUp = pUp;
+}
+void Camera::setRight(Vector3D pRight)
+{
+	mRight = pRight;
+}
+void Camera::setWorldUp(Vector3D pWorldUp)
+{
+	mWorldUp = pWorldUp;
+}
+void Camera::setYaw(GLfloat pYaw)
+{
+	mYaw = pYaw;
+}
+void Camera::setPitch(GLfloat pPitch)
+{
+	mPitch = pPitch;
+}
+void Camera::setMovementSpeed(GLfloat pMovementSpeed)
+{
+	mMovementSpeed = pMovementSpeed;
+}
+void Camera::setMouseSensitivity(GLfloat pMouseSensitivity)
+{
+	mMouseSensitivity = pMouseSensitivity;
+}
+void Camera::setZoom(GLfloat pZoom)
+{
+	mZoom = pZoom;
 }

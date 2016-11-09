@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+
 struct Vector4D
 {
 	float x;
@@ -24,5 +25,7 @@ struct Vector4D
 	bool	 operator!=(const Vector4D &pOtherVector);
 
 	friend std::ostream& operator<<(std::ostream& stream, const Vector4D &pDisplayVector);
+
+	
 };
 

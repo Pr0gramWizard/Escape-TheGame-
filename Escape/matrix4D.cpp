@@ -26,7 +26,6 @@ Matrix4D::Matrix4D(float pDiagonal)
 
 Matrix4D Matrix4D::Identity()
 {
-	
 	return Matrix4D(1.0f);
 }
 
@@ -85,6 +84,46 @@ Matrix4D& Matrix4D::operator*=(const Matrix4D &pOtherMatrix)
 
 
 	return *this;
+}
+
+Matrix4D & Matrix4D::lookAt(const Vector3D & Eye, const Vector3D & Center, const Vector3D & Up)
+{
+	Matrix4D Matrix;
+
+	Vector3D X, Y, Z;
+
+	Vector3D tempEye = Eye;
+	Vector3D tempCenter = Center;
+	Vector3D tempUp = Up;
+
+	Z = tempEye - tempCenter;
+	Z.normalize();
+	Y = tempUp;
+	X = Y.crossproduct(Z);
+	Y = Z.crossproduct(X);
+
+	X.normalize();
+	Y.normalize();
+
+	Matrix.Elements[0] = X.x;
+	Matrix.Elements[1] = X.y;
+	Matrix.Elements[2] = X.z;
+	Matrix.Elements[3] = -X.dotproduct(tempEye);
+	Matrix.Elements[4] = Y.x;
+	Matrix.Elements[5] = Y.y;
+	Matrix.Elements[6]  = Y.z;
+	Matrix.Elements[7] = -Y.dotproduct(tempCenter);
+	Matrix.Elements[8] = Z.x;
+	Matrix.Elements[9] = Z.y;
+	Matrix.Elements[10] = Z.z;
+	Matrix.Elements[11] = -Z.dotproduct(tempUp);
+	Matrix.Elements[12]  = 0;
+	Matrix.Elements[13] = 0;
+	Matrix.Elements[14] = 0;
+	Matrix.Elements[15] = 1.0f;
+
+	return Matrix;
+
 }
 
 void Matrix4D::Print()

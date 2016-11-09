@@ -23,25 +23,24 @@ Game::~Game()
 	delete mWindow;
 	delete mEvent;
 	delete mMainWorld;
+	delete mCamera;
 }
 // Start Function
 void Game::start()
 {
 	mWindow->createWindow("Ina kann nicht lesen", 800, 600);
 
+	glViewport(0, 0, mWindow->getWindowWidth(), mWindow->getWindowHeight());
+
+	glEnable(GL_DEPTH_TEST);
+
 }
 
 void Game::gameLoop()
 {
-	mCamera->setWindow(mWindow);
-	GLfloat rotation = 0.0f;
 
-	setFovy(45);
-	setAspect(mWindow->getWindowWidth()/mWindow->getWindowHeight());
-	setZNear(0.1);
-	setZFar(100.0);
-
-	float CubeVertices[108] = {
+	/*
+		float CubeVertices[108] = {
 		-1.0f,-1.0f,-1.0f, // triangle 1 : begin
 		-1.0f,-1.0f, 1.0f,
 		-1.0f, 1.0f, 1.0f, // triangle 1 : end
@@ -79,24 +78,22 @@ void Game::gameLoop()
 		-1.0f, 1.0f, 1.0f,
 		1.0f,-1.0f, 1.0f
 	};
-
-	Vector3D CubeColor(1.0f, 0.0f, 0.0f);
-
-	Cube A(CubeVertices, 1.0f, CubeColor);
-
-	
+	*/
 
 	mMainWorld->init(mWindow->getWindowWidth(), mWindow->getWindowHeight());
 	
 
 	while (getGameState() != GameState::EXIT)
 	{
-		mCamera->lookAt(getFovy(), getAspect(), getZNear(), getZFar());
-		mMainWorld->addCube(A);
-		A.setRotation(A.getRotation() + 1.0f);
 		fpsCounter();
 		SDL_GL_SwapWindow(mWindow->getWindow());
 		inputHandler();
+
+		Matrix4D View;
+
+		View = mCamera->GetViewMatrix();
+
+		gluPerspective(mCamera->getZoom(), (GLfloat)mWindow->getWindowWidth() / (GLfloat)mWindow->getWindowHeight(), 0.1f, 100.0f);
 	}
 
 }
