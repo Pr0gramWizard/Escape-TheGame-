@@ -1,4 +1,7 @@
 #include <iostream>
+#include <SDL.h>
+#include <glew.h>
+#include <glut.h>
 
 int main(int args, char* argv[])
 {
