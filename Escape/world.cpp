@@ -19,6 +19,9 @@ bool World::init(unsigned int pWindowWidth, unsigned int pWindowHeight)
 {
 	glClearColor(1, 1, 1, 1);
 
+	
+	
+
 	return true;
 
 }
@@ -51,7 +54,7 @@ bool World::addTriangle(GLfloat pNumberOfVertices[6], GLfloat pColorOfVertices[9
 
 bool World::addTriangle(Vector2D pFirstVertex, Vector2D pSecondVertex, Vector2D pThirdVertex)
 {
-	glColor3f(1.0f,1.0f,0.0f);
+	glColor3f(1.0f,0.0f,0.0f);
 	glBegin(GL_TRIANGLES);
 	glVertex2f(pFirstVertex.x, pFirstVertex.y);
 	glVertex2f(pSecondVertex.x, pSecondVertex.y);
@@ -94,24 +97,10 @@ bool World::addCircle(GLfloat pRadius)
 
 bool World::addCube(Cube pCube)
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glTranslatef(0.0f, 0.0f, -5.0f);
-	glRotatef(pCube.getRotation(), 0.0f, 0.0f, -4.0f);
-
-	glBegin(GL_TRIANGLE_STRIP);
-
-	glColor4f(pCube.getColor().x,pCube.getColor().y,pCube.getColor().z,1.0f);
-
-	for (int i = 0; i < 37; i++)
-	{
-		glVertex3f(pCube.getVertices(i), pCube.getVertices(i + 1), pCube.getVertices(i + 2));
-	}
-
-	glEnd();
-	glLoadIdentity();
-
-
 	
+	// glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	// glRotatef(pCube.getRotation(), 0.0f, 0.0f, -4.0f);
 
 	
 
@@ -127,6 +116,25 @@ void World::Camera()
 	Vector3D cameraTarget(0.0f, 0.0f, 0.0f);
 	Vector3D cameraDirection = cameraPos.normalize() - cameraTarget.normalize();
 
+}
+
+void World::showCoordinateSystem()
+{
+	glColor3f(0.0f, 0.0f, 0.0f);
+
+	glBegin(GL_LINES);
+
+	glVertex3f(-1.0f, 0.0f, 0.0f);
+	glVertex3f(1.0f, 0.0f, 0.0f);
+
+
+	glVertex3f(0.0f, -1.0f, 0.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f);
+
+	glVertex3f(0.0f, 0.0f, -1.0f);
+	glVertex3f(0.0f, 0.0f, 1.0f);
+
+	glEnd();
 }
 
 

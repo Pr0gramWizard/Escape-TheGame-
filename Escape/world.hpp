@@ -33,6 +33,7 @@ public:
 	bool addPyramide();
 
 	void Camera();
+	void showCoordinateSystem();
 
 	// Setter functions
 	void setNumberOfElements(unsigned int pNumberOfElements);

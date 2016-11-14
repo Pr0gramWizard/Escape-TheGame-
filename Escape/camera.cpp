@@ -94,8 +94,14 @@ void Camera::updateCameraVectors()
 	this->setFront(Front.normalize());
 
 	this->setRight(this->getFront().crossproduct(this->getWorldUp()).normalize());
-	this->setUp(this->getRight().crossproduct(this->getFront()).normalize);
+	this->setUp(this->getRight().crossproduct(this->getFront()).normalize());
 
+}
+
+float Camera::toRadians(float pAngle)
+{
+		float PI = 3.14159265358979323846f;
+		return pAngle * (PI / 180.0f);
 }
 
 

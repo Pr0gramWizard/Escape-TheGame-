@@ -3,7 +3,7 @@
 #include <iostream>
 #include "vector3D.hpp"
 #include "matrix4D.hpp"
-#include "utility.hpp"
+// #include "utility.hpp"
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
 enum Camera_Movement {
@@ -82,7 +82,7 @@ private:
 // All private functions of the class
 private:
 	void updateCameraVectors();
-
+	static float toRadians(float pAngle);
 
 
 };

@@ -14,13 +14,13 @@ public:
 	//Cube(GLfloat pVertices[8][3], GLfloat pSides[6][4], float pRotation, Vector3D pColor);
 
 	// Constructor with given vertices and sides
-	Cube(GLfloat pVertices[8][3], GLfloat pSides[6][4]);
+	Cube(GLfloat pVertices[24], GLfloat pSides[6][4]);
 	// Destructor
 	~Cube();
 
 	// Setter functions
 	void setVerticesVector3D(Vector3D pVertices, int pPosition);
-	void setVertices(GLfloat pVertices[8][3]);
+	void setVertices(GLfloat pVertices[24]);
 	void setSide(GLfloat pSide[4], int pPosition);
 	void setSides(GLfloat pSides[6][4]);
 	void setColor(GLfloat pColor[3]);
@@ -28,7 +28,7 @@ public:
 	void setRotation(GLfloat pRotation);
 
 	// Getter functions
-	GLfloat getVertices(int i, int j);
+	GLfloat getVertices(int i);
 	Vector3D getVerticesVector3D(int i);
 	GLfloat getSides(int i, int j);
 	Vector4D getSidesVector4D(int i);
@@ -42,7 +42,7 @@ public:
 // Properties of the cube
 private:
 	Vector3D mColor;
-	GLfloat mVertices[8][3];
+	GLfloat mVertices[24];
 	GLfloat mSides[6][4];
 	GLfloat mRotation;
 

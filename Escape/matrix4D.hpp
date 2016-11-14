@@ -4,7 +4,7 @@
 #include <iostream>
 #include <math.h>
 #include "vector3D.hpp"
-#include "utility.hpp"
+// #include "utility.hpp"
 
 
 // Defintion of the struct: Matrix4D
@@ -48,5 +48,10 @@ struct Matrix4D
 	Matrix4D& lookAt(const Vector3D& Eye, const Vector3D& Center, const Vector3D& Up);
 
 	void Print();
+
+private:
+	// Converts degree to radian
+	static float toRadians(float pAngle);
+
 };
 

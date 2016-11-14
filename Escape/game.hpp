@@ -46,20 +46,13 @@ public:
 	int getFrameStartTime() const;
 	int getFrameCurrentTime() const;
 	int getFrameCount() const;
-	GLdouble getFovy() const;
-	GLdouble getAspect() const;
-	GLdouble getZNear() const;
-	GLdouble getZFar() const;
+
 
 	// Setter Function
 	void setGameState(bool pGameState);
 	void setFrameStartTime(int pFrameStartTime);
 	void setFrameCurrentTime(int pFrameCurrentTime);
 	void setFrameCount(int pFrameCount);
-	void setFovy(GLdouble);
-	void setAspect(GLdouble);
-	void setZNear(GLdouble);
-	void setZFar(GLdouble);
 
 
 // All private member
@@ -80,13 +73,6 @@ private:
 	int mFrameStartTime;
 	int mFrameCurrentTime;
 	int mFrameCount;
-
-// All Camera variables
-private:
-	GLdouble mFovy;
-	GLdouble mAspect;
-	GLdouble mZNear;
-	GLdouble mZFar;
 
 
 // All private functions

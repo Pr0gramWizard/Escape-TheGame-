@@ -137,6 +137,7 @@ void Matrix4D::Print()
 
 
 
+
 Matrix4D Matrix4D::Orthographic(float pLeft, float pRight, float pTop, float pBottom, float pNear, float pFar)
 {
 	Matrix4D Result(1.0f);
@@ -220,6 +221,14 @@ Matrix4D Matrix4D::Scale(const Vector3D & pScale)
 	return Result;
 
 }
+
+// Converts degree to radian
+float Matrix4D::toRadians(float pAngle)
+{
+	float PI = 3.14159265358979323846f;
+	return pAngle * (PI / 180.0f);
+}
+
 
 
 

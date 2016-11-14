@@ -10,7 +10,7 @@ Cube::Cube()
 	std::clog << "Cube instance was successfully created!" << std::endl;
 }
 
-Cube::Cube(GLfloat pVertices[8][3], GLfloat pSides[6][4])
+Cube::Cube(GLfloat pVertices[24], GLfloat pSides[6][4])
 {
 	setVertices(pVertices);
 	setSides(pSides);
@@ -28,28 +28,27 @@ Cube::~Cube()
 {
 }
 
-void Cube::setVertices(GLfloat pVertices[8][3])
+void Cube::setVertices(GLfloat pVertices[24])
 {
-	for (int i = 0; i < 8; ++i)
+	for (int i = 0; i < 24; ++i)
 	{
-		for(int j = 0; j < 3; ++j)
-			mVertices[i][j] = pVertices[i][j];
+			mVertices[i] = pVertices[i];
 	}
 }
 
 void Cube::setVerticesVector3D(Vector3D pVertices, int pPosition)
 {
-	mVertices[pPosition][0] = pVertices.x;
-	mVertices[pPosition][1] = pVertices.y;
-	mVertices[pPosition][2] = pVertices.z;
+	mVertices[0 + pPosition] = pVertices.x;
+	mVertices[1 + pPosition] = pVertices.y;
+	mVertices[2 + pPosition] = pVertices.z;
 }
 
-void Cube::setSides(GLfloat pVertices[6][4])
+void Cube::setSides(GLfloat pSides[6][4])
 {
 	for (int i = 0; i < 6; ++i)
 	{
 		for (int j = 0; j < 4; ++j)
-			mSides[i][j] = pVertices[i][j];
+			mSides[i][j] = pSides[i][j];
 	}
 }
 
@@ -81,14 +80,14 @@ void Cube::setColor(Vector3D pColor)
 }
 
 
-GLfloat Cube::getVertices(int i, int j)
+GLfloat Cube::getVertices(int i)
 {
-	return mVertices[i][j];
+	return mVertices[i];
 }
 
 Vector3D Cube::getVerticesVector3D(int i)
 {
-	return Vector3D(mVertices[i][0], mVertices[i][1], mVertices[i][2]);
+	return Vector3D(mVertices[0 + i], mVertices[1 +i], mVertices[2 + i]);
 }
 
 GLfloat Cube::getSides(int i, int j)
