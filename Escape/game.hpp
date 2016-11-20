@@ -42,7 +42,7 @@ public:
 	void drawGame();
 	// Drawing Function
 	void changeBackground(GLfloat pRed, GLfloat pGreen, GLfloat pBlue, GLfloat pAlpha);
-	void drawGameField();
+	void drawCube(GLfloat centerPosX, GLfloat centerPosY, GLfloat centerPosZ, GLfloat edgeLength);
 	// Getter Function
 	GameState getGameState() const;
 	int getFrameStartTime() const;
