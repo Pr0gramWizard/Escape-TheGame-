@@ -31,6 +31,8 @@ void Game::start()
 	mShader->addAttribute("position");
 	mShader->addAttribute("color");
 	mShader->linkShader();
+
+
 }
 
 void Game::gameLoop()
@@ -38,8 +40,9 @@ void Game::gameLoop()
 
 	while (getGameState() != GameState::EXIT)
 	{
-		drawGame();
+		
 		inputHandler();
+		drawGame();
 		SDL_GL_SwapWindow(mWindow->getWindow());
 		
 	}
@@ -48,6 +51,85 @@ void Game::gameLoop()
 
 void Game::drawGame()
 {
+
+	Vector3D cubePositions[] = {
+		Vector3D(0.0f,  0.0f,  0.0f),
+		Vector3D(2.0f,  5.0f, -15.0f),
+		Vector3D(-1.5f, -2.2f, -2.5f),
+		Vector3D(-3.8f, -2.0f, -12.3f),
+		Vector3D(2.4f, -0.4f, -3.5f),
+		Vector3D(-1.7f,  3.0f, -7.5f),
+		Vector3D(1.3f, -2.0f, -2.5f),
+		Vector3D(1.5f,  2.0f, -2.5f),
+		Vector3D(1.5f,  0.2f, -1.5f),
+		Vector3D(-1.3f,  1.0f, -1.5f)
+	};
+
+	GLfloat vertices[] = {
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+		0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+	};
+	// World space positions of our cubes
+
+
+	GLuint VBO, VAO;
+
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+
+	glBindVertexArray(VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	// Position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
+	// TexCoord attribute
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
+
+	glBindVertexArray(0); // Unbind VAO
+
 	glClearDepth(1.0f);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -58,15 +140,42 @@ void Game::drawGame()
 
 	mShader->use();
 
-	glBegin(GL_TRIANGLES);
+	Matrix4D View(0.0f);
 
-	glVertex2f(0.0f, 0.5f);
-	glVertex2f(0.5f, 0.0f);
-	glVertex2f(-0.5f, 0.0f);
-
-	glEnd();
+	View = View.Translation(Vector3D(0.0f, 0.0f, -3.0f));
 
 
+	Matrix4D Projection(0.0f);
+
+	Projection = Projection.Perspective(45.0f, (float)mWindow->getWindowWidth() / (float)mWindow->getWindowHeight(), 0.1f, 100.0f);
+
+
+	GLint modelLoc = glGetUniformLocation(mShader->getProgramID(), "model");
+	GLint viewLoc = glGetUniformLocation(mShader->getProgramID(), "view");
+	GLint projLoc = glGetUniformLocation(mShader->getProgramID(), "projection");
+	// Pass the matrices to the shader
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &View.Elements[0]);
+	// Note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, &Projection.Elements[0]);
+
+	glBindVertexArray(VAO);
+
+	static bool PrintModel;
+
+	for (GLuint i = 0; i < 10; i++)
+	{
+		// Calculate the model matrix for each object and pass it to shader before drawing
+		Matrix4D model;
+		model.Translation(cubePositions[i]);
+		GLfloat angle = 20.0f * i;
+		model = model.Rotation(Vector3D(1.0f, 0.3f, 0.5f), angle);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, &model.Elements[0]);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+	}
+	glBindVertexArray(0);
+
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
 	mShader->unuse();
 }
 
