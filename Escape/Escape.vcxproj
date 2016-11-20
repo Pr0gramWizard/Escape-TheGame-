@@ -24,6 +24,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="matrix4D.cpp" />
+    <ClCompile Include="shader.cpp" />
     <ClCompile Include="vector2D.cpp" />
     <ClCompile Include="vector3D.cpp" />
     <ClCompile Include="vector4D.cpp" />
@@ -35,6 +36,7 @@
     <ClInclude Include="cube.hpp" />
     <ClInclude Include="game.hpp" />
     <ClInclude Include="matrix4D.hpp" />
+    <ClInclude Include="shader.hpp" />
     <ClInclude Include="utility.hpp" />
     <ClInclude Include="vector2D.hpp" />
     <ClInclude Include="vector3D.hpp" />
@@ -45,6 +47,8 @@
   <ItemGroup>
     <None Include="glew32.dll" />
     <None Include="SDL2.dll" />
+    <None Include="shaders\colorShading.frag" />
+    <None Include="shaders\colorShading.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8DE4231C-F8DD-4A3A-ADC9-9BB74012A2FB}</ProjectGuid>

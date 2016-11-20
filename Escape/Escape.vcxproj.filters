@@ -10,6 +10,9 @@
     <Filter Include="Dynamic Link Library">
       <UniqueIdentifier>{40529e89-a87f-4823-a902-5eb7684a7736}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{f833b7a1-68ed-48cd-b837-152fb635cf78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp">
@@ -40,6 +43,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="world.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,6 +80,9 @@
     <ClInclude Include="utility.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="shader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
@@ -81,6 +90,12 @@
     </None>
     <None Include="SDL2.dll">
       <Filter>Dynamic Link Library</Filter>
+    </None>
+    <None Include="shaders\colorShading.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\colorShading.vert">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

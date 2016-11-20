@@ -17,6 +17,7 @@
 #include "camera.hpp"
 #include "vector2D.hpp"
 #include "vector3D.hpp"
+#include "shader.hpp"
 
 // Different game states
 enum class GameState { PLAY, EXIT };
@@ -38,6 +39,7 @@ public:
 	GameState inputHandler();
 	// Main Game Loop
 	void gameLoop();
+	void drawGame();
 	// Drawing Function
 	void changeBackground(GLfloat pRed, GLfloat pGreen, GLfloat pBlue, GLfloat pAlpha);
 	void drawGameField();
@@ -61,6 +63,8 @@ private:
 	Window* mWindow;
 	// Pointer to the world class
 	World* mMainWorld;
+	// Pointer to the shader class
+	Shader* mShader;
 	// Pointer to Event instance
 	SDL_Event* mEvent;
 	// Pointer to the camera class

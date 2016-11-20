@@ -6,8 +6,9 @@ Game::Game()
 {
 	mWindow = new Window();
 	mEvent = new SDL_Event;
-	mMainWorld = new World(5);
-	mCamera = new Camera();
+	mMainWorld = new World();
+	// mCamera = new Camera();
+	mShader = new Shader();
 	setGameState(true);
 	setFrameStartTime(0);
 	setFrameCurrentTime(0);
@@ -24,77 +25,49 @@ Game::~Game()
 // Start Function
 void Game::start()
 {
-	mWindow->createWindow("Ina kann nicht lesen", 800, 600);
+	mWindow->createWindow("Epic Dungeon Game", 800, 600);
 
-
-
-
+	mShader->compileShader("shaders/colorShading.vert", "shaders/colorShading.frag");
+	mShader->addAttribute("position");
+	mShader->addAttribute("color");
+	mShader->linkShader();
 }
 
 void Game::gameLoop()
 {
 
-	/*
-		float CubeVertices[108] = {
-		-1.0f,-1.0f,-1.0f, // triangle 1 : begin
-		-1.0f,-1.0f, 1.0f,
-		-1.0f, 1.0f, 1.0f, // triangle 1 : end
-		1.0f, 1.0f,-1.0f, // triangle 2 : begin
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f,-1.0f, // triangle 2 : end
-		1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f,-1.0f,
-		1.0f,-1.0f,-1.0f,
-		1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		-1.0f,-1.0f, 1.0f,
-		1.0f,-1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f,-1.0f,-1.0f,
-		1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f,-1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f,-1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f,-1.0f,
-		-1.0f, 1.0f,-1.0f,
-		1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f, 1.0f,
-		1.0f,-1.0f, 1.0f
-	};
-	*/
-
-	mMainWorld->init(mWindow->getWindowWidth(), mWindow->getWindowHeight());
-
-	/*
-	GLfloat Vertices[24] = {0.5f,0.0f,0.0f,1.0f,0.0f,0.0f,0.5f,0.0f,-0.5f,1.0f,0.0f,-1.0f,0.5f,0.5f,0.0f,1.0f,0.5f,0.0f,0.5f,0.5f,-0.5f,1.0f,0.5f,-1.0f };
-
-	GLfloat Sides[6][4] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-
-	Cube mCube(Vertices,Sides);
-	*/
-
 	while (getGameState() != GameState::EXIT)
 	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		fpsCounter();
-		mMainWorld->showCoordinateSystem();
+		drawGame();
 		inputHandler();
 		SDL_GL_SwapWindow(mWindow->getWindow());
 		
 	}
 
+}
+
+void Game::drawGame()
+{
+	glClearDepth(1.0f);
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+	glUseProgram(mShader->getProgramID());
+
+	mShader->use();
+
+	glBegin(GL_TRIANGLES);
+
+	glVertex2f(0.0f, 0.5f);
+	glVertex2f(0.5f, 0.0f);
+	glVertex2f(-0.5f, 0.0f);
+
+	glEnd();
+
+
+	mShader->unuse();
 }
 
 void Game::fpsCounter()
