@@ -32,7 +32,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "LearnOpenGL", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Escape Cave Alpha", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 
 	// Set the required callback functions
@@ -53,6 +53,8 @@ int main()
 
 	Test->compileShader("shaders/shader.vert", "shaders/shader.frag");
 	Test->addAttribute("pColor");
+
+	std::cout << "This is only seen on the dev branch" << std::endl;
 
 
 	// Set up vertex data (and buffer(s)) and attribute pointers
