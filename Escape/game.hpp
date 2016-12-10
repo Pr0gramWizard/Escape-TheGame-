@@ -48,7 +48,7 @@ public:
 	// Bool
 	bool keys[1024];
 	GLfloat lastX = 400, lastY = 300;
-	GLfloat deltaTime = 0.0f;
+	GLfloat deltaTime = 0.1f;
 	GLfloat lastFrame = 0.0f;
 
 	// Pointers to other classes

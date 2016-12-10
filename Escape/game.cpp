@@ -5,7 +5,7 @@
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-void do_movement(const Game* pGame);
+void do_movement();
 
 GLfloat fov = 45.0f;
 
@@ -186,7 +186,7 @@ bool Game::gameLoop()
 
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
-		do_movement(this);
+		do_movement();
 
 		// Render
 		// Clear the colorbuffer
@@ -216,20 +216,23 @@ bool Game::gameLoop()
 		GLint modelLoc = mShader->getUniformLocation("model");
 		GLint viewLoc = mShader->getUniformLocation("view");
 		GLint projLoc = mShader->getUniformLocation("projection");
+
+		mShader->addAttribute("model");
+		mShader->addAttribute("view");
+		mShader->addAttribute("projection");
 		// Pass the matrices to the shader
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view.Elements[0]);
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, &projection.Elements[0]);
 
+
 		glBindVertexArray(VAO);
 		for (GLuint i = 0; i < 1; i++)
 		{
+			// view.Print();
 			// Calculate the model matrix for each object and pass it to shader before drawing
 			Matrix4D model;
 			model = model.Translation(cubePositions[i]);
-			GLfloat angle = 20.0f * i;
-			model = model.Rotation(Vector3D(1.0f, 0.3f, 0.5f), angle);
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, &model.Elements[0]);
-
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
 		glBindVertexArray(0);
@@ -246,23 +249,21 @@ bool Game::gameLoop()
 }
 
 // Moves/alters the camera positions based on user input
-void do_movement(const Game* pGame)
+void do_movement()
 {
 
-	std::cout << pGame->mCamera->getMovementSpeed() << std::endl;
-
 	// Camera controls
-	if (pGame->keys[GLFW_KEY_W]) {
-		pGame->mCamera->ProcessKeyboard(FORWARD, pGame->deltaTime);
+	if (Huso->keys[GLFW_KEY_W]) {
+		Huso->mCamera->ProcessKeyboard(FORWARD, Huso->deltaTime);
 	}
-	if (pGame->keys[GLFW_KEY_S]) {
-		pGame->mCamera->ProcessKeyboard(BACKWARD, pGame->deltaTime);
+	if (Huso->keys[GLFW_KEY_S]) {
+		Huso->mCamera->ProcessKeyboard(BACKWARD, Huso->deltaTime);
 	}
-	if (pGame->keys[GLFW_KEY_A]) {
-		pGame->mCamera->ProcessKeyboard(LEFT, pGame->deltaTime);
+	if (Huso->keys[GLFW_KEY_A]) {
+		Huso->mCamera->ProcessKeyboard(LEFT, Huso->deltaTime);
 	}
-	if (pGame->keys[GLFW_KEY_D]) {
-		pGame->mCamera->ProcessKeyboard(RIGHT, pGame->deltaTime);
+	if (Huso->keys[GLFW_KEY_D]) {
+		Huso->mCamera->ProcessKeyboard(RIGHT, Huso->deltaTime);
 	}
 
 }

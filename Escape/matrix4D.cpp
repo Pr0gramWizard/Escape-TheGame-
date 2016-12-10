@@ -88,39 +88,37 @@ Matrix4D& Matrix4D::operator*=(const Matrix4D &pOtherMatrix)
 
 Matrix4D & Matrix4D::lookAt(const Vector3D & Eye, const Vector3D & Center, const Vector3D & Up)
 {
-	Matrix4D Matrix;
+	Matrix4D Matrix(1.0f);
 
-	Vector3D X, Y, Z;
+	Vector3D F, U, S;
 
 	Vector3D tempEye = Eye;
 	Vector3D tempCenter = Center;
 	Vector3D tempUp = Up;
 
-	Z = tempEye - tempCenter;
-	Z.normalize();
-	Y = tempUp;
-	X = Y.crossproduct(Z);
-	Y = Z.crossproduct(X);
+	F = tempCenter - Eye;
+	F = F.normalize();
 
-	X.normalize();
-	Y.normalize();
+	U = tempUp.normalize();
 
-	Matrix.Elements[0] = X.x;
-	Matrix.Elements[1] = X.y;
-	Matrix.Elements[2] = X.z;
-	Matrix.Elements[3] = -X.dotproduct(tempEye);
-	Matrix.Elements[4] = Y.x;
-	Matrix.Elements[5] = Y.y;
-	Matrix.Elements[6]  = Y.z;
-	Matrix.Elements[7] = -Y.dotproduct(tempCenter);
-	Matrix.Elements[8] = Z.x;
-	Matrix.Elements[9] = Z.y;
-	Matrix.Elements[10] = Z.z;
-	Matrix.Elements[11] = -Z.dotproduct(tempUp);
-	Matrix.Elements[12]  = 0;
-	Matrix.Elements[13] = 0;
-	Matrix.Elements[14] = 0;
-	Matrix.Elements[15] = 1.0f;
+	S = F.crossproduct(U);
+	S = S.normalize();
+
+	U = S.crossproduct(F);
+
+
+	Matrix.Elements[0] = S.x;
+	Matrix.Elements[4] = S.y;
+	Matrix.Elements[8] = S.z;
+	Matrix.Elements[1] = U.x;
+	Matrix.Elements[5] = U.y;
+	Matrix.Elements[9] = U.z;
+	Matrix.Elements[2] = -F.x;
+	Matrix.Elements[6] = -F.y;
+	Matrix.Elements[10] = -F.z;
+	Matrix.Elements[12] = -S.dotproduct(tempEye);
+	Matrix.Elements[13] = -U.dotproduct(tempEye);
+	Matrix.Elements[14] = -F.dotproduct(tempEye);
 
 	return Matrix;
 
@@ -172,9 +170,9 @@ Matrix4D Matrix4D::Translation(const Vector3D & pTranslation)
 {
 	Matrix4D Result(1.0f);
 
-	Result.Elements[12] = pTranslation.x;
-	Result.Elements[13] = pTranslation.y;
-	Result.Elements[14] = pTranslation.z;
+	Result.Elements[4] = pTranslation.x;
+	Result.Elements[8] = pTranslation.y;
+	Result.Elements[12] = pTranslation.z;
 	
 	return Result;
 }
