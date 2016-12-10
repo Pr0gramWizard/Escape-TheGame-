@@ -30,6 +30,9 @@
     <ClCompile Include="vector4D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="matrix4D.hpp">
@@ -47,6 +50,9 @@
     <ClInclude Include="utility.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="shader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
@@ -55,10 +61,10 @@
     <None Include="SDL2.dll">
       <Filter>Dynamic Link Library</Filter>
     </None>
-    <None Include="shaders\colorShading.frag">
+    <None Include="shaders\shader.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="shaders\colorShading.vert">
+    <None Include="shaders\shader.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
