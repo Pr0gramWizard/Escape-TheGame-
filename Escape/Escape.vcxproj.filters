@@ -13,6 +13,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{f833b7a1-68ed-48cd-b837-152fb635cf78}</UniqueIdentifier>
     </Filter>
+    <Filter Include="textures">
+      <UniqueIdentifier>{959e4a6f-5acb-4258-a3be-a3047d76642b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -73,5 +76,13 @@
     <None Include="shaders\shader.vert">
       <Filter>Shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="textures\wall.png">
+      <Filter>textures</Filter>
+    </Image>
+    <Image Include="textures\fireblast.png">
+      <Filter>textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>
