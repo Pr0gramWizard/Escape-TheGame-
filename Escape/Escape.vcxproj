@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="matrix4D.cpp" />
     <ClCompile Include="shader.cpp" />
@@ -27,6 +28,7 @@
     <ClCompile Include="vector4D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="camera.hpp" />
     <ClInclude Include="matrix4D.hpp" />
     <ClInclude Include="shader.hpp" />
     <ClInclude Include="utility.hpp" />
