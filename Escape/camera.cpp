@@ -1,6 +1,5 @@
 #include "camera.hpp"
 
-
 // Constructor with vectors
 Camera::Camera()
 {
@@ -30,7 +29,8 @@ Camera::Camera(GLfloat pPosX, GLfloat pPosY, GLfloat pPosZ, GLfloat pUpX, GLfloa
 
 Matrix4D Camera::GetViewMatrix()
 {
-	return Matrix4D();
+	Matrix4D matrix;
+	return matrix.lookAt(this->getPosition(), this->getPosition() + this->getFront(), this->getUp());
 }
 
 
