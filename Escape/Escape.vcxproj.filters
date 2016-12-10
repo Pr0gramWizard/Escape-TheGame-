@@ -39,6 +39,9 @@
     <ClCompile Include="camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="matrix4D.hpp">
@@ -62,6 +65,9 @@
     <ClInclude Include="camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="game.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
@@ -70,10 +76,16 @@
     <None Include="SDL2.dll">
       <Filter>Dynamic Link Library</Filter>
     </None>
-    <None Include="shaders\shader.frag">
+    <None Include="shaders\triangleShader.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="shaders\shader.vert">
+    <None Include="shaders\triangleShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="cameraShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="cameraShader.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

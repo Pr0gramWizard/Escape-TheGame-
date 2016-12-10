@@ -21,7 +21,7 @@ Shader::Shader()
 
 // Compilation of the vertex and fragment shader 
 // Function: complieShader(Filepath, Filepath)
-void Shader::compileShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
+void Shader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
 	// First we create a VERTEX SHADER
 	mVertexShaderID = glCreateShader(GL_VERTEX_SHADER);
@@ -286,7 +286,7 @@ GLuint Shader::getUniformLocation(const char* pUniformName)
 
 	if (Location == GL_INVALID_INDEX)
 	{
-		std::clog << "There was an error finding: " << pUniformName << std::endl;
+		// std::clog << "There was an error finding: " << pUniformName << std::endl;
 		return 0;
 	}
 	else

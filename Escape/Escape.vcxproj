@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="matrix4D.cpp" />
     <ClCompile Include="shader.cpp" />
@@ -29,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.hpp" />
+    <ClInclude Include="game.hpp" />
     <ClInclude Include="matrix4D.hpp" />
     <ClInclude Include="shader.hpp" />
     <ClInclude Include="utility.hpp" />
@@ -37,10 +39,12 @@
     <ClInclude Include="vector4D.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cameraShader.frag" />
+    <None Include="cameraShader.vert" />
     <None Include="glew32.dll" />
     <None Include="SDL2.dll" />
-    <None Include="shaders\shader.frag" />
-    <None Include="shaders\shader.vert" />
+    <None Include="shaders\triangleShader.frag" />
+    <None Include="shaders\triangleShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\fireblast.png" />

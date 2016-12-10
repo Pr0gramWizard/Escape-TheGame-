@@ -20,7 +20,7 @@ public:
 	// Constructor
 	Shader();
 	// Compile Shader
-	void compileShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
+	void createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
 	// Add attribute
 	void addAttribute(const std::string& pAttributeName);
 	// Linking Shader
