@@ -24,6 +24,7 @@
 class Game
 {
 public:
+	Game();
 	Game(GLuint pWidth, GLuint pHeigth, const char* pWindowTitle);
 	~Game();
 	void prepareScene();
@@ -44,16 +45,6 @@ public:
 	void setTitle(const char* pTitle);
 
 
-	Camera* mCamera;
-	// Bool
-	bool keys[1024];
-	GLfloat lastX = 400, lastY = 300;
-	GLfloat deltaTime = 0.1f;
-	GLfloat lastFrame = 0.0f;
-
-	// Pointers to other classes
-	Shader* mShader;
-	bool firstMouse = true;
 
 
 
@@ -63,6 +54,26 @@ private:
 	GLuint mWidth;
 	GLuint mHeight;
 	const char* mTitle;
+	Camera* mCamera;
+	// Bool
+	bool keys[1024];
+	GLfloat lastX = 400, lastY = 300;
+	GLfloat deltaTime = 0.1f;
+	GLfloat lastFrame = 0.0f;
+	bool firstMouse = true;
+
+	// Pointers to other classes
+	Shader* mShader;
+
+
+
+	// Functions
+	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+	static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+	void do_movement();
+
+
 
 
 };
