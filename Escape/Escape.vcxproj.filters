@@ -43,6 +43,9 @@
     <Filter Include="Shader\Shaders\Vertex">
       <UniqueIdentifier>{2346da93-a568-49cf-9598-b555f6e05c69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Loader Functions\Terrain">
+      <UniqueIdentifier>{b25e2ad2-8278-4724-a9e6-74f5443ef948}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="game.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="terrain.cpp">
+      <Filter>Loader Functions\Terrain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="utility.hpp">
       <Filter>Utility Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="terrain.hpp">
+      <Filter>Loader Functions\Terrain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
