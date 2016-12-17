@@ -69,6 +69,7 @@ void Camera::ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset)
 
 	// Update Front, Right and Up Vectors using the updated Eular angles
 	this->updateCameraVectors();
+
 }
 
 void Camera::ProcessMouseScroll(GLfloat pYOffset)
