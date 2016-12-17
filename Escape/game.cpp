@@ -49,6 +49,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 
 	mCamera = new Camera();
 	mShader = new Shader();
+	mTerrain = new Terrain(500, 400, 200, glm::vec3(1.0f, 1.0f, 1.0f), "Test");
 
 	mShader->createShader("shaders/cameraShader.vert", "shaders/cameraShader.frag");
 }
@@ -130,7 +131,7 @@ bool Game::gameLoop()
 	while (!glfwWindowShouldClose(this->getWindow()))
 	{
 		// Calculate deltatime of current frame
-		GLfloat currentFrame = glfwGetTime();
+		GLfloat currentFrame = (GLfloat)glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
@@ -138,6 +139,7 @@ bool Game::gameLoop()
 		glfwPollEvents();
 		do_movement();
 
+		mTerrain->getVertices(1);
 		// Render
 		// Clear the colorbuffer
 		glClearColor(0.2f,0.3f,0.3f, 1.0f);
@@ -223,16 +225,16 @@ void Game::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	Game* game = reinterpret_cast<Game *>(glfwGetWindowUserPointer(window));
 	if (game->firstMouse)
 	{
-		game->lastX = xpos;
-		game->lastY = ypos;
+		game->lastX = (GLfloat)xpos;
+		game->lastY = (GLfloat)ypos;
 		game->firstMouse = false;
 	}
 
-	GLfloat xoffset = xpos - game->lastX;
-	GLfloat yoffset = game->lastY - ypos;  // Reversed since y-coordinates go from bottom to left
+	GLfloat xoffset = (GLfloat)xpos - game->lastX;
+	GLfloat yoffset = game->lastY - (GLfloat)ypos;  // Reversed since y-coordinates go from bottom to left
 
-	game->lastX = xpos;
-	game->lastY = ypos;
+	game->lastX = (GLfloat)xpos;
+	game->lastY = (GLfloat)ypos;
 
 	game->mCamera->ProcessMouseMovement(xoffset, yoffset);
 
@@ -242,8 +244,8 @@ void Game::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	GLint halfWidth = (GLint) (wWidth / 2.0f);
 	GLint halfHeight = (GLint)(wHeight / 2.0f);
 	glfwSetCursorPos(game->getWindow(), halfWidth, halfHeight);
-	game->lastX = halfWidth;
-	game->lastY = halfHeight;
+	game->lastX = (GLfloat)halfWidth;
+	game->lastY = (GLfloat)halfHeight;
 }
 
 
@@ -251,7 +253,7 @@ void Game::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	Game* game = reinterpret_cast<Game *>(glfwGetWindowUserPointer(window));
 
-	game->mCamera->ProcessMouseScroll(yoffset);
+	game->mCamera->ProcessMouseScroll((GLfloat)yoffset);
 }
 
 GLFWwindow * Game::getWindow() const
