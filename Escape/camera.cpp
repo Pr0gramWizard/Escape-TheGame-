@@ -3,9 +3,9 @@
 // Constructor with vectors
 Camera::Camera()
 {
-	this->setPosition(Vector3D(0.0f,1.0f,-3.0f));
-	this->setWorldUp(Vector3D(0.0f,1.0f,0.0f));
-	this->setFront(Vector3D(0.0f, 0.0f, -1.0f));
+	this->setPosition(glm::vec3(0.0f,0.0f,-3.0f));
+	this->setWorldUp(glm::vec3(0.0f,1.0f,0.0f));
+	this->setFront(glm::vec3(0.0f, 0.0f, -1.0f));
 	this->setYaw(YAW);
 	this->setPitch(PITCH);
 	this->setMovementSpeed(SPEED);
@@ -16,21 +16,21 @@ Camera::Camera()
 
 Camera::Camera(GLfloat pPosX, GLfloat pPosY, GLfloat pPosZ, GLfloat pUpX, GLfloat pUpY, GLfloat pUpZ, GLfloat pYaw, GLfloat pPitch) 
 {
-	this->setFront(Vector3D(0.0f, 0.0f, -1.0f));
+	this->setFront(glm::vec3(0.0f, 0.0f, -1.0f));
 	this->setMovementSpeed(SPEED);
 	this->setMouseSensitivity(SENSITIVTY);
 	this->setZoom(ZOOM);
-	this->setPosition(Vector3D(pPosX, pPosY, pPosZ));
-	this->setWorldUp(Vector3D(pUpX, pUpY, pUpZ));
+	this->setPosition(glm::vec3(pPosX, pPosY, pPosZ));
+	this->setWorldUp(glm::vec3(pUpX, pUpY, pUpZ));
 	this->setYaw(pYaw);
 	this->setPitch(pPitch);
 	this->updateCameraVectors();
 }
 
-Matrix4D Camera::GetViewMatrix()
+glm::mat4 Camera::GetViewMatrix()
 {
-	Matrix4D matrix;
-	return matrix.lookAt(this->getPosition(), this->getPosition() + this->getFront(), this->getUp());
+	glm::mat4 matrix;
+	return glm::lookAt(this->getPosition(), this->getPosition() + this->getFront(), this->getUp());
 }
 
 
@@ -39,9 +39,9 @@ void Camera::ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime)
 	GLfloat velocity = this->getMovementSpeed() * deltaTime;
 
 	if (pDirection == FORWARD)
-		this->setPosition(this->getPosition() - (this->getFront() * velocity));
-	if (pDirection == BACKWARD)
 		this->setPosition(this->getPosition() + (this->getFront() * velocity));
+	if (pDirection == BACKWARD)
+		this->setPosition(this->getPosition() - (this->getFront() * velocity));
 	if (pDirection == LEFT)
 		this->setPosition(this->getPosition() - (this->getRight() * velocity));
 	if (pDirection == RIGHT)
@@ -85,16 +85,15 @@ void Camera::ProcessMouseScroll(GLfloat pYOffset)
 
 void Camera::updateCameraVectors()
 {
-	Vector3D Front;
-
-	Front.x = cos(toRadians(this->getYaw())) * cos(toRadians(this->getPitch()));
-	Front.y = sin(toRadians(this->getPitch()));
-	Front.z = sin(toRadians(this->getYaw())) * cos(toRadians(this->getPitch()));
-
-	this->setFront(Front.normalize());
-
-	this->setRight(this->getFront().crossproduct(this->getWorldUp()).normalize());
-	this->setUp(this->getRight().crossproduct(this->getFront()).normalize());
+	// Calculate the new Front vector
+	glm::vec3 front;
+	front.x = cos(glm::radians(this->getYaw())) * cos(glm::radians(this->getPitch()));
+	front.y = sin(glm::radians(this->getPitch()));
+	front.z = sin(glm::radians(this->getYaw())) * cos(glm::radians(this->getPitch()));
+	this->setFront(glm::normalize(front));
+	// Also re-calculate the Right and Up vector
+	this->setRight(glm::normalize(glm::cross(this->getFront(), this->getWorldUp())));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+	this->setUp(glm::normalize(glm::cross(this->getRight(), this->getFront())));
 
 }
 
@@ -106,23 +105,23 @@ float Camera::toRadians(float pAngle)
 
 
 
-Vector3D Camera::getPosition() const
+glm::vec3 Camera::getPosition() const
 {
 	return mPosition;
 }
-Vector3D Camera::getFront() const
+glm::vec3 Camera::getFront() const
 {
 	return mFront;
 }
-Vector3D Camera::getUp() const
+glm::vec3 Camera::getUp() const
 {
 	return mUp;
 }
-Vector3D Camera::getRight() const
+glm::vec3 Camera::getRight() const
 {
 	return mRight;
 }
-Vector3D Camera::getWorldUp() const
+glm::vec3 Camera::getWorldUp() const
 {
 	return mWorldUp;
 }
@@ -146,24 +145,24 @@ GLfloat Camera::getZoom() const
 {
 	return mZoom;
 }
-void Camera::setPosition(Vector3D pPosition)
+void Camera::setPosition(glm::vec3 pPosition)
 {
 	mPosition = pPosition;
 	mPosition.y = 1.0f;
 }
-void Camera::setFront(Vector3D pFront)
+void Camera::setFront(glm::vec3 pFront)
 {
 	mFront = pFront;
 }
-void Camera::setUp(Vector3D pUp)
+void Camera::setUp(glm::vec3 pUp)
 {
 	mUp = pUp;
 }
-void Camera::setRight(Vector3D pRight)
+void Camera::setRight(glm::vec3 pRight)
 {
 	mRight = pRight;
 }
-void Camera::setWorldUp(Vector3D pWorldUp)
+void Camera::setWorldUp(glm::vec3 pWorldUp)
 {
 	mWorldUp = pWorldUp;
 }
