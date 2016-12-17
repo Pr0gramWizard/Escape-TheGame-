@@ -46,6 +46,9 @@
     <Filter Include="Loader Functions\Terrain">
       <UniqueIdentifier>{b25e2ad2-8278-4724-a9e6-74f5443ef948}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Loader Functions\Player">
+      <UniqueIdentifier>{f9c9244f-d908-4cad-89db-2e32b59203c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -77,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="terrain.cpp">
       <Filter>Loader Functions\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Loader Functions\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="terrain.hpp">
       <Filter>Loader Functions\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="player.hpp">
+      <Filter>Loader Functions\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

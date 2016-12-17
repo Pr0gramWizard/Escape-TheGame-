@@ -24,6 +24,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math.cpp" />
     <ClCompile Include="matrix4D.cpp" />
+    <ClCompile Include="player.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="terrain.cpp" />
     <ClCompile Include="vector2D.cpp" />
@@ -35,6 +36,7 @@
     <ClInclude Include="game.hpp" />
     <ClInclude Include="math.hpp" />
     <ClInclude Include="matrix4D.hpp" />
+    <ClInclude Include="player.hpp" />
     <ClInclude Include="terrain.hpp" />
     <ClInclude Include="shader.hpp" />
     <ClInclude Include="textureloader.hpp" />
