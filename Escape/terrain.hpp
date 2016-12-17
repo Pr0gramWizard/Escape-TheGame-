@@ -7,7 +7,8 @@
 class Terrain
 {
 public:
-	Terrain(int pHeight, int pWidht, int pDepth, glm::vec3 pStartPoint);
+	Terrain(int pHeight, int pWidht, int pDepth, glm::vec3 pStartPoint, const char* pName);
+	GLfloat* getVertices(int pTiles);
 	~Terrain();
 
 	// Getter functions
@@ -15,7 +16,7 @@ public:
 	int getHeight() const;
 	int getDepth() const;
 	glm::vec3 getStartPoint() const;
-	const char* getName() const;
+	const char* getName();
 
 	// Setter functions
 	void setWidth(int pWidth);
@@ -30,6 +31,9 @@ private:
 	int mDepth;
 	glm::vec3 mStartPoint;
 	const char* mName;
+
+private:
+	bool isPowerOfTwo(int pX);
 	
 };
 

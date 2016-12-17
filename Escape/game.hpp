@@ -15,6 +15,8 @@
 #include "shader.hpp"
 // Camera class
 #include "camera.hpp"
+// Terrain class
+#include "terrain.hpp"
 
 #include <mat4x4.hpp>
 #include <vec3.hpp>
@@ -64,6 +66,7 @@ private:
 
 	// Pointers to other classes
 	Shader* mShader;
+	Terrain* mTerrain;
 
 
 
