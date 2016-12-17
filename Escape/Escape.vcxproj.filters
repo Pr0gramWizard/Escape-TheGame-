@@ -74,6 +74,9 @@
     <ClInclude Include="math.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="textureloader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">

@@ -35,6 +35,7 @@
     <ClInclude Include="math.hpp" />
     <ClInclude Include="matrix4D.hpp" />
     <ClInclude Include="shader.hpp" />
+    <ClInclude Include="textureloader.hpp" />
     <ClInclude Include="utility.hpp" />
     <ClInclude Include="vector2D.hpp" />
     <ClInclude Include="vector3D.hpp" />
