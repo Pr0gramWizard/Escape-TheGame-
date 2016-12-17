@@ -10,72 +10,99 @@
     <Filter Include="Dynamic Link Library">
       <UniqueIdentifier>{40529e89-a87f-4823-a902-5eb7684a7736}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shaders">
+    <Filter Include="Shader">
+      <UniqueIdentifier>{0a1a9253-501e-4bee-b2f6-e4bfccfef144}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Shaders">
       <UniqueIdentifier>{f833b7a1-68ed-48cd-b837-152fb635cf78}</UniqueIdentifier>
     </Filter>
-    <Filter Include="textures">
+    <Filter Include="Camera">
+      <UniqueIdentifier>{db021b67-9ae8-4943-863b-71b45b549339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{08de6d89-c4db-4b29-818e-0d73fcf6de5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{8f853a57-58da-44b7-b97a-006db02e9904}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Loader Functions">
+      <UniqueIdentifier>{74d7eed0-004c-4c1a-970f-87c828eaf916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Loader Functions\Texture">
+      <UniqueIdentifier>{7b52f6f2-a5e1-4118-a45e-0c0316d1f462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Loader Functions\Texture\textures">
       <UniqueIdentifier>{959e4a6f-5acb-4258-a3be-a3047d76642b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility Functions">
+      <UniqueIdentifier>{eb07b2e8-6b1d-464a-94e2-f5d6d16dcd25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Shaders\Fragment">
+      <UniqueIdentifier>{96570648-0421-429d-a13f-a53e00ba1d9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Shaders\Vertex">
+      <UniqueIdentifier>{2346da93-a568-49cf-9598-b555f6e05c69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="matrix4D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vector2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vector3D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vector4D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="shader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Shader</Filter>
     </ClCompile>
     <ClCompile Include="camera.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Camera</Filter>
     </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="matrix4D.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="math.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="vector2D.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="vector3D.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="vector4D.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="matrix4D.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vector2D.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vector3D.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vector4D.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utility.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="shader.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Shader</Filter>
     </ClInclude>
     <ClInclude Include="camera.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Camera</Filter>
     </ClInclude>
-    <ClInclude Include="game.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="vector4D.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="vector3D.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="vector2D.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix4D.hpp">
+      <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="math.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="game.hpp">
+      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="textureloader.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Loader Functions\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="utility.hpp">
+      <Filter>Utility Functions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -85,25 +112,25 @@
     <None Include="SDL2.dll">
       <Filter>Dynamic Link Library</Filter>
     </None>
-    <None Include="shaders\triangleShader.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="shaders\triangleShader.vert">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="shaders\cameraShader.frag">
-      <Filter>Shaders</Filter>
+      <Filter>Shader\Shaders\Fragment</Filter>
+    </None>
+    <None Include="shaders\triangleShader.frag">
+      <Filter>Shader\Shaders\Fragment</Filter>
     </None>
     <None Include="shaders\cameraShader.vert">
-      <Filter>Shaders</Filter>
+      <Filter>Shader\Shaders\Vertex</Filter>
+    </None>
+    <None Include="shaders\triangleShader.vert">
+      <Filter>Shader\Shaders\Vertex</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\wall.png">
-      <Filter>textures</Filter>
+      <Filter>Loader Functions\Texture\textures</Filter>
     </Image>
     <Image Include="textures\fireblast.png">
-      <Filter>textures</Filter>
+      <Filter>Loader Functions\Texture\textures</Filter>
     </Image>
   </ItemGroup>
 </Project>
