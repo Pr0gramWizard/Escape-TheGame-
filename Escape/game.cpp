@@ -307,14 +307,13 @@ void Game::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	game->lastX = xpos;
 	game->lastY = ypos;
 
-	std::cout << xpos << " " << ypos << std::endl;
-
 	game->mCamera->ProcessMouseMovement(xoffset, yoffset);
 
-	const GLFWvidmode* vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	int wHeight, wWidth;
+	glfwGetWindowSize(game->getWindow(), &wWidth, &wHeight);
 
-	GLint halfWidth = (GLint) (vidmode->width / 2.0f);
-	GLint halfHeight = (GLint)(vidmode->height / 2.0f);
+	GLint halfWidth = (GLint) (wWidth / 2.0f);
+	GLint halfHeight = (GLint)(wHeight / 2.0f);
 	glfwSetCursorPos(game->getWindow(), halfWidth, halfHeight);
 	game->lastX = halfWidth;
 	game->lastY = halfHeight;
