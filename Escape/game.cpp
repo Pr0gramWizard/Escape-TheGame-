@@ -224,16 +224,17 @@ bool Game::gameLoop()
 
 
 		glBindVertexArray(VAO);
-		for (GLuint i = 0; i < 1; i++)
-		{
-			// view.Print();
-			// Calculate the model matrix for each object and pass it to shader before drawing
-			Matrix4D model;
-			model = model.Translation(cubePositions[i]);
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, &model.Elements[0]);
-			glDrawArrays(GL_TRIANGLES, 0, 36);
-		}
+		Matrix4D model;
+		model = model.Translation(cubePositions[0]);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, &model.Elements[0]);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glBindVertexArray(0);
+
+		if (keys[GLFW_KEY_L])
+		{
+			// projection.Print();
+			std::cout << mCamera->getPosition() << std::endl;
+		}
 
 		// Swap the screen buffers
 		glfwSwapBuffers(this->getWindow());
@@ -264,6 +265,7 @@ void Game::do_movement()
 		mCamera->ProcessKeyboard(RIGHT, deltaTime);
 	}
 
+
 }
 
 
@@ -273,7 +275,7 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 
 	Game* game = reinterpret_cast<Game *>(glfwGetWindowUserPointer(window));
 	
-	std::cout << key << std::endl;
+	// std::cout << key << std::endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 
@@ -283,7 +285,9 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 			game->keys[key] = true;
 		else if (action == GLFW_RELEASE)
 			game->keys[key] = false;
-	}
+
+}
+
 }
 
 void Game::mouse_callback(GLFWwindow* window, double xpos, double ypos)

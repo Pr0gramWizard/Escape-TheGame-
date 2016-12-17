@@ -3,7 +3,7 @@
 // Constructor with vectors
 Camera::Camera()
 {
-	this->setPosition(Vector3D(0.0f,0.0f,0.0f));
+	this->setPosition(Vector3D(0.0f,1.0f,-3.0f));
 	this->setWorldUp(Vector3D(0.0f,1.0f,0.0f));
 	this->setFront(Vector3D(0.0f, 0.0f, -1.0f));
 	this->setYaw(YAW);
@@ -149,6 +149,7 @@ GLfloat Camera::getZoom() const
 void Camera::setPosition(Vector3D pPosition)
 {
 	mPosition = pPosition;
+	mPosition.y = 1.0f;
 }
 void Camera::setFront(Vector3D pFront)
 {

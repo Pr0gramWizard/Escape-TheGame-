@@ -41,10 +41,10 @@
     <ClInclude Include="vector4D.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="cameraShader.frag" />
-    <None Include="cameraShader.vert" />
     <None Include="glew32.dll" />
     <None Include="SDL2.dll" />
+    <None Include="shaders\cameraShader.frag" />
+    <None Include="shaders\cameraShader.vert" />
     <None Include="shaders\triangleShader.frag" />
     <None Include="shaders\triangleShader.vert" />
   </ItemGroup>

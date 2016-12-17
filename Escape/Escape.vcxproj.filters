@@ -88,10 +88,10 @@
     <None Include="shaders\triangleShader.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="cameraShader.frag">
+    <None Include="shaders\cameraShader.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="cameraShader.vert">
+    <None Include="shaders\cameraShader.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
