@@ -102,17 +102,17 @@ bool Game::gameLoop()
 		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
 		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 	};
-	Vector3D cubePositions[] = {
-		Vector3D(0.0f,  0.0f,  0.0f),
-		Vector3D(2.0f,  5.0f, -15.0f),
-		Vector3D(-1.5f, -2.2f, -2.5f),
-		Vector3D(-3.8f, -2.0f, -12.3f),
-		Vector3D(2.4f, -0.4f, -3.5f),
-		Vector3D(-1.7f,  3.0f, -7.5f),
-		Vector3D(1.3f, -2.0f, -2.5f),
-		Vector3D(1.5f,  2.0f, -2.5f),
-		Vector3D(1.5f,  0.2f, -1.5f),
-		Vector3D(-1.3f,  1.0f, -1.5f)
+	glm::vec3 cubePositions[] = {
+		glm::vec3(0.0f, 0.0f, 0.0f),
+		glm::vec3(2.0f, 5.0f, -15.0f),
+		glm::vec3(-1.5f, -2.2f, -2.5f),
+		glm::vec3(-3.8f, -2.0f, -12.3f),
+		glm::vec3(2.4f, -0.4f, -3.5f),
+		glm::vec3(-1.7f, 3.0f, -7.5f),
+		glm::vec3(1.3f, -2.0f, -2.5f),
+		glm::vec3(1.5f, 2.0f, -2.5f),
+		glm::vec3(1.5f, 0.2f, -1.5f),
+		glm::vec3(-1.3f, 1.0f, -1.5f)
 	};
 	GLuint VBO, VAO;
 	glGenVertexArrays(1, &VAO);
@@ -201,48 +201,43 @@ bool Game::gameLoop()
 		// Activate shader
 		mShader->use();
 
-		GLfloat FoV = 45.0f;
-
-		// Camera/View transformation
-		Matrix4D view;
-		
-		view = view.lookAt(mCamera->getPosition(), mCamera->getPosition() + mCamera->getFront(), mCamera->getUp());
-		// Projection 
-		Matrix4D projection;
-		projection = projection.Perspective(FoV, (GLfloat)this->getWidth() / (GLfloat)this->getHeight(), 0.1f, 100.0f);
+		// Create camera transformation
+		glm::mat4 view;
+		view = mCamera->GetViewMatrix();
+		glm::mat4 projection;
+		projection = glm::perspective(mCamera->getZoom(), (float)this->getWidth() / (float)this->getHeight(), 0.1f, 1000.0f);
 		// Get the uniform locations
-		GLint modelLoc = mShader->getUniformLocation("model");
-		GLint viewLoc = mShader->getUniformLocation("view");
-		GLint projLoc = mShader->getUniformLocation("projection");
-
 		mShader->addAttribute("model");
-		mShader->addAttribute("view");
 		mShader->addAttribute("projection");
-		// Pass the matrices to the shader
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view.Elements[0]);
-		glUniformMatrix4fv(projLoc, 1, GL_FALSE, &projection.Elements[0]);
+		mShader->addAttribute("view");
 
+		GLuint viewLoc = mShader->getUniformLocation("view");
+		GLuint projLoc = mShader->getUniformLocation("projection");
+		GLuint modelLoc = mShader->getUniformLocation("model");
+
+		// Pass the matrices to the shader
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
 		glBindVertexArray(VAO);
-		Matrix4D model;
-		model = model.Translation(cubePositions[0]);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, &model.Elements[0]);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		glBindVertexArray(0);
-
-		if (keys[GLFW_KEY_L])
+		for (GLuint i = 0; i < 10; i++)
 		{
-			// projection.Print();
-			std::cout << mCamera->getPosition() << std::endl;
-		}
+			// Calculate the model matrix for each object and pass it to shader before drawing
+			glm::mat4 model;
+			model = glm::translate(model, cubePositions[i]);
+			GLfloat angle = 20.0f * i;
+			model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.5f));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-		// Swap the screen buffers
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+		glBindVertexArray(0);
+		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
 	}
 	// Properly de-allocate all resources once they've outlived their purpose
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
-	// Terminate GLFW, clearing any resources allocated by GLFW.
 	glfwTerminate();
 	return 0;
 }

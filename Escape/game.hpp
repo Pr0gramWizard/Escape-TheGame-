@@ -13,13 +13,13 @@
 #include <glfw3.h>
 // Shader class
 #include "shader.hpp"
-// Vector 3D class
-#include "vector3D.hpp"
-// Matrix 4D class
-#include "matrix4D.hpp"
 // Camera class
 #include "camera.hpp"
 
+#include <mat4x4.hpp>
+#include <vec3.hpp>
+#include <gtc\matrix_transform.hpp>
+#include <gtc\type_ptr.hpp>
 
 class Game
 {

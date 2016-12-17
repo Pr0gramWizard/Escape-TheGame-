@@ -1,8 +1,10 @@
 #pragma once
 #include <glew.h>
 #include <iostream>
-#include "vector3D.hpp"
+#include <vec3.hpp>
 #include "matrix4D.hpp"
+#include <mat4x4.hpp>
+#include <gtc/matrix_transform.hpp>
 // #include "utility.hpp"
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
@@ -31,15 +33,15 @@ public:
 	void ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset);
 	void ProcessMouseScroll(GLfloat pYOffset);
 
-	Matrix4D GetViewMatrix();
+	glm::mat4 GetViewMatrix();
 
 
 	// Getter Functions
-	Vector3D getPosition() const;
-	Vector3D getFront() const;
-	Vector3D getUp() const;
-	Vector3D getRight() const;
-	Vector3D getWorldUp() const;
+	glm::vec3 getPosition() const;
+	glm::vec3 getFront() const;
+	glm::vec3 getUp() const;
+	glm::vec3 getRight() const;
+	glm::vec3 getWorldUp() const;
 
 	GLfloat getYaw() const;
 	GLfloat getPitch() const;
@@ -49,11 +51,11 @@ public:
 
 
 	// Setter Functions
-	void setPosition(Vector3D pPosition);
-	void setFront(Vector3D pFront);
-	void setUp(Vector3D pUp);
-	void setRight(Vector3D pRight);
-	void setWorldUp(Vector3D pWorldUp);
+	void setPosition(glm::vec3 pPosition);
+	void setFront(glm::vec3 pFront);
+	void setUp(glm::vec3 pUp);
+	void setRight(glm::vec3 pRight);
+	void setWorldUp(glm::vec3 pWorldUp);
 
 	void setYaw(GLfloat pYaw);
 	void setPitch(GLfloat pPitch);
@@ -66,11 +68,11 @@ public:
 // All private members of the class
 private:
 	// Camera Attributes
-	Vector3D mPosition;
-	Vector3D mFront;
-	Vector3D mUp;
-	Vector3D mRight;
-	Vector3D mWorldUp;
+	glm::vec3 mPosition;
+	glm::vec3 mFront;
+	glm::vec3 mUp;
+	glm::vec3 mRight;
+	glm::vec3 mWorldUp;
 	// Eular Angles
 	GLfloat mYaw;
 	GLfloat mPitch;
