@@ -19,10 +19,12 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
+
+	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), nullptr, nullptr));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(), NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -31,6 +33,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glfwSetKeyCallback(this->getWindow(), key_callback);
 	glfwSetCursorPosCallback(this->getWindow(), mouse_callback);
 	glfwSetScrollCallback(this->getWindow(), scroll_callback);
+	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -232,8 +235,11 @@ bool Game::gameLoop()
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
 		glBindVertexArray(0);
+
+		
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
+
 	}
 	// Properly de-allocate all resources once they've outlived their purpose
 	glDeleteVertexArrays(1, &VAO);
@@ -300,8 +306,11 @@ void Game::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 
 	game->lastX = xpos;
 	game->lastY = ypos;
-	
+
+	std::cout << xpos << " " << ypos << std::endl;
+
 	game->mCamera->ProcessMouseMovement(xoffset, yoffset);
+
 }
 
 
