@@ -209,6 +209,7 @@ bool Game::gameLoop()
 		Matrix4D view;
 		
 		view = view.lookAt(mCamera->getPosition(), mCamera->getPosition() + mCamera->getFront(), mCamera->getUp());
+		view.Print();
 		// Projection 
 		Matrix4D projection;
 		projection = projection.Perspective(fov, (GLfloat)this->getWidth() / (GLfloat)this->getHeight(), 0.1f, 100.0f);
@@ -226,7 +227,7 @@ bool Game::gameLoop()
 
 
 		glBindVertexArray(VAO);
-		for (GLuint i = 0; i < 1; i++)
+		for (GLuint i = 0; i < 4; i++)
 		{
 			// view.Print();
 			// Calculate the model matrix for each object and pass it to shader before drawing
