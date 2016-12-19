@@ -286,7 +286,7 @@ GLuint Shader::getUniformLocation(const char* pUniformName)
 
 	if (Location == GL_INVALID_INDEX)
 	{
-		// std::clog << "There was an error finding: " << pUniformName << std::endl;
+		std::clog << "There was an error finding: " << pUniformName << std::endl;
 		return 0;
 	}
 	else

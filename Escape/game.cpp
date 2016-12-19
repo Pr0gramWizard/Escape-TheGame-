@@ -1,15 +1,12 @@
 #include "game.hpp"
 
 
-// Functions
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-void do_movement();
 
-GLfloat fov = 45.0f;
 
-Game* Huso;
+Game::Game()
+{
+
+}
 
 Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 {
@@ -22,17 +19,21 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
+
+	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), nullptr, nullptr));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(), NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
 	// Set the required callback functions
+	glfwSetWindowUserPointer(this->getWindow(), this);
 	glfwSetKeyCallback(this->getWindow(), key_callback);
 	glfwSetCursorPosCallback(this->getWindow(), mouse_callback);
 	glfwSetScrollCallback(this->getWindow(), scroll_callback);
+	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -48,8 +49,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 
 	mCamera = new Camera();
 	mShader = new Shader();
-
-	Huso = this;
+	mTerrain = new Terrain(500, 400, 200, glm::vec3(1.0f, 1.0f, 1.0f), "Test");
 
 	mShader->createShader("shaders/cameraShader.vert", "shaders/cameraShader.frag");
 }
@@ -62,62 +62,7 @@ Game::~Game()
 bool Game::gameLoop()
 {
 
-	// Set up vertex data (and buffer(s)) and attribute pointers
-	GLfloat vertices[] = {
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-	};
-	Vector3D cubePositions[] = {
-		Vector3D(0.0f,  0.0f,  0.0f),
-		Vector3D(2.0f,  5.0f, -15.0f),
-		Vector3D(-1.5f, -2.2f, -2.5f),
-		Vector3D(-3.8f, -2.0f, -12.3f),
-		Vector3D(2.4f, -0.4f, -3.5f),
-		Vector3D(-1.7f,  3.0f, -7.5f),
-		Vector3D(1.3f, -2.0f, -2.5f),
-		Vector3D(1.5f,  2.0f, -2.5f),
-		Vector3D(1.5f,  0.2f, -1.5f),
-		Vector3D(-1.3f,  1.0f, -1.5f)
-	};
+	/*
 	GLuint VBO, VAO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
@@ -135,8 +80,9 @@ bool Game::gameLoop()
 	glEnableVertexAttribArray(2);
 
 	glBindVertexArray(0); // Unbind VAO
+	*/
 
-
+	/*
 						  // Load and create a texture 
 	GLuint texture1;
 	GLuint texture2;
@@ -175,12 +121,17 @@ bool Game::gameLoop()
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(image);
 	glBindTexture(GL_TEXTURE_2D, 0);
+	*/
 
-						  // Game loop
+
+
+
+
+    // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
 	{
 		// Calculate deltatime of current frame
-		GLfloat currentFrame = glfwGetTime();
+		GLfloat currentFrame = (GLfloat)glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
@@ -188,127 +139,121 @@ bool Game::gameLoop()
 		glfwPollEvents();
 		do_movement();
 
+		mTerrain->getVertices(1);
 		// Render
 		// Clear the colorbuffer
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.2f,0.3f,0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-		// Bind Textures using texture units
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture1);
-		mShader->addAttribute("ourTexture1");
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, texture2);
-		mShader->addAttribute("ourTexture2");
 
 		// Activate shader
 		mShader->use();
 
-		// Camera/View transformation
-		Matrix4D view;
-		
-		view = view.lookAt(mCamera->getPosition(), mCamera->getPosition() + mCamera->getFront(), mCamera->getUp());
-		view.Print();
-		// Projection 
-		Matrix4D projection;
-		projection = projection.Perspective(fov, (GLfloat)this->getWidth() / (GLfloat)this->getHeight(), 0.1f, 100.0f);
+		// Create camera transformation
+		glm::mat4 view;
+		view = mCamera->GetViewMatrix();
+		glm::mat4 projection;
+		projection = glm::perspective(mCamera->getZoom(), (float)this->getWidth() / (float)this->getHeight(), 0.1f, 1000.0f);
 		// Get the uniform locations
-		GLint modelLoc = mShader->getUniformLocation("model");
-		GLint viewLoc = mShader->getUniformLocation("view");
-		GLint projLoc = mShader->getUniformLocation("projection");
-
 		mShader->addAttribute("model");
-		mShader->addAttribute("view");
 		mShader->addAttribute("projection");
+		mShader->addAttribute("view");
+
+		GLuint viewLoc = mShader->getUniformLocation("view");
+		GLuint projLoc = mShader->getUniformLocation("projection");
+		GLuint modelLoc = mShader->getUniformLocation("model");
+
 		// Pass the matrices to the shader
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view.Elements[0]);
-		glUniformMatrix4fv(projLoc, 1, GL_FALSE, &projection.Elements[0]);
-
-
-		glBindVertexArray(VAO);
-		for (GLuint i = 0; i < 4; i++)
-		{
-			// view.Print();
-			// Calculate the model matrix for each object and pass it to shader before drawing
-			Matrix4D model;
-			model = model.Translation(cubePositions[i]);
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, &model.Elements[0]);
-			glDrawArrays(GL_TRIANGLES, 0, 36);
-		}
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 		glBindVertexArray(0);
 
-		// Swap the screen buffers
+		
+		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
+
 	}
-	// Properly de-allocate all resources once they've outlived their purpose
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
-	// Terminate GLFW, clearing any resources allocated by GLFW.
 	glfwTerminate();
 	return 0;
 }
 
 // Moves/alters the camera positions based on user input
-void do_movement()
+void Game::do_movement()
 {
 
 	// Camera controls
-	if (Huso->keys[GLFW_KEY_W]) {
-		Huso->mCamera->ProcessKeyboard(FORWARD, Huso->deltaTime);
+	if (keys[GLFW_KEY_W]) {
+		mCamera->ProcessKeyboard(FORWARD, deltaTime);
 	}
-	if (Huso->keys[GLFW_KEY_S]) {
-		Huso->mCamera->ProcessKeyboard(BACKWARD, Huso->deltaTime);
+	if (keys[GLFW_KEY_S]) {
+		mCamera->ProcessKeyboard(BACKWARD, deltaTime);
 	}
-	if (Huso->keys[GLFW_KEY_A]) {
-		Huso->mCamera->ProcessKeyboard(LEFT, Huso->deltaTime);
+	if (keys[GLFW_KEY_A]) {
+		mCamera->ProcessKeyboard(LEFT, deltaTime);
 	}
-	if (Huso->keys[GLFW_KEY_D]) {
-		Huso->mCamera->ProcessKeyboard(RIGHT, Huso->deltaTime);
+	if (keys[GLFW_KEY_D]) {
+		mCamera->ProcessKeyboard(RIGHT, deltaTime);
 	}
+
 
 }
 
 
 // Is called whenever a key is pressed/released via GLFW
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-	std::cout << key << std::endl;
+
+	Game* game = reinterpret_cast<Game *>(glfwGetWindowUserPointer(window));
+	
+	// std::cout << key << std::endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(Huso->getWindow(), GL_TRUE);
+		glfwSetWindowShouldClose(window, GL_TRUE);
 
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)
-			Huso->keys[key] = true;
+			game->keys[key] = true;
 		else if (action == GLFW_RELEASE)
-			Huso->keys[key] = false;
-	}
+			game->keys[key] = false;
+
 }
 
-void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+}
+
+void Game::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
-	
-	if (Huso->firstMouse)
+	Game* game = reinterpret_cast<Game *>(glfwGetWindowUserPointer(window));
+	if (game->firstMouse)
 	{
-		Huso->lastX = xpos;
-		Huso->lastY = ypos;
-		Huso->firstMouse = false;
+		game->lastX = (GLfloat)xpos;
+		game->lastY = (GLfloat)ypos;
+		game->firstMouse = false;
 	}
 
-	GLfloat xoffset = xpos - Huso->lastX;
-	GLfloat yoffset = Huso->lastY - ypos;  // Reversed since y-coordinates go from bottom to left
+	GLfloat xoffset = (GLfloat)xpos - game->lastX;
+	GLfloat yoffset = game->lastY - (GLfloat)ypos;  // Reversed since y-coordinates go from bottom to left
 
-	Huso->lastX = xpos;
-	Huso->lastY = ypos;
-	
-	Huso->mCamera->ProcessMouseMovement(xoffset, yoffset);
+	game->lastX = (GLfloat)xpos;
+	game->lastY = (GLfloat)ypos;
+
+	game->mCamera->ProcessMouseMovement(xoffset, yoffset);
+
+	int wHeight, wWidth;
+	glfwGetWindowSize(game->getWindow(), &wWidth, &wHeight);
+
+	GLint halfWidth = (GLint) (wWidth / 2.0f);
+	GLint halfHeight = (GLint)(wHeight / 2.0f);
+	glfwSetCursorPos(game->getWindow(), halfWidth, halfHeight);
+	game->lastX = (GLfloat)halfWidth;
+	game->lastY = (GLfloat)halfHeight;
 }
 
 
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+void Game::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	Huso->mCamera->ProcessMouseScroll(yoffset);
+	Game* game = reinterpret_cast<Game *>(glfwGetWindowUserPointer(window));
+
+	game->mCamera->ProcessMouseScroll((GLfloat)yoffset);
 }
 
 GLFWwindow * Game::getWindow() const
