@@ -49,6 +49,12 @@
     <Filter Include="Loader Functions\Player">
       <UniqueIdentifier>{f9c9244f-d908-4cad-89db-2e32b59203c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Loader">
+      <UniqueIdentifier>{b5fd864d-de6a-44e1-a0f4-2fd5b6d71e92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{1f35b6a2-494b-4125-8f05-5fa754676bee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -83,6 +89,12 @@
     </ClCompile>
     <ClCompile Include="player.cpp">
       <Filter>Loader Functions\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="loader.cpp">
+      <Filter>Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="player.hpp">
       <Filter>Loader Functions\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="loader.hpp">
+      <Filter>Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="model.hpp">
+      <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

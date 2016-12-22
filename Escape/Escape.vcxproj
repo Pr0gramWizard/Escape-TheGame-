@@ -21,9 +21,11 @@
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="loader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math.cpp" />
     <ClCompile Include="matrix4D.cpp" />
+    <ClCompile Include="model.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="terrain.cpp" />
@@ -34,8 +36,10 @@
   <ItemGroup>
     <ClInclude Include="camera.hpp" />
     <ClInclude Include="game.hpp" />
+    <ClInclude Include="loader.hpp" />
     <ClInclude Include="math.hpp" />
     <ClInclude Include="matrix4D.hpp" />
+    <ClInclude Include="model.hpp" />
     <ClInclude Include="player.hpp" />
     <ClInclude Include="terrain.hpp" />
     <ClInclude Include="shader.hpp" />
