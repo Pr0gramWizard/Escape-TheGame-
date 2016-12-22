@@ -55,6 +55,9 @@
     <Filter Include="Model">
       <UniqueIdentifier>{1f35b6a2-494b-4125-8f05-5fa754676bee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{e701581f-adae-4875-8928-500e1b01ef85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -95,6 +98,9 @@
     </ClCompile>
     <ClCompile Include="model.cpp">
       <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="model.hpp">
       <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.hpp">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
