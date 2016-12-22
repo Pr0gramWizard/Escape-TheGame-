@@ -1,19 +1,18 @@
 #include "player.hpp"
 
-Player::Player(glm::vec3 pPosition, glm::vec3 pVelocity, GLfloat pHeight, const char * pName)
-{
-	setPositionAbsolute(pPosition);
-	setVelocity(pVelocity);
-	setHeight(pHeight);
-	setName(pName);
-}
+const GLfloat Player::MOVESPEED = 10;
+const GLfloat Player::TURNSPEED = 180;
+const GLfloat Player::GRAVITY = -90;
+//needed?
+const GLfloat Player::JUMPPOWER = 45;
 
 Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName)
 {
-	setPositionAbsolute(pPosition);
-	setVelocity(glm::vec3(0, 0, 0));
+	setPosition(pPosition);
 	setHeight(pHeight);
 	setName(pName);
+	mCurrentMoveSpeed = 0;
+	mCurrentTurnSpeed = 0;
 }
 
 void Player::move()
@@ -25,21 +24,16 @@ void Player::move()
 	/* TODO */
 }
 
-void Player::setPosition(glm::vec3 pOffset)
+void Player::incPosition(glm::vec3 pOffset)
 {
 	mPosition.x += pOffset.x;
 	mPosition.y += pOffset.y;
 	mPosition.z += pOffset.z;
 }
 
-void Player::setPositionAbsolute(glm::vec3 pPosition)
+void Player::setPosition(glm::vec3 pPosition)
 {
 	mPosition = pPosition;
-}
-
-void Player::setVelocity(glm::vec3 pVelocity)
-{
-	mVelocity = pVelocity;
 }
 
 void Player::setHeight(GLfloat pHeight)
@@ -55,11 +49,6 @@ void Player::setName(const char * pName)
 glm::vec3 Player::getPosition() const
 {
 	return mPosition;
-}
-
-glm::vec3 Player::getVelocity() const
-{
-	return mVelocity;
 }
 
 GLfloat Player::getHeight() const
