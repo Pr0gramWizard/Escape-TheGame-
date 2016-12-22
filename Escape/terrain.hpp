@@ -2,12 +2,13 @@
 #include <glew.h>
 #include <iostream>
 #include <vec3.hpp>
+#include <vec2.hpp>
 
 
 class Terrain
 {
 public:
-	Terrain(int pHeight, int pWidht, int pDepth, glm::vec3 pStartPoint, const char* pName);
+	Terrain(int pWorldX, int pWorldY, int pHeight, int pWidht, int pDepth, glm::vec3 pStartPoint, int pVertices, const char* pName);
 	GLfloat* getVertices(int pTiles);
 	~Terrain();
 
@@ -15,6 +16,9 @@ public:
 	int getWidth() const;
 	int getHeight() const;
 	int getDepth() const;
+	int getWorldX() const;
+	int getWorldY() const;
+	glm::vec2 getWorldPos() const;
 	glm::vec3 getStartPoint() const;
 	const char* getName();
 
@@ -26,10 +30,14 @@ public:
 	void setName(const char* pName);
 
 private:
+	int mWorldX;
+	int mWorldY;
 	int mWidth;
 	int mHeight;
 	int mDepth;
 	glm::vec3 mStartPoint;
+	// Getters & Setters needed? Maybe static
+	int mVertices;
 	const char* mName;
 
 private:

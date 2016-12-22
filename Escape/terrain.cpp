@@ -2,8 +2,11 @@
 
 
 
-Terrain::Terrain(int pHeight, int pDepth ,int pWidth, glm::vec3 pStartPoint, const char* pName)
+Terrain::Terrain(int pWorldX, int pWorldY, int pHeight, int pDepth ,int pWidth, glm::vec3 pStartPoint, int pVertices, const char* pName)
 {
+	// Worldspace coordinates
+	mWorldX = pWorldX;
+	mWorldY = pWorldY;
 	// X 
 	setHeight(pHeight);
 	// Y
@@ -12,6 +15,8 @@ Terrain::Terrain(int pHeight, int pDepth ,int pWidth, glm::vec3 pStartPoint, con
 	setWidth(pWidth);
 	// Start Point
 	setStartPoint(pStartPoint);
+	// Amount of vertices along one side
+	mVertices = pVertices;
 	// Name
 	setName(pName);
 
@@ -49,6 +54,21 @@ int Terrain::getHeight() const
 int Terrain::getDepth() const
 {
 	return mDepth;
+}
+
+int Terrain::getWorldX() const
+{
+	return mWorldX;
+}
+
+int Terrain::getWorldY() const
+{
+	return mWorldY;
+}
+
+glm::vec2 Terrain::getWorldPos() const
+{
+	return glm::vec2(mWorldX, mWorldY);
 }
 
 glm::vec3 Terrain::getStartPoint() const
