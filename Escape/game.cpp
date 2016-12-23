@@ -173,10 +173,10 @@ bool Game::gameLoop()
 		renderer->prepare();
 		renderer->render(model);
 
-		/*// Activate shader
+		// Activate shader
 		mShader->use();
 
-		// Create camera transformation
+		/*// Create camera transformation
 		glm::mat4 view;
 		view = mCamera->GetViewMatrix();
 		glm::mat4 projection;
