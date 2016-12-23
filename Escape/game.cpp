@@ -130,18 +130,18 @@ bool Game::gameLoop()
 	Renderer* renderer = new Renderer();
 
 	float vertices[] = { 
-		// left bottom
 		-0.5f, 0.5f, 0.0f,
 		-0.5f, -0.5f, 0.0f,
 		0.5f, -0.5f, 0.0f,
-
-		// right top
-		0.5f, -0.5f, 0.0f,
 		0.5f, 0.5f, 0.0f,
-		-0.5f, 0.5f, 0.0f
 	};
 
-	Model model = loader->loadDataToVao(vertices, sizeof(vertices), sizeof(vertices[0]));
+	int indices[] = {
+		0,1,3,
+		3,1,2
+	};
+
+	Model model = loader->loadDataToVao(vertices, sizeof(vertices), indices, sizeof(indices), sizeof(indices[0]));
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))

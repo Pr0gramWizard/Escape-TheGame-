@@ -19,7 +19,7 @@ void Renderer::render(Model pModel)
 {
 	glBindVertexArray(pModel.getVaoId());
 	glEnableVertexAttribArray(0);
-	glDrawArrays(GL_TRIANGLES, 0, pModel.getVerticesCount());
+	glDrawElements(GL_TRIANGLES, pModel.getVerticesCount(), GL_UNSIGNED_INT, 0);
 	glDisableVertexAttribArray(0);
 	glBindVertexArray(0);
 }
