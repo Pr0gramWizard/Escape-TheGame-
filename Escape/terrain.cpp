@@ -2,11 +2,11 @@
 
 
 
-Terrain::Terrain(int pWorldX, int pWorldY, int pAmplitude, int pVertices, const char* pName)
+Terrain::Terrain(int pWorldX, int pWorldZ, int pAmplitude, int pVertices, const char* pName)
 {
 	// Worldspace coordinates
 	mWorldX = pWorldX;
-	mWorldY = pWorldY;
+	mWorldZ = pWorldZ;
 	
 	// Set height amplitude for terrain
 	setAmplitude(pAmplitude);
@@ -43,14 +43,14 @@ int Terrain::getWorldX() const
 	return mWorldX;
 }
 
-int Terrain::getWorldY() const
+int Terrain::getWorldZ() const
 {
-	return mWorldY;
+	return mWorldZ;
 }
 
 glm::vec2 Terrain::getWorldPos() const
 {
-	return glm::vec2(mWorldX, mWorldY);
+	return glm::vec2(mWorldX, mWorldZ);
 }
 
 const char * Terrain::getName()

@@ -14,7 +14,7 @@ public:
 
 	// Getter functions
 	int getWorldX() const;
-	int getWorldY() const;
+	int getWorldZ() const;
 	glm::vec2 getWorldPos() const;
 	const char* getName();
 
@@ -28,7 +28,7 @@ public:
 
 private:
 	int mWorldX;
-	int mWorldY;
+	int mWorldZ;
 	int mAmplitude;
 	// Getters & Setters needed? Maybe static
 	int mVertices;
