@@ -13,13 +13,13 @@ public:
 	Loader();
 	~Loader();
 
-	Model loadDataToVao(float pPositions[]/*, float pNormals[], float pTexCoords[], float pIndices[]*/);
+	Model loadDataToVao(float pPositions[], int pPositionSize, int pPositionSizeElem0/*, float pNormals[], float pTexCoords[], float pIndices[]*/);
 	void cleanUp();
 
 private:
 	GLuint createVao();
 	void unbindVao();
-	void storeData(GLuint pAttributeLocation, float pData[], int pLength);
+	void storeData(GLuint pAttributeLocation, float pData[], int pDataLength, int pLength);
 	void deleteVaos();
 	void deleteVbos();
 

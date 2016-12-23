@@ -24,7 +24,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(), NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/, NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -33,7 +33,8 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glfwSetKeyCallback(this->getWindow(), key_callback);
 	glfwSetCursorPosCallback(this->getWindow(), mouse_callback);
 	glfwSetScrollCallback(this->getWindow(), scroll_callback);
-	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	//Remove Null + remove comment to get fullscreen
+	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, NULL/*GLFW_CURSOR_HIDDEN*/);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -45,7 +46,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glfwGetFramebufferSize(this->getWindow(), &width, &height);
 	glViewport(0, 0, width, height);
 
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 
 	mPlayer = new Player(glm::vec3(0, 0, 0), 2, "Archie der Entdecker");
 	mCamera = new Camera();
@@ -124,9 +125,23 @@ bool Game::gameLoop()
 	glBindTexture(GL_TEXTURE_2D, 0);
 	*/
 
+	Loader* loader = new Loader();
 
+	Renderer* renderer = new Renderer();
 
+	float vertices[] = { 
+		// left bottom
+		-0.5f, 0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f,
+		0.5f, -0.5f, 0.0f,
 
+		// right top
+		0.5f, -0.5f, 0.0f,
+		0.5f, 0.5f, 0.0f,
+		-0.5f, 0.5f, 0.0f
+	};
+
+	Model model = loader->loadDataToVao(vertices, sizeof(vertices), sizeof(vertices[0]));
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
@@ -140,14 +155,16 @@ bool Game::gameLoop()
 		glfwPollEvents();
 		do_movement();
 
-		mTerrain->getVertices(1);
+		//mTerrain->getVertices(1);
+
 		// Render
 		// Clear the colorbuffer
-		glClearColor(0.2f,0.3f,0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//glClearColor(0.2f,0.3f,0.3f, 1.0f);
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		renderer->prepare();
+		renderer->render(model);
 
-
-		// Activate shader
+		/*// Activate shader
 		mShader->use();
 
 		// Create camera transformation
@@ -167,13 +184,13 @@ bool Game::gameLoop()
 		// Pass the matrices to the shader
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-		glBindVertexArray(0);
-
+		glBindVertexArray(0);*/
 		
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
 
 	}
+	loader->cleanUp();
 	glfwTerminate();
 	return 0;
 }
@@ -244,7 +261,8 @@ void Game::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 
 	GLint halfWidth = (GLint) (wWidth / 2.0f);
 	GLint halfHeight = (GLint)(wHeight / 2.0f);
-	glfwSetCursorPos(game->getWindow(), halfWidth, halfHeight);
+	//add this to lock the mouse centered in the screen
+	//glfwSetCursorPos(game->getWindow(), halfWidth, halfHeight);
 	game->lastX = (GLfloat)halfWidth;
 	game->lastY = (GLfloat)halfHeight;
 }

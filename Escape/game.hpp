@@ -19,6 +19,10 @@
 #include "terrain.hpp"
 // Player class
 #include "player.hpp"
+// Loader class
+#include "loader.hpp"
+// Renderer class
+#include "renderer.hpp"
 
 #include <mat4x4.hpp>
 #include <vec3.hpp>
