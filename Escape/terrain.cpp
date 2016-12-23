@@ -1,7 +1,5 @@
 #include "terrain.hpp"
 
-
-
 Terrain::Terrain(int pWorldX, int pWorldZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader)
 {
 	// Worldspace coordinates
@@ -18,8 +16,7 @@ Terrain::Terrain(int pWorldX, int pWorldZ, int pAmplitude, int pVertices, const 
 	setName(pName);
 
 	// Set Model
-	mModel = new Model(0, 0);
-	//mModel = &generateTerrain(pLoader);
+	mModel = &generateTerrain(pLoader);
 
 	std::cout << "Terrainloader was started successfully!" << std::endl;
 
