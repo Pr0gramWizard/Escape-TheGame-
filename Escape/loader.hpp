@@ -4,6 +4,7 @@
 #include <glew.h>
 // list
 #include <list>
+#include <vector>
 // Model class
 #include "model.hpp"
 
@@ -13,16 +14,16 @@ public:
 	Loader();
 	~Loader();
 
-	Model loadDataToVao(float pPositions[], int pPositionSize, int pIndices[], int pIndicesSize, int pIndicesSizeElem0/*, float pNormals[], float pTexCoords[]*/);
+	Model loadDataToVao(std::vector<float> pPositions, std::vector<float> pTexCoords, std::vector<float> pNormals, std::vector<int> pIndices);
 	void cleanUp();
 
 private:
 	GLuint createVao();
 	void unbindVao();
-	void storeData(GLuint pAttributeLocation, float pData[], int pDataLength, int pLength);
+	void storeData(GLuint pAttributeLocation, std::vector<float> pData, int pLength);
 	void deleteVaos();
 	void deleteVbos();
-	void bindIndices(int pIndices[], int pIndizesLength);
+	void bindIndices(std::vector<int> pIndices);
 
 private:
 	std::list<GLuint> mVaos;

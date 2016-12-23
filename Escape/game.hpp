@@ -72,7 +72,6 @@ private:
 
 	// Pointers to other classes
 	Shader* mShader;
-	Terrain* mTerrain;
 
 	// Player
 	Player* mPlayer;

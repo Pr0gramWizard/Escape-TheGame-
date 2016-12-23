@@ -51,7 +51,6 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	mPlayer = new Player(glm::vec3(0, 0, 0), 2, "Archie der Entdecker");
 	mCamera = new Camera();
 	mShader = new Shader();
-	mTerrain = new Terrain(0, 0, 0, 128, "Test");
 
 	mShader->createShader("shaders/cameraShader.vert", "shaders/cameraShader.frag");
 }
@@ -129,19 +128,29 @@ bool Game::gameLoop()
 
 	Renderer* renderer = new Renderer();
 
-	float vertices[] = { 
+	Terrain* terrain = new Terrain(0, 0, 0, 128, "Test", loader);
+
+	std::vector<float> vertices = {
 		-0.5f, 0.5f, 0.0f,
 		-0.5f, -0.5f, 0.0f,
 		0.5f, -0.5f, 0.0f,
 		0.5f, 0.5f, 0.0f,
 	};
 
-	int indices[] = {
+	std::vector<float> tex = {
+		0,0
+	};
+
+	std::vector<float> normal = {
+		0,1,0
+	};
+
+	std::vector<int> indices = {
 		0,1,3,
 		3,1,2
 	};
 
-	Model model = loader->loadDataToVao(vertices, sizeof(vertices), indices, sizeof(indices), sizeof(indices[0]));
+	Model model = loader->loadDataToVao(vertices, tex, normal, indices);
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))

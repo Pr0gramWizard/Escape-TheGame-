@@ -10,17 +10,17 @@ Loader::Loader()
 Loader::~Loader()
 {
 }
-
-Model Loader::loadDataToVao(float pPositions[], int pPositionSize, int pIndices[], int pIndicesSize, int pIndicesSizeElem0/*, float pNormals[], float pTexCoords[], */)
+;
+Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<float> pTexCoords, std::vector<float> pNormals, std::vector<int> pIndices)
 {
 	GLuint vaoId = createVao();
-	bindIndices(pIndices, pIndicesSize);
-	storeData(0, pPositions, pPositionSize, 3);
+	bindIndices(pIndices);
+	storeData(0, pPositions, 3);
 	//storeData(1, pNormals, 3);
 	//storeData(2, pTexCoords, 2);
 	//storeData(3, pIndices, 3);
 	unbindVao();
-	return Model(vaoId, (pIndicesSize / pIndicesSizeElem0));
+	return Model(vaoId, pIndices.size());
 }
 
 GLuint Loader::createVao()
@@ -37,21 +37,21 @@ void Loader::unbindVao()
 	glBindVertexArray(0);
 }
 
-void Loader::bindIndices(int pIndices[], int pIndizesLength) {
+void Loader::bindIndices(std::vector<int> pIndices) {
 	GLuint vbo;
 	glGenBuffers(1, &vbo);
 	mVbos.push_back(vbo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, pIndizesLength * sizeof(int), pIndices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, pIndices.size() * sizeof(int), &pIndices[0], GL_STATIC_DRAW);
 }
 
-void Loader::storeData(GLuint pAttributeLocation, float pData[], int pDataLength, int pSize)
+void Loader::storeData(GLuint pAttributeLocation, std::vector<float> pData, int pSize)
 {
 	GLuint vbo;
 	glGenBuffers(1, &vbo);
 	mVbos.push_back(vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, pDataLength, pData, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, pData.size() * sizeof(float),	&pData[0], GL_STATIC_DRAW);
 	glVertexAttribPointer(pAttributeLocation, pSize, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (GLvoid*)0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }

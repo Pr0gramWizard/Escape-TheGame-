@@ -1,14 +1,19 @@
 #pragma once
 #include <glew.h>
 #include <iostream>
-#include <vec3.hpp>
 #include <vec2.hpp>
-
+#include <vector>
+// model class
+#include "model.hpp"
+// loader class
+#include "loader.hpp"
+// math class
+#include "math.hpp"
 
 class Terrain
 {
 public:
-	Terrain(int pWorldX, int pWorldY, int pAmplitude, int pVertices, const char* pName);
+	Terrain(int pWorldX, int pWorldY, int pAmplitude, int pVertices, const char* pName, Loader* pLoader);
 	GLfloat* getVertices(int pTiles);
 	~Terrain();
 
@@ -33,9 +38,11 @@ private:
 	// Getters & Setters needed? Maybe static
 	int mVertices;
 	const char* mName;
+	Model* mModel;
 
 private:
 	bool isPowerOfTwo(int pX);
+	Model generateTerrain(Loader* loader);
 	
 };
 

@@ -2,7 +2,7 @@
 
 
 
-Terrain::Terrain(int pWorldX, int pWorldZ, int pAmplitude, int pVertices, const char* pName)
+Terrain::Terrain(int pWorldX, int pWorldZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader)
 {
 	// Worldspace coordinates
 	mWorldX = pWorldX;
@@ -16,6 +16,10 @@ Terrain::Terrain(int pWorldX, int pWorldZ, int pAmplitude, int pVertices, const 
 
 	// Name
 	setName(pName);
+
+	// Set Model
+	mModel = new Model(0, 0);
+	//mModel = &generateTerrain(pLoader);
 
 	std::cout << "Terrainloader was started successfully!" << std::endl;
 
@@ -83,4 +87,43 @@ void Terrain::setName(const char * pName)
 bool Terrain::isPowerOfTwo(int pX)
 {
 	return !(pX == 0) && !(pX & (pX - 1));
+}
+
+Model Terrain::generateTerrain(Loader* loader)
+{
+	int count = mVertices * mVertices;
+	std::vector<float> vertices(count * 3);
+	std::vector<float> normals(count * 3);
+	std::vector<float> textureCoords(count * 2);
+	std::vector<int> indices(6 * (mVertices - 1)*(mVertices - 1));
+	int vertexPointer = 0;
+	for (int i = 0;i<mVertices;i++) {
+		for (int j = 0;j<mVertices;j++) {
+			vertices[vertexPointer * 3] = (float)j / ((float)mVertices - 1) * TERRAIN_SIZE;
+			vertices[vertexPointer * 3 + 1] = 0;
+			vertices[vertexPointer * 3 + 2] = (float)i / ((float)mVertices - 1) * TERRAIN_SIZE;
+			normals[vertexPointer * 3] = 0;
+			normals[vertexPointer * 3 + 1] = 1;
+			normals[vertexPointer * 3 + 2] = 0;
+			textureCoords[vertexPointer * 2] = (float)j / ((float)mVertices - 1);
+			textureCoords[vertexPointer * 2 + 1] = (float)i / ((float)mVertices - 1);
+			vertexPointer++;
+		}
+	}
+	int pointer = 0;
+	for (int gz = 0;gz<mVertices - 1;gz++) {
+		for (int gx = 0;gx<mVertices - 1;gx++) {
+			int topLeft = (gz*mVertices) + gx;
+			int topRight = topLeft + 1;
+			int bottomLeft = ((gz + 1)*mVertices) + gx;
+			int bottomRight = bottomLeft + 1;
+			indices[pointer++] = topLeft;
+			indices[pointer++] = bottomLeft;
+			indices[pointer++] = topRight;
+			indices[pointer++] = topRight;
+			indices[pointer++] = bottomLeft;
+			indices[pointer++] = bottomRight;
+		}
+	}
+	return loader->loadDataToVao(vertices, textureCoords, normals, indices);
 }
