@@ -8,34 +8,28 @@
 class Terrain
 {
 public:
-	Terrain(int pWorldX, int pWorldY, int pHeight, int pWidht, int pDepth, glm::vec3 pStartPoint, int pVertices, const char* pName);
+	Terrain(int pWorldX, int pWorldY, int pAmplitude, int pVertices, const char* pName);
 	GLfloat* getVertices(int pTiles);
 	~Terrain();
 
 	// Getter functions
-	int getWidth() const;
-	int getHeight() const;
-	int getDepth() const;
 	int getWorldX() const;
 	int getWorldY() const;
 	glm::vec2 getWorldPos() const;
-	glm::vec3 getStartPoint() const;
 	const char* getName();
 
 	// Setter functions
-	void setWidth(int pWidth);
-	void setHeight(int pHeight);
-	void setDepth(int pDepth);
-	void setStartPoint(glm::vec3 pStartPoint);
+	void setAmplitude(int pAmplitude);
+	void setVertices(int pVertices);
 	void setName(const char* pName);
+
+public:
+	static const int TERRAIN_SIZE = 200;
 
 private:
 	int mWorldX;
 	int mWorldY;
-	int mWidth;
-	int mHeight;
-	int mDepth;
-	glm::vec3 mStartPoint;
+	int mAmplitude;
 	// Getters & Setters needed? Maybe static
 	int mVertices;
 	const char* mName;

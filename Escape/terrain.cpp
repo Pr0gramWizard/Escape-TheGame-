@@ -2,21 +2,18 @@
 
 
 
-Terrain::Terrain(int pWorldX, int pWorldY, int pHeight, int pDepth ,int pWidth, glm::vec3 pStartPoint, int pVertices, const char* pName)
+Terrain::Terrain(int pWorldX, int pWorldY, int pAmplitude, int pVertices, const char* pName)
 {
 	// Worldspace coordinates
 	mWorldX = pWorldX;
 	mWorldY = pWorldY;
-	// X 
-	setHeight(pHeight);
-	// Y
-	setDepth(pDepth);
-	// Z
-	setWidth(pWidth);
-	// Start Point
-	setStartPoint(pStartPoint);
-	// Amount of vertices along one side
-	mVertices = pVertices;
+	
+	// Set height amplitude for terrain
+	setAmplitude(pAmplitude);
+
+	// Set amount of vertices along a side of the terrain
+	setVertices(pVertices);
+
 	// Name
 	setName(pName);
 
@@ -41,21 +38,6 @@ Terrain::~Terrain()
 	std::cout << "Terrainloader was stopped successfully!" << std::endl;
 }
 
-int Terrain::getWidth() const
-{
-	return mWidth;
-}
-
-int Terrain::getHeight() const
-{
-	return mHeight;
-}
-
-int Terrain::getDepth() const
-{
-	return mDepth;
-}
-
 int Terrain::getWorldX() const
 {
 	return mWorldX;
@@ -71,34 +53,26 @@ glm::vec2 Terrain::getWorldPos() const
 	return glm::vec2(mWorldX, mWorldY);
 }
 
-glm::vec3 Terrain::getStartPoint() const
-{
-	return mStartPoint;
-}
-
 const char * Terrain::getName()
 {
 	return mName;
 }
 
-void Terrain::setWidth(int pWidth)
+void Terrain::setAmplitude(int pAmplitude)
 {
-	mWidth = pWidth;
+	mAmplitude = pAmplitude;
 }
 
-void Terrain::setHeight(int pHeight)
+void Terrain::setVertices(int pVertices)
 {
-	mHeight = pHeight;
-}
-
-void Terrain::setDepth(int pDepth)
-{
-	mDepth = pDepth;
-}
-
-void Terrain::setStartPoint(glm::vec3 pStartPoint)
-{
-	mStartPoint = pStartPoint;
+	if (!isPowerOfTwo(pVertices))
+	{
+		mVertices = 128;
+	}
+	else
+	{
+		mVertices = pVertices;
+	}
 }
 
 void Terrain::setName(const char * pName)

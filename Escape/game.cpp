@@ -51,7 +51,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	mPlayer = new Player(glm::vec3(0, 0, 0), 2, "Archie der Entdecker");
 	mCamera = new Camera();
 	mShader = new Shader();
-	mTerrain = new Terrain(0, 0, 500, 400, 200, glm::vec3(1.0f, 1.0f, 1.0f), 128,"Test");
+	mTerrain = new Terrain(0, 0, 0, 128, "Test");
 
 	mShader->createShader("shaders/cameraShader.vert", "shaders/cameraShader.frag");
 }
