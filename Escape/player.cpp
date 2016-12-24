@@ -6,13 +6,16 @@ const GLfloat Player::GRAVITY = -90;
 //needed?
 const GLfloat Player::JUMPPOWER = 45;
 
-Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName)
+Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWindowHeight, int pWindowWidth)
 {
 	setPosition(pPosition);
 	setHeight(pHeight);
 	setName(pName);
 	mCurrentMoveSpeed = 0;
 	mCurrentTurnSpeed = 0;
+	setWindowHeight(pWindowHeight);
+	setWindowWidht(pWindowWidth);
+	mEye = new Camera();
 }
 
 void Player::move()
@@ -46,6 +49,16 @@ void Player::setName(const char * pName)
 	mName = pName;
 }
 
+void Player::setWindowHeight(int pHeight)
+{
+	mWindowHeight = pHeight;
+}
+
+void Player::setWindowWidht(int pWidth)
+{
+	mWindowWidth = pWidth;
+}
+
 glm::vec3 Player::getPosition() const
 {
 	return mPosition;
@@ -59,4 +72,29 @@ GLfloat Player::getHeight() const
 const char * Player::getName() const
 {
 	return mName;
+}
+
+int Player::getWindowHeight() const
+{
+	return mWindowHeight;
+}
+
+int Player::getWindowWidht() const
+{
+	return mWindowWidth;
+}
+
+void Player::ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime)
+{
+	mEye->ProcessKeyboard(pDirection, deltaTime);
+}
+
+void Player::ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset)
+{
+	mEye->ProcessMouseMovement(pXOffset, pYOffset);
+}
+
+void Player::ProcessMouseScroll(GLfloat pYOffset)
+{
+	mEye->ProcessMouseScroll(pYOffset);
 }
