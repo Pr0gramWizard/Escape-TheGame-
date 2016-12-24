@@ -34,7 +34,8 @@ public:
 	const char* getName() const;
 	int getWindowHeight() const;
 	int getWindowWidht() const;
-
+	glm::mat4 getViewMatrix() const;
+	glm::mat4 getProjectionMatrix(int pHeight, int pWidth) const;
 	void ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime);
 	void ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset);
 	void ProcessMouseScroll(GLfloat pYOffset);

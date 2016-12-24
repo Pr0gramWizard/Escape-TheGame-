@@ -34,6 +34,7 @@ public:
 	void ProcessMouseScroll(GLfloat pYOffset);
 
 	glm::mat4 GetViewMatrix();
+	glm::mat4 GetProjectionMatrix(int pHeight, int pWidth);
 
 
 	// Getter Functions

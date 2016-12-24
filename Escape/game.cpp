@@ -49,14 +49,13 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glEnable(GL_DEPTH_TEST);
 
 	mPlayer = new Player(glm::vec3(0, 0, 0), 2, "Archie der Entdecker", this->getHeight(), this->getWidth());
-	mShader = new Shader();
 
-	mShader->createShader("shaders/cameraShader.vert", "shaders/cameraShader.frag");
 }
 
 
 Game::~Game()
 {
+	delete mPlayer;
 }
 
 bool Game::gameLoop()
@@ -106,6 +105,9 @@ bool Game::gameLoop()
 
 		
 		renderer->prepare();
+		renderer->addShader("shaders/worldShader.vert", "shaders/worldShader.frag");
+		renderer->addUniformAttribute(mPlayer->getViewMatrix(), "view");
+		renderer->addUniformAttribute(mPlayer->getProjectionMatrix(this->getHeight(), this->getWidth()), "projection");
 		
 		renderer->render(model,TRIANGLES);
 		
@@ -117,6 +119,9 @@ bool Game::gameLoop()
 
 	}
 	loader->cleanUp();
+	delete terrain;
+	delete loader;
+	delete renderer;
 	glfwTerminate();
 	return 0;
 }

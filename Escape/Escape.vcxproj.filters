@@ -157,16 +157,16 @@
     <None Include="SDL2.dll">
       <Filter>Dynamic Link Library</Filter>
     </None>
-    <None Include="shaders\cameraShader.frag">
-      <Filter>Shader\Shaders\Fragment</Filter>
-    </None>
     <None Include="shaders\triangleShader.frag">
       <Filter>Shader\Shaders\Fragment</Filter>
     </None>
-    <None Include="shaders\cameraShader.vert">
+    <None Include="shaders\triangleShader.vert">
       <Filter>Shader\Shaders\Vertex</Filter>
     </None>
-    <None Include="shaders\triangleShader.vert">
+    <None Include="shaders\worldShader.frag">
+      <Filter>Shader\Shaders\Fragment</Filter>
+    </None>
+    <None Include="shaders\worldShader.vert">
       <Filter>Shader\Shaders\Vertex</Filter>
     </None>
   </ItemGroup>

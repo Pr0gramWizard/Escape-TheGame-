@@ -33,6 +33,11 @@ glm::mat4 Camera::GetViewMatrix()
 	return glm::lookAt(this->getPosition(), this->getPosition() + this->getFront(), this->getUp());
 }
 
+glm::mat4 Camera::GetProjectionMatrix(int pHeight, int pWidth)
+{
+	return glm::perspective(this->getZoom(), (float)pWidth / (float)pHeight, 0.1f, 1000.0f);
+}
+
 
 void Camera::ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime)
 {

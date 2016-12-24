@@ -4,8 +4,11 @@
 #define GLEW_STATIC
 #include <glew.h>
 #include <iostream>
+#include <mat4x4.hpp>
+#include <gtc/type_ptr.hpp>
 // model class
 #include "model.hpp"
+#include "shader.hpp"
 
 enum RenderMode {
 	POINTS,
@@ -24,7 +27,14 @@ public:
 	~Renderer();
 
 	void prepare();
+	void addShader(const char* pVertexShader, const char* pFragmentShader);
+	void addUniformAttribute(glm::mat4 pMatrix, const char* pAttributeName);
+	void enableShader();
+	void disableShader();
 	void render(Model pModel,RenderMode pMode);
 	void render(Model pModel);
+
+private:
+	Shader* mShader;
 };
 

@@ -2,8 +2,8 @@
 
 Renderer::Renderer()
 {
+	mShader = new Shader();
 }
-
 
 Renderer::~Renderer()
 {
@@ -13,6 +13,32 @@ void Renderer::prepare()
 {
 	glClearColor(0.2f,0.3f,0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void Renderer::addShader(const char* pVertexShader, const char* pFragmentShader)
+{
+	mShader->createShader(pVertexShader, pFragmentShader);
+}
+
+void Renderer::addUniformAttribute(glm::mat4 pMatrix, const char * pAttributeName)
+{
+	glm::mat4 view;
+	view = pMatrix;
+	mShader->addAttribute(pAttributeName);
+	GLint viewLocation = mShader->getUniformLocation(pAttributeName);
+	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
+}
+
+
+
+void Renderer::enableShader()
+{
+	mShader->use();
+}
+
+void Renderer::disableShader()
+{
+	mShader->unuse();
 }
 
 void Renderer::render(Model pModel,RenderMode pMode)

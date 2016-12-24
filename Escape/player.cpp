@@ -84,6 +84,16 @@ int Player::getWindowWidht() const
 	return mWindowWidth;
 }
 
+glm::mat4 Player::getViewMatrix() const
+{
+	return mEye->GetViewMatrix();
+}
+
+glm::mat4 Player::getProjectionMatrix(int pHeight, int pWidth) const
+{
+	return mEye->GetProjectionMatrix(pHeight, pWidth);
+}
+
 void Player::ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime)
 {
 	mEye->ProcessKeyboard(pDirection, deltaTime);
