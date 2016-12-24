@@ -122,5 +122,5 @@ Model Terrain::generateTerrain(Loader* loader)
 			indices[pointer++] = bottomRight;
 		}
 	}
-	return loader->loadDataToVao(vertices, textureCoords, normals, indices);
+	return loader->loadDataToVao(vertices, textureCoords, normals, indices,glm::vec3(this->getWorldX(),0,this->getWorldZ()));
 }

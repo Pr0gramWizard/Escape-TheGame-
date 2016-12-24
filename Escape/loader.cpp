@@ -11,7 +11,7 @@ Loader::~Loader()
 {
 }
 ;
-Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<float> pTexCoords, std::vector<float> pNormals, std::vector<int> pIndices)
+Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<float> pTexCoords, std::vector<float> pNormals, std::vector<int> pIndices, glm::vec3 pPostion)
 {
 	GLuint vaoId = createVao();
 	bindIndices(pIndices);
@@ -20,7 +20,7 @@ Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<float> pT
 	//storeData(2, pTexCoords, 2);
 	//storeData(3, pIndices, 3);
 	unbindVao();
-	return Model(vaoId, pIndices.size());
+	return Model(vaoId, pIndices.size(),pPostion);
 }
 
 GLuint Loader::createVao()

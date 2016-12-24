@@ -89,7 +89,12 @@ bool Game::gameLoop()
 		0,3,4
 	};
 
-	Model model = loader->loadDataToVao(vertices, tex, normal, indices);
+	Model mModel = loader->loadDataToVao(vertices, tex, normal, indices, glm::vec3(0.0f,0.0f,0.0f));
+
+	renderer->addShader("shaders/worldShader.vert", "shaders/worldShader.frag");
+	renderer->addUniformAttribute(mPlayer->getViewMatrix(), "view");
+	renderer->addUniformAttribute(mPlayer->getProjectionMatrix(this->getHeight(), this->getWidth()), "projection");
+	renderer->addUniformAttribute(mModel.getModelMatrix(), "model");
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
@@ -105,11 +110,9 @@ bool Game::gameLoop()
 
 		
 		renderer->prepare();
-		renderer->addShader("shaders/worldShader.vert", "shaders/worldShader.frag");
-		renderer->addUniformAttribute(mPlayer->getViewMatrix(), "view");
-		renderer->addUniformAttribute(mPlayer->getProjectionMatrix(this->getHeight(), this->getWidth()), "projection");
-		
-		renderer->render(model,TRIANGLES);
+		// renderer->enableShader();
+		renderer->render(mModel,TRIANGLES);
+		// renderer->disableShader();
 		
 
 
