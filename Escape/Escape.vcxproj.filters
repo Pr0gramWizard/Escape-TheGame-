@@ -111,7 +111,12 @@
     <ClCompile Include="entity.cpp">
       <Filter>Loader Functions\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="testshader.cpp" />
+    <ClCompile Include="objectLoader.cpp">
+      <Filter>Loader Functions\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="testshader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.hpp">
@@ -162,7 +167,12 @@
     <ClInclude Include="entity.hpp">
       <Filter>Loader Functions\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="testshader.hpp" />
+    <ClInclude Include="objectLoader.h">
+      <Filter>Loader Functions\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="testshader.hpp">
+      <Filter>Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
