@@ -8,6 +8,7 @@
 #include <gtc/type_ptr.hpp>
 // model class
 #include "model.hpp"
+#include "entity.hpp"
 #include "shader.hpp"
 
 enum RenderMode {
@@ -31,8 +32,8 @@ public:
 	void addUniformAttribute(glm::mat4 pMatrix, const char* pAttributeName);
 	void enableShader();
 	void disableShader();
-	void render(Model pModel,RenderMode pMode);
-	void render(Model pModel);
+	void render(Entity pEntity,RenderMode pMode);
+	void render(Entity pModel);
 
 private:
 	Shader* mShader;
