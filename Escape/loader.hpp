@@ -14,7 +14,7 @@ public:
 	Loader();
 	~Loader();
 
-	Model loadDataToVao(std::vector<float> pPositions, std::vector<float> pTexCoords, std::vector<float> pNormals, std::vector<int> pIndices, glm::vec3 pPosition);
+	Model loadDataToVao(std::vector<float> pPositions, std::vector<float> pTexCoords, std::vector<float> pNormals, std::vector<int> pIndices);
 	void cleanUp();
 
 private:
