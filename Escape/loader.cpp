@@ -20,7 +20,7 @@ Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<float> pT
 	//storeData(2, pTexCoords, 2);
 	//storeData(3, pIndices, 3);
 	unbindVao();
-	return Model();
+	return Model(vaoId, pIndices.size(),pPostion);
 }
 
 GLuint Loader::createVao()

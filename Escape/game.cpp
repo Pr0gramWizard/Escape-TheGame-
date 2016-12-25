@@ -61,61 +61,40 @@ Game::~Game()
 bool Game::gameLoop()
 {
 
-	LoaderX* loader = new LoaderX();
+	Loader* loader = new Loader();
 
 	Renderer* renderer = new Renderer();
-	std::vector<float> vertices = 
-	{
-		// 0
-		0.0f, 0.0f, 0.0f,
-		// 1
-		0.5f, 0.0f, 0.0f,
-		// 2
-		0.5f, 0.0f, -0.5f,
-		// 3
-		0.0f, 0.0f, -0.5f,
-		// 4
-		0.0f, 0.5f, 0.0f,
-		// 5
+
+	Terrain* terrain = new Terrain(0, 0, 0, 128, "Test", loader);
+
+	std::vector<float> vertices = {
+		-0.5f, 0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f,
+		0.5f, -0.5f, 0.0f,
 		0.5f, 0.5f, 0.0f,
-		// 6
-		0.5f, 0.5f, -0.5f,
-		// 7
-		0.0f, 0.5f, -0.5f,
-
+		0.0f, 0.75f, 0.0f,
 	};
 
-	std::vector<unsigned int> indices =
-	{
-		// Bottom side
-		0,1,3,
-		1,2,3,
-		// Top side
-		4,5,7,
-		5,6,7,
-		// Front side
-		0,1,4,
-		1,4,5,
-		// Right side
-		1,2,5,
-		2,5,6,
-		// Left Side
-		0,3,4,
-		3,4,7,
-		// Back side
-		2,3,7,
-		2,3,6
+	std::vector<float> tex = {
+		0,0
 	};
-	glm::vec3 cubePosition(0.0f, 0.0f, 0.0f);
 
-	Object Cube(vertices,indices,cubePosition);
+	std::vector<float> normal = {
+		0,1,0
+	};
 
+	std::vector<int> indices = {
+		0,1,2,
+		2,3,0,
+		0,3,4
+	};
 
-	Model* mModel = loader->createModel(Cube);
-	mModel->setModelName("Cube");
-	mModel->setModelMatrix(mModel->getPosition(), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	Model mModel = loader->loadDataToVao(vertices, tex, normal, indices, glm::vec3(0.0f,0.0f,0.0f));
 
 	renderer->addShader("shaders/worldShader.vert", "shaders/worldShader.frag");
+	renderer->addUniformAttribute(mPlayer->getViewMatrix(), "view");
+	renderer->addUniformAttribute(mPlayer->getProjectionMatrix(this->getHeight(), this->getWidth()), "projection");
+	renderer->addUniformAttribute(mModel.getModelMatrix(), "model");
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
@@ -131,19 +110,19 @@ bool Game::gameLoop()
 
 		
 		renderer->prepare();
-		renderer->addUniformAttribute(mPlayer->getViewMatrix(), "view");
-		renderer->addUniformAttribute(mPlayer->getProjectionMatrix(this->getHeight(), this->getWidth()), "projection");
-		renderer->addUniformAttribute(mModel->getModelMatrix(), "model");
 		// renderer->enableShader();
-		renderer->render(mModel);
+		renderer->render(mModel,TRIANGLES);
 		// renderer->disableShader();
+		
 
-		// std::cout << to_string(mModel->getModelMatrix()) << std::endl;
 
+		
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
 
 	}
+	loader->cleanUp();
+	delete terrain;
 	delete loader;
 	delete renderer;
 	glfwTerminate();
