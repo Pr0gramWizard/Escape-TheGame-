@@ -7,6 +7,9 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{349c24e5-ee26-4e3d-b353-d5833529624c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Dynamic Link Library">
+      <UniqueIdentifier>{40529e89-a87f-4823-a902-5eb7684a7736}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Shader">
       <UniqueIdentifier>{0a1a9253-501e-4bee-b2f6-e4bfccfef144}</UniqueIdentifier>
     </Filter>
@@ -58,15 +61,6 @@
     <Filter Include="Loader Functions\Entities">
       <UniqueIdentifier>{450c6775-2b6e-4ec2-8fe3-58661a6afabc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entity">
-      <UniqueIdentifier>{7a3d96f8-4807-4043-99d7-1af0f75a7389}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Dynamic Link Library">
-      <UniqueIdentifier>{40529e89-a87f-4823-a902-5eb7684a7736}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Experimental">
-      <UniqueIdentifier>{768506a5-6c91-488c-bc37-57904b78a34e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -96,6 +90,9 @@
     <ClCompile Include="game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="terrain.cpp">
+      <Filter>Loader Functions\Terrain</Filter>
+    </ClCompile>
     <ClCompile Include="player.cpp">
       <Filter>Loader Functions\Player</Filter>
     </ClCompile>
@@ -108,15 +105,7 @@
     <ClCompile Include="renderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="entity.cpp">
-      <Filter>Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="object.cpp">
-      <Filter>Experimental</Filter>
-    </ClCompile>
-    <ClCompile Include="loaderX.cpp">
-      <Filter>Experimental</Filter>
-    </ClCompile>
+    <ClCompile Include="entity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.hpp">
@@ -149,6 +138,9 @@
     <ClInclude Include="utility.hpp">
       <Filter>Utility Functions</Filter>
     </ClInclude>
+    <ClInclude Include="terrain.hpp">
+      <Filter>Loader Functions\Terrain</Filter>
+    </ClInclude>
     <ClInclude Include="player.hpp">
       <Filter>Loader Functions\Player</Filter>
     </ClInclude>
@@ -161,15 +153,7 @@
     <ClInclude Include="renderer.hpp">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="entity.hpp">
-      <Filter>Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="object.hpp">
-      <Filter>Experimental</Filter>
-    </ClInclude>
-    <ClInclude Include="loaderX.hpp">
-      <Filter>Experimental</Filter>
-    </ClInclude>
+    <ClInclude Include="entity.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">

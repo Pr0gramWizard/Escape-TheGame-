@@ -32,7 +32,7 @@ public:
 	void enableShader();
 	void disableShader();
 	void render(Model pModel,RenderMode pMode);
-	void render(Model* pModel);
+	void render(Model pModel);
 
 private:
 	Shader* mShader;

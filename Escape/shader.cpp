@@ -1,4 +1,4 @@
-	// Inclusion of definiton of the class
+// Inclusion of definiton of the class
 #include "shader.hpp"
 
 
