@@ -83,13 +83,17 @@ bool Game::gameLoop()
 	};
 
 	std::vector<int> indices = {
-		0,1,2,
-		2,3,0
+		0,1,3,
+		3,1,2
 	};
 
 	Model model = loader->loadDataToVao(vertices, tex, normal, indices);
 
 	Entity* testEntity = new Entity(glm::vec3(0, 0, 0), 0, 0, 0, 1, &model);
+
+	Testshader* testShader = new Testshader();
+	testShader->createShader("shaders/vertexShader.vert", "shaders/fragmentShader.frag");
+	testShader->bindAttribute(0, "position");
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
@@ -109,7 +113,9 @@ bool Game::gameLoop()
 		//renderer->addUniformAttribute(mPlayer->getViewMatrix(), "view");
 		//renderer->addUniformAttribute(mPlayer->getProjectionMatrix(this->getHeight(), this->getWidth()), "projection");
 		
-		renderer->render(*testEntity,TRIANGLES);
+		testShader->use();
+		renderer->render(*testEntity, testShader);
+		testShader->unuse();
 		
 
 

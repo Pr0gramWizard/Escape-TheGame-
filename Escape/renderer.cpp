@@ -41,7 +41,7 @@ void Renderer::disableShader()
 	mShader->unuse();
 }
 
-void Renderer::render(Entity pEntity,RenderMode pMode)
+void Renderer::render(Entity pEntity, Testshader *pShader, RenderMode pMode)
 {
 	glBindVertexArray(pEntity.getModel()->getVaoId());
 	glEnableVertexAttribArray(0);
@@ -73,7 +73,7 @@ void Renderer::render(Entity pEntity,RenderMode pMode)
 	glBindVertexArray(0);
 }
 
-void Renderer::render(Entity pEntity)
+void Renderer::render(Entity pEntity, Testshader *pShader)
 {
 	glBindVertexArray(pEntity.getModel()->getVaoId());
 	glEnableVertexAttribArray(0);

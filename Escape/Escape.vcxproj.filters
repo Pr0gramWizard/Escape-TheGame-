@@ -111,6 +111,7 @@
     <ClCompile Include="entity.cpp">
       <Filter>Loader Functions\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="testshader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.hpp">
@@ -161,6 +162,7 @@
     <ClInclude Include="entity.hpp">
       <Filter>Loader Functions\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="testshader.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
@@ -179,6 +181,12 @@
       <Filter>Shader\Shaders\Fragment</Filter>
     </None>
     <None Include="shaders\worldShader.vert">
+      <Filter>Shader\Shaders\Vertex</Filter>
+    </None>
+    <None Include="fragmentShader.frag">
+      <Filter>Shader\Shaders\Fragment</Filter>
+    </None>
+    <None Include="vertexShader.vert">
       <Filter>Shader\Shaders\Vertex</Filter>
     </None>
   </ItemGroup>
