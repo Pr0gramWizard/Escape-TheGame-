@@ -42,6 +42,11 @@ Model * Entity::getModel()
 	return mModel;
 }
 
+glm::mat4 Entity::getModelMatrix()
+{
+	return Math::getTransformationMatrix(mPosition, mXRotation, mYRotation, mZRotation, mScale);
+}
+
 void Entity::increasePosition(GLfloat x, GLfloat y, GLfloat z)
 {
 	mPosition.x += x;

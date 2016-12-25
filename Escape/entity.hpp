@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vec3.hpp>
+#include <mat4x4.hpp>
+#include "math.hpp"
 #include <glew.h>
 #include "model.hpp"
 
@@ -16,6 +18,8 @@ public:
 	GLfloat getZRotation() const;
 	GLfloat getScale() const;
 	Model* getModel();
+
+	glm::mat4 getModelMatrix();
 
 	void increasePosition(GLfloat x, GLfloat y, GLfloat z);
 	void increaseRotation(GLfloat x, GLfloat y, GLfloat z);
