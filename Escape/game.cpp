@@ -115,10 +115,9 @@ bool Game::gameLoop()
 		testEntity->increaseRotation(0, 0, 1);
 		testEntity->increasePosition(0, 0,-0.0004f);
 		testShader->use();
-		testShader->loadTransformationMatrix(testEntity->getModelMatrix());
+		testShader->loadModelMatrix(testEntity->getModelMatrix());
 		renderer->render(*testEntity, testShader);
 		Math::printMatrix(testEntity->getModelMatrix());
-		debug();
 		testShader->unuse();
 		
 
