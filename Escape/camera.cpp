@@ -35,7 +35,7 @@ glm::mat4 Camera::GetViewMatrix()
 
 glm::mat4 Camera::GetProjectionMatrix(int pHeight, int pWidth)
 {
-	return glm::perspective(this->getZoom(), (float)pWidth / (float)pHeight, 0.1f, 1000.0f);
+	return glm::perspective(this->getZoom(), (float)pWidth / (float)pHeight, 0.1f, 100.0f);
 }
 
 

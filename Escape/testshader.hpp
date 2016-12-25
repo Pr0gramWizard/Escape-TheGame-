@@ -15,6 +15,8 @@
 #include <vec3.hpp>
 // mat4
 #include <mat4x4.hpp>
+// glm::value_prt
+#include <gtc/type_ptr.hpp>
 
 
 // Defintion of the class Shader
@@ -48,8 +50,9 @@ public:
 	void loadFloat(GLuint pLocation, GLfloat pValue);
 	void loadVector(GLuint pLocation, glm::vec3 pVector);
 	void loadBool(GLuint pLocation, GLboolean pValue);
-	void loadTransformationMatrix(glm::mat4 pMatrix);
+	void loadModelMatrix(glm::mat4 pMatrix);
 	void loadProjectionMatrix(glm::mat4 pMatrix);
+	void loadViewMatrix(glm::mat4 pMatrix);
 
 	// Destructor
 	~Testshader();
@@ -62,8 +65,9 @@ private:
 	// All private functions of the class
 
 	//uniform locations
-	GLuint mLocation_transformationMatrix;
+	GLuint mLocation_modelMatrix;
 	GLuint mLocation_projectionMatrix;
+	GLuint mLocation_viewMatrix;
 
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);

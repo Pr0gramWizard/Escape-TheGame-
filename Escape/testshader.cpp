@@ -304,17 +304,22 @@ void Testshader::loadBool(GLuint pLocation, GLboolean pValue)
 
 void Testshader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
 {
-	glUniformMatrix4fv(pLocation, 1, false, &pMatrix[0][0]);
+	glUniformMatrix4fv(pLocation, 1, GL_FALSE, glm::value_ptr(pMatrix));
 }
 
-void Testshader::loadTransformationMatrix(glm::mat4 pMatrix)
+void Testshader::loadModelMatrix(glm::mat4 pMatrix)
 {
-	loadMatrix(mLocation_transformationMatrix, pMatrix);
+	loadMatrix(mLocation_modelMatrix, pMatrix);
 }
 
 void Testshader::loadProjectionMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_projectionMatrix, pMatrix);
+}
+
+void Testshader::loadViewMatrix(glm::mat4 pMatrix)
+{
+	loadMatrix(mLocation_viewMatrix, pMatrix);
 }
 
 // Destructor
@@ -326,8 +331,9 @@ Testshader::~Testshader()
 
 void Testshader::getAllUniformLocations()
 {
-	mLocation_transformationMatrix = glGetUniformLocation(getProgramID(), "transformationMatrix");
-	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projectionMatrix");
+	mLocation_modelMatrix = glGetUniformLocation(getProgramID(), "model");
+	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projection");
+	mLocation_viewMatrix = glGetUniformLocation(getProgramID(), "view");
 }
 
 // Binding an attribtute to the shader
