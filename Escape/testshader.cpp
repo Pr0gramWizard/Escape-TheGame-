@@ -3,14 +3,10 @@
 
 
 // Constructor
-Testshader::Testshader()
+Testshader::Testshader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
-	// Program ID
-	setProgramID(0);
-	// Vertex Shader ID
-	setVertexShaderID(0);
-	// Fragment Shade ID
-	setFragementShaderID(0);
+	createShader(pVertexShaderFilePath, pFragementShaderFilePath);
+	getAllUniformLocations();
 
 	// Log Shader
 	std::clog << "Shader class was created successfully!" << std::endl;
@@ -236,8 +232,6 @@ void Testshader::compileVertexShader(std::string pVertexShaderFilePath)
 	}
 }
 
-
-
 // Getter Functions
 // Returns current Program ID
 GLuint Testshader::getProgramID() const
@@ -286,6 +280,43 @@ void Testshader::setFragementShaderID(int pFragementShaderID)
 	mFragementShaderID = pFragementShaderID;
 }
 
+void Testshader::loadFloat(GLuint pLocation, GLfloat pValue)
+{
+	glUniform1f(pLocation, pValue);
+}
+
+void Testshader::loadVector(GLuint pLocation, glm::vec3 pVector)
+{
+	glUniform3f(pLocation, pVector.x, pVector.y, pVector.z);
+}
+
+void Testshader::loadBool(GLuint pLocation, GLboolean pValue)
+{
+	if (pValue == 0) 
+	{
+		glUniform1f(pLocation, 0);
+	}
+	else 
+	{
+		glUniform1f(pLocation, 1);
+	}
+}
+
+void Testshader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
+{
+	glUniformMatrix4fv(pLocation, 1, false, &pMatrix[0][0]);
+}
+
+void Testshader::loadTransformationMatrix(glm::mat4 pMatrix)
+{
+	loadMatrix(mLocation_transformationMatrix, pMatrix);
+}
+
+void Testshader::loadProjectionMatrix(glm::mat4 pMatrix)
+{
+	loadMatrix(mLocation_projectionMatrix, pMatrix);
+}
+
 // Destructor
 Testshader::~Testshader()
 {
@@ -293,6 +324,11 @@ Testshader::~Testshader()
 	std::clog << "Shader class was destroyed successfully!" << std::endl;
 }
 
+void Testshader::getAllUniformLocations()
+{
+	mLocation_transformationMatrix = glGetUniformLocation(getProgramID(), "transformationMatrix");
+	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projectionMatrix");
+}
 
 // Binding an attribtute to the shader
 void Testshader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
