@@ -22,11 +22,11 @@ void Renderer::addShader(const char* pVertexShader, const char* pFragmentShader)
 
 void Renderer::addUniformAttribute(glm::mat4 pMatrix, const char * pAttributeName)
 {
-	glm::mat4 view;
-	view = pMatrix;
+	glm::mat4 matrix;
+	matrix = pMatrix;
 	mShader->addAttribute(pAttributeName);
-	GLint viewLocation = mShader->getUniformLocation(pAttributeName);
-	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
+	GLint attribtuteLocation = mShader->getUniformLocation(pAttributeName);
+	glUniformMatrix4fv(attribtuteLocation, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 
@@ -43,8 +43,9 @@ void Renderer::disableShader()
 
 void Renderer::render(Model pModel,RenderMode pMode)
 {
-	glBindVertexArray(pModel.getVaoId());
+	glBindVertexArray(pModel.getVAO());
 	glEnableVertexAttribArray(0);
+	/*
 	switch (pMode)
 	{
 	case RenderMode::POINTS:
@@ -71,13 +72,16 @@ void Renderer::render(Model pModel,RenderMode pMode)
 	}
 	glDisableVertexAttribArray(0);
 	glBindVertexArray(0);
-}
+	*/
+	}
 
-void Renderer::render(Model pModel)
+void Renderer::render(Model* pModel)
 {
-	glBindVertexArray(pModel.getVaoId());
+	glBindVertexArray(pModel->getVAO());
 	glEnableVertexAttribArray(0);
-	glDrawElements(GL_TRIANGLES, pModel.getVerticesCount(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, pModel->getIndices().size(), GL_UNSIGNED_INT, 0);
 	glDisableVertexAttribArray(0);
 	glBindVertexArray(0);
 }
+
+

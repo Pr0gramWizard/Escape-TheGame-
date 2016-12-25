@@ -27,6 +27,7 @@ void Player::move()
 	/* TODO */
 }
 
+
 void Player::incPosition(glm::vec3 pOffset)
 {
 	mPosition.x += pOffset.x;

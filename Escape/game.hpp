@@ -20,11 +20,14 @@
 // Player class
 #include "player.hpp"
 // Loader class
-#include "loader.hpp"
+#include "loaderX.hpp"
 // Renderer class
 #include "renderer.hpp"
+// Object class
+#include "object.hpp"
 
 #include <mat4x4.hpp>
+#include <gtx\string_cast.hpp>
 #include <vec3.hpp>
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
