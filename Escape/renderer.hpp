@@ -10,6 +10,7 @@
 #include "model.hpp"
 #include "entity.hpp"
 #include "shader.hpp"
+#include "testshader.hpp"
 
 enum RenderMode {
 	POINTS,
@@ -32,8 +33,8 @@ public:
 	void addUniformAttribute(glm::mat4 pMatrix, const char* pAttributeName);
 	void enableShader();
 	void disableShader();
-	void render(Entity pEntity,RenderMode pMode);
-	void render(Entity pModel);
+	void render(Entity pEntity, Testshader *pShader, RenderMode pMode);
+	void render(Entity pModel, Testshader *pShader);
 
 private:
 	Shader* mShader;

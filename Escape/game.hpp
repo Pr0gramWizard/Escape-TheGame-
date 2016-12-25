@@ -13,6 +13,7 @@
 #include <glfw3.h>
 // Shader class
 #include "shader.hpp"
+#include "testshader.hpp"
 // Camera class
 #include "camera.hpp"
 // Terrain class

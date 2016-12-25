@@ -31,6 +31,7 @@
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="terrain.cpp" />
+    <ClCompile Include="testshader.cpp" />
     <ClCompile Include="vector2D.cpp" />
     <ClCompile Include="vector3D.cpp" />
     <ClCompile Include="vector4D.cpp" />
@@ -47,6 +48,7 @@
     <ClInclude Include="renderer.hpp" />
     <ClInclude Include="terrain.hpp" />
     <ClInclude Include="shader.hpp" />
+    <ClInclude Include="testshader.hpp" />
     <ClInclude Include="textureloader.hpp" />
     <ClInclude Include="utility.hpp" />
     <ClInclude Include="vector2D.hpp" />
@@ -54,12 +56,14 @@
     <ClInclude Include="vector4D.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="fragmentShader.frag" />
     <None Include="glew32.dll" />
     <None Include="SDL2.dll" />
     <None Include="shaders\worldShader.frag" />
     <None Include="shaders\worldShader.vert" />
     <None Include="shaders\triangleShader.frag" />
     <None Include="shaders\triangleShader.vert" />
+    <None Include="vertexShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\fireblast.png" />
