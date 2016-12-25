@@ -24,3 +24,16 @@ float Math::toRadians(float pAngle)
 	float PI = 3.14159265358979323846f;
 	return pAngle * (PI / 180.0f);
 }
+
+void Math::printMatrix(glm::mat4 pMatrix)
+{
+	for (int i = 0; i < 4; ++i)
+	{
+		for (int j = 0; j < 4; ++j)
+		{
+			std::cout << pMatrix[i][j] << " ";
+		}
+
+		std::cout << std::endl;
+	}
+}

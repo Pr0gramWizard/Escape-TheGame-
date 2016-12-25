@@ -112,11 +112,13 @@ bool Game::gameLoop()
 		//renderer->addShader("shaders/worldShader.vert", "shaders/worldShader.frag");
 		//renderer->addUniformAttribute(mPlayer->getViewMatrix(), "view");
 		//renderer->addUniformAttribute(mPlayer->getProjectionMatrix(this->getHeight(), this->getWidth()), "projection");
-		testEntity->increaseRotation(1, 1, 1);
-		testEntity->increasePosition(0, 0, -0.002f);
+		testEntity->increaseRotation(0, 0, 1);
+		testEntity->increasePosition(0, 0,-0.0004f);
 		testShader->use();
 		testShader->loadTransformationMatrix(testEntity->getModelMatrix());
 		renderer->render(*testEntity, testShader);
+		Math::printMatrix(testEntity->getModelMatrix());
+		debug();
 		testShader->unuse();
 		
 
@@ -252,4 +254,9 @@ void Game::setHeight(GLuint pHeight)
 void Game::setTitle(const char * pTitle)
 {
 	mTitle = pTitle;
+}
+
+void Game::debug()
+{
+	system("PAUSE");
 }

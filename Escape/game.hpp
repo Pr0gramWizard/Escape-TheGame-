@@ -24,11 +24,14 @@
 #include "loader.hpp"
 // Renderer class
 #include "renderer.hpp"
+// Math class
+#include "math.hpp"
 
 #include <mat4x4.hpp>
 #include <vec3.hpp>
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
+#include <gtx\string_cast.hpp>
 
 class Game
 {
@@ -84,6 +87,7 @@ private:
 	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 	static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	void do_movement();
+	void debug();
 
 
 

@@ -2,6 +2,7 @@
 
 #include <gtc\matrix_transform.hpp>
 #include <glew.h>
+#include <iostream>
 
 class Math {
 public:
@@ -17,4 +18,6 @@ public:
 	static glm::mat4 getTransformationMatrix(glm::vec3 pPosition, GLfloat pXRotation, GLfloat pYRotation, GLfloat pZRotation, GLfloat pScale);
 
 	static float toRadians(float pAngle);
+
+	static void printMatrix(glm::mat4 pMatrix);
 };
