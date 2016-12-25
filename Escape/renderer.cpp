@@ -41,43 +41,43 @@ void Renderer::disableShader()
 	mShader->unuse();
 }
 
-void Renderer::render(Model pModel,RenderMode pMode)
+void Renderer::render(Entity pEntity,RenderMode pMode)
 {
-	glBindVertexArray(pModel.getVaoId());
+	glBindVertexArray(pEntity.getModel()->getVaoId());
 	glEnableVertexAttribArray(0);
 	switch (pMode)
 	{
 	case RenderMode::POINTS:
-		glDrawElements(GL_POINTS, pModel.getVerticesCount(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_POINTS, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 		break;
 	case RenderMode::LINES:
-		glDrawElements(GL_LINES, pModel.getVerticesCount(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_LINES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 		break;
 	case RenderMode::LINE_STRIP:
-		glDrawElements(GL_LINE_STRIP, pModel.getVerticesCount(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_LINE_STRIP, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 		break;
 	case RenderMode::LINE_LOOP:
-		glDrawElements(GL_LINE_LOOP, pModel.getVerticesCount(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_LINE_LOOP, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 		break;
 	case RenderMode::TRIANGLES:
-		glDrawElements(GL_TRIANGLES, pModel.getVerticesCount(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 		break;
 	case RenderMode::TRIANGLE_STRIP:
-		glDrawElements(GL_TRIANGLE_STRIP, pModel.getVerticesCount(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLE_STRIP, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 		break;
 	case RenderMode::TRIANGLE_FAN:
-		glDrawElements(GL_TRIANGLE_FAN, pModel.getVerticesCount(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLE_FAN, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 		break;
 	}
 	glDisableVertexAttribArray(0);
 	glBindVertexArray(0);
 }
 
-void Renderer::render(Model pModel)
+void Renderer::render(Entity pEntity)
 {
-	glBindVertexArray(pModel.getVaoId());
+	glBindVertexArray(pEntity.getModel()->getVaoId());
 	glEnableVertexAttribArray(0);
-	glDrawElements(GL_TRIANGLES, pModel.getVerticesCount(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 	glDisableVertexAttribArray(0);
 	glBindVertexArray(0);
 }

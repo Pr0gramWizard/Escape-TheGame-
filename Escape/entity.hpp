@@ -1,12 +1,15 @@
 #pragma once
 
 #include <vec3.hpp>
+#include <mat4x4.hpp>
+#include "math.hpp"
 #include <glew.h>
+#include "model.hpp"
 
 class Entity
 {
 public:
-	Entity(glm::vec3 pPosition, GLfloat pXRotation, GLfloat pYRotation, GLfloat pZRotation, GLfloat pScale);
+	Entity(glm::vec3 pPosition, GLfloat pXRotation, GLfloat pYRotation, GLfloat pZRotation, GLfloat pScale, Model* pModel);
 	~Entity();
 
 	glm::vec3 getPosition() const;
@@ -14,6 +17,9 @@ public:
 	GLfloat getYRotation() const;
 	GLfloat getZRotation() const;
 	GLfloat getScale() const;
+	Model* getModel();
+
+	glm::mat4 getModelMatrix();
 
 	void increasePosition(GLfloat x, GLfloat y, GLfloat z);
 	void increaseRotation(GLfloat x, GLfloat y, GLfloat z);
@@ -31,5 +37,6 @@ private:
 	GLfloat mZRotation;
 	//  scale (1 = normal size)
 	GLfloat mScale;
+	Model* mModel;
 };
 

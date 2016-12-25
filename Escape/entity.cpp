@@ -1,10 +1,11 @@
 #include "entity.hpp"
 
-Entity::Entity(glm::vec3 pPosition, GLfloat pXRotation, GLfloat pYRotation, GLfloat pZRotation, GLfloat pScale)
+Entity::Entity(glm::vec3 pPosition, GLfloat pXRotation, GLfloat pYRotation, GLfloat pZRotation, GLfloat pScale, Model* pModel)
 {
 	setPosition(pPosition);
 	setRotation(pXRotation, pYRotation, pZRotation);
 	mScale = pScale;
+	mModel = pModel;
 }
 
 Entity::~Entity()
@@ -34,6 +35,16 @@ GLfloat Entity::getZRotation() const
 GLfloat Entity::getScale() const
 {
 	return mScale;
+}
+
+Model * Entity::getModel()
+{
+	return mModel;
+}
+
+glm::mat4 Entity::getModelMatrix()
+{
+	return Math::getTransformationMatrix(mPosition, mXRotation, mYRotation, mZRotation, mScale);
 }
 
 void Entity::increasePosition(GLfloat x, GLfloat y, GLfloat z)

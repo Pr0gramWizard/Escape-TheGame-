@@ -105,7 +105,9 @@
     <ClCompile Include="renderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="entity.cpp" />
+    <ClCompile Include="entity.cpp">
+      <Filter>Loader Functions\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.hpp">
@@ -153,7 +155,9 @@
     <ClInclude Include="renderer.hpp">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="entity.hpp" />
+    <ClInclude Include="entity.hpp">
+      <Filter>Loader Functions\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
