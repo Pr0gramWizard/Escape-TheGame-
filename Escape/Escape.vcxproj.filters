@@ -193,10 +193,10 @@
     <None Include="shaders\worldShader.vert">
       <Filter>Shader\Shaders\Vertex</Filter>
     </None>
-    <None Include="fragmentShader.frag">
+    <None Include="shaders\a.frag">
       <Filter>Shader\Shaders\Fragment</Filter>
     </None>
-    <None Include="vertexShader.vert">
+    <None Include="shaders\b.vert">
       <Filter>Shader\Shaders\Vertex</Filter>
     </None>
   </ItemGroup>

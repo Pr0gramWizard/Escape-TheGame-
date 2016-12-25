@@ -92,7 +92,7 @@ bool Game::gameLoop()
 	Entity* testEntity = new Entity(glm::vec3(0, 0, 0), 0, 0, 0, 1, &model);
 
 	Testshader* testShader = new Testshader();
-	testShader->createShader("shaders/vertexShader.vert", "shaders/fragmentShader.frag");
+	testShader->createShader("shaders/b.vert", "shaders/a.frag");
 	testShader->bindAttribute(0, "position");
 
     // Game loop
