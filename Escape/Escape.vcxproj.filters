@@ -117,6 +117,9 @@
     <ClCompile Include="testshader.cpp">
       <Filter>Shader</Filter>
     </ClCompile>
+    <ClCompile Include="terrainRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.hpp">
@@ -173,6 +176,9 @@
     <ClInclude Include="testshader.hpp">
       <Filter>Shader</Filter>
     </ClInclude>
+    <ClInclude Include="terrainRenderer.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
@@ -197,6 +203,12 @@
       <Filter>Shader\Shaders\Fragment</Filter>
     </None>
     <None Include="shaders\b.vert">
+      <Filter>Shader\Shaders\Vertex</Filter>
+    </None>
+    <None Include="terrain.frag">
+      <Filter>Shader\Shaders\Fragment</Filter>
+    </None>
+    <None Include="terrain.vert">
       <Filter>Shader\Shaders\Vertex</Filter>
     </None>
   </ItemGroup>

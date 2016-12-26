@@ -28,6 +28,9 @@ public:
 	void setVertices(int pVertices);
 	void setName(const char* pName);
 
+	glm::mat4 getModelMatrix();
+	Model* getModel();
+
 public:
 	static const int TERRAIN_SIZE = 200;
 

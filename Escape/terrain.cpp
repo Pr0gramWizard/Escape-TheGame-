@@ -3,8 +3,8 @@
 Terrain::Terrain(int pWorldX, int pWorldZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader)
 {
 	// Worldspace coordinates
-	mWorldX = pWorldX;
-	mWorldZ = pWorldZ;
+	mWorldX = pWorldX * TERRAIN_SIZE;
+	mWorldZ = pWorldZ * TERRAIN_SIZE;
 	
 	// Set height amplitude for terrain
 	setAmplitude(pAmplitude);
@@ -79,6 +79,16 @@ void Terrain::setVertices(int pVertices)
 void Terrain::setName(const char * pName)
 {
 	mName = pName;
+}
+
+glm::mat4 Terrain::getModelMatrix()
+{
+	return Math::getTransformationMatrix(glm::vec3(mWorldX, 0, mWorldZ), 0, 0, 0, 1);
+}
+
+Model * Terrain::getModel()
+{
+	return mModel;
 }
 
 bool Terrain::isPowerOfTwo(int pX)

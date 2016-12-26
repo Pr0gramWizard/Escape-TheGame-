@@ -24,7 +24,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(), NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/, NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -64,8 +64,6 @@ bool Game::gameLoop()
 	Loader* loader = new Loader();
 
 	Renderer* renderer = new Renderer();
-
-	Terrain* terrain = new Terrain(0, 0, 0, 128, "Test", loader);
 
 	std::vector<float> vertices = {
 		0.0f, 0.0f, 0.0f,
@@ -116,6 +114,13 @@ bool Game::gameLoop()
 	Testshader* testShader = new Testshader("shaders/b.vert", "shaders/a.frag");
 	testShader->bindAttribute(0, "position");
 
+	// Terrain test
+	Terrain* terrain = new Terrain(0, 0, 0, 128, "Test", loader);
+	Testshader* terrainShader = new Testshader("shaders/terrain.vert", "shaders/terrain.frag");
+	TerrainRenderer* terrainRenderer = new TerrainRenderer(terrainShader, mPlayer->getProjectionMatrix(mHeight, mWidth));
+	std::list<Terrain> terrains;
+	terrains.push_back(*terrain);
+
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
@@ -130,7 +135,7 @@ bool Game::gameLoop()
 		do_movement();
 
 		
-		renderer->prepare();
+		/*renderer->prepare();
 		testShader->use();
 		BlockA->increaseRotation(0, 1, 0,deltaTime);
 		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
@@ -144,8 +149,16 @@ bool Game::gameLoop()
 		testShader->loadModelMatrix(BlockB->getModelMatrix());
 		testShader->loadViewMatrix(mPlayer->getViewMatrix());
 		renderer->render(*BlockB, testShader);
-		testShader->unuse();
+		testShader->unuse();*/
 		
+		terrainShader->use();
+		terrainShader->loadProjectionMatrix(mPlayer->getProjectionMatrix);
+		terrainShader->loadViewMatrix(mPlayer->getViewMatrix());
+		terrainShader->loadModelMatrix(terrain->getModelMatrix());
+		terrainRenderer->render(terrain);
+		//terrainRenderer->render(terrains);
+		terrainShader->unuse();
+
 
 
 		

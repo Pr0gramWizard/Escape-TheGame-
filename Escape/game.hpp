@@ -24,8 +24,11 @@
 #include "loader.hpp"
 // Renderer class
 #include "renderer.hpp"
+#include "terrainRenderer.hpp"
 // Math class
 #include "math.hpp"
+// List
+#include <list>
 
 #include <mat4x4.hpp>
 #include <vec3.hpp>
