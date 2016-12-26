@@ -43,13 +43,13 @@ void Camera::ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime)
 	GLfloat velocity = this->getMovementSpeed() * deltaTime;
 
 	if (pDirection == FORWARD)
-		this->setPosition(this->getPosition() + (this->getFront() * velocity));
-	if (pDirection == BACKWARD)
 		this->setPosition(this->getPosition() - (this->getFront() * velocity));
+	if (pDirection == BACKWARD)
+		this->setPosition(this->getPosition() + (this->getFront() * velocity));
 	if (pDirection == LEFT)
-		this->setPosition(this->getPosition() - (this->getRight() * velocity));
-	if (pDirection == RIGHT)
 		this->setPosition(this->getPosition() + (this->getRight() * velocity));
+	if (pDirection == RIGHT)
+		this->setPosition(this->getPosition() - (this->getRight() * velocity));
 }
 
 void Camera::ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset)
