@@ -13,7 +13,7 @@
 class Terrain
 {
 public:
-	Terrain(int pWorldX, int pWorldY, int pAmplitude, int pVertices, const char* pName, Loader* pLoader);
+	Terrain(int pGridX, int pGridZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader);
 	GLfloat* getVertices(int pTiles);
 	~Terrain();
 

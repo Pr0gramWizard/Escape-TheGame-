@@ -1,10 +1,10 @@
 #include "terrain.hpp"
 
-Terrain::Terrain(int pWorldX, int pWorldZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader)
+Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader)
 {
 	// Worldspace coordinates
-	mWorldX = pWorldX * TERRAIN_SIZE;
-	mWorldZ = pWorldZ * TERRAIN_SIZE;
+	mWorldX = pGridX * TERRAIN_SIZE;
+	mWorldZ = pGridZ * TERRAIN_SIZE;
 	
 	// Set height amplitude for terrain
 	setAmplitude(pAmplitude);
