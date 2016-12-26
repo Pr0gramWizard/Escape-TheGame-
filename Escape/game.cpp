@@ -151,8 +151,9 @@ bool Game::gameLoop()
 		renderer->render(*BlockB, testShader);
 		testShader->unuse();*/
 		
+		terrainRenderer->prepare();
 		terrainShader->use();
-		terrainShader->loadProjectionMatrix(mPlayer->getProjectionMatrix);
+		terrainShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(this->getHeight(),this->getWidth()));
 		terrainShader->loadViewMatrix(mPlayer->getViewMatrix());
 		terrainShader->loadModelMatrix(terrain->getModelMatrix());
 		terrainRenderer->render(terrain);

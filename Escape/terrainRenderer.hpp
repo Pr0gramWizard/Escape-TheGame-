@@ -21,10 +21,13 @@ public:
 
 	void render(list<Terrain> pTerrains);
 	void render(Terrain pTerrain);
-
+	void render(Terrain* pTerrain);
+	void prepare();
 	void prepareTerrain(Terrain pTerrain);
+	void prepareTerrain(Terrain* pTerrain);
 	void unbindTerrain();
 	void loadModelMatrix(Terrain pTerrain);
+	void loadModelMatrix(Terrain* pTerrain);
 
 
 private:

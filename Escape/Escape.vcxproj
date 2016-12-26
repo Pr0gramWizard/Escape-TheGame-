@@ -64,12 +64,12 @@
     <None Include="SDL2.dll" />
     <None Include="shaders\a.frag" />
     <None Include="shaders\b.vert" />
+    <None Include="shaders\terrain.frag" />
+    <None Include="shaders\terrain.vert" />
     <None Include="shaders\worldShader.frag" />
     <None Include="shaders\worldShader.vert" />
     <None Include="shaders\triangleShader.frag" />
     <None Include="shaders\triangleShader.vert" />
-    <None Include="terrain.frag" />
-    <None Include="terrain.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\fireblast.png" />

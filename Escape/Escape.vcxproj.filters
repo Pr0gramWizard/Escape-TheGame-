@@ -205,10 +205,10 @@
     <None Include="shaders\b.vert">
       <Filter>Shader\Shaders\Vertex</Filter>
     </None>
-    <None Include="terrain.frag">
+    <None Include="shaders\terrain.frag">
       <Filter>Shader\Shaders\Fragment</Filter>
     </None>
-    <None Include="terrain.vert">
+    <None Include="shaders\terrain.vert">
       <Filter>Shader\Shaders\Vertex</Filter>
     </None>
   </ItemGroup>
