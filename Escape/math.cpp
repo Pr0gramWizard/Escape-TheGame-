@@ -21,8 +21,7 @@ glm::mat4 Math::getTransformationMatrix(glm::vec3 pPosition, GLfloat pXRotation,
 	glm::mat4 scale;
 	scale = glm::scale(scale, glm::vec3(pScale, pScale, pScale));
 	glm::mat4 rotation = rotationX * rotationY * rotationZ;
-	// return translate * rotation * scale;
-	return translate;
+	return translate * rotation * scale;
 }
 
 float Math::toRadians(float pAngle)

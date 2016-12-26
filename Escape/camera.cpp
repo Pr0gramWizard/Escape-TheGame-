@@ -153,7 +153,7 @@ GLfloat Camera::getZoom() const
 void Camera::setPosition(glm::vec3 pPosition)
 {
 	mPosition = pPosition;
-	mPosition.y = 1.0f;
+	// mPosition.y = 1.0f;
 }
 void Camera::setFront(glm::vec3 pFront)
 {

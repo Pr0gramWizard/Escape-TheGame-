@@ -31,7 +31,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	// Set the required callback functions
 	glfwSetWindowUserPointer(this->getWindow(), this);
 	glfwSetKeyCallback(this->getWindow(), key_callback);
-	glfwSetCursorPosCallback(this->getWindow(), mouse_callback);
+	// glfwSetCursorPosCallback(this->getWindow(), mouse_callback);
 	glfwSetScrollCallback(this->getWindow(), scroll_callback);
 	//Remove Null + remove comment to get fullscreen
 	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
@@ -68,10 +68,14 @@ bool Game::gameLoop()
 	Terrain* terrain = new Terrain(0, 0, 0, 128, "Test", loader);
 
 	std::vector<float> vertices = {
-		-0.5f, 0.5f, 0.0f,
-		-0.5f, -0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
+		0.0f, 0.0f, 0.0f,
+		0.5f, 0.0f, 0.0f,
+		0.5f, 0.0f, -0.5f,
+		0.0f, 0.0f, -0.5f,
+		0.0f, 0.5f, 0.0f,
 		0.5f, 0.5f, 0.0f,
+		0.5f, 0.5f, -0.5f,
+		0.0f, 0.5f, -0.5f,
 	};
 
 	std::vector<float> tex = {
@@ -83,8 +87,25 @@ bool Game::gameLoop()
 	};
 
 	std::vector<int> indices = {
+		// Button Side
 		0,1,3,
-		3,1,2
+		1,2,3,
+		// Front Side
+		0,1,4,
+		1,4,5,
+		// Right Side
+		1,2,5,
+		2,5,6,
+		// Left Side
+		0,3,4,
+		3,4,7,
+		// Back Side
+		2,3,7,
+		2,3,6,
+		// Top Side
+		4,5,7,
+		5,6,7
+
 	};
 
 	Model model = loader->loadDataToVao(vertices, tex, normal, indices);
@@ -110,13 +131,10 @@ bool Game::gameLoop()
 		
 		renderer->prepare();
 		testShader->use();
+		testEntity->increaseRotation(1, 1, 1);
 		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
-		Math::printMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
 		testShader->loadModelMatrix(testEntity->getModelMatrix());
-		Math::printMatrix(testEntity->getModelMatrix());
 		testShader->loadViewMatrix(mPlayer->getViewMatrix());
-		Math::printMatrix(mPlayer->getViewMatrix());
-		// system("PAUSE");
 		renderer->render(*testEntity, testShader);
 		testShader->unuse();
 		
