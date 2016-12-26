@@ -320,7 +320,7 @@ void Game::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	GLint halfWidth = (GLint) (wWidth / 2.0f);
 	GLint halfHeight = (GLint)(wHeight / 2.0f);
 	//add this to lock the mouse centered in the screen
-	//glfwSetCursorPos(game->getWindow(), halfWidth, halfHeight);
+	glfwSetCursorPos(game->getWindow(), halfWidth, halfHeight);
 	game->lastX = (GLfloat)halfWidth;
 	game->lastY = (GLfloat)halfHeight;
 }
