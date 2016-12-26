@@ -223,7 +223,7 @@ bool Game::gameLoop()
 
 		terrainShader->use();
 		terrainShader->loadViewMatrix(mPlayer->getViewMatrix());
-		terrainRenderer->render(*terrain);
+		terrainRenderer->render(terrain);
 		terrainShader->unuse();
 		
 		/*terrainRenderer->prepare();
