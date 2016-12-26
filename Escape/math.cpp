@@ -10,13 +10,19 @@ float Math::barryCentric(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 pos
 
 glm::mat4 Math::getTransformationMatrix(glm::vec3 pPosition, GLfloat pXRotation, GLfloat pYRotation, GLfloat pZRotation, GLfloat pScale)
 {
-	glm::mat4 matrix = glm::mat4(1.0f);
-	matrix = glm::translate(matrix, pPosition);
-	matrix = glm::rotate(matrix, Math::toRadians(pXRotation), glm::vec3(1.0f, 0.0f, 0.0f));
-	matrix = glm::rotate(matrix, Math::toRadians(pYRotation), glm::vec3(0.0f, 1.0f, 0.0f));
-	matrix = glm::rotate(matrix, Math::toRadians(pZRotation), glm::vec3(0.0f, 0.0f, 1.0f));
-	matrix = glm::scale(matrix, glm::vec3(pScale, pScale, pScale));
-	return matrix;
+	glm::mat4 translate;
+	translate = glm::translate(translate, pPosition);
+	glm::mat4 rotationX;
+	rotationX = glm::rotate(rotationX, Math::toRadians(pXRotation), glm::vec3(1.0f, 0.0f, 0.0f));
+	glm::mat4 rotationY;
+	rotationY = glm::rotate(rotationY, Math::toRadians(pYRotation), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 rotationZ;
+	rotationZ = glm::rotate(rotationZ, Math::toRadians(pZRotation), glm::vec3(0.0f, 0.0f, 1.0f));
+	glm::mat4 scale;
+	scale = glm::scale(scale, glm::vec3(pScale, pScale, pScale));
+	glm::mat4 rotation = rotationX * rotationY * rotationZ;
+	// return translate * rotation * scale;
+	return translate;
 }
 
 float Math::toRadians(float pAngle)

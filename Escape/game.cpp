@@ -93,7 +93,7 @@ bool Game::gameLoop()
 
 	Testshader* testShader = new Testshader("shaders/b.vert", "shaders/a.frag");
 	testShader->bindAttribute(0, "position");
-	testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
+
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
@@ -109,15 +109,15 @@ bool Game::gameLoop()
 
 		
 		renderer->prepare();
-		//renderer->addShader("shaders/worldShader.vert", "shaders/worldShader.frag");
-		//renderer->addUniformAttribute(mPlayer->getViewMatrix(), "view");
-		//renderer->addUniformAttribute(mPlayer->getProjectionMatrix(this->getHeight(), this->getWidth()), "projection");
-		testEntity->increaseRotation(0, 0, 1);
-		testEntity->increasePosition(0, 0,-0.0004f);
-		testShader->use();
+		// testShader->use();
+		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
+		Math::printMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
 		testShader->loadModelMatrix(testEntity->getModelMatrix());
-		renderer->render(*testEntity, testShader);
 		Math::printMatrix(testEntity->getModelMatrix());
+		testShader->loadViewMatrix(mPlayer->getViewMatrix());
+		Math::printMatrix(mPlayer->getViewMatrix());
+		system("PAUSE");
+		renderer->render(*testEntity, testShader);
 		testShader->unuse();
 		
 

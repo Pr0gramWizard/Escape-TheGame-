@@ -15,7 +15,7 @@ Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWi
 	mCurrentTurnSpeed = 0;
 	setWindowHeight(pWindowHeight);
 	setWindowWidht(pWindowWidth);
-	mEye = new Camera();
+	mEye = new Camera(this->getPosition().x, this->getPosition().y, this->getPosition().z, 0.0f, 1.0f, 0.0f, -90.0f, 0.0f);
 }
 
 void Player::move()
