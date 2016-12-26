@@ -109,7 +109,7 @@ bool Game::gameLoop()
 	Model model = loader->loadDataToVao(vertices, tex, normal, indices);
 
 	Entity* BlockA = new Entity(glm::vec3(0, 0, 0), 0, 0, 0, 1, &model);
-	Entity* BlockB = new Entity(glm::vec3(1, 0, 0), 0, 0, 0, 1, &model);
+	Entity* BlockB = new Entity(glm::vec3(1, 0, 0), 0, 0, 0, 2, &model);
 
 	Testshader* testShader = new Testshader("shaders/b.vert", "shaders/a.frag");
 	testShader->bindAttribute(0, "position");
@@ -135,7 +135,7 @@ bool Game::gameLoop()
 		do_movement();
 
 		
-		/*renderer->prepare();
+		renderer->prepare();
 		testShader->use();
 		BlockA->increaseRotation(0, 1, 0,deltaTime);
 		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
@@ -149,8 +149,8 @@ bool Game::gameLoop()
 		testShader->loadModelMatrix(BlockB->getModelMatrix());
 		testShader->loadViewMatrix(mPlayer->getViewMatrix());
 		renderer->render(*BlockB, testShader);
-		testShader->unuse();*/
-		
+		testShader->unuse();
+		/*
 		terrainRenderer->prepare();
 		terrainShader->use();
 		terrainShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(this->getHeight(),this->getWidth()));
@@ -159,7 +159,7 @@ bool Game::gameLoop()
 		terrainRenderer->render(terrain);
 		//terrainRenderer->render(terrains);
 		terrainShader->unuse();
-
+		*/
 
 
 		

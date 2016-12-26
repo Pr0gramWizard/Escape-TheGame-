@@ -4,7 +4,7 @@
 // Sets the Camera to the position (0,0,-3)
 Camera::Camera()
 {
-	this->setPosition(glm::vec3(0.0f,0.0f,-3.0f));
+	this->setPosition(glm::vec3(0.0f,0.0f,3.0f));
 	this->setWorldUp(glm::vec3(0.0f,1.0f,0.0f));
 	this->setFront(glm::vec3(0.0f, 0.0f, -1.0f));
 	this->setYaw(YAW);
@@ -101,7 +101,7 @@ void Camera::updateCameraVectors()
 	glm::vec3 front;
 	front.x = cos(glm::radians(this->getYaw())) * cos(glm::radians(this->getPitch()));
 	front.y = sin(glm::radians(this->getPitch()));
-	front.z = sin(glm::radians(this->getYaw())) * cos(glm::radians(this->getPitch()));
+	front.z = -(sin(glm::radians(this->getYaw())) * cos(glm::radians(this->getPitch())));
 	this->setFront(glm::normalize(front));
 	// Also re-calculate the Right and Up vector
 	this->setRight(glm::normalize(glm::cross(this->getFront(), this->getWorldUp())));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
