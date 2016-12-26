@@ -54,11 +54,11 @@ void Entity::increasePosition(GLfloat x, GLfloat y, GLfloat z)
 	mPosition.z += z;
 }
 
-void Entity::increaseRotation(GLfloat x, GLfloat y, GLfloat z)
+void Entity::increaseRotation(GLfloat x, GLfloat y, GLfloat z, GLfloat pDeltaTime)
 {
-	mXRotation += x;
-	mYRotation += y;
-	mZRotation += z;
+	mXRotation += (x*100) * pDeltaTime;
+	mYRotation += (y*100) * pDeltaTime;
+	mZRotation += (z*100) * pDeltaTime;
 }
 
 void Entity::setPosition(glm::vec3 pPosition)

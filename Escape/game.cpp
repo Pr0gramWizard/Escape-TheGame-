@@ -110,7 +110,8 @@ bool Game::gameLoop()
 
 	Model model = loader->loadDataToVao(vertices, tex, normal, indices);
 
-	Entity* testEntity = new Entity(glm::vec3(0, 0, 0), 0, 0, 0, 1, &model);
+	Entity* BlockA = new Entity(glm::vec3(0, 0, 0), 0, 0, 0, 1, &model);
+	Entity* BlockB = new Entity(glm::vec3(1, 0, 0), 0, 0, 0, 1, &model);
 
 	Testshader* testShader = new Testshader("shaders/b.vert", "shaders/a.frag");
 	testShader->bindAttribute(0, "position");
@@ -131,11 +132,18 @@ bool Game::gameLoop()
 		
 		renderer->prepare();
 		testShader->use();
-		testEntity->increaseRotation(0, 0, 0);
+		BlockA->increaseRotation(0, 1, 0,deltaTime);
 		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
-		testShader->loadModelMatrix(testEntity->getModelMatrix());
+		testShader->loadModelMatrix(BlockA->getModelMatrix());
 		testShader->loadViewMatrix(mPlayer->getViewMatrix());
-		renderer->render(*testEntity, testShader);
+		renderer->render(*BlockA, testShader);
+		testShader->unuse();
+		testShader->use();
+		BlockB->increaseRotation(0, -1, 0,deltaTime);
+		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
+		testShader->loadModelMatrix(BlockB->getModelMatrix());
+		testShader->loadViewMatrix(mPlayer->getViewMatrix());
+		renderer->render(*BlockB, testShader);
 		testShader->unuse();
 		
 

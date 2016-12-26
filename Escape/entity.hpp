@@ -22,7 +22,7 @@ public:
 	glm::mat4 getModelMatrix();
 
 	void increasePosition(GLfloat x, GLfloat y, GLfloat z);
-	void increaseRotation(GLfloat x, GLfloat y, GLfloat z);
+	void increaseRotation(GLfloat x, GLfloat y, GLfloat z, GLfloat pDeltaTime);
 
 	void setPosition(glm::vec3 pPosition);
 	void setRotation(GLfloat x, GLfloat y, GLfloat z);
