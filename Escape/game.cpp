@@ -131,7 +131,7 @@ bool Game::gameLoop()
 		
 		renderer->prepare();
 		testShader->use();
-		testEntity->increaseRotation(1, 1, 1);
+		testEntity->increaseRotation(0, 0, 0);
 		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
 		testShader->loadModelMatrix(testEntity->getModelMatrix());
 		testShader->loadViewMatrix(mPlayer->getViewMatrix());
