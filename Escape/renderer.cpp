@@ -77,7 +77,7 @@ void Renderer::render(Entity pEntity, Testshader *pShader)
 {
 	glBindVertexArray(pEntity.getModel()->getVaoId());
 	glEnableVertexAttribArray(0);
-	glDrawElements(GL_TRIANGLES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_LINES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 	glDisableVertexAttribArray(0);
 	glBindVertexArray(0);
 }

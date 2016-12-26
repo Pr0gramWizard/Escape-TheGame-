@@ -79,6 +79,11 @@ int Player::getWindowHeight() const
 	return mWindowHeight;
 }
 
+glm::vec3 Player::getViewVector() const
+{
+	return mEye->getFront();
+}
+
 int Player::getWindowWidht() const
 {
 	return mWindowWidth;
@@ -99,9 +104,9 @@ void Player::ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime)
 	mEye->ProcessKeyboard(pDirection, deltaTime);
 }
 
-void Player::ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset)
+void Player::ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset,GLfloat deltaTime)
 {
-	mEye->ProcessMouseMovement(pXOffset, pYOffset);
+	mEye->ProcessMouseMovement(pXOffset, pYOffset,deltaTime);
 }
 
 void Player::ProcessMouseScroll(GLfloat pYOffset)

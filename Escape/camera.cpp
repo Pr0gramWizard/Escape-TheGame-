@@ -4,9 +4,9 @@
 // Sets the Camera to the position (0,0,-3)
 Camera::Camera()
 {
-	this->setPosition(glm::vec3(0.0f,0.0f,3.0f));
+	this->setPosition(glm::vec3(0.0f,1.0f,3.0f));
 	this->setWorldUp(glm::vec3(0.0f,1.0f,0.0f));
-	this->setFront(glm::vec3(0.0f, 0.0f, -1.0f));
+	this->setFront(glm::vec3(0.5f, 0.5f, -1.0f));
 	this->setYaw(YAW);
 	this->setPitch(PITCH);
 	this->setMovementSpeed(SPEED);
@@ -59,15 +59,15 @@ void Camera::ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime)
 }
 
 // Process the Mouse input based on X/Y Offset of the mouse
-void Camera::ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset)
+void Camera::ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset, GLfloat deltaTime)
 {
 	GLboolean constrainPitch = true;
 
-	pXOffset *= this->getMouseSensitivity();
-	pYOffset *= this->getMouseSensitivity();
+	pXOffset *= (this->getMouseSensitivity() * 10) * deltaTime;
+	pYOffset *= (this->getMouseSensitivity() * 10) * deltaTime;
 
-	this->setYaw(this->getYaw() + pXOffset);
-	this->setPitch(this->getPitch() + pYOffset);
+	this->setYaw(this->getYaw() - pXOffset);
+	this->setPitch(this->getPitch() - pYOffset);
 
 	// Make sure that when pitch is out of bounds, screen doesn't get flipped
 	if (constrainPitch)
@@ -171,7 +171,7 @@ void Camera::setPosition(glm::vec3 pPosition)
 {
 	mPosition = pPosition;
 	// Camera always stays at y = 0.5f
-	mPosition.y = 0.5f;
+	mPosition.y = 3.0f;
 }
 // Sets the front vector based on a given vector
 void Camera::setFront(glm::vec3 pFront)

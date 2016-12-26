@@ -24,14 +24,14 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/, NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(), NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
 	// Set the required callback functions
 	glfwSetWindowUserPointer(this->getWindow(), this);
 	glfwSetKeyCallback(this->getWindow(), key_callback);
-	// glfwSetCursorPosCallback(this->getWindow(), mouse_callback);
+	glfwSetCursorPosCallback(this->getWindow(), mouse_callback);
 	glfwSetScrollCallback(this->getWindow(), scroll_callback);
 	//Remove Null + remove comment to get fullscreen
 	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
@@ -106,10 +106,28 @@ bool Game::gameLoop()
 
 	};
 
+	std::vector<float> VerticesCoordinateSystem = {
+		-10.0f, 0.0f, 0.0f,
+		10.0f, 0.0f, 0.0f,
+		0.0f, -10.0f, 0.0f,
+		0.0f, 10.0f, 0.0f,
+		0.0f, 0.0f, -10.0f,
+		0.0f, 0.0f, 10.0f
+	};
+
+	std::vector<int> IndicesCoordianteSystem = {
+		0,1,
+		2,3,
+		4,5,
+	};
+
+	Model CoordianteSystem = loader->loadDataToVao(VerticesCoordinateSystem, tex, normal, IndicesCoordianteSystem);
+
 	Model model = loader->loadDataToVao(vertices, tex, normal, indices);
 
 	Entity* BlockA = new Entity(glm::vec3(0, 0, 0), 0, 0, 0, 1, &model);
 	Entity* BlockB = new Entity(glm::vec3(1, 0, 0), 0, 0, 0, 2, &model);
+	Entity* CoordinateSystem = new Entity(glm::vec3(0, 0, 0), 0, 0, 0, 1, &CoordianteSystem);
 
 	Testshader* testShader = new Testshader("shaders/b.vert", "shaders/a.frag");
 	testShader->bindAttribute(0, "position");
@@ -149,6 +167,12 @@ bool Game::gameLoop()
 		testShader->loadModelMatrix(BlockB->getModelMatrix());
 		testShader->loadViewMatrix(mPlayer->getViewMatrix());
 		renderer->render(*BlockB, testShader);
+		testShader->unuse();
+		testShader->use();
+		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
+		testShader->loadModelMatrix(CoordinateSystem->getModelMatrix());
+		testShader->loadViewMatrix(mPlayer->getViewMatrix());
+		renderer->render(*CoordinateSystem, testShader);
 		testShader->unuse();
 		/*
 		terrainRenderer->prepare();
@@ -192,6 +216,10 @@ void Game::do_movement()
 	if (keys[GLFW_KEY_D]) {
 		mPlayer->ProcessKeyboard(RIGHT, deltaTime);
 	}
+	if (keys[GLFW_KEY_K]) {
+		std::cout << glm::to_string(mPlayer->getViewVector()) << std::endl;
+	}
+
 
 
 }
@@ -234,7 +262,7 @@ void Game::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	game->lastX = (GLfloat)xpos;
 	game->lastY = (GLfloat)ypos;
 
-	game->mPlayer->ProcessMouseMovement(xoffset, yoffset);
+	game->mPlayer->ProcessMouseMovement(xoffset, yoffset,game->deltaTime);
 
 	int wHeight, wWidth;
 	glfwGetWindowSize(game->getWindow(), &wWidth, &wHeight);

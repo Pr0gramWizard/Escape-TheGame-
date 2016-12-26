@@ -36,8 +36,9 @@ public:
 	int getWindowWidht() const;
 	glm::mat4 getViewMatrix() const;
 	glm::mat4 getProjectionMatrix(int pHeight, int pWidth) const;
+	glm::vec3 getViewVector() const;
 	void ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime);
-	void ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset);
+	void ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset,GLfloat deltaTime);
 	void ProcessMouseScroll(GLfloat pYOffset);
 
 private:
