@@ -29,8 +29,7 @@ Camera::Camera(GLfloat pPosX, GLfloat pPosY, GLfloat pPosZ, GLfloat pUpX, GLfloa
 
 glm::mat4 Camera::GetViewMatrix()
 {
-	glm::mat4 matrix;
-	return glm::lookAt(this->getPosition(), this->getPosition() + this->getFront(), this->getUp());
+	return glm::lookAt(this->getPosition(), this->getPosition() - this->getFront(), this->getUp());
 }
 
 glm::mat4 Camera::GetProjectionMatrix(int pHeight, int pWidth)

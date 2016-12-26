@@ -109,14 +109,14 @@ bool Game::gameLoop()
 
 		
 		renderer->prepare();
-		// testShader->use();
+		testShader->use();
 		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
 		Math::printMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
 		testShader->loadModelMatrix(testEntity->getModelMatrix());
 		Math::printMatrix(testEntity->getModelMatrix());
 		testShader->loadViewMatrix(mPlayer->getViewMatrix());
 		Math::printMatrix(mPlayer->getViewMatrix());
-		system("PAUSE");
+		// system("PAUSE");
 		renderer->render(*testEntity, testShader);
 		testShader->unuse();
 		
