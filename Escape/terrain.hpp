@@ -30,6 +30,7 @@ public:
 
 	glm::mat4 getModelMatrix();
 	Model* getModel();
+	void setModel(Model* pModel);
 
 public:
 	static const int TERRAIN_SIZE = 200;

@@ -91,6 +91,11 @@ Model * Terrain::getModel()
 	return mModel;
 }
 
+void Terrain::setModel(Model * pModel)
+{
+	mModel = pModel;
+}
+
 bool Terrain::isPowerOfTwo(int pX)
 {
 	return !(pX == 0) && !(pX & (pX - 1));

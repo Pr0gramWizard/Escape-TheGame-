@@ -133,7 +133,53 @@ bool Game::gameLoop()
 	testShader->bindAttribute(0, "position");
 
 	// Terrain test
+
+
+
+	float mVertices = 128;
+	float TERRAIN_SIZE = 200;
+	int count = mVertices * mVertices;
+	std::vector<float> vertices2(count * 3);
+	std::vector<float> normals2(count * 3);
+	std::vector<float> textureCoords2(count * 2);
+	std::vector<int> indices2(6 * (mVertices - 1)*(mVertices - 1));
+	int vertexPointer = 0;
+	for (int i = 0;i<mVertices;i++) {
+		for (int j = 0;j<mVertices;j++) {
+			vertices2[vertexPointer * 3] = (float)j / ((float)mVertices - 1) * TERRAIN_SIZE;
+			vertices2[vertexPointer * 3 + 1] = 0;
+			vertices2[vertexPointer * 3 + 2] = (float)i / ((float)mVertices - 1) * TERRAIN_SIZE;
+			normals2[vertexPointer * 3] = 0;
+			normals2[vertexPointer * 3 + 1] = 1;
+			normals2[vertexPointer * 3 + 2] = 0;
+			textureCoords2[vertexPointer * 2] = (float)j / ((float)mVertices - 1);
+			textureCoords2[vertexPointer * 2 + 1] = (float)i / ((float)mVertices - 1);
+			vertexPointer++;
+		}
+	}
+	int pointer = 0;
+	for (int gz = 0;gz<mVertices - 1;gz++) {
+		for (int gx = 0;gx<mVertices - 1;gx++) {
+			int topLeft = (gz*mVertices) + gx;
+			int topRight = topLeft + 1;
+			int bottomLeft = ((gz + 1)*mVertices) + gx;
+			int bottomRight = bottomLeft + 1;
+			indices2[pointer++] = topLeft;
+			indices2[pointer++] = bottomLeft;
+			indices2[pointer++] = topRight;
+			indices2[pointer++] = topRight;
+			indices2[pointer++] = bottomLeft;
+			indices2[pointer++] = bottomRight;
+		}
+	}
+	Model terrainModel = loader->loadDataToVao(vertices2, textureCoords2, normals2, indices2);
+
+
+
+
 	Terrain* terrain = new Terrain(0, 0, 0, 128, "Test", loader);
+	terrain->setModel(&terrainModel);
+	Entity* testTerrain = new Entity(glm::vec3(0, 0, 0), 0, 0, 0, 1, &terrainModel);
 	Testshader* terrainShader = new Testshader("shaders/terrain.vert", "shaders/terrain.frag");
 	TerrainRenderer* terrainRenderer = new TerrainRenderer(terrainShader, mPlayer->getProjectionMatrix(mHeight, mWidth));
 	std::list<Terrain> terrains;
@@ -162,28 +208,32 @@ bool Game::gameLoop()
 		renderer->render(*BlockA, testShader);
 		testShader->unuse();
 		testShader->use();
-		BlockB->increaseRotation(0, -1, 0,deltaTime);
+		/*BlockB->increaseRotation(0, -1, 0,deltaTime);
 		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
 		testShader->loadModelMatrix(BlockB->getModelMatrix());
 		testShader->loadViewMatrix(mPlayer->getViewMatrix());
 		renderer->render(*BlockB, testShader);
-		testShader->unuse();
+		testShader->unuse();*/
 		testShader->use();
 		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
 		testShader->loadModelMatrix(CoordinateSystem->getModelMatrix());
 		testShader->loadViewMatrix(mPlayer->getViewMatrix());
 		renderer->render(*CoordinateSystem, testShader);
 		testShader->unuse();
-		/*
-		terrainRenderer->prepare();
+
+		terrainShader->use();
+		terrainShader->loadViewMatrix(mPlayer->getViewMatrix());
+		terrainRenderer->render(*terrain);
+		terrainShader->unuse();
+		
+		/*terrainRenderer->prepare();
 		terrainShader->use();
 		terrainShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(this->getHeight(),this->getWidth()));
 		terrainShader->loadViewMatrix(mPlayer->getViewMatrix());
 		terrainShader->loadModelMatrix(terrain->getModelMatrix());
 		terrainRenderer->render(terrain);
 		//terrainRenderer->render(terrains);
-		terrainShader->unuse();
-		*/
+		terrainShader->unuse();*/
 
 
 		

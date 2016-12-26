@@ -26,7 +26,7 @@ void TerrainRenderer::render(list<Terrain> pTerrains)
 void TerrainRenderer::render(Terrain pTerrain)
 {
 	prepareTerrain(pTerrain);
-	//loadModelMatrix(pTerrain);
+	loadModelMatrix(pTerrain);
 	glDrawElements(GL_TRIANGLES, pTerrain.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 	unbindTerrain();
 }
@@ -34,7 +34,7 @@ void TerrainRenderer::render(Terrain pTerrain)
 void TerrainRenderer::render(Terrain* pTerrain)
 {
 	prepareTerrain(pTerrain);
-	//loadModelMatrix(pTerrain);
+	loadModelMatrix(pTerrain);
 	glDrawElements(GL_TRIANGLES, pTerrain->getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 	unbindTerrain();
 }
@@ -42,7 +42,6 @@ void TerrainRenderer::render(Terrain* pTerrain)
 void TerrainRenderer::prepareTerrain(Terrain pTerrain)
 {
 	Model* model = pTerrain.getModel();
-	// cout << model->getVaoId() << ", " << model->getVaoId() << endl;
 	glBindVertexArray(model->getVaoId());
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -61,7 +60,6 @@ void TerrainRenderer::prepare()
 void TerrainRenderer::prepareTerrain(Terrain* pTerrain)
 {
 	Model* model = pTerrain->getModel();
-	// cout << model->getVaoId() << ", " << model->getVaoId() << endl;
 	glBindVertexArray(model->getVaoId());
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
