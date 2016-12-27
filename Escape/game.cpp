@@ -155,6 +155,7 @@ bool Game::gameLoop()
 	mainRenderer->cleanUp();
 	loader->cleanUp();
 	delete loader;
+	delete terrain;
 	//delete renderer;
 	glfwTerminate();
 	return 0;
