@@ -90,4 +90,9 @@ void TerrainRenderer::loadModelMatrix(Terrain* pTerrain)
 	mShader->loadModelMatrix(pTerrain->getModelMatrix());
 }
 
+void TerrainRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
+{
+	mShader->loadViewMatrix(pViewMatrix);
+}
+
 

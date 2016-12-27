@@ -37,6 +37,7 @@ public:
 	// load model matrix for a terrain into the shader
 	void loadModelMatrix(Terrain pTerrain);
 	void loadModelMatrix(Terrain* pTerrain);
+	void loadViewMatrix(glm::mat4 pViewMatrix);
 
 
 private:
