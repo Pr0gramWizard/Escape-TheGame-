@@ -42,7 +42,7 @@ private:
 	// Getters & Setters needed? Maybe static
 	int mVertices;
 	const char* mName;
-	Model* mModel;
+	Model mModel;
 
 private:
 	bool isPowerOfTwo(int pX);

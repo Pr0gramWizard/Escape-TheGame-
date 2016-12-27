@@ -7,6 +7,12 @@ Model::Model(int pVaoId, int pVertices)
 	mVertices = pVertices;
 }
 
+Model::Model()
+{
+	mVaoId = 0;
+	//Amount of vertices
+	mVertices = 0;
+}
 
 Model::~Model()
 {

@@ -16,7 +16,7 @@ Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, int pVertices, const ch
 	setName(pName);
 
 	// Set Model
-	mModel = &generateTerrain(pLoader);
+	mModel = generateTerrain(pLoader);
 
 	std::cout << "Terrainloader was started successfully!" << std::endl;
 
@@ -88,12 +88,12 @@ glm::mat4 Terrain::getModelMatrix()
 
 Model * Terrain::getModel()
 {
-	return mModel;
+	return &mModel;
 }
 
 void Terrain::setModel(Model * pModel)
 {
-	mModel = pModel;
+	mModel = *pModel;
 }
 
 bool Terrain::isPowerOfTwo(int pX)
