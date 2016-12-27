@@ -34,7 +34,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glfwSetCursorPosCallback(this->getWindow(), mouse_callback);
 	glfwSetScrollCallback(this->getWindow(), scroll_callback);
 	//Remove Null + remove comment to get fullscreen
-	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, NULL /*GLFW_CURSOR_HIDDEN*/);
+	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -124,11 +124,8 @@ bool Game::gameLoop()
 	// Terrain
 	Terrain* terrain = new Terrain(0, 0, 0, 128, "Test", loader);
 	// Entitytest
-	Entity BlockTest(glm::vec3(0, 1, 0), 0, 0, 0, 1, &model);
-
-	Math::printMatrix(BlockTest.getModelMatrix());
-	Entity CoordianteSystemE(glm::vec3(0, 0, 0), 0, 0, 0, 0.1, &CoordianteSystem);
-
+	Entity BlockTest(glm::vec3(0, 0, 0), 0, 0, 0, 1, &model);
+	Entity CoordianteSystemE(glm::vec3(0, 0, 0), 0, 0, 0, 1, &CoordianteSystem);
 	MainRenderer* mainRenderer = new MainRenderer(mPlayer->getProjectionMatrix());
 	mainRenderer->addToList(terrain);
 	mainRenderer->addToList(BlockTest);

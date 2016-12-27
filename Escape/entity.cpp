@@ -67,9 +67,9 @@ void Entity::increasePosition(GLfloat x, GLfloat y, GLfloat z)
 // increases rotation by the given offset
 void Entity::increaseRotation(GLfloat x, GLfloat y, GLfloat z, GLfloat pDeltaTime)
 {
-	mXRotation += (x*10) * pDeltaTime;
-	mYRotation += (y*10) * pDeltaTime;
-	mZRotation += (z*10) * pDeltaTime;
+	mXRotation += x * pDeltaTime;
+	mYRotation += y * pDeltaTime;
+	mZRotation += z * pDeltaTime;
 }
 
 // sets position
