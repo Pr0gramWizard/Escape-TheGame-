@@ -103,6 +103,9 @@ bool Terrain::isPowerOfTwo(int pX)
 
 Model Terrain::generateTerrain(Loader* loader)
 {
+	int width, height;
+	unsigned char* image = SOIL_load_image("textures/wall.png", &width, &height, 0, SOIL_LOAD_RGBA);
+
 	int count = mVertices * mVertices;
 	std::vector<float> vertices(count * 3);
 	std::vector<float> normals(count * 3);
@@ -112,7 +115,7 @@ Model Terrain::generateTerrain(Loader* loader)
 	for (int i = 0;i<mVertices;i++) {
 		for (int j = 0;j<mVertices;j++) {
 			vertices[vertexPointer * 3] = (float)j / ((float)mVertices - 1) * TERRAIN_SIZE;
-			vertices[vertexPointer * 3 + 1] = 0;
+			vertices[vertexPointer * 3 + 1] = getHeightAt(j, i, image, width);
 			vertices[vertexPointer * 3 + 2] = (float)i / ((float)mVertices - 1) * TERRAIN_SIZE;
 			normals[vertexPointer * 3] = 0;
 			normals[vertexPointer * 3 + 1] = 1;
@@ -138,4 +141,16 @@ Model Terrain::generateTerrain(Loader* loader)
 		}
 	}
 	return loader->loadDataToVao(vertices, textureCoords, normals, indices);
+}
+
+int Terrain::getHeightAt(int x, int z, unsigned char * pHeightmap, int pHeightmapWidth)
+{
+	unsigned char r = pHeightmap[(x + z * pHeightmapWidth) * 3 + 0];
+	unsigned char g = pHeightmap[(x + z * pHeightmapWidth) * 3 + 1];
+	unsigned char b = pHeightmap[(x + z * pHeightmapWidth) * 3 + 2];
+	if (x < 0 || x > pHeightmapWidth || z < 0 || z > pHeightmapWidth)
+	{
+		return 0;
+	}
+	return 0;
 }
