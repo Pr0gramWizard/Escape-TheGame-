@@ -33,7 +33,7 @@ public:
 	void setModel(Model* pModel);
 
 public:
-	static const int TERRAIN_SIZE = 200;
+	static const int TERRAIN_SIZE = 2;
 
 private:
 	int mWorldX;
