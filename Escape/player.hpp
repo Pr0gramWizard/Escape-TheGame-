@@ -24,43 +24,63 @@ public:
 // All public functions
 public:
 	// Default Constructor:
-	// > pPosition: The position where the player should spawn
-	// > pName:		Player name
-	// > 
+	// > pPosition:		The position where the player should spawn
+	// > pName:			Player name
+	// > pWindowHeight:	Window Height
+	// > pWindowWidth:	Window Width
 	Player(glm::vec3 pPosition, GLfloat pHeight, const char* pName, int pWindowHeight, int pWindowWidth);
+	// Default Destructor
+	~Player();
 
+	// Function to move the player
 	void move();
-
-	//adds offset to position
+	// Function to change the players position by a certain vector
 	void incPosition(glm::vec3 pOffset);
-	//sets position to absolute value
+
+	// Setter Functions
 	void setPosition(glm::vec3 pPosition);
 	void setHeight(GLfloat pHeight);
 	void setName(const char* pName);
 	void setWindowHeight(int pHeight);
-	void setWindowWidht(int pWidth);
+	void setWindowWidth(int pWidth);
+	void setMovementSpeed(GLfloat pMovementSpeed);
+	void setTurnSpeed(GLfloat pTurnSpeed);
 
+	// Getter Functions
 	glm::vec3 getPosition() const;
 	GLfloat getHeight() const;
 	const char* getName() const;
 	int getWindowHeight() const;
-	int getWindowWidht() const;
+	int getWindowWidth() const;
+	GLfloat getMovementSpeed() const;
+	GLfloat getTurnSpeed() const;
+
+	// Important World Settings
 	glm::mat4 getViewMatrix() const;
 	glm::mat4 getProjectionMatrix() const;
 	glm::vec3 getViewVector() const;
+
+	// Functions to process the users input
 	void ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime);
 	void ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset,GLfloat deltaTime);
 	void ProcessMouseScroll(GLfloat pYOffset);
 
+// All private member of the class
 private:
+	// Player position
 	glm::vec3 mPosition;
-	//used for camera position and collision
+	// Current Player height
 	GLfloat mHeight;
-	GLfloat mCurrentMoveSpeed;
-	GLfloat mCurrentTurnSpeed;
-	//add vec3 viewDirection?
+	// Current Movement Speed
+	GLfloat mMovementSpeed;
+	// Current TurnSpeed
+	GLfloat mTurnSpeed;
+	// Player name
 	const char* mName;
+	// Pointer to camera class
 	Camera* mEye;
+	// Window Height
 	int mWindowHeight;
+	// Window Width
 	int mWindowWidth;
 };
