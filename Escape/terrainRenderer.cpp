@@ -17,7 +17,7 @@ TerrainRenderer::~TerrainRenderer()
 // renders every terrain in pTerrains
 void TerrainRenderer::render(list<Terrain> pTerrains)
 {
-	for (Terrain terrain : pTerrains)
+	for (Terrain &terrain : pTerrains)
 	{
 		prepareTerrain(terrain);
 		loadModelMatrix(terrain);

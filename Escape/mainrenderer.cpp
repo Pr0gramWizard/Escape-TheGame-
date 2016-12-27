@@ -7,13 +7,10 @@ const char* MainRenderer::TERRAIN_FRAGMENT = "shaders/terrain.frag";
 
 MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix)
 {
-	mEntityRenderer = new EntityRenderer();
-	mEntityRenderer->addShader(ENTITY_VERTEX, ENTITY_FRAGMENT);
+	Testshader* entityShader = new Testshader(ENTITY_VERTEX, ENTITY_FRAGMENT);
+	mEntityRenderer = new EntityRenderer(entityShader, pProjectionMatrix);
 
 	Testshader* terrainShader = new Testshader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
-	terrainShader->bindAttribute(0, "position");
-	terrainShader->bindAttribute(1, "normal");
-	terrainShader->bindAttribute(2, "texCoord");
 	mTerrainRenderer = new TerrainRenderer(terrainShader, pProjectionMatrix);
 }
 
@@ -29,12 +26,16 @@ void MainRenderer::prepare()
 
 void MainRenderer::render(glm::mat4 pViewMatrix)
 {
+	// entities
+	mEntityRenderer->startShader();
+	mEntityRenderer->loadViewMatrix(pViewMatrix);
+	mEntityRenderer->render(mEntities);
+	mEntityRenderer->stopShader();
+
+	// terrains
 	mTerrainRenderer->startShader();
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
-	for (Terrain &terrain : mTerrains)
-	{
-		mTerrainRenderer->render(terrain);
-	}
+	mTerrainRenderer->render(mTerrains);
 	mTerrainRenderer->stopShader();
 }
 
