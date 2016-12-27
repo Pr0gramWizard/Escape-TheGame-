@@ -22,12 +22,16 @@ public:
 	// Compile Shader
 	void createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
 	// Add attribute
-	void addAttribute(const std::string& pAttributeName);
+	virtual void addAttribute(const std::string& pAttributeName);
 	// Linking Shader
 	void linkShader();
 	// Use/Unuse Function
 	void use();
 	void unuse();
+	// Destructor
+	~Shader();
+
+protected:
 	// Getter Functions
 	int getNumberofAttributes() const;
 	GLuint getProgramID() const;
@@ -35,29 +39,27 @@ public:
 	GLuint getFragementShaderID() const;
 	GLuint getUniformLocation(const char* pUniformName);
 
-	// Increase/Decrease Functions
-	void increaseNumberofAttributes();
-	void decreaseNumberofAttributes();
-
 	// Setter Functions
 	void setNumberofAttributes(int pAttribute);
 	void setProgramID(int pProgramID);
 	void setVertexShaderID(int pVertexShaderID);
 	void setFragementShaderID(int pFragementShaderID);
 
-	// Destructor
-	~Shader();
 
-	// All private member of the class
+
+// All private member of the class
 private:
 	int mNumberofAttributes;
 	GLuint mProgramID;
 	GLuint mVertexShaderID;
 	GLuint mFragementShaderID;
 	GLuint mUniformLocation;
-	// All private functions of the class
+// All private functions of the class
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);
 	void compileVertexShader(std::string pFragementShaderFilePath);
+	// Increase/Decrease Functions
+	void increaseNumberofAttributes();
+	void decreaseNumberofAttributes();
 };
 

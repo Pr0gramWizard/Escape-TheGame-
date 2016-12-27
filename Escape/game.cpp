@@ -138,6 +138,8 @@ bool Game::gameLoop()
 	std::list<Terrain> terrains;
 	terrains.push_back(terrain);
 
+	EntityShader* Test = new EntityShader("shaders/b.vert", "shaders/a.frag");
+
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
 	{
@@ -197,7 +199,6 @@ bool Game::gameLoop()
 	delete loader;
 	delete renderer;
 	glfwTerminate();
-	system("PAUSE");
 	return 0;
 }
 
@@ -323,9 +324,4 @@ void Game::setHeight(GLuint pHeight)
 void Game::setTitle(const char * pTitle)
 {
 	mTitle = pTitle;
-}
-
-void Game::debug()
-{
-	system("PAUSE");
 }

@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="entity.cpp" />
+    <ClCompile Include="entityshader.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="loader.cpp" />
     <ClCompile Include="main.cpp" />
@@ -42,6 +43,7 @@
   <ItemGroup>
     <ClInclude Include="camera.hpp" />
     <ClInclude Include="entity.hpp" />
+    <ClInclude Include="entityshader.hpp" />
     <ClInclude Include="game.hpp" />
     <ClInclude Include="loader.hpp" />
     <ClInclude Include="math.hpp" />
