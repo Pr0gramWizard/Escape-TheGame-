@@ -1,26 +1,26 @@
-#include "renderer.hpp"
+#include "entityRenderer.hpp"
 
-Renderer::Renderer()
+EntityRenderer::EntityRenderer()
 {
 	mShader = new Shader();
 }
 
-Renderer::~Renderer()
+EntityRenderer::~EntityRenderer()
 {
 }
 
-void Renderer::prepare()
+void EntityRenderer::prepare()
 {
 	glClearColor(0.2f,0.3f,0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Renderer::addShader(const char* pVertexShader, const char* pFragmentShader)
+void EntityRenderer::addShader(const char* pVertexShader, const char* pFragmentShader)
 {
 	mShader->createShader(pVertexShader, pFragmentShader);
 }
 
-void Renderer::addUniformAttribute(glm::mat4 pMatrix, const char * pAttributeName)
+void EntityRenderer::addUniformAttribute(glm::mat4 pMatrix, const char * pAttributeName)
 {
 	glm::mat4 view;
 	view = pMatrix;
@@ -31,17 +31,17 @@ void Renderer::addUniformAttribute(glm::mat4 pMatrix, const char * pAttributeNam
 
 
 
-void Renderer::enableShader()
+void EntityRenderer::enableShader()
 {
 	mShader->use();
 }
 
-void Renderer::disableShader()
+void EntityRenderer::disableShader()
 {
 	mShader->unuse();
 }
 
-void Renderer::render(Entity pEntity, Testshader *pShader, RenderMode pMode)
+void EntityRenderer::render(Entity pEntity, Testshader *pShader, RenderMode pMode)
 {
 	glBindVertexArray(pEntity.getModel()->getVaoId());
 	glEnableVertexAttribArray(0);
@@ -73,7 +73,7 @@ void Renderer::render(Entity pEntity, Testshader *pShader, RenderMode pMode)
 	glBindVertexArray(0);
 }
 
-void Renderer::render(Entity pEntity, Testshader *pShader)
+void EntityRenderer::render(Entity pEntity, Testshader *pShader)
 {
 	glBindVertexArray(pEntity.getModel()->getVaoId());
 	glEnableVertexAttribArray(0);

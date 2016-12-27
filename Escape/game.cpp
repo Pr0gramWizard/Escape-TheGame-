@@ -63,7 +63,7 @@ bool Game::gameLoop()
 
 	Loader* loader = new Loader();
 
-	Renderer* renderer = new Renderer();
+	EntityRenderer* renderer = new EntityRenderer();
 
 	std::vector<float> vertices = {
 		0.0f, 0.0f, 0.0f,

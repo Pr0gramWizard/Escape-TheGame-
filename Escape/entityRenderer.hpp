@@ -22,11 +22,11 @@ enum RenderMode {
 	TRIANGLE_FAN,
 };
 
-class Renderer
+class EntityRenderer
 {
 public:
-	Renderer();
-	~Renderer();
+	EntityRenderer();
+	~EntityRenderer();
 
 	void prepare();
 	void addShader(const char* pVertexShader, const char* pFragmentShader);
