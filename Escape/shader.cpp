@@ -19,6 +19,18 @@ Shader::Shader()
 	std::clog << "Shader class was created successfully!" << std::endl;
 }
 
+void Shader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
+{
+	// We bind the attribute to the given Program ID
+	glBindAttribLocation(getProgramID(), pAttribute, pAttributeName.c_str());
+	// Then we increase the number of attributes in the whole class
+}
+
+void Shader::getAllUniformLocations()
+{
+
+}
+
 // Compilation of the vertex and fragment shader 
 // Function: complieShader(Filepath, Filepath)
 void Shader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
@@ -293,6 +305,29 @@ GLuint Shader::getUniformLocation(const char* pUniformName)
 	{
 		return Location;
 	}
+}
+void Shader::loadFloat(GLuint pLocation, GLfloat pValue)
+{
+	glUniform1f(pLocation, pValue);
+}
+void Shader::loadVector(GLuint pLocation, glm::vec3 pVector)
+{
+	glUniform3f(pLocation, pVector.x, pVector.y, pVector.z);
+}
+void Shader::loadBool(GLuint pLocation, GLboolean pValue)
+{
+	if (pValue == 0)
+	{
+		glUniform1f(pLocation, 0);
+	}
+	else
+	{
+		glUniform1f(pLocation, 1);
+	}
+}
+void Shader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
+{
+	glUniformMatrix4fv(pLocation, 1, GL_FALSE, glm::value_ptr(pMatrix));
 }
 // Returns the current Number of Attributes
 int Shader::getNumberofAttributes() const

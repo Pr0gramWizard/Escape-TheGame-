@@ -11,6 +11,12 @@
 #include <string>
 // Vector class
 #include <vector>
+// OpenGLMath
+#include <gtc/type_ptr.hpp>
+// 4x4 Matrix
+#include <mat4x4.hpp>
+// 3x1 Vector
+#include <vec3.hpp>
 
 // Defintion of the class Shader
 class Shader
@@ -21,6 +27,8 @@ public:
 	Shader();
 	// Compile Shader
 	void createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
+	void bindAttribute(GLuint pAttribute, const std::string & pAttributeName);
+	virtual void getAllUniformLocations();
 	// Add attribute
 	virtual void addAttribute(const std::string& pAttributeName);
 	// Linking Shader
@@ -38,6 +46,12 @@ protected:
 	GLuint getVertexShaderID() const;
 	GLuint getFragementShaderID() const;
 	GLuint getUniformLocation(const char* pUniformName);
+
+	// Loading uniform attributes into the shader
+	void loadFloat(GLuint pLocation, GLfloat pValue);
+	void loadVector(GLuint pLocation, glm::vec3 pVector);
+	void loadBool(GLuint pLocation, GLboolean pValue);
+	void loadMatrix(GLuint location, glm::mat4 pMatrix);
 
 	// Setter Functions
 	void setNumberofAttributes(int pAttribute);
