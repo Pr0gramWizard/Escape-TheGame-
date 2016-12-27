@@ -95,4 +95,14 @@ void TerrainRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
 	mShader->loadViewMatrix(pViewMatrix);
 }
 
+void TerrainRenderer::startShader()
+{
+	mShader->use();
+}
+
+void TerrainRenderer::stopShader()
+{
+	mShader->unuse();
+}
+
 

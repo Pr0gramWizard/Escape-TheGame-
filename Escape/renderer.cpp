@@ -30,13 +30,12 @@ void MainRenderer::prepare()
 void MainRenderer::render(glm::mat4 pViewMatrix)
 {
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
-	for (Terrain terrain : mTerrains)
+	mTerrainRenderer->startShader();
+	for (Terrain &terrain : mTerrains)
 	{
-		mTerrainRenderer->prepareTerrain(terrain);
-		mTerrainRenderer->loadModelMatrix(terrain);
-		glDrawElements(GL_TRIANGLES, terrain.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-		mTerrainRenderer->unbindTerrain();
+		mTerrainRenderer->render(terrain);
 	}
+	mTerrainRenderer->stopShader();
 }
 
 void MainRenderer::addToList(Entity &pEntity)

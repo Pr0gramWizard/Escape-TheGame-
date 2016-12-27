@@ -39,6 +39,10 @@ public:
 	void loadModelMatrix(Terrain* pTerrain);
 	void loadViewMatrix(glm::mat4 pViewMatrix);
 
+	// use or unuse the shader
+	void startShader();
+	void stopShader();
+
 
 private:
 	Testshader* mShader;
