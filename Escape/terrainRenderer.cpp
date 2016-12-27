@@ -1,5 +1,6 @@
 #include "terrainRenderer.hpp"
 
+// constructor
 TerrainRenderer::TerrainRenderer(Testshader * pShader, glm::mat4 pProjectionMatrix)
 {
 	mShader = pShader;
@@ -8,10 +9,12 @@ TerrainRenderer::TerrainRenderer(Testshader * pShader, glm::mat4 pProjectionMatr
 	mShader->unuse();
 }
 
+// destructor
 TerrainRenderer::~TerrainRenderer()
 {
 }
 
+// renders every terrain in pTerrains
 void TerrainRenderer::render(list<Terrain> pTerrains)
 {
 	for (Terrain terrain : pTerrains)
@@ -23,6 +26,7 @@ void TerrainRenderer::render(list<Terrain> pTerrains)
 	}
 }
 
+// renders a single terrain
 void TerrainRenderer::render(Terrain pTerrain)
 {
 	prepareTerrain(pTerrain);
@@ -31,6 +35,8 @@ void TerrainRenderer::render(Terrain pTerrain)
 	unbindTerrain();
 }
 
+
+// renders a single terrain
 void TerrainRenderer::render(Terrain* pTerrain)
 {
 	prepareTerrain(pTerrain);
@@ -39,6 +45,7 @@ void TerrainRenderer::render(Terrain* pTerrain)
 	unbindTerrain();
 }
 
+// binds the vertex array and the needed attributes for the terrain
 void TerrainRenderer::prepareTerrain(Terrain pTerrain)
 {
 	Model* model = pTerrain.getModel();
@@ -51,12 +58,14 @@ void TerrainRenderer::prepareTerrain(Terrain pTerrain)
 	// end texturepart
 }
 
+// prepares the renderer for rendering
 void TerrainRenderer::prepare()
 {
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+// binds the vertex array and the needed attributes for the terrain
 void TerrainRenderer::prepareTerrain(Terrain* pTerrain)
 {
 	Model* model = pTerrain->getModel();
@@ -68,6 +77,8 @@ void TerrainRenderer::prepareTerrain(Terrain* pTerrain)
 
 	// end texturepart
 }
+
+// disables the vertex array and the used attibutes
 void TerrainRenderer::unbindTerrain()
 {
 	glDisableVertexAttribArray(0);
@@ -76,11 +87,13 @@ void TerrainRenderer::unbindTerrain()
 	glBindVertexArray(0);
 }
 
+// loads the model matrix for a terrain
 void TerrainRenderer::loadModelMatrix(Terrain pTerrain)
 {
 	mShader->loadModelMatrix(pTerrain.getModelMatrix());
 }
 
+// loads the model matrix for a terrain
 void TerrainRenderer::loadModelMatrix(Terrain* pTerrain)
 {
 	mShader->loadModelMatrix(pTerrain->getModelMatrix());

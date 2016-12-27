@@ -1,25 +1,32 @@
 #include "entityRenderer.hpp"
 
+// constructor
 EntityRenderer::EntityRenderer()
 {
 	mShader = new Shader();
 }
 
+
+// destructor
 EntityRenderer::~EntityRenderer()
 {
 }
 
+// prepares the renderer for rendering
 void EntityRenderer::prepare()
 {
 	glClearColor(0.2f,0.3f,0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+// creates a shader and saves it in the renderer
 void EntityRenderer::addShader(const char* pVertexShader, const char* pFragmentShader)
 {
 	mShader->createShader(pVertexShader, pFragmentShader);
 }
 
+
+// adds a uniform matrix to the shader
 void EntityRenderer::addUniformAttribute(glm::mat4 pMatrix, const char * pAttributeName)
 {
 	glm::mat4 view;
@@ -30,17 +37,20 @@ void EntityRenderer::addUniformAttribute(glm::mat4 pMatrix, const char * pAttrib
 }
 
 
-
+// enables shader
 void EntityRenderer::enableShader()
 {
 	mShader->use();
 }
 
+
+// disables shader
 void EntityRenderer::disableShader()
 {
 	mShader->unuse();
 }
 
+// renders an entity with the given RenderMode
 void EntityRenderer::render(Entity pEntity, Testshader *pShader, RenderMode pMode)
 {
 	glBindVertexArray(pEntity.getModel()->getVaoId());
@@ -73,6 +83,7 @@ void EntityRenderer::render(Entity pEntity, Testshader *pShader, RenderMode pMod
 	glBindVertexArray(0);
 }
 
+// renders an entity with RenderMode GL_LINES
 void EntityRenderer::render(Entity pEntity, Testshader *pShader)
 {
 	glBindVertexArray(pEntity.getModel()->getVaoId());
