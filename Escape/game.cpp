@@ -136,7 +136,7 @@ bool Game::gameLoop()
 	Testshader* terrainShader = new Testshader("shaders/terrain.vert", "shaders/terrain.frag");
 	TerrainRenderer* terrainRenderer = new TerrainRenderer(terrainShader, mPlayer->getProjectionMatrix());
 	std::list<Terrain> terrains;
-	terrains.push_back(terrain);
+	terrains.push_back(*terrain);
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
@@ -194,6 +194,7 @@ bool Game::gameLoop()
 
 	}
 	loader->cleanUp();
+	delete terrain;
 	delete loader;
 	delete renderer;
 	glfwTerminate();

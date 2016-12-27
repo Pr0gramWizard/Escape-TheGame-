@@ -12,7 +12,6 @@ TerrainRenderer::TerrainRenderer(Testshader * pShader, glm::mat4 pProjectionMatr
 // destructor
 TerrainRenderer::~TerrainRenderer()
 {
-	delete mShader;
 }
 
 // renders every terrain in pTerrains
@@ -37,6 +36,15 @@ void TerrainRenderer::render(Terrain pTerrain)
 }
 
 
+// renders a single terrain
+void TerrainRenderer::render(Terrain* pTerrain)
+{
+	prepareTerrain(pTerrain);
+	loadModelMatrix(pTerrain);
+	glDrawElements(GL_TRIANGLES, pTerrain->getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+	unbindTerrain();
+}
+
 // binds the vertex array and the needed attributes for the terrain
 void TerrainRenderer::prepareTerrain(Terrain pTerrain)
 {
@@ -57,6 +65,19 @@ void TerrainRenderer::prepare()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+// binds the vertex array and the needed attributes for the terrain
+void TerrainRenderer::prepareTerrain(Terrain* pTerrain)
+{
+	Model* model = pTerrain->getModel();
+	glBindVertexArray(model->getVaoId());
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+	// Texturepart here
+
+	// end texturepart
+}
+
 // disables the vertex array and the used attibutes
 void TerrainRenderer::unbindTerrain()
 {
@@ -72,5 +93,10 @@ void TerrainRenderer::loadModelMatrix(Terrain pTerrain)
 	mShader->loadModelMatrix(pTerrain.getModelMatrix());
 }
 
+// loads the model matrix for a terrain
+void TerrainRenderer::loadModelMatrix(Terrain* pTerrain)
+{
+	mShader->loadModelMatrix(pTerrain->getModelMatrix());
+}
 
 
