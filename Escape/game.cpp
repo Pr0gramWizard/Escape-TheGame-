@@ -172,7 +172,7 @@ bool Game::gameLoop()
 		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix());
 		testShader->loadModelMatrix(CoordinateSystem->getModelMatrix());
 		testShader->loadViewMatrix(mPlayer->getViewMatrix());
-		renderer->render(*CoordinateSystem, testShader);
+		renderer->render(*CoordinateSystem, testShader,LINES);
 		testShader->unuse();
 
 		terrainShader->use();

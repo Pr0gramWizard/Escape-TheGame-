@@ -26,6 +26,11 @@ void Shader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName
 	// Then we increase the number of attributes in the whole class
 }
 
+void Shader::getAllUniformLocations()
+{
+
+}
+
 // Compilation of the vertex and fragment shader 
 // Function: complieShader(Filepath, Filepath)
 void Shader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
