@@ -59,6 +59,7 @@ void MainRenderer::clearLists()
 {
 	mEntities.clear();
 	mTerrains.clear();
+	mSpecialEntities.clear();
 }
 
 void MainRenderer::cleanUp()

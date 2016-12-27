@@ -97,29 +97,29 @@ void EntityRenderer::render(std::list<Entity> pEntities, RenderMode pMode)
 	{
 		prepareEntity(pEntity);
 		loadModelMatrix(pEntity);
-	switch (pMode)
-	{
-	case RenderMode::POINTS:
-		glDrawElements(GL_POINTS, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-		break;
-	case RenderMode::LINES:
-		glDrawElements(GL_LINES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-		break;
-	case RenderMode::LINE_STRIP:
-		glDrawElements(GL_LINE_STRIP, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-		break;
-	case RenderMode::LINE_LOOP:
-		glDrawElements(GL_LINE_LOOP, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-		break;
-	case RenderMode::TRIANGLES:
-		glDrawElements(GL_TRIANGLES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-		break;
-	case RenderMode::TRIANGLE_STRIP:
-		glDrawElements(GL_TRIANGLE_STRIP, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-		break;
-	case RenderMode::TRIANGLE_FAN:
-		glDrawElements(GL_TRIANGLE_FAN, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-		break;
+		switch (pMode)
+		{
+		case RenderMode::POINTS:
+			glDrawElements(GL_POINTS, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+			break;
+		case RenderMode::LINES:
+			glDrawElements(GL_LINES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+			break;
+		case RenderMode::LINE_STRIP:
+			glDrawElements(GL_LINE_STRIP, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+			break;
+		case RenderMode::LINE_LOOP:
+			glDrawElements(GL_LINE_LOOP, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+			break;
+		case RenderMode::TRIANGLES:
+			glDrawElements(GL_TRIANGLES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+			break;
+		case RenderMode::TRIANGLE_STRIP:
+			glDrawElements(GL_TRIANGLE_STRIP, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+			break;
+		case RenderMode::TRIANGLE_FAN:
+			glDrawElements(GL_TRIANGLE_FAN, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+			break;
 	}
 		unbindEntity();
 	}
