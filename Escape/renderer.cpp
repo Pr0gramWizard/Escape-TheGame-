@@ -29,7 +29,7 @@ void MainRenderer::prepare()
 
 void MainRenderer::render(glm::mat4 pViewMatrix)
 {
-	//mTerrainRenderer->loadViewMatrix(pViewMatrix);
+	mTerrainRenderer->loadViewMatrix(pViewMatrix);
 	for (Terrain terrain : mTerrains)
 	{
 		mTerrainRenderer->prepareTerrain(terrain);
