@@ -24,7 +24,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/, NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(), NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -34,7 +34,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glfwSetCursorPosCallback(this->getWindow(), mouse_callback);
 	glfwSetScrollCallback(this->getWindow(), scroll_callback);
 	//Remove Null + remove comment to get fullscreen
-	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, NULL /*GLFW_CURSOR_HIDDEN*/);
+	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -139,6 +139,7 @@ bool Game::gameLoop()
 	terrains.push_back(terrain);
 
 	EntityShader* Test = new EntityShader("shaders/b.vert", "shaders/a.frag");
+	
 
 
 	MainRenderer* mainRenderer = new MainRenderer(mPlayer->getProjectionMatrix());
@@ -172,12 +173,9 @@ bool Game::gameLoop()
 		testShader->loadViewMatrix(mPlayer->getViewMatrix());
 		renderer->render(*BlockB, testShader);
 		testShader->unuse();*/
-		testShader->use();
-		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix());
-		testShader->loadModelMatrix(CoordinateSystem->getModelMatrix());
-		testShader->loadViewMatrix(mPlayer->getViewMatrix());
-		renderer->render(*CoordinateSystem, testShader,LINES);
-		testShader->unuse();
+		Test->use();
+		renderer->render(*CoordinateSystem);
+		Test->unuse();
 
 		mainRenderer->render(mPlayer->getViewMatrix());
 		//terrainShader->use();
