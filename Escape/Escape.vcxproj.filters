@@ -120,6 +120,9 @@
     <ClCompile Include="entityRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.hpp">
@@ -177,6 +180,9 @@
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="entityRenderer.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.hpp">
       <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
