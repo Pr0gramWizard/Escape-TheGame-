@@ -64,6 +64,18 @@
     <Filter Include="Loader Functions\Object">
       <UniqueIdentifier>{a8c780cc-5c02-4167-9287-1d1f4ec2ea59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader\Entity">
+      <UniqueIdentifier>{24409cb3-bdca-4bf8-ab1f-bc7573ce8715}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Entity\Fragment">
+      <UniqueIdentifier>{1da2a1dc-5f36-4d0c-be02-411ae7496ecd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Entity\Vertex">
+      <UniqueIdentifier>{bd35ca7f-0abc-41e2-bea8-9c097b3aaf60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Terrain">
+      <UniqueIdentifier>{89664013-7bf4-4ded-a8b5-bd98bdce37ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -122,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="renderer.cpp">
       <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="entityshader.cpp">
+      <Filter>Shader\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="renderer.hpp">
       <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="entityshader.hpp">
+      <Filter>Shader\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

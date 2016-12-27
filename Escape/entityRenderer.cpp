@@ -32,8 +32,8 @@ void EntityRenderer::addUniformAttribute(glm::mat4 pMatrix, const char * pAttrib
 	glm::mat4 view;
 	view = pMatrix;
 	mShader->addAttribute(pAttributeName);
-	GLint viewLocation = mShader->getUniformLocation(pAttributeName);
-	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
+	// GLint viewLocation = mShader->getUniformLocation(pAttributeName);
+	// glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
 }
 
 
