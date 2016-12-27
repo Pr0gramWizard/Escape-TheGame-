@@ -29,7 +29,7 @@
     <ClCompile Include="model.cpp" />
     <ClCompile Include="objectLoader.cpp" />
     <ClCompile Include="player.cpp" />
-    <ClCompile Include="renderer.cpp" />
+    <ClCompile Include="entityRenderer.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="terrain.cpp" />
     <ClCompile Include="terrainRenderer.cpp" />
@@ -48,7 +48,7 @@
     <ClInclude Include="model.hpp" />
     <ClInclude Include="objectLoader.h" />
     <ClInclude Include="player.hpp" />
-    <ClInclude Include="renderer.hpp" />
+    <ClInclude Include="entityRenderer.hpp" />
     <ClInclude Include="terrain.hpp" />
     <ClInclude Include="shader.hpp" />
     <ClInclude Include="terrainRenderer.hpp" />

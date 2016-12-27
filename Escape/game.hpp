@@ -23,7 +23,7 @@
 // Loader class
 #include "loader.hpp"
 // Renderer class
-#include "renderer.hpp"
+#include "entityRenderer.hpp"
 #include "terrainRenderer.hpp"
 // Math class
 #include "math.hpp"
