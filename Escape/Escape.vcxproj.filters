@@ -132,11 +132,11 @@
     <ClCompile Include="entityRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="renderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="entityshader.cpp">
       <Filter>Shader\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="mainrenderer.cpp">
+      <Filter>Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -197,11 +197,11 @@
     <ClInclude Include="entityRenderer.hpp">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="renderer.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="entityshader.hpp">
       <Filter>Shader\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="mainrenderer.hpp">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

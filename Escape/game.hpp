@@ -26,7 +26,7 @@
 // Renderer class
 #include "entityRenderer.hpp"
 #include "terrainRenderer.hpp"
-#include "renderer.hpp"
+#include "mainrenderer.hpp"
 // Math class
 #include "math.hpp"
 // List
