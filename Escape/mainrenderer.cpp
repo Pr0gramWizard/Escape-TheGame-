@@ -1,4 +1,4 @@
-#include "renderer.hpp"
+#include "mainrenderer.hpp"
 
 const char* MainRenderer::ENTITY_VERTEX = "shaders/b.vert";
 const char* MainRenderer::ENTITY_FRAGMENT = "shaders/a.frag";
