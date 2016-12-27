@@ -63,8 +63,8 @@ void Camera::ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset, GLfloat de
 {
 	GLboolean constrainPitch = true;
 
-	pXOffset *= (this->getMouseSensitivity() * 100) * deltaTime;
-	pYOffset *= (this->getMouseSensitivity() * 100) * deltaTime;
+	pXOffset *= (this->getMouseSensitivity() * 200) * deltaTime;
+	pYOffset *= (this->getMouseSensitivity() * 200) * deltaTime;
 
 	this->setYaw(this->getYaw() - pXOffset);
 	this->setPitch(this->getPitch() - pYOffset);
