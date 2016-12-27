@@ -10,7 +10,7 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix)
 	EntityShader* entityShader = new EntityShader(ENTITY_VERTEX, ENTITY_FRAGMENT);
 	mEntityRenderer = new EntityRenderer(entityShader, pProjectionMatrix);
 
-	EntityShader* terrainShader = new EntityShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
+	TerrainShader* terrainShader = new TerrainShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
 	mTerrainRenderer = new TerrainRenderer(terrainShader, pProjectionMatrix);
 }
 
