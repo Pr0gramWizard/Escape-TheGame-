@@ -1,7 +1,7 @@
 #include "entityRenderer.hpp"
 
 // constructor
-EntityRenderer::EntityRenderer(Testshader* pShader, glm::mat4 pProjectionMatrix)
+EntityRenderer::EntityRenderer(EntityShader* pShader, glm::mat4 pProjectionMatrix)
 {
 	mShader = pShader;
 	mShader->use();

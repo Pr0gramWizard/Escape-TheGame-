@@ -7,10 +7,10 @@ const char* MainRenderer::TERRAIN_FRAGMENT = "shaders/terrain.frag";
 
 MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix)
 {
-	Testshader* entityShader = new Testshader(ENTITY_VERTEX, ENTITY_FRAGMENT);
+	EntityShader* entityShader = new EntityShader(ENTITY_VERTEX, ENTITY_FRAGMENT);
 	mEntityRenderer = new EntityRenderer(entityShader, pProjectionMatrix);
 
-	Testshader* terrainShader = new Testshader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
+	EntityShader* terrainShader = new EntityShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
 	mTerrainRenderer = new TerrainRenderer(terrainShader, pProjectionMatrix);
 }
 

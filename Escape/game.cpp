@@ -62,8 +62,8 @@ bool Game::gameLoop()
 {
 
 	Loader* loader = new Loader();
-
-	EntityRenderer* renderer = new EntityRenderer();
+	EntityShader* Test = new EntityShader("shaders/b.vert", "shaders/a.frag");
+	EntityRenderer* renderer = new EntityRenderer(Test,mPlayer->getProjectionMatrix());
 
 	std::vector<float> vertices = {
 		0.0f, 0.0f, 0.0f,
@@ -133,12 +133,12 @@ bool Game::gameLoop()
 	testShader->bindAttribute(0, "position");
 
 	Terrain terrain(0, 0, 0, 128, "Test", loader);
-	Testshader* terrainShader = new Testshader("shaders/terrain.vert", "shaders/terrain.frag");
+	EntityShader* terrainShader = new EntityShader("shaders/terrain.vert", "shaders/terrain.frag");
 	TerrainRenderer* terrainRenderer = new TerrainRenderer(terrainShader, mPlayer->getProjectionMatrix());
 	std::list<Terrain> terrains;
 	terrains.push_back(terrain);
 
-	EntityShader* Test = new EntityShader("shaders/b.vert", "shaders/a.frag");
+
 	
 
 
@@ -159,6 +159,7 @@ bool Game::gameLoop()
 
 		
 		mainRenderer->prepare();
+		
 		/*testShader->use();
 		BlockA->increaseRotation(0, 1, 0,deltaTime);
 		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix());
@@ -172,10 +173,11 @@ bool Game::gameLoop()
 		testShader->loadModelMatrix(BlockB->getModelMatrix());
 		testShader->loadViewMatrix(mPlayer->getViewMatrix());
 		renderer->render(*BlockB, testShader);
-		testShader->unuse();*/
+		testShader->unuse();
 		Test->use();
 		renderer->render(*CoordinateSystem);
 		Test->unuse();
+		*/
 
 		mainRenderer->render(mPlayer->getViewMatrix());
 		//terrainShader->use();

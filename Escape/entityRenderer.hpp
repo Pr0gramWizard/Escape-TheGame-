@@ -11,7 +11,7 @@
 #include "model.hpp"
 #include "entity.hpp"
 #include "shader.hpp"
-#include "testshader.hpp"
+#include "entityshader.hpp"
 
 enum RenderMode {
 	POINTS,
@@ -29,7 +29,7 @@ class EntityRenderer
 {
 public:
 	// constructor
-	EntityRenderer(Testshader* pShader, glm::mat4 pProjectionMatrix);
+	EntityRenderer(EntityShader* pShader, glm::mat4 pProjectionMatrix);
 	// destructor
 	~EntityRenderer();
 
@@ -54,6 +54,6 @@ public:
 	void stopShader();
 
 private:
-	Testshader* mShader;
+	EntityShader* mShader;
 };
 

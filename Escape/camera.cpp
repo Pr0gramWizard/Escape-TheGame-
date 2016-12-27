@@ -4,7 +4,7 @@
 // Sets the Camera to the position (0,0,-3)
 Camera::Camera()
 {
-	this->setPosition(glm::vec3(0.0f,1.0f,-3.0f));
+	this->setPosition(glm::vec3(0.0f,1.0f,0.0f));
 	this->setWorldUp(glm::vec3(0.0f,1.0f,.0f));
 	this->setFront(glm::vec3(0.0f, 0.0f, -1.0f));
 	this->setYaw(YAW);
