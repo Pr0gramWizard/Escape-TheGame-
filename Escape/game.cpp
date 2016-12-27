@@ -127,13 +127,9 @@ bool Game::gameLoop()
 	Entity* BlockB = new Entity(glm::vec3(1, 0, 0), 0, 0, 0, 2, &model);
 	Entity* CoordinateSystem = new Entity(glm::vec3(0, 0, 0), 0, 0, 0, 1, &CoordianteSystem);
 
-	Testshader* testShader = new Testshader("shaders/b.vert", "shaders/a.frag");
-	testShader->bindAttribute(0, "position");
-
-
 	// Terraintest
 	Terrain terrain(0, 0, 0, 128, "Test", loader);
-	Testshader* terrainShader = new Testshader("shaders/terrain.vert", "shaders/terrain.frag");
+	EntityShader* terrainShader = new EntityShader("shaders/terrain.vert", "shaders/terrain.frag");
 	TerrainRenderer* terrainRenderer = new TerrainRenderer(terrainShader, mPlayer->getProjectionMatrix());
 	std::list<Terrain> terrains;
 	terrains.push_back(terrain);

@@ -19,8 +19,8 @@ void TerrainRenderer::render(list<Terrain> pTerrains)
 {
 	for (Terrain &terrain : pTerrains)
 	{
-		prepareTerrain(terrain);
-		loadModelMatrix(terrain);
+		prepareTerrain(&terrain);
+		loadModelMatrix(&terrain);
 		glDrawElements(GL_TRIANGLES, terrain.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 		unbindTerrain();
 	}
@@ -35,19 +35,6 @@ void TerrainRenderer::render(Terrain &pTerrain)
 	unbindTerrain();
 }
 
-
-// binds the vertex array and the needed attributes for the terrain
-void TerrainRenderer::prepareTerrain(Terrain pTerrain)
-{
-	Model* model = pTerrain.getModel();
-	glBindVertexArray(model->getVaoId());
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-	// Texturepart here
-
-	// end texturepart
-}
 
 // prepares the renderer for rendering
 void TerrainRenderer::prepare()
@@ -78,11 +65,7 @@ void TerrainRenderer::unbindTerrain()
 	glBindVertexArray(0);
 }
 
-// loads the model matrix for a terrain
-void TerrainRenderer::loadModelMatrix(Terrain pTerrain)
-{
-	mShader->loadModelMatrix(pTerrain.getModelMatrix());
-}
+
 
 // loads the model matrix for a terrain
 void TerrainRenderer::loadModelMatrix(Terrain* pTerrain)
