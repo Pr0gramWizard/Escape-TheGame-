@@ -29,8 +29,8 @@ void MainRenderer::prepare()
 
 void MainRenderer::render(glm::mat4 pViewMatrix)
 {
-	mTerrainRenderer->loadViewMatrix(pViewMatrix);
 	mTerrainRenderer->startShader();
+	mTerrainRenderer->loadViewMatrix(pViewMatrix);
 	for (Terrain &terrain : mTerrains)
 	{
 		mTerrainRenderer->render(terrain);
