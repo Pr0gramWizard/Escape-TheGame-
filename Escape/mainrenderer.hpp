@@ -12,6 +12,7 @@
 
 // shader
 #include "entityshader.hpp"
+#include "terrainshader.hpp"
 
 // matrix
 #include <mat4x4.hpp>

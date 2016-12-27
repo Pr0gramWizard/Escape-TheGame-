@@ -123,9 +123,6 @@
     <ClCompile Include="objectLoader.cpp">
       <Filter>Loader Functions\Object</Filter>
     </ClCompile>
-    <ClCompile Include="testshader.cpp">
-      <Filter>Shader</Filter>
-    </ClCompile>
     <ClCompile Include="terrainRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
@@ -137,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="mainrenderer.cpp">
       <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="terrainshader.cpp">
+      <Filter>Shader\Terrain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -188,9 +188,6 @@
     <ClInclude Include="objectLoader.h">
       <Filter>Loader Functions\Object</Filter>
     </ClInclude>
-    <ClInclude Include="testshader.hpp">
-      <Filter>Shader</Filter>
-    </ClInclude>
     <ClInclude Include="terrainRenderer.hpp">
       <Filter>Renderer</Filter>
     </ClInclude>
@@ -202,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="mainrenderer.hpp">
       <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="terrainshader.hpp">
+      <Filter>Shader\Terrain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
