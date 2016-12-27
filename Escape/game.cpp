@@ -132,7 +132,7 @@ bool Game::gameLoop()
 	Testshader* testShader = new Testshader("shaders/b.vert", "shaders/a.frag");
 	testShader->bindAttribute(0, "position");
 
-	Terrain terrain(0, 0, 0, 128, "Test", loader);
+	Terrain* terrain = new Terrain(0, 0, 0, 128, "Test", loader);
 	Testshader* terrainShader = new Testshader("shaders/terrain.vert", "shaders/terrain.frag");
 	TerrainRenderer* terrainRenderer = new TerrainRenderer(terrainShader, mPlayer->getProjectionMatrix());
 	std::list<Terrain> terrains;
