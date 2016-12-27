@@ -124,7 +124,9 @@ bool Game::gameLoop()
 	// Terrain
 	Terrain* terrain = new Terrain(0, 0, 0, 128, "Test", loader);
 	// Entitytest
-	Entity BlockTest(glm::vec3(0, 0, 0), 0, 0, 0, 0.1, &model);
+	Entity BlockTest(glm::vec3(0, 1, 0), 0, 0, 0, 0.1, &model);
+
+	Math::printMatrix(BlockTest.getModelMatrix());
 	Entity CoordianteSystemE(glm::vec3(0, 0, 0), 0, 0, 0, 0.1, &CoordianteSystem);
 
 	MainRenderer* mainRenderer = new MainRenderer(mPlayer->getProjectionMatrix());
