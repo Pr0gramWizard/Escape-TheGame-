@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vec2.hpp>
 #include <vector>
+// soil
+#include <SOIL.h>
 // model class
 #include "model.hpp"
 // loader class
@@ -47,6 +49,7 @@ private:
 private:
 	bool isPowerOfTwo(int pX);
 	Model generateTerrain(Loader* loader);
+	int getHeightAt(int x, int z, unsigned char* pHeightmap, int pHeightmapWidth);
 	
 };
 
