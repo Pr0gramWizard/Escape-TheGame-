@@ -24,7 +24,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(), NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/, NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -34,7 +34,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glfwSetCursorPosCallback(this->getWindow(), mouse_callback);
 	glfwSetScrollCallback(this->getWindow(), scroll_callback);
 	//Remove Null + remove comment to get fullscreen
-	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, NULL /*GLFW_CURSOR_HIDDEN*/);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -197,6 +197,7 @@ bool Game::gameLoop()
 	delete loader;
 	delete renderer;
 	glfwTerminate();
+	system("PAUSE");
 	return 0;
 }
 
