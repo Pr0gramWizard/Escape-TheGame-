@@ -134,7 +134,7 @@ bool Game::gameLoop()
 
 	Terrain* terrain = new Terrain(0, 0, 0, 128, "Test", loader);
 	Testshader* terrainShader = new Testshader("shaders/terrain.vert", "shaders/terrain.frag");
-	TerrainRenderer* terrainRenderer = new TerrainRenderer(terrainShader, mPlayer->getProjectionMatrix(mHeight, mWidth));
+	TerrainRenderer* terrainRenderer = new TerrainRenderer(terrainShader, mPlayer->getProjectionMatrix());
 	std::list<Terrain> terrains;
 	terrains.push_back(*terrain);
 
@@ -154,7 +154,7 @@ bool Game::gameLoop()
 		renderer->prepare();
 		testShader->use();
 		BlockA->increaseRotation(0, 1, 0,deltaTime);
-		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
+		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix());
 		testShader->loadModelMatrix(BlockA->getModelMatrix());
 		testShader->loadViewMatrix(mPlayer->getViewMatrix());
 		renderer->render(*BlockA, testShader);
@@ -167,7 +167,7 @@ bool Game::gameLoop()
 		renderer->render(*BlockB, testShader);
 		testShader->unuse();*/
 		testShader->use();
-		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
+		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix());
 		testShader->loadModelMatrix(CoordinateSystem->getModelMatrix());
 		testShader->loadViewMatrix(mPlayer->getViewMatrix());
 		renderer->render(*CoordinateSystem, testShader);
