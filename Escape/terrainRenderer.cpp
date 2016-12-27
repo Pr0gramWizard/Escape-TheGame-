@@ -27,23 +27,14 @@ void TerrainRenderer::render(list<Terrain> pTerrains)
 }
 
 // renders a single terrain
-void TerrainRenderer::render(Terrain pTerrain)
+void TerrainRenderer::render(Terrain &pTerrain)
 {
-	prepareTerrain(pTerrain);
-	loadModelMatrix(pTerrain);
+	prepareTerrain(&pTerrain);
+	loadModelMatrix(&pTerrain);
 	glDrawElements(GL_TRIANGLES, pTerrain.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 	unbindTerrain();
 }
 
-
-// renders a single terrain
-void TerrainRenderer::render(Terrain* pTerrain)
-{
-	prepareTerrain(pTerrain);
-	loadModelMatrix(pTerrain);
-	glDrawElements(GL_TRIANGLES, pTerrain->getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-	unbindTerrain();
-}
 
 // binds the vertex array and the needed attributes for the terrain
 void TerrainRenderer::prepareTerrain(Terrain pTerrain)

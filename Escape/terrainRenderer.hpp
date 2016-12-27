@@ -24,8 +24,7 @@ public:
 
 	// render methods
 	void render(list<Terrain> pTerrains);
-	void render(Terrain pTerrain);
-	void render(Terrain* pTerrain);
+	void render(Terrain &pTerrain);
 
 	// methods that get called before the acutal rendering
 	void prepare();
