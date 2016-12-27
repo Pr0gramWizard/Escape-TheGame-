@@ -182,7 +182,7 @@ bool Game::gameLoop()
 		mainRenderer->render(mPlayer->getViewMatrix());
 		//terrainShader->use();
 		//terrainShader->loadViewMatrix(mPlayer->getViewMatrix());
-		//terrainRenderer->render(terrain);
+	    //terrainRenderer->render(terrain);
 		//terrainShader->unuse();
 		
 		// Swap the buffers
