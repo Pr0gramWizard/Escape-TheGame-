@@ -16,6 +16,8 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix)
 
 MainRenderer::~MainRenderer()
 {
+	delete mEntityRenderer;
+	delete mTerrainRenderer;
 }
 
 void MainRenderer::prepare()
@@ -27,7 +29,7 @@ void MainRenderer::prepare()
 void MainRenderer::render(glm::mat4 pViewMatrix)
 {
 	// entities
-	mEntityRenderer->startShader();
+   	mEntityRenderer->startShader();
 	mEntityRenderer->loadViewMatrix(pViewMatrix);
 	mEntityRenderer->render(mEntities);
 	mEntityRenderer->render(mSpecialEntities, LINES);
@@ -50,7 +52,7 @@ void MainRenderer::addToList(Entity &pEntity, RenderMode pMode)
 	mSpecialEntities.push_back(pEntity);
 }
 
-void MainRenderer::addToList(Terrain &pTerrain)
+void MainRenderer::addToList(Terrain* pTerrain)
 {
 	mTerrains.push_back(pTerrain);
 }
@@ -64,6 +66,7 @@ void MainRenderer::clearLists()
 
 void MainRenderer::cleanUp()
 {
-	//mEntityRenderer->cleanUp();
-	//mTerrainRenderer->cleanUp();
+	this->clearLists();
+	// mEntityRenderer->cleanUp();
+	// mTerrainRenderer->cleanUp();
 }

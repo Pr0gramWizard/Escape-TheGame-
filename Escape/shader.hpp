@@ -65,7 +65,6 @@ private:
 	GLuint mProgramID;
 	GLuint mVertexShaderID;
 	GLuint mFragementShaderID;
-	GLuint mUniformLocation;
 // All private functions of the class
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);

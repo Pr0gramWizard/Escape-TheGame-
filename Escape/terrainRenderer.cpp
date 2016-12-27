@@ -15,13 +15,13 @@ TerrainRenderer::~TerrainRenderer()
 }
 
 // renders every terrain in pTerrains
-void TerrainRenderer::render(list<Terrain> pTerrains)
+void TerrainRenderer::render(list<Terrain*> pTerrains)
 {
-	for (Terrain &terrain : pTerrains)
+	for (Terrain *terrain : pTerrains)
 	{
-		prepareTerrain(&terrain);
-		loadModelMatrix(&terrain);
-		glDrawElements(GL_TRIANGLES, terrain.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+		prepareTerrain(terrain);
+		loadModelMatrix(terrain);
+		glDrawElements(GL_TRIANGLES, terrain->getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 		unbindTerrain();
 	}
 }

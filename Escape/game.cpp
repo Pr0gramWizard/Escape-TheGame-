@@ -24,7 +24,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(), NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/, NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -34,7 +34,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glfwSetCursorPosCallback(this->getWindow(), mouse_callback);
 	glfwSetScrollCallback(this->getWindow(), scroll_callback);
 	//Remove Null + remove comment to get fullscreen
-	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, NULL /*GLFW_CURSOR_HIDDEN*/);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -120,13 +120,9 @@ bool Game::gameLoop()
 	};
 
 	Model CoordianteSystem = loader->loadDataToVao(VerticesCoordinateSystem, tex, normal, IndicesCoordianteSystem);
-	Model model = loader->loadDataToVao(vertices, tex, normal, indices);
-
-	// Terraintest
-	Terrain terrain(0, 0, 0, 128, "Test", loader);
-	EntityShader* terrainShader = new EntityShader("shaders/terrain.vert", "shaders/terrain.frag");
-	TerrainRenderer* terrainRenderer = new TerrainRenderer(terrainShader, mPlayer->getProjectionMatrix());
-
+	Model model = loader->loadDataToVao(vertices, tex, normal, indices);	
+	// Terrain
+	Terrain* terrain = new Terrain(0, 0, 0, 128, "Test", loader);
 	// Entitytest
 	Entity BlockTest(glm::vec3(0, 0, 0), 0, 0, 0, 0.1, &model);
 	Entity CoordianteSystemE(glm::vec3(0, 0, 0), 0, 0, 0, 0.1, &CoordianteSystem);
@@ -150,34 +146,13 @@ bool Game::gameLoop()
 
 		
 		mainRenderer->prepare();
-		/*testShader->use();
-		BlockA->increaseRotation(0, 1, 0,deltaTime);
-		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix());
-		testShader->loadModelMatrix(BlockA->getModelMatrix());
-		testShader->loadViewMatrix(mPlayer->getViewMatrix());
-		renderer->render(*BlockA, testShader);
-		testShader->unuse();
-		testShader->use();
-		BlockB->increaseRotation(0, -1, 0,deltaTime);
-		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
-		testShader->loadModelMatrix(BlockB->getModelMatrix());
-		testShader->loadViewMatrix(mPlayer->getViewMatrix());
-		renderer->render(*BlockB, testShader);
-		testShader->unuse();*/
-		//Test->use();
-		//renderer->render(*CoordinateSystem);
-		//Test->unuse();
-
 		mainRenderer->render(mPlayer->getViewMatrix());
-		//terrainShader->use();
-		//terrainShader->loadViewMatrix(mPlayer->getViewMatrix());
-	    //terrainRenderer->render(terrain);
-		//terrainShader->unuse();
 		
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
 
 	}
+	mainRenderer->cleanUp();
 	loader->cleanUp();
 	delete loader;
 	//delete renderer;
