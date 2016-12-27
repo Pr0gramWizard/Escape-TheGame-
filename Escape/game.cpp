@@ -62,8 +62,6 @@ bool Game::gameLoop()
 {
 
 	Loader* loader = new Loader();
-	EntityShader* Test = new EntityShader("shaders/b.vert", "shaders/a.frag");
-	EntityRenderer* renderer = new EntityRenderer(Test,mPlayer->getProjectionMatrix());
 
 	std::vector<float> vertices = {
 		0.0f, 0.0f, 0.0f,
@@ -132,18 +130,24 @@ bool Game::gameLoop()
 	Testshader* testShader = new Testshader("shaders/b.vert", "shaders/a.frag");
 	testShader->bindAttribute(0, "position");
 
+
+	// Terraintest
 	Terrain terrain(0, 0, 0, 128, "Test", loader);
-	EntityShader* terrainShader = new EntityShader("shaders/terrain.vert", "shaders/terrain.frag");
+	Testshader* terrainShader = new Testshader("shaders/terrain.vert", "shaders/terrain.frag");
 	TerrainRenderer* terrainRenderer = new TerrainRenderer(terrainShader, mPlayer->getProjectionMatrix());
 	std::list<Terrain> terrains;
 	terrains.push_back(terrain);
 
-
+	// Entitytest
+	Entity BlockTest(glm::vec3(0, 0, 0), 0, 0, 0, 1, &model);
+	std::list<Entity> entities;
+	entities.push_back(BlockTest);
 	
 
 
 	MainRenderer* mainRenderer = new MainRenderer(mPlayer->getProjectionMatrix());
 	mainRenderer->addToList(terrain);
+	mainRenderer->addToList(BlockTest);
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
@@ -159,7 +163,6 @@ bool Game::gameLoop()
 
 		
 		mainRenderer->prepare();
-		
 		/*testShader->use();
 		BlockA->increaseRotation(0, 1, 0,deltaTime);
 		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix());
@@ -173,11 +176,10 @@ bool Game::gameLoop()
 		testShader->loadModelMatrix(BlockB->getModelMatrix());
 		testShader->loadViewMatrix(mPlayer->getViewMatrix());
 		renderer->render(*BlockB, testShader);
-		testShader->unuse();
-		Test->use();
-		renderer->render(*CoordinateSystem);
-		Test->unuse();
-		*/
+		testShader->unuse();*/
+		//Test->use();
+		//renderer->render(*CoordinateSystem);
+		//Test->unuse();
 
 		mainRenderer->render(mPlayer->getViewMatrix());
 		//terrainShader->use();
@@ -191,7 +193,7 @@ bool Game::gameLoop()
 	}
 	loader->cleanUp();
 	delete loader;
-	delete renderer;
+	//delete renderer;
 	glfwTerminate();
 	return 0;
 }
