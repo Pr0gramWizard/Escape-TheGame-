@@ -39,7 +39,6 @@ public:
 	// Destructor
 	~Shader();
 
-protected:
 	// Getter Functions
 	int getNumberofAttributes() const;
 	GLuint getProgramID() const;

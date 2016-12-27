@@ -8,6 +8,9 @@ public:
 	~EntityShader();
 	void addAttribute(const char* &pAttributeName);
 	void getAllUniformLocations();
+	GLuint getUniformLocation(const char* pUniformName);
+
+	void Test();
 	
 	// Getter Functions
 	GLuint getModelMatrixLocation() const;

@@ -140,6 +140,7 @@ bool Game::gameLoop()
 
 	EntityShader* Test = new EntityShader("shaders/b.vert", "shaders/a.frag");
 
+
 	MainRenderer* mainRenderer = new MainRenderer(mPlayer->getProjectionMatrix());
 	mainRenderer->addToList(terrain);
 

@@ -19,6 +19,24 @@ GLuint EntityShader::getModelMatrixLocation() const
 {
 	return mModelMatrixLocation;
 }
+void EntityShader::Test()
+{
+	std::cout << this->getProgramID() << std::endl;
+}
+GLuint EntityShader::getUniformLocation(const char* pUniformName)
+{
+	GLuint Location = glGetUniformLocation(this->getProgramID(), pUniformName);
+
+	if (Location == GL_INVALID_INDEX)
+	{
+		std::clog << "There was an error finding: " << pUniformName << std::endl;
+		return 0;
+	}
+	else
+	{
+		return Location;
+	}
+}
 
 GLuint EntityShader::getViewMatrixLocation() const
 {
