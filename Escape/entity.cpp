@@ -53,7 +53,7 @@ Model * Entity::getModel()
 // calculates modelmatrix and returns it
 glm::mat4 Entity::getModelMatrix()
 {
-	return Math::getTransformationMatrix(mPosition, mXRotation, mYRotation, mZRotation, mScale);
+	return Math::getTransformationMatrix(this->getPosition(), this->getXRotation(), this->getYRotation(), this->getZRotation(), this->getScale());
 }
 
 // increases position by the given offset
@@ -67,9 +67,9 @@ void Entity::increasePosition(GLfloat x, GLfloat y, GLfloat z)
 // increases rotation by the given offset
 void Entity::increaseRotation(GLfloat x, GLfloat y, GLfloat z, GLfloat pDeltaTime)
 {
-	mXRotation += (x*100) * pDeltaTime;
-	mYRotation += (y*100) * pDeltaTime;
-	mZRotation += (z*100) * pDeltaTime;
+	mXRotation += (x*10) * pDeltaTime;
+	mYRotation += (y*10) * pDeltaTime;
+	mZRotation += (z*10) * pDeltaTime;
 }
 
 // sets position

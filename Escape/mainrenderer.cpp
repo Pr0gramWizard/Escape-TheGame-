@@ -30,6 +30,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix)
 	mEntityRenderer->startShader();
 	mEntityRenderer->loadViewMatrix(pViewMatrix);
 	mEntityRenderer->render(mEntities);
+	mEntityRenderer->render(mSpecialEntities, LINES);
 	mEntityRenderer->stopShader();
 
 	// terrains
@@ -42,6 +43,11 @@ void MainRenderer::render(glm::mat4 pViewMatrix)
 void MainRenderer::addToList(Entity &pEntity)
 {
 	mEntities.push_back(pEntity);
+}
+
+void MainRenderer::addToList(Entity &pEntity, RenderMode pMode)
+{
+	mSpecialEntities.push_back(pEntity);
 }
 
 void MainRenderer::addToList(Terrain &pTerrain)

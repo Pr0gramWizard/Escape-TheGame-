@@ -91,11 +91,12 @@ void EntityRenderer::stopShader()
 	mShader->unuse();
 }
 
-// renders an entity with the given RenderMode
-/*void EntityRenderer::render(Entity pEntity, Testshader *pShader, RenderMode pMode)
+void EntityRenderer::render(std::list<Entity> pEntities, RenderMode pMode)
 {
-	glBindVertexArray(pEntity.getModel()->getVaoId());
-	glEnableVertexAttribArray(0);
+	for (Entity &pEntity : pEntities)
+	{
+		prepareEntity(pEntity);
+		loadModelMatrix(pEntity);
 	switch (pMode)
 	{
 	case RenderMode::POINTS:
@@ -120,6 +121,7 @@ void EntityRenderer::stopShader()
 		glDrawElements(GL_TRIANGLE_FAN, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 		break;
 	}
-	glDisableVertexAttribArray(0);
-	glBindVertexArray(0);
-}*/
+		unbindEntity();
+	}
+
+}

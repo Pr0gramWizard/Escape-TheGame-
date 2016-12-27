@@ -30,6 +30,7 @@ public:
 	// adds entities or terrains to render list
 	void addToList(Entity &pEntity);
 	void addToList(Terrain &pTerrain);
+	void addToList(Entity &pEntity, RenderMode pMode);
 
 	// prepares for rendering
 	void prepare();
@@ -53,5 +54,6 @@ private:
 
 	list<Entity> mEntities;
 	list<Terrain> mTerrains;
+	list<Entity> mSpecialEntities;
 };
 

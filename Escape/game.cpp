@@ -105,12 +105,12 @@ bool Game::gameLoop()
 	};
 
 	std::vector<float> VerticesCoordinateSystem = {
-		-10.0f, 0.0f, 0.0f,
-		10.0f, 0.0f, 0.0f,
-		0.0f, -10.0f, 0.0f,
-		0.0f, 10.0f, 0.0f,
-		0.0f, 0.0f, -10.0f,
-		0.0f, 0.0f, 10.0f
+		-1.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 0.0f,
+		0.0f, -1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, -1.0f,
+		0.0f, 0.0f, 1.0f
 	};
 
 	std::vector<int> IndicesCoordianteSystem = {
@@ -120,30 +120,21 @@ bool Game::gameLoop()
 	};
 
 	Model CoordianteSystem = loader->loadDataToVao(VerticesCoordinateSystem, tex, normal, IndicesCoordianteSystem);
-
 	Model model = loader->loadDataToVao(vertices, tex, normal, indices);
-
-	Entity* BlockA = new Entity(glm::vec3(0, 0, 0), 0, 0, 0, 1, &model);
-	Entity* BlockB = new Entity(glm::vec3(1, 0, 0), 0, 0, 0, 2, &model);
-	Entity* CoordinateSystem = new Entity(glm::vec3(0, 0, 0), 0, 0, 0, 1, &CoordianteSystem);
 
 	// Terraintest
 	Terrain terrain(0, 0, 0, 128, "Test", loader);
 	EntityShader* terrainShader = new EntityShader("shaders/terrain.vert", "shaders/terrain.frag");
 	TerrainRenderer* terrainRenderer = new TerrainRenderer(terrainShader, mPlayer->getProjectionMatrix());
-	std::list<Terrain> terrains;
-	terrains.push_back(terrain);
 
 	// Entitytest
-	Entity BlockTest(glm::vec3(0, 0, 0), 0, 0, 0, 1, &model);
-	std::list<Entity> entities;
-	entities.push_back(BlockTest);
-	
-
+	Entity BlockTest(glm::vec3(0, 0, 0), 0, 0, 0, 0.1, &model);
+	Entity CoordianteSystemE(glm::vec3(0, 0, 0), 0, 0, 0, 1, &CoordianteSystem);
 
 	MainRenderer* mainRenderer = new MainRenderer(mPlayer->getProjectionMatrix());
 	mainRenderer->addToList(terrain);
 	mainRenderer->addToList(BlockTest);
+	mainRenderer->addToList(CoordianteSystemE,LINES);
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))

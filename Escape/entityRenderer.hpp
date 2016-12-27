@@ -35,6 +35,7 @@ public:
 
 	// render methods
 	void render(list<Entity> pEntities);
+	void render(list<Entity> pEntities, RenderMode pMode);
 	void render(Entity &pEntity);
 
 	// methods that get called before the acutal rendering
