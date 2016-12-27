@@ -28,18 +28,24 @@ public:
 	~MainRenderer();
 
 	// adds entities or terrains to render list
-	void addToList(Entity pEntity);
-	void addToList(Terrain pTerrain);
+	void addToList(Entity &pEntity);
+	void addToList(Terrain &pTerrain);
 
 	// prepares for rendering
 	void prepare();
 	// render
-	void render();
+	void render(glm::mat4 pViewMatrix);
 	// clears the render lists
 	void clearLists();
 
 	// cleans up when closing the game
 	void cleanUp();
+
+public:
+	static const char* ENTITY_VERTEX;
+	static const char* ENTITY_FRAGMENT;
+	static const char* TERRAIN_VERTEX;
+	static const char* TERRAIN_FRAGMENT;
 
 private:
 	EntityRenderer* mEntityRenderer;
