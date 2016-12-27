@@ -6,6 +6,7 @@ EntityShader::EntityShader(const std::string& pVertexShaderFilePath, const std::
 {
 	this->createShader(pVertexShaderFilePath, pFragementShaderFilePath);
 	this->getAllUniformLocations();
+	this->bindAllAttributes();
 }
 
 void EntityShader::getAllUniformLocations()
@@ -18,6 +19,24 @@ void EntityShader::getAllUniformLocations()
 GLuint EntityShader::getModelMatrixLocation() const
 {
 	return mModelMatrixLocation;
+}
+void EntityShader::Test()
+{
+	std::cout << this->getProgramID() << std::endl;
+}
+GLuint EntityShader::getUniformLocation(const char* pUniformName)
+{
+	GLuint Location = glGetUniformLocation(this->getProgramID(), pUniformName);
+
+	if (Location == GL_INVALID_INDEX)
+	{
+		std::clog << "There was an error finding: " << pUniformName << std::endl;
+		return 0;
+	}
+	else
+	{
+		return Location;
+	}
 }
 
 GLuint EntityShader::getViewMatrixLocation() const
@@ -62,4 +81,11 @@ void EntityShader::loadViewMatrix(glm::mat4 pMatrix)
 
 EntityShader::~EntityShader()
 {
+}
+
+void EntityShader::bindAllAttributes()
+{
+	this->bindAttribute(0, "position");
+	this->bindAttribute(1, "normal");
+	this->bindAttribute(2, "texCoord");
 }

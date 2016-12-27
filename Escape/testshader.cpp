@@ -250,7 +250,7 @@ GLuint Testshader::getFragementShaderID() const
 }
 GLuint Testshader::getUniformLocation(const char* pUniformName)
 {
-	GLuint Location = glGetUniformLocation(getProgramID(), pUniformName);
+	GLuint Location = glGetUniformLocation(this->getProgramID(), pUniformName);
 
 	if (Location == GL_INVALID_INDEX)
 	{
