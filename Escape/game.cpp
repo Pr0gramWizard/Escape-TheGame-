@@ -129,7 +129,7 @@ bool Game::gameLoop()
 
 	// Entitytest
 	Entity BlockTest(glm::vec3(0, 0, 0), 0, 0, 0, 0.1, &model);
-	Entity CoordianteSystemE(glm::vec3(0, 0, 0), 0, 0, 0, 1, &CoordianteSystem);
+	Entity CoordianteSystemE(glm::vec3(0, 0, 0), 0, 0, 0, 0.1, &CoordianteSystem);
 
 	MainRenderer* mainRenderer = new MainRenderer(mPlayer->getProjectionMatrix());
 	mainRenderer->addToList(terrain);
