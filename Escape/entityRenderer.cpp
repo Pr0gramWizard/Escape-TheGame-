@@ -41,9 +41,11 @@ void EntityRenderer::prepareEntity(Entity pEntity)
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
-	// Texturepart here
+	// Texture Part
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, model->getTextureID());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "ourTexture"), 0);
 
-	// end texturepart
 }
 
 void EntityRenderer::prepareEntity(Entity * pEntity)
@@ -54,7 +56,9 @@ void EntityRenderer::prepareEntity(Entity * pEntity)
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
 	// Texturepart here
-
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, model->getTextureID());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "ourTexture"), 0);
 	// end texturepart
 }
 

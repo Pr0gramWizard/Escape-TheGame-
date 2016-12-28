@@ -171,7 +171,7 @@ void Camera::setPosition(glm::vec3 pPosition)
 {
 	mPosition = pPosition;
 	// Camera always stays at y = 0.5f
-	mPosition.y = 3.0f;
+	// mPosition.y = 3.0f;
 }
 // Sets the front vector based on a given vector
 void Camera::setFront(glm::vec3 pFront)
