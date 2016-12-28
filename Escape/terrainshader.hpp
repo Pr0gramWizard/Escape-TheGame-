@@ -11,68 +11,69 @@
 #include <string>
 // Vector class
 #include <vector>
-// OpenGLMath
-#include <gtc/type_ptr.hpp>
-// 4x4 Matrix
-#include <mat4x4.hpp>
-// 3x1 Vector
+// vec3
 #include <vec3.hpp>
+// mat4
+#include <mat4x4.hpp>
+// glm::value_prt
+#include <gtc/type_ptr.hpp>
+
 
 // Defintion of the class Shader
-class Shader
+class TerrainShader
 {
 	// All public member of the class 
 public:
 	// Constructor
-	Shader();
+	TerrainShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
 	// Compile Shader
 	void createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
+	// Bind attribute
 	void bindAttribute(GLuint pAttribute, const std::string & pAttributeName);
-	virtual void getAllUniformLocations();
-	// Add attribute
-	virtual void addAttribute(const std::string& pAttributeName);
 	// Linking Shader
 	void linkShader();
 	// Use/Unuse Function
 	void use();
 	void unuse();
-	// Destructor
-	~Shader();
-
 	// Getter Functions
-	int getNumberofAttributes() const;
 	GLuint getProgramID() const;
 	GLuint getVertexShaderID() const;
 	GLuint getFragementShaderID() const;
 	GLuint getUniformLocation(const char* pUniformName);
 
-	// Loading uniform attributes into the shader
-	void loadFloat(GLuint pLocation, GLfloat pValue);
-	void loadVector(GLuint pLocation, glm::vec3 pVector);
-	void loadBool(GLuint pLocation, GLboolean pValue);
-	void loadMatrix(GLuint location, glm::mat4 pMatrix);
-
 	// Setter Functions
-	void setNumberofAttributes(int pAttribute);
 	void setProgramID(int pProgramID);
 	void setVertexShaderID(int pVertexShaderID);
 	void setFragementShaderID(int pFragementShaderID);
 
+	// load uniform variables
+	void loadFloat(GLuint pLocation, GLfloat pValue);
+	void loadVector(GLuint pLocation, glm::vec3 pVector);
+	void loadBool(GLuint pLocation, GLboolean pValue);
+	void loadModelMatrix(glm::mat4 pMatrix);
+	void loadProjectionMatrix(glm::mat4 pMatrix);
+	void loadViewMatrix(glm::mat4 pMatrix);
 
+	// Destructor
+	~TerrainShader();
 
-// All private member of the class
+	// All private member of the class
 private:
-	int mNumberofAttributes;
 	GLuint mProgramID;
 	GLuint mVertexShaderID;
 	GLuint mFragementShaderID;
-	GLuint mUniformLocation;
-// All private functions of the class
+	// All private functions of the class
+
+	//uniform locations
+	GLuint mLocation_modelMatrix;
+	GLuint mLocation_projectionMatrix;
+	GLuint mLocation_viewMatrix;
+
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);
 	void compileVertexShader(std::string pFragementShaderFilePath);
-	// Increase/Decrease Functions
-	void increaseNumberofAttributes();
-	void decreaseNumberofAttributes();
+	void getAllUniformLocations();
+	void bindAllAttributes();
+	void loadMatrix(GLuint location, glm::mat4 pMatrix);
 };
 

@@ -13,13 +13,30 @@
 #include <glfw3.h>
 // Shader class
 #include "shader.hpp"
+#include "EntityShader.hpp"
+#include "testshader.hpp"
 // Camera class
 #include "camera.hpp"
+// Terrain class
+#include "terrain.hpp"
+// Player class
+#include "player.hpp"
+// Loader class
+#include "loader.hpp"
+// Renderer class
+#include "entityRenderer.hpp"
+#include "terrainRenderer.hpp"
+#include "mainrenderer.hpp"
+// Math class
+#include "math.hpp"
+// List
+#include <list>
 
 #include <mat4x4.hpp>
 #include <vec3.hpp>
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
+#include <gtx\string_cast.hpp>
 
 class Game
 {
@@ -27,8 +44,6 @@ public:
 	Game();
 	Game(GLuint pWidth, GLuint pHeigth, const char* pWindowTitle);
 	~Game();
-	void prepareScene();
-	void drawScene();
 	bool gameLoop();
 
 
@@ -64,6 +79,9 @@ private:
 
 	// Pointers to other classes
 	Shader* mShader;
+
+	// Player
+	Player* mPlayer;
 
 
 

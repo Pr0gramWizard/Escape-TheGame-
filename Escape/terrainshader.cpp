@@ -1,39 +1,29 @@
 // Inclusion of definiton of the class
-#include "shader.hpp"
+#include "terrainshader.hpp"
 
 
 // Constructor
-Shader::Shader()
+TerrainShader::TerrainShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
-	// Setting every private member to 0
-	// Number of Attributes in the shader
-	setNumberofAttributes(0);
-	// Program ID
-	setProgramID(0);
-	// Vertex Shader ID
-	setVertexShaderID(0);
-	// Fragment Shade ID
-	setFragementShaderID(0);
+	this->createShader(pVertexShaderFilePath, pFragementShaderFilePath);
+	this->getAllUniformLocations();
+	this->bindAllAttributes();
 
 	// Log Shader
 	std::clog << "Shader class was created successfully!" << std::endl;
 }
 
-void Shader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
+void TerrainShader::bindAllAttributes()
 {
-	// We bind the attribute to the given Program ID
-	glBindAttribLocation(getProgramID(), pAttribute, pAttributeName.c_str());
-	// Then we increase the number of attributes in the whole class
+	this->bindAttribute(0, "position");
+	this->bindAttribute(1, "normal");
+	this->bindAttribute(2, "texCoord");
 }
 
-void Shader::getAllUniformLocations()
-{
-
-}
 
 // Compilation of the vertex and fragment shader 
 // Function: complieShader(Filepath, Filepath)
-void Shader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
+void TerrainShader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
 	// First we create a VERTEX SHADER
 	mVertexShaderID = glCreateShader(GL_VERTEX_SHADER);
@@ -70,17 +60,8 @@ void Shader::createShader(const std::string& pVertexShaderFilePath, const std::s
 
 }
 
-// Adding an attribtute to the shader
-void Shader::addAttribute(const std::string & pAttributeName)
-{
-	// We bind the attribute to the given Program ID
-	glBindAttribLocation(getProgramID(), getNumberofAttributes(), pAttributeName.c_str());
-	// Then we increase the number of attributes in the whole class
-	increaseNumberofAttributes();
-}
-
 // Linking of vertex and fragment shader
-void Shader::linkShader()
+void TerrainShader::linkShader()
 {
 	// First we create a new Program with the given Program ID
 	setProgramID(glCreateProgram());
@@ -126,35 +107,21 @@ void Shader::linkShader()
 }
 
 // Tell the program to use the shader
-void Shader::use()
+void TerrainShader::use()
 {
 	// Starting the program with the shader together
 	glUseProgram(getProgramID());
-	// Depending of the number of attributes we need to enable every attribute manually
-	// Looping through the number ob attribues in the shader
-	for (int i = 0; i < getNumberofAttributes(); i++)
-	{
-		// Enable Attribute
-		glEnableVertexAttribArray(i);
-	}
 }
 
 // Tell the program to stop using the shader
-void Shader::unuse()
+void TerrainShader::unuse()
 {
 	// Destroying refference to program
 	glUseProgram(0);
-	// Depending of the number of attributes we need to disable every attribute manually
-	// Looping through the number ob attribues in the shader 
-	for (int i = 0; i < getNumberofAttributes(); i++)
-	{
-		// Disable Attribute
-		glDisableVertexAttribArray(i);
-	}
 }
 
 // Reading fragment shader from file and compiling it
-void Shader::compileFragementShader(std::string pFragementShaderFilePath)
+void TerrainShader::compileFragementShader(std::string pFragementShaderFilePath)
 {
 	// Opening a file stream with the given file path
 	std::ifstream fragementFile(pFragementShaderFilePath);
@@ -215,7 +182,7 @@ void Shader::compileFragementShader(std::string pFragementShaderFilePath)
 
 }
 
-void Shader::compileVertexShader(std::string pVertexShaderFilePath)
+void TerrainShader::compileVertexShader(std::string pVertexShaderFilePath)
 {
 	// Opening a file stream with the given file path
 	std::ifstream vertexFile(pVertexShaderFilePath);
@@ -274,27 +241,25 @@ void Shader::compileVertexShader(std::string pVertexShaderFilePath)
 	}
 }
 
-
-
 // Getter Functions
 // Returns current Program ID
-GLuint Shader::getProgramID() const
+GLuint TerrainShader::getProgramID() const
 {
 	return mProgramID;
 }
 // Returns current Vertex Shader ID
-GLuint Shader::getVertexShaderID() const
+GLuint TerrainShader::getVertexShaderID() const
 {
 	return mVertexShaderID;
 }
 // Returns current Fragement Shader ID
-GLuint Shader::getFragementShaderID() const
+GLuint TerrainShader::getFragementShaderID() const
 {
 	return mFragementShaderID;
 }
-GLuint Shader::getUniformLocation(const char* pUniformName)
+GLuint TerrainShader::getUniformLocation(const char* pUniformName)
 {
-	GLuint Location = glGetUniformLocation(getProgramID(), pUniformName);
+	GLuint Location = glGetUniformLocation(this->getProgramID(), pUniformName);
 
 	if (Location == GL_INVALID_INDEX)
 	{
@@ -306,15 +271,35 @@ GLuint Shader::getUniformLocation(const char* pUniformName)
 		return Location;
 	}
 }
-void Shader::loadFloat(GLuint pLocation, GLfloat pValue)
+
+// Setter Functions
+// Sets current Program ID to a given ID
+void TerrainShader::setProgramID(int pProgramID)
+{
+	mProgramID = pProgramID;
+}
+// Sets current VertexShaderID to a given ID
+void TerrainShader::setVertexShaderID(int pVertexShaderID)
+{
+	mVertexShaderID = pVertexShaderID;
+}
+// Sets current FragementShaderID to a given ID
+void TerrainShader::setFragementShaderID(int pFragementShaderID)
+{
+	mFragementShaderID = pFragementShaderID;
+}
+
+void TerrainShader::loadFloat(GLuint pLocation, GLfloat pValue)
 {
 	glUniform1f(pLocation, pValue);
 }
-void Shader::loadVector(GLuint pLocation, glm::vec3 pVector)
+
+void TerrainShader::loadVector(GLuint pLocation, glm::vec3 pVector)
 {
 	glUniform3f(pLocation, pVector.x, pVector.y, pVector.z);
 }
-void Shader::loadBool(GLuint pLocation, GLboolean pValue)
+
+void TerrainShader::loadBool(GLuint pLocation, GLboolean pValue)
 {
 	if (pValue == 0)
 	{
@@ -325,51 +310,45 @@ void Shader::loadBool(GLuint pLocation, GLboolean pValue)
 		glUniform1f(pLocation, 1);
 	}
 }
-void Shader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
+
+void TerrainShader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
 {
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, glm::value_ptr(pMatrix));
 }
-// Returns the current Number of Attributes
-int Shader::getNumberofAttributes() const
+
+void TerrainShader::loadModelMatrix(glm::mat4 pMatrix)
 {
-	return mNumberofAttributes;
-}
-// Increaes the number of Attributes
-void Shader::increaseNumberofAttributes()
-{
-	mNumberofAttributes++;
-}
-// Decreases the number of Attributes
-void Shader::decreaseNumberofAttributes()
-{
-	mNumberofAttributes--;
+	loadMatrix(mLocation_modelMatrix, pMatrix);
 }
 
+void TerrainShader::loadProjectionMatrix(glm::mat4 pMatrix)
+{
+	loadMatrix(mLocation_projectionMatrix, pMatrix);
+}
 
-// Setter Functions
-// Sets current Program ID to a given ID
-void Shader::setProgramID(int pProgramID)
+void TerrainShader::loadViewMatrix(glm::mat4 pMatrix)
 {
-	mProgramID = pProgramID;
+	loadMatrix(mLocation_viewMatrix, pMatrix);
 }
-// Sets current VertexShaderID to a given ID
-void Shader::setVertexShaderID(int pVertexShaderID)
-{
-	mVertexShaderID = pVertexShaderID;
-}
-// Sets current FragementShaderID to a given ID
-void Shader::setFragementShaderID(int pFragementShaderID)
-{
-	mFragementShaderID = pFragementShaderID;
-}
-// Sets current Number of Attributes to a given parameter
-void Shader::setNumberofAttributes(int pAttribute)
-{
-	mNumberofAttributes = pAttribute;
-}
+
 // Destructor
-Shader::~Shader()
+TerrainShader::~TerrainShader()
 {
 	// Log Shader
 	std::clog << "Shader class was destroyed successfully!" << std::endl;
+}
+
+void TerrainShader::getAllUniformLocations()
+{
+	mLocation_modelMatrix = glGetUniformLocation(getProgramID(), "model");
+	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projection");
+	mLocation_viewMatrix = glGetUniformLocation(getProgramID(), "view");
+}
+
+// Binding an attribtute to the shader
+void TerrainShader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
+{
+	// We bind the attribute to the given Program ID
+	glBindAttribLocation(getProgramID(), pAttribute, pAttributeName.c_str());
+	// Then we increase the number of attributes in the whole class
 }

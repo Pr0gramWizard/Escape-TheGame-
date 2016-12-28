@@ -20,21 +20,45 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="entity.cpp" />
+    <ClCompile Include="entityshader.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="loader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math.cpp" />
     <ClCompile Include="matrix4D.cpp" />
+    <ClCompile Include="model.cpp" />
+    <ClCompile Include="objectLoader.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="entityRenderer.cpp" />
+    <ClCompile Include="mainrenderer.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="terrain.cpp" />
+    <ClCompile Include="terrainRenderer.cpp" />
+    <ClCompile Include="terrainshader.cpp" />
+    <ClCompile Include="testshader.cpp" />
     <ClCompile Include="vector2D.cpp" />
     <ClCompile Include="vector3D.cpp" />
     <ClCompile Include="vector4D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.hpp" />
+    <ClInclude Include="entity.hpp" />
+    <ClInclude Include="entityshader.hpp" />
     <ClInclude Include="game.hpp" />
+    <ClInclude Include="loader.hpp" />
     <ClInclude Include="math.hpp" />
     <ClInclude Include="matrix4D.hpp" />
+    <ClInclude Include="model.hpp" />
+    <ClInclude Include="objectLoader.h" />
+    <ClInclude Include="player.hpp" />
+    <ClInclude Include="entityRenderer.hpp" />
+    <ClInclude Include="mainrenderer.hpp" />
+    <ClInclude Include="terrain.hpp" />
     <ClInclude Include="shader.hpp" />
+    <ClInclude Include="terrainRenderer.hpp" />
+    <ClInclude Include="terrainshader.hpp" />
+    <ClInclude Include="testshader.hpp" />
     <ClInclude Include="textureloader.hpp" />
     <ClInclude Include="utility.hpp" />
     <ClInclude Include="vector2D.hpp" />
@@ -44,8 +68,12 @@
   <ItemGroup>
     <None Include="glew32.dll" />
     <None Include="SDL2.dll" />
-    <None Include="shaders\cameraShader.frag" />
-    <None Include="shaders\cameraShader.vert" />
+    <None Include="shaders\a.frag" />
+    <None Include="shaders\b.vert" />
+    <None Include="shaders\terrain.frag" />
+    <None Include="shaders\terrain.vert" />
+    <None Include="shaders\worldShader.frag" />
+    <None Include="shaders\worldShader.vert" />
     <None Include="shaders\triangleShader.frag" />
     <None Include="shaders\triangleShader.vert" />
   </ItemGroup>

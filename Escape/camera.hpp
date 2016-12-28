@@ -1,11 +1,16 @@
 #pragma once
+// Inclusion of every library
+// OpenGLExtensionWrangler library
 #include <glew.h>
+// Standard Input/Output stream
 #include <iostream>
+// OpenGLMath Library
+// 3x1 Vector
 #include <vec3.hpp>
-#include "matrix4D.hpp"
+// 4x4 Matrix
 #include <mat4x4.hpp>
+// Matrix Transformation
 #include <gtc/matrix_transform.hpp>
-// #include "utility.hpp"
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
 enum Camera_Movement {
@@ -18,22 +23,33 @@ enum Camera_Movement {
 // Default camera values
 const GLfloat YAW = -90.0f;
 const GLfloat PITCH = 0.0f;
-const GLfloat SPEED = 3.0f;
-const GLfloat SENSITIVTY = 0.5f;
-const GLfloat ZOOM = 45.0f;
+const GLfloat SPEED = 5.0f;
+const GLfloat SENSITIVTY = 0.1f;
+const GLfloat FOV = 45.0f;
 
-
+// Declaration of the camera class
 class Camera
 {
+// All public functions
 public:
+	// Default constructor
 	Camera();
-	Camera(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloat upY, GLfloat upZ, GLfloat yaw, GLfloat pitch);
+	// Constructor with given parameter:
+	// > pPosition: Initial position of the camera
+	// > pUp:		The Up vector of the world
+	// > pYaw:		Given Yaw
+	// > pPitch:	Given Pitch
+	Camera(glm::vec3 pPosition, glm::vec3 pUp, GLfloat yaw, GLfloat pitch);
 
+	// Functions that process user input
 	void ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime);
-	void ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset);
+	void ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset,GLfloat deltaTime);
 	void ProcessMouseScroll(GLfloat pYOffset);
 
+	// Returns the current View Matrix
 	glm::mat4 GetViewMatrix();
+	// Returns the current Projection Matrix
+	glm::mat4 GetProjectionMatrix(int pHeight, int pWidth);
 
 
 	// Getter Functions
@@ -42,12 +58,11 @@ public:
 	glm::vec3 getUp() const;
 	glm::vec3 getRight() const;
 	glm::vec3 getWorldUp() const;
-
 	GLfloat getYaw() const;
 	GLfloat getPitch() const;
 	GLfloat getMovementSpeed() const;
 	GLfloat getMouseSensitivity() const;
-	GLfloat getZoom() const;
+	GLfloat getFov() const;
 
 
 	// Setter Functions
@@ -56,12 +71,11 @@ public:
 	void setUp(glm::vec3 pUp);
 	void setRight(glm::vec3 pRight);
 	void setWorldUp(glm::vec3 pWorldUp);
-
 	void setYaw(GLfloat pYaw);
 	void setPitch(GLfloat pPitch);
 	void setMovementSpeed(GLfloat pMovementSpeed);
 	void setMouseSensitivity(GLfloat pMouseSensitivity);
-	void setZoom(GLfloat pZoom);
+	void setFov(GLfloat pFov);
 
 
 
@@ -79,7 +93,7 @@ private:
 	// Camera options
 	GLfloat mMovementSpeed;
 	GLfloat mMouseSensitivity;
-	GLfloat mZoom;
+	GLfloat mFov;
 
 // All private functions of the class
 private:

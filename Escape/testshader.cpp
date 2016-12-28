@@ -1,39 +1,20 @@
 // Inclusion of definiton of the class
-#include "shader.hpp"
+#include "testshader.hpp"
 
 
 // Constructor
-Shader::Shader()
+Testshader::Testshader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
-	// Setting every private member to 0
-	// Number of Attributes in the shader
-	setNumberofAttributes(0);
-	// Program ID
-	setProgramID(0);
-	// Vertex Shader ID
-	setVertexShaderID(0);
-	// Fragment Shade ID
-	setFragementShaderID(0);
+	createShader(pVertexShaderFilePath, pFragementShaderFilePath);
+	getAllUniformLocations();
 
 	// Log Shader
 	std::clog << "Shader class was created successfully!" << std::endl;
 }
 
-void Shader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
-{
-	// We bind the attribute to the given Program ID
-	glBindAttribLocation(getProgramID(), pAttribute, pAttributeName.c_str());
-	// Then we increase the number of attributes in the whole class
-}
-
-void Shader::getAllUniformLocations()
-{
-
-}
-
 // Compilation of the vertex and fragment shader 
 // Function: complieShader(Filepath, Filepath)
-void Shader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
+void Testshader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
 	// First we create a VERTEX SHADER
 	mVertexShaderID = glCreateShader(GL_VERTEX_SHADER);
@@ -70,17 +51,8 @@ void Shader::createShader(const std::string& pVertexShaderFilePath, const std::s
 
 }
 
-// Adding an attribtute to the shader
-void Shader::addAttribute(const std::string & pAttributeName)
-{
-	// We bind the attribute to the given Program ID
-	glBindAttribLocation(getProgramID(), getNumberofAttributes(), pAttributeName.c_str());
-	// Then we increase the number of attributes in the whole class
-	increaseNumberofAttributes();
-}
-
 // Linking of vertex and fragment shader
-void Shader::linkShader()
+void Testshader::linkShader()
 {
 	// First we create a new Program with the given Program ID
 	setProgramID(glCreateProgram());
@@ -126,35 +98,21 @@ void Shader::linkShader()
 }
 
 // Tell the program to use the shader
-void Shader::use()
+void Testshader::use()
 {
 	// Starting the program with the shader together
 	glUseProgram(getProgramID());
-	// Depending of the number of attributes we need to enable every attribute manually
-	// Looping through the number ob attribues in the shader
-	for (int i = 0; i < getNumberofAttributes(); i++)
-	{
-		// Enable Attribute
-		glEnableVertexAttribArray(i);
-	}
 }
 
 // Tell the program to stop using the shader
-void Shader::unuse()
+void Testshader::unuse()
 {
 	// Destroying refference to program
 	glUseProgram(0);
-	// Depending of the number of attributes we need to disable every attribute manually
-	// Looping through the number ob attribues in the shader 
-	for (int i = 0; i < getNumberofAttributes(); i++)
-	{
-		// Disable Attribute
-		glDisableVertexAttribArray(i);
-	}
 }
 
 // Reading fragment shader from file and compiling it
-void Shader::compileFragementShader(std::string pFragementShaderFilePath)
+void Testshader::compileFragementShader(std::string pFragementShaderFilePath)
 {
 	// Opening a file stream with the given file path
 	std::ifstream fragementFile(pFragementShaderFilePath);
@@ -215,7 +173,7 @@ void Shader::compileFragementShader(std::string pFragementShaderFilePath)
 
 }
 
-void Shader::compileVertexShader(std::string pVertexShaderFilePath)
+void Testshader::compileVertexShader(std::string pVertexShaderFilePath)
 {
 	// Opening a file stream with the given file path
 	std::ifstream vertexFile(pVertexShaderFilePath);
@@ -274,27 +232,25 @@ void Shader::compileVertexShader(std::string pVertexShaderFilePath)
 	}
 }
 
-
-
 // Getter Functions
 // Returns current Program ID
-GLuint Shader::getProgramID() const
+GLuint Testshader::getProgramID() const
 {
 	return mProgramID;
 }
 // Returns current Vertex Shader ID
-GLuint Shader::getVertexShaderID() const
+GLuint Testshader::getVertexShaderID() const
 {
 	return mVertexShaderID;
 }
 // Returns current Fragement Shader ID
-GLuint Shader::getFragementShaderID() const
+GLuint Testshader::getFragementShaderID() const
 {
 	return mFragementShaderID;
 }
-GLuint Shader::getUniformLocation(const char* pUniformName)
+GLuint Testshader::getUniformLocation(const char* pUniformName)
 {
-	GLuint Location = glGetUniformLocation(getProgramID(), pUniformName);
+	GLuint Location = glGetUniformLocation(this->getProgramID(), pUniformName);
 
 	if (Location == GL_INVALID_INDEX)
 	{
@@ -306,70 +262,84 @@ GLuint Shader::getUniformLocation(const char* pUniformName)
 		return Location;
 	}
 }
-void Shader::loadFloat(GLuint pLocation, GLfloat pValue)
-{
-	glUniform1f(pLocation, pValue);
-}
-void Shader::loadVector(GLuint pLocation, glm::vec3 pVector)
-{
-	glUniform3f(pLocation, pVector.x, pVector.y, pVector.z);
-}
-void Shader::loadBool(GLuint pLocation, GLboolean pValue)
-{
-	if (pValue == 0)
-	{
-		glUniform1f(pLocation, 0);
-	}
-	else
-	{
-		glUniform1f(pLocation, 1);
-	}
-}
-void Shader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
-{
-	glUniformMatrix4fv(pLocation, 1, GL_FALSE, glm::value_ptr(pMatrix));
-}
-// Returns the current Number of Attributes
-int Shader::getNumberofAttributes() const
-{
-	return mNumberofAttributes;
-}
-// Increaes the number of Attributes
-void Shader::increaseNumberofAttributes()
-{
-	mNumberofAttributes++;
-}
-// Decreases the number of Attributes
-void Shader::decreaseNumberofAttributes()
-{
-	mNumberofAttributes--;
-}
-
 
 // Setter Functions
 // Sets current Program ID to a given ID
-void Shader::setProgramID(int pProgramID)
+void Testshader::setProgramID(int pProgramID)
 {
 	mProgramID = pProgramID;
 }
 // Sets current VertexShaderID to a given ID
-void Shader::setVertexShaderID(int pVertexShaderID)
+void Testshader::setVertexShaderID(int pVertexShaderID)
 {
 	mVertexShaderID = pVertexShaderID;
 }
 // Sets current FragementShaderID to a given ID
-void Shader::setFragementShaderID(int pFragementShaderID)
+void Testshader::setFragementShaderID(int pFragementShaderID)
 {
 	mFragementShaderID = pFragementShaderID;
 }
-// Sets current Number of Attributes to a given parameter
-void Shader::setNumberofAttributes(int pAttribute)
+
+void Testshader::loadFloat(GLuint pLocation, GLfloat pValue)
 {
-	mNumberofAttributes = pAttribute;
+	glUniform1f(pLocation, pValue);
 }
+
+void Testshader::loadVector(GLuint pLocation, glm::vec3 pVector)
+{
+	glUniform3f(pLocation, pVector.x, pVector.y, pVector.z);
+}
+
+void Testshader::loadBool(GLuint pLocation, GLboolean pValue)
+{
+	if (pValue == 0) 
+	{
+		glUniform1f(pLocation, 0);
+	}
+	else 
+	{
+		glUniform1f(pLocation, 1);
+	}
+}
+
+void Testshader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
+{
+	glUniformMatrix4fv(pLocation, 1, GL_FALSE, glm::value_ptr(pMatrix));
+}
+
+void Testshader::loadModelMatrix(glm::mat4 pMatrix)
+{
+	loadMatrix(mLocation_modelMatrix, pMatrix);
+}
+
+void Testshader::loadProjectionMatrix(glm::mat4 pMatrix)
+{
+	loadMatrix(mLocation_projectionMatrix, pMatrix);
+}
+
+void Testshader::loadViewMatrix(glm::mat4 pMatrix)
+{
+	loadMatrix(mLocation_viewMatrix, pMatrix);
+}
+
 // Destructor
-Shader::~Shader()
+Testshader::~Testshader()
 {
 	// Log Shader
 	std::clog << "Shader class was destroyed successfully!" << std::endl;
+}
+
+void Testshader::getAllUniformLocations()
+{
+	mLocation_modelMatrix = glGetUniformLocation(getProgramID(), "model");
+	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projection");
+	mLocation_viewMatrix = glGetUniformLocation(getProgramID(), "view");
+}
+
+// Binding an attribtute to the shader
+void Testshader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
+{
+	// We bind the attribute to the given Program ID
+	glBindAttribLocation(getProgramID(), pAttribute, pAttributeName.c_str());
+	// Then we increase the number of attributes in the whole class
 }
