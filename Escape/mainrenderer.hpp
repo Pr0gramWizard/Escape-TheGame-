@@ -11,8 +11,7 @@
 #include "terrain.hpp"
 
 // shader
-#include "entityshader.hpp"
-#include "terrainshader.hpp"
+#include "testshader.hpp"
 
 // matrix
 #include <mat4x4.hpp>
@@ -30,8 +29,7 @@ public:
 
 	// adds entities or terrains to render list
 	void addToList(Entity &pEntity);
-	void addToList(Terrain* pTerrain);
-	void addToList(Entity &pEntity, RenderMode pMode);
+	void addToList(Terrain &pTerrain);
 
 	// prepares for rendering
 	void prepare();
@@ -54,7 +52,6 @@ private:
 	TerrainRenderer* mTerrainRenderer;
 
 	list<Entity> mEntities;
-	list<Terrain*> mTerrains;
-	list<Entity> mSpecialEntities;
+	list<Terrain> mTerrains;
 };
 

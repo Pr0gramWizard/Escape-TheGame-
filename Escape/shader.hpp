@@ -29,7 +29,8 @@ public:
 	void createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
 	void bindAttribute(GLuint pAttribute, const std::string & pAttributeName);
 	virtual void getAllUniformLocations();
-	virtual void bindAllAttributes();
+	// Add attribute
+	virtual void addAttribute(const std::string& pAttributeName);
 	// Linking Shader
 	void linkShader();
 	// Use/Unuse Function
@@ -65,6 +66,7 @@ private:
 	GLuint mProgramID;
 	GLuint mVertexShaderID;
 	GLuint mFragementShaderID;
+	GLuint mUniformLocation;
 // All private functions of the class
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);

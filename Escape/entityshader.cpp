@@ -6,7 +6,6 @@ EntityShader::EntityShader(const std::string& pVertexShaderFilePath, const std::
 {
 	this->createShader(pVertexShaderFilePath, pFragementShaderFilePath);
 	this->getAllUniformLocations();
-	this->bindAllAttributes();
 }
 
 void EntityShader::getAllUniformLocations()
@@ -81,11 +80,4 @@ void EntityShader::loadViewMatrix(glm::mat4 pMatrix)
 
 EntityShader::~EntityShader()
 {
-}
-
-void EntityShader::bindAllAttributes()
-{
-	this->bindAttribute(0, "position");
-	this->bindAttribute(1, "normal");
-	this->bindAttribute(2, "texCoord");
 }

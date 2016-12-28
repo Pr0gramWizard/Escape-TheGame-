@@ -6,7 +6,7 @@ class EntityShader :
 public:
 	EntityShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
 	~EntityShader();
-	void bindAllAttributes();
+	void addAttribute(const char* &pAttributeName);
 	void getAllUniformLocations();
 	GLuint getUniformLocation(const char* pUniformName);
 

@@ -3,8 +3,6 @@
 #include <iostream>
 #include <vec2.hpp>
 #include <vector>
-// soil
-#include <SOIL.h>
 // model class
 #include "model.hpp"
 // loader class
@@ -35,7 +33,7 @@ public:
 	void setModel(Model* pModel);
 
 public:
-	static const int TERRAIN_SIZE;
+	static const int TERRAIN_SIZE = 200;
 
 private:
 	int mWorldX;
@@ -49,7 +47,6 @@ private:
 private:
 	bool isPowerOfTwo(int pX);
 	Model generateTerrain(Loader* loader);
-	float getHeightAt(int x, int z, unsigned char* pHeightmap, int pHeightmapWidth);
 	
 };
 

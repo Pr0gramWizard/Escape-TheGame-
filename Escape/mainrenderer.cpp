@@ -7,17 +7,18 @@ const char* MainRenderer::TERRAIN_FRAGMENT = "shaders/terrain.frag";
 
 MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix)
 {
-	EntityShader* entityShader = new EntityShader(ENTITY_VERTEX, ENTITY_FRAGMENT);
-	mEntityRenderer = new EntityRenderer(entityShader, pProjectionMatrix);
+	mEntityRenderer = new EntityRenderer();
+	mEntityRenderer->addShader(ENTITY_VERTEX, ENTITY_FRAGMENT);
 
-	TerrainShader* terrainShader = new TerrainShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
+	Testshader* terrainShader = new Testshader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
+	terrainShader->bindAttribute(0, "position");
+	terrainShader->bindAttribute(1, "normal");
+	terrainShader->bindAttribute(2, "texCoord");
 	mTerrainRenderer = new TerrainRenderer(terrainShader, pProjectionMatrix);
 }
 
 MainRenderer::~MainRenderer()
 {
-	delete mEntityRenderer;
-	delete mTerrainRenderer;
 }
 
 void MainRenderer::prepare()
@@ -28,17 +29,12 @@ void MainRenderer::prepare()
 
 void MainRenderer::render(glm::mat4 pViewMatrix)
 {
-	// entities
-   	mEntityRenderer->startShader();
-	mEntityRenderer->loadViewMatrix(pViewMatrix);
-	mEntityRenderer->render(mEntities);
-	mEntityRenderer->render(mSpecialEntities, LINES);
-	mEntityRenderer->stopShader();
-
-	// terrains
 	mTerrainRenderer->startShader();
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
-	mTerrainRenderer->render(mTerrains);
+	for (Terrain &terrain : mTerrains)
+	{
+		mTerrainRenderer->render(terrain);
+	}
 	mTerrainRenderer->stopShader();
 }
 
@@ -47,12 +43,7 @@ void MainRenderer::addToList(Entity &pEntity)
 	mEntities.push_back(pEntity);
 }
 
-void MainRenderer::addToList(Entity &pEntity, RenderMode pMode)
-{
-	mSpecialEntities.push_back(pEntity);
-}
-
-void MainRenderer::addToList(Terrain* pTerrain)
+void MainRenderer::addToList(Terrain &pTerrain)
 {
 	mTerrains.push_back(pTerrain);
 }
@@ -61,12 +52,10 @@ void MainRenderer::clearLists()
 {
 	mEntities.clear();
 	mTerrains.clear();
-	mSpecialEntities.clear();
 }
 
 void MainRenderer::cleanUp()
 {
-	this->clearLists();
-	// mEntityRenderer->cleanUp();
-	// mTerrainRenderer->cleanUp();
+	//mEntityRenderer->cleanUp();
+	//mTerrainRenderer->cleanUp();
 }

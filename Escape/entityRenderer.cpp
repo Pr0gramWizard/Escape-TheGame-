@@ -1,12 +1,9 @@
 #include "entityRenderer.hpp"
 
 // constructor
-EntityRenderer::EntityRenderer(EntityShader* pShader, glm::mat4 pProjectionMatrix)
+EntityRenderer::EntityRenderer()
 {
-	mShader = pShader;
-	mShader->use();
-	mShader->loadProjectionMatrix(pProjectionMatrix);
-	mShader->unuse();
+	mShader = new Shader();
 }
 
 
@@ -15,113 +12,83 @@ EntityRenderer::~EntityRenderer()
 {
 }
 
-void EntityRenderer::render(list<Entity> pEntities)
+// prepares the renderer for rendering
+void EntityRenderer::prepare()
 {
-	for (Entity &entity : pEntities)
-	{
-		prepareEntity(entity);
-		loadModelMatrix(entity);
-		glDrawElements(GL_TRIANGLES, entity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-		unbindEntity();
-	}
+	glClearColor(0.2f,0.3f,0.3f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void EntityRenderer::render(Entity & pEntity)
+// creates a shader and saves it in the renderer
+void EntityRenderer::addShader(const char* pVertexShader, const char* pFragmentShader)
 {
-	prepareEntity(&pEntity);
-	loadModelMatrix(&pEntity);
-	glDrawElements(GL_TRIANGLES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-	unbindEntity();
+	mShader->createShader(pVertexShader, pFragmentShader);
 }
 
-void EntityRenderer::prepareEntity(Entity pEntity)
-{
-	Model* model = pEntity.getModel();
-	glBindVertexArray(model->getVaoId());
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-	// Texturepart here
 
-	// end texturepart
+// adds a uniform matrix to the shader
+void EntityRenderer::addUniformAttribute(glm::mat4 pMatrix, const char * pAttributeName)
+{
+	glm::mat4 view;
+	view = pMatrix;
+	mShader->addAttribute(pAttributeName);
+	// GLint viewLocation = mShader->getUniformLocation(pAttributeName);
+	// glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
 }
 
-void EntityRenderer::prepareEntity(Entity * pEntity)
-{
-	Model* model = pEntity->getModel();
-	glBindVertexArray(model->getVaoId());
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-	// Texturepart here
 
-	// end texturepart
-}
-
-void EntityRenderer::unbindEntity()
-{
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
-	glBindVertexArray(0);
-}
-
-void EntityRenderer::loadModelMatrix(Entity pEntity)
-{
-	mShader->loadModelMatrix(pEntity.getModelMatrix());
-}
-
-void EntityRenderer::loadModelMatrix(Entity * pEntity)
-{
-	mShader->loadModelMatrix(pEntity->getModelMatrix());
-}
-
-void EntityRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
-{
-	mShader->loadViewMatrix(pViewMatrix);
-}
-
-void EntityRenderer::startShader()
+// enables shader
+void EntityRenderer::enableShader()
 {
 	mShader->use();
 }
 
-void EntityRenderer::stopShader()
+
+// disables shader
+void EntityRenderer::disableShader()
 {
 	mShader->unuse();
 }
 
-void EntityRenderer::render(std::list<Entity> pEntities, RenderMode pMode)
+// renders an entity with the given RenderMode
+void EntityRenderer::render(Entity pEntity, Testshader *pShader, RenderMode pMode)
 {
-	for (Entity &pEntity : pEntities)
+	glBindVertexArray(pEntity.getModel()->getVaoId());
+	glEnableVertexAttribArray(0);
+	switch (pMode)
 	{
-		prepareEntity(pEntity);
-		loadModelMatrix(pEntity);
-		switch (pMode)
-		{
-		case RenderMode::POINTS:
-			glDrawElements(GL_POINTS, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-			break;
-		case RenderMode::LINES:
-			glDrawElements(GL_LINES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-			break;
-		case RenderMode::LINE_STRIP:
-			glDrawElements(GL_LINE_STRIP, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-			break;
-		case RenderMode::LINE_LOOP:
-			glDrawElements(GL_LINE_LOOP, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-			break;
-		case RenderMode::TRIANGLES:
-			glDrawElements(GL_TRIANGLES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-			break;
-		case RenderMode::TRIANGLE_STRIP:
-			glDrawElements(GL_TRIANGLE_STRIP, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-			break;
-		case RenderMode::TRIANGLE_FAN:
-			glDrawElements(GL_TRIANGLE_FAN, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-			break;
+	case RenderMode::POINTS:
+		glDrawElements(GL_POINTS, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+		break;
+	case RenderMode::LINES:
+		glDrawElements(GL_LINES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+		break;
+	case RenderMode::LINE_STRIP:
+		glDrawElements(GL_LINE_STRIP, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+		break;
+	case RenderMode::LINE_LOOP:
+		glDrawElements(GL_LINE_LOOP, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+		break;
+	case RenderMode::TRIANGLES:
+		glDrawElements(GL_TRIANGLES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+		break;
+	case RenderMode::TRIANGLE_STRIP:
+		glDrawElements(GL_TRIANGLE_STRIP, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+		break;
+	case RenderMode::TRIANGLE_FAN:
+		glDrawElements(GL_TRIANGLE_FAN, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+		break;
 	}
-		unbindEntity();
-	}
+	glDisableVertexAttribArray(0);
+	glBindVertexArray(0);
+}
 
+// renders an entity with RenderMode GL_LINES
+void EntityRenderer::render(Entity pEntity, Testshader *pShader)
+{
+	glBindVertexArray(pEntity.getModel()->getVaoId());
+	glEnableVertexAttribArray(0);
+	glDrawElements(GL_TRIANGLES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+	glDisableVertexAttribArray(0);
+	glBindVertexArray(0);
 }

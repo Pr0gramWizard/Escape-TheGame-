@@ -35,7 +35,7 @@
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="terrain.cpp" />
     <ClCompile Include="terrainRenderer.cpp" />
-    <ClCompile Include="terrainshader.cpp" />
+    <ClCompile Include="testshader.cpp" />
     <ClCompile Include="vector2D.cpp" />
     <ClCompile Include="vector3D.cpp" />
     <ClCompile Include="vector4D.cpp" />
@@ -56,7 +56,7 @@
     <ClInclude Include="terrain.hpp" />
     <ClInclude Include="shader.hpp" />
     <ClInclude Include="terrainRenderer.hpp" />
-    <ClInclude Include="terrainshader.hpp" />
+    <ClInclude Include="testshader.hpp" />
     <ClInclude Include="textureloader.hpp" />
     <ClInclude Include="utility.hpp" />
     <ClInclude Include="vector2D.hpp" />
