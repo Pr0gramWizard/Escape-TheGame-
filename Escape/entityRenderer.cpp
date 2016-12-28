@@ -120,7 +120,7 @@ void EntityRenderer::render(std::list<Entity> pEntities, RenderMode pMode)
 		case RenderMode::TRIANGLE_FAN:
 			glDrawElements(GL_TRIANGLE_FAN, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 			break;
-	}
+		}
 		unbindEntity();
 	}
 

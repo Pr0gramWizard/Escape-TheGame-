@@ -10,7 +10,6 @@
 // model class
 #include "model.hpp"
 #include "entity.hpp"
-#include "shader.hpp"
 #include "entityshader.hpp"
 
 enum RenderMode {
@@ -57,4 +56,3 @@ public:
 private:
 	EntityShader* mShader;
 };
-

@@ -13,7 +13,7 @@
 #include <glfw3.h>
 // Shader class
 #include "shader.hpp"
-#include "entityshader.hpp"
+#include "EntityShader.hpp"
 #include "testshader.hpp"
 // Camera class
 #include "camera.hpp"
@@ -44,8 +44,6 @@ public:
 	Game();
 	Game(GLuint pWidth, GLuint pHeigth, const char* pWindowTitle);
 	~Game();
-	void prepareScene();
-	void drawScene();
 	bool gameLoop();
 
 
@@ -92,7 +90,6 @@ private:
 	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 	static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	void do_movement();
-	void debug();
 
 
 

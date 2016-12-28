@@ -1,4 +1,4 @@
- // Inclusion of definiton of the class
+// Inclusion of definiton of the class
 #include "shader.hpp"
 
 
@@ -27,11 +27,6 @@ void Shader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName
 }
 
 void Shader::getAllUniformLocations()
-{
-
-}
-
-void Shader::bindAllAttributes()
 {
 
 }
@@ -75,6 +70,14 @@ void Shader::createShader(const std::string& pVertexShaderFilePath, const std::s
 
 }
 
+// Adding an attribtute to the shader
+void Shader::addAttribute(const std::string & pAttributeName)
+{
+	// We bind the attribute to the given Program ID
+	glBindAttribLocation(getProgramID(), getNumberofAttributes(), pAttributeName.c_str());
+	// Then we increase the number of attributes in the whole class
+	increaseNumberofAttributes();
+}
 
 // Linking of vertex and fragment shader
 void Shader::linkShader()

@@ -62,7 +62,6 @@ bool Game::gameLoop()
 {
 
 	Loader* loader = new Loader();
-
 	std::vector<float> vertices = {
 		0.0f, 0.0f, 0.0f,
 		0.5f, 0.0f, 0.0f,
@@ -97,7 +96,7 @@ bool Game::gameLoop()
 		3,4,7,
 		// Back Side
 		2,3,7,
-		2,3,6,
+		2,6,7,
 		// Top Side
 		4,5,7,
 		5,6,7
@@ -105,12 +104,12 @@ bool Game::gameLoop()
 	};
 
 	std::vector<float> VerticesCoordinateSystem = {
-		-1.0f, 0.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		0.0f, -1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, -1.0f,
-		0.0f, 0.0f, 1.0f
+		-10.0f, 0.0f, 0.0f,
+		10.0f, 0.0f, 0.0f,
+		0.0f, -10.0f, 0.0f,
+		0.0f, 10.0f, 0.0f,
+		0.0f, 0.0f, -10.0f,
+		0.0f, 0.0f, 10.0f
 	};
 
 	std::vector<int> IndicesCoordianteSystem = {
@@ -120,19 +119,22 @@ bool Game::gameLoop()
 	};
 
 	Model CoordianteSystem = loader->loadDataToVao(VerticesCoordinateSystem, tex, normal, IndicesCoordianteSystem);
-	Model model = loader->loadDataToVao(vertices, tex, normal, indices);	
-	// Terrain
-	Terrain* terrain = new Terrain(0, 0, 0, 128, "Test", loader);
-	// Entitytest
-	Entity BlockTest(glm::vec3(0, 0, 0), 0, 0, 0, 0.1, &model);
 
-	Math::printMatrix(BlockTest.getModelMatrix());
-	Entity CoordianteSystemE(glm::vec3(0, 0, 0), 0, 0, 0, 0.1, &CoordianteSystem);
+	Model model = loader->loadDataToVao(vertices, tex, normal, indices);
+
+	Entity BlockA(glm::vec3(0, 0, 0), 0, 0, 0, 1, &model);
+	Entity BlockB(glm::vec3(1, 0, 0), 0, 0, 0, 2, &model);
+	Entity CoordinateSystem(glm::vec3(0, 0, 0), 0, 0, 0, 1, &CoordianteSystem);
+
+	Terrain terrain(0, 0, 0, 128, "Test", loader);
+	std::list<Terrain> terrains;
+	terrains.push_back(terrain);
 
 	MainRenderer* mainRenderer = new MainRenderer(mPlayer->getProjectionMatrix());
 	mainRenderer->addToList(terrain);
-	mainRenderer->addToList(BlockTest);
-	mainRenderer->addToList(CoordianteSystemE,LINES);
+	mainRenderer->addToList(BlockA);
+	mainRenderer->addToList(BlockB);
+	mainRenderer->addToList(CoordinateSystem, LINES);
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
@@ -146,18 +148,20 @@ bool Game::gameLoop()
 		glfwPollEvents();
 		do_movement();
 
+		
 		mainRenderer->prepare();
 		mainRenderer->render(mPlayer->getViewMatrix());
+		//TerrainShader->use();
+		//TerrainShader->loadViewMatrix(mPlayer->getViewMatrix());
+	    //terrainRenderer->render(terrain);
+		//TerrainShader->unuse();
 		
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
 
 	}
-	mainRenderer->cleanUp();
 	loader->cleanUp();
 	delete loader;
-	delete terrain;
-	//delete renderer;
 	glfwTerminate();
 	return 0;
 }

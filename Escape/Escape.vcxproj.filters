@@ -123,6 +123,9 @@
     <ClCompile Include="objectLoader.cpp">
       <Filter>Loader Functions\Object</Filter>
     </ClCompile>
+    <ClCompile Include="testshader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
     <ClCompile Include="terrainRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
@@ -187,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="objectLoader.h">
       <Filter>Loader Functions\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="testshader.hpp">
+      <Filter>Shader</Filter>
     </ClInclude>
     <ClInclude Include="terrainRenderer.hpp">
       <Filter>Renderer</Filter>
