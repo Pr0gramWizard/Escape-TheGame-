@@ -68,7 +68,7 @@ void Terrain::setVertices(int pVertices)
 {
 	if (!isPowerOfTwo(pVertices))
 	{
-		mVertices = 128;
+		mVertices = 256;
 	}
 	else
 	{
