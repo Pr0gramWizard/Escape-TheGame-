@@ -1,25 +1,20 @@
-	// Inclusion of definiton of the class
-#include "terrainshader.hpp"
+// Inclusion of definiton of the class
+#include "entityshader.hpp"
 
-TerrainShader::TerrainShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
+
+// Constructor
+Entityshader::Entityshader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
-	this->createShader(pVertexShaderFilePath, pFragementShaderFilePath);
-	this->getAllUniformLocations();
-	this->bindAllAttributes();
+	createShader(pVertexShaderFilePath, pFragementShaderFilePath);
+	getAllUniformLocations();
+
 	// Log Shader
 	std::clog << "Shader class was created successfully!" << std::endl;
 }
 
-void TerrainShader::bindAllAttributes()
-{
-	this->bindAttribute(0, "position");
-	this->bindAttribute(1, "normal");
-	this->bindAttribute(2, "texCoord");
-}
-
 // Compilation of the vertex and fragment shader 
 // Function: complieShader(Filepath, Filepath)
-void TerrainShader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
+void Entityshader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
 	// First we create a VERTEX SHADER
 	mVertexShaderID = glCreateShader(GL_VERTEX_SHADER);
@@ -57,7 +52,7 @@ void TerrainShader::createShader(const std::string& pVertexShaderFilePath, const
 }
 
 // Linking of vertex and fragment shader
-void TerrainShader::linkShader()
+void Entityshader::linkShader()
 {
 	// First we create a new Program with the given Program ID
 	setProgramID(glCreateProgram());
@@ -103,21 +98,21 @@ void TerrainShader::linkShader()
 }
 
 // Tell the program to use the shader
-void TerrainShader::use()
+void Entityshader::use()
 {
 	// Starting the program with the shader together
 	glUseProgram(getProgramID());
 }
 
 // Tell the program to stop using the shader
-void TerrainShader::unuse()
+void Entityshader::unuse()
 {
 	// Destroying refference to program
 	glUseProgram(0);
 }
 
 // Reading fragment shader from file and compiling it
-void TerrainShader::compileFragementShader(std::string pFragementShaderFilePath)
+void Entityshader::compileFragementShader(std::string pFragementShaderFilePath)
 {
 	// Opening a file stream with the given file path
 	std::ifstream fragementFile(pFragementShaderFilePath);
@@ -178,7 +173,7 @@ void TerrainShader::compileFragementShader(std::string pFragementShaderFilePath)
 
 }
 
-void TerrainShader::compileVertexShader(std::string pVertexShaderFilePath)
+void Entityshader::compileVertexShader(std::string pVertexShaderFilePath)
 {
 	// Opening a file stream with the given file path
 	std::ifstream vertexFile(pVertexShaderFilePath);
@@ -239,34 +234,21 @@ void TerrainShader::compileVertexShader(std::string pVertexShaderFilePath)
 
 // Getter Functions
 // Returns current Program ID
-GLuint TerrainShader::getProgramID() const
+GLuint Entityshader::getProgramID() const
 {
 	return mProgramID;
 }
 // Returns current Vertex Shader ID
-GLuint TerrainShader::getVertexShaderID() const
+GLuint Entityshader::getVertexShaderID() const
 {
 	return mVertexShaderID;
 }
 // Returns current Fragement Shader ID
-GLuint TerrainShader::getFragementShaderID() const
+GLuint Entityshader::getFragementShaderID() const
 {
 	return mFragementShaderID;
 }
-
-void TerrainShader::getAllUniformLocations()
-{
-	setModelMatrixLocation(glGetUniformLocation(this->getProgramID(), "model"));
-	setProjectionMatrixLocation(glGetUniformLocation(this->getProgramID(), "projection"));
-	setViewMatrixLocation(glGetUniformLocation(this->getProgramID(), "view"));
-}
-
-GLuint TerrainShader::getModelMatrixLocation() const
-{
-	return mModelMatrixLocation;
-}
-
-GLuint TerrainShader::getUniformLocation(const char* pUniformName)
+GLuint Entityshader::getUniformLocation(const char* pUniformName)
 {
 	GLuint Location = glGetUniformLocation(this->getProgramID(), pUniformName);
 
@@ -283,32 +265,32 @@ GLuint TerrainShader::getUniformLocation(const char* pUniformName)
 
 // Setter Functions
 // Sets current Program ID to a given ID
-void TerrainShader::setProgramID(int pProgramID)
+void Entityshader::setProgramID(int pProgramID)
 {
 	mProgramID = pProgramID;
 }
 // Sets current VertexShaderID to a given ID
-void TerrainShader::setVertexShaderID(int pVertexShaderID)
+void Entityshader::setVertexShaderID(int pVertexShaderID)
 {
 	mVertexShaderID = pVertexShaderID;
 }
 // Sets current FragementShaderID to a given ID
-void TerrainShader::setFragementShaderID(int pFragementShaderID)
+void Entityshader::setFragementShaderID(int pFragementShaderID)
 {
 	mFragementShaderID = pFragementShaderID;
 }
 
-void TerrainShader::loadFloat(GLuint pLocation, GLfloat pValue)
+void Entityshader::loadFloat(GLuint pLocation, GLfloat pValue)
 {
 	glUniform1f(pLocation, pValue);
 }
 
-void TerrainShader::loadVector(GLuint pLocation, glm::vec3 pVector)
+void Entityshader::loadVector(GLuint pLocation, glm::vec3 pVector)
 {
 	glUniform3f(pLocation, pVector.x, pVector.y, pVector.z);
 }
 
-void TerrainShader::loadBool(GLuint pLocation, GLboolean pValue)
+void Entityshader::loadBool(GLuint pLocation, GLboolean pValue)
 {
 	if (pValue == 0)
 	{
@@ -320,61 +302,44 @@ void TerrainShader::loadBool(GLuint pLocation, GLboolean pValue)
 	}
 }
 
-void TerrainShader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
+void Entityshader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
 {
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, glm::value_ptr(pMatrix));
 }
 
-GLuint TerrainShader::getViewMatrixLocation() const
+void Entityshader::loadModelMatrix(glm::mat4 pMatrix)
 {
-		return mViewMatrixLocation;
+	loadMatrix(mLocation_modelMatrix, pMatrix);
 }
 
-GLuint TerrainShader::getProjectionMatrixLocation() const
+void Entityshader::loadProjectionMatrix(glm::mat4 pMatrix)
 {
-	return mProjectionMatrixLocation;
+	loadMatrix(mLocation_projectionMatrix, pMatrix);
 }
 
-void TerrainShader::setModelMatrixLocation(GLuint pModelMatrixLocation)
+void Entityshader::loadViewMatrix(glm::mat4 pMatrix)
 {
-	mModelMatrixLocation = pModelMatrixLocation;
-}
-
-void TerrainShader::setViewMatrixLocation(GLuint pViewMatrixLocation)
-{
-	mViewMatrixLocation = pViewMatrixLocation;
-}
-
-void TerrainShader::setProjectionMatrixLocation(GLuint pProjectionMatrixLocation)
-{
-	mProjectionMatrixLocation = pProjectionMatrixLocation;
-}
-
-void TerrainShader::loadModelMatrix(glm::mat4 pMatrix)
-{
-		loadMatrix(this->getModelMatrixLocation(), pMatrix);
-}
-
-void TerrainShader::loadProjectionMatrix(glm::mat4 pMatrix)
-{
-		loadMatrix(this->getProjectionMatrixLocation(), pMatrix);
-}
-
-void TerrainShader::loadViewMatrix(glm::mat4 pMatrix)
-{
-	loadMatrix(this->getViewMatrixLocation(), pMatrix);
+	loadMatrix(mLocation_viewMatrix, pMatrix);
 }
 
 // Destructor
-TerrainShader::~TerrainShader()
+Entityshader::~Entityshader()
 {
 	// Log Shader
 	std::clog << "Shader class was destroyed successfully!" << std::endl;
 }
 
+void Entityshader::getAllUniformLocations()
+{
+	mLocation_modelMatrix = glGetUniformLocation(getProgramID(), "model");
+	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projection");
+	mLocation_viewMatrix = glGetUniformLocation(getProgramID(), "view");
+}
+
 // Binding an attribtute to the shader
-void TerrainShader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
+void Entityshader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
 {
 	// We bind the attribute to the given Program ID
 	glBindAttribLocation(getProgramID(), pAttribute, pAttributeName.c_str());
+	// Then we increase the number of attributes in the whole class
 }
