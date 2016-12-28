@@ -1,12 +1,12 @@
 #include "terrain.hpp"
 
-const int Terrain::TERRAIN_SIZE = 4;
+const int Terrain::TERRAIN_SIZE = 2;
 
 Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader)
 {
 	// Worldspace coordinates
-	mWorldX = pGridX * TERRAIN_SIZE;
-	mWorldZ = pGridZ * TERRAIN_SIZE;
+	mWorldX = pGridX * Terrain::TERRAIN_SIZE;
+	mWorldZ = pGridZ * Terrain::TERRAIN_SIZE;
 	
 	// Set height amplitude for terrain
 	setAmplitude(pAmplitude);
@@ -121,9 +121,9 @@ Model Terrain::generateTerrain(Loader* loader)
 	int vertexPointer = 0;
 	for (int i = 0;i<mVertices;i++) {
 		for (int j = 0;j<mVertices;j++) {
-			vertices[vertexPointer * 3] = (float)j / ((float)mVertices - 1) * TERRAIN_SIZE;
+			vertices[vertexPointer * 3] = (float)j / ((float)mVertices - 1) * Terrain::TERRAIN_SIZE;
 			vertices[vertexPointer * 3 + 1] = getHeightAt(j, i, ht_map, width);
-			vertices[vertexPointer * 3 + 2] = (float)i / ((float)mVertices - 1) * TERRAIN_SIZE;
+			vertices[vertexPointer * 3 + 2] = (float)i / ((float)mVertices - 1) * Terrain::TERRAIN_SIZE;
 			normals[vertexPointer * 3] = 0;
 			normals[vertexPointer * 3 + 1] = 1;
 			normals[vertexPointer * 3 + 2] = 0;
