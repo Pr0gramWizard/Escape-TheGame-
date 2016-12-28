@@ -35,7 +35,7 @@ public:
 	void setModel(Model* pModel);
 
 public:
-	static const int TERRAIN_SIZE = 2;
+	static const int TERRAIN_SIZE;
 
 private:
 	int mWorldX;
@@ -49,7 +49,7 @@ private:
 private:
 	bool isPowerOfTwo(int pX);
 	Model generateTerrain(Loader* loader);
-	int getHeightAt(int x, int z, unsigned char* pHeightmap, int pHeightmapWidth);
+	float getHeightAt(int x, int z, unsigned char* pHeightmap, int pHeightmapWidth);
 	
 };
 

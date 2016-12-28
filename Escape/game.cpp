@@ -146,7 +146,6 @@ bool Game::gameLoop()
 		glfwPollEvents();
 		do_movement();
 
-		
 		mainRenderer->prepare();
 		mainRenderer->render(mPlayer->getViewMatrix());
 		

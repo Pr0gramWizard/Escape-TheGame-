@@ -1,5 +1,7 @@
 #include "terrain.hpp"
 
+const int Terrain::TERRAIN_SIZE = 4;
+
 Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader)
 {
 	// Worldspace coordinates
@@ -148,7 +150,7 @@ Model Terrain::generateTerrain(Loader* loader)
 	return loader->loadDataToVao(vertices, textureCoords, normals, indices);
 }
 
-int Terrain::getHeightAt(int x, int z, unsigned char * pHeightmap, int pHeightmapWidth)
+float Terrain::getHeightAt(int x, int z, unsigned char * pHeightmap, int pHeightmapWidth)
 {
 	unsigned char r = pHeightmap[(x + z * pHeightmapWidth) * 3 + 0];
 	unsigned char g = pHeightmap[(x + z * pHeightmapWidth) * 3 + 1];
