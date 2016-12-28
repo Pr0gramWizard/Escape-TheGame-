@@ -7,14 +7,11 @@ const char* MainRenderer::TERRAIN_FRAGMENT = "shaders/terrain.frag";
 
 MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix)
 {
-	mEntityRenderer = new EntityRenderer();
-	mEntityRenderer->addShader(ENTITY_VERTEX, ENTITY_FRAGMENT);
+	EntityShader* entityshader = new EntityShader(ENTITY_VERTEX, ENTITY_FRAGMENT);
+	mEntityRenderer = new EntityRenderer(entityshader,pProjectionMatrix);
 
-	Testshader* terrainShader = new Testshader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
-	terrainShader->bindAttribute(0, "position");
-	terrainShader->bindAttribute(1, "normal");
-	terrainShader->bindAttribute(2, "texCoord");
-	mTerrainRenderer = new TerrainRenderer(terrainShader, pProjectionMatrix);
+	TerrainShader* terrainshader = new TerrainShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
+	mTerrainRenderer = new TerrainRenderer(terrainshader, pProjectionMatrix);
 }
 
 MainRenderer::~MainRenderer()
@@ -29,6 +26,14 @@ void MainRenderer::prepare()
 
 void MainRenderer::render(glm::mat4 pViewMatrix)
 {
+	// entities
+	mEntityRenderer->startShader();
+	mEntityRenderer->loadViewMatrix(pViewMatrix);
+	mEntityRenderer->render(mEntities);
+	mEntityRenderer->render(mSpecial, LINES);
+	mEntityRenderer->stopShader();
+
+	// terrain
 	mTerrainRenderer->startShader();
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
 	for (Terrain &terrain : mTerrains)
@@ -43,6 +48,12 @@ void MainRenderer::addToList(Entity &pEntity)
 	mEntities.push_back(pEntity);
 }
 
+void MainRenderer::addToList(Entity &pEntity, RenderMode pMode)
+{
+	mSpecial.push_back(pEntity);
+	mRenderMode.push_back(pMode);
+}
+
 void MainRenderer::addToList(Terrain &pTerrain)
 {
 	mTerrains.push_back(pTerrain);
@@ -52,6 +63,8 @@ void MainRenderer::clearLists()
 {
 	mEntities.clear();
 	mTerrains.clear();
+	mSpecial.clear();
+	mRenderMode.clear();
 }
 
 void MainRenderer::cleanUp()

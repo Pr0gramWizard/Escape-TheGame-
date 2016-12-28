@@ -1,7 +1,7 @@
 #include "terrainRenderer.hpp"
 
 // constructor
-TerrainRenderer::TerrainRenderer(Testshader * pShader, glm::mat4 pProjectionMatrix)
+TerrainRenderer::TerrainRenderer(TerrainShader * pShader, glm::mat4 pProjectionMatrix)
 {
 	mShader = pShader;
 	mShader->use();

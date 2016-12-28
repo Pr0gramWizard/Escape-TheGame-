@@ -20,16 +20,17 @@
 
 
 // Defintion of the class Shader
-class Entityshader
+class EntityShader
 {
 	// All public member of the class 
 public:
 	// Constructor
-	Entityshader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
+	EntityShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
 	// Compile Shader
 	void createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
 	// Bind attribute
 	void bindAttribute(GLuint pAttribute, const std::string & pAttributeName);
+	void bindAllAttributes();
 	// Linking Shader
 	void linkShader();
 	// Use/Unuse Function
@@ -55,7 +56,7 @@ public:
 	void loadViewMatrix(glm::mat4 pMatrix);
 
 	// Destructor
-	~Entityshader();
+	~EntityShader();
 
 	// All private member of the class
 private:

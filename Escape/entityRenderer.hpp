@@ -6,11 +6,11 @@
 #include <iostream>
 #include <mat4x4.hpp>
 #include <gtc/type_ptr.hpp>
+#include <list>
 // model class
 #include "model.hpp"
 #include "entity.hpp"
-#include "shader.hpp"
-#include "testshader.hpp"
+#include "entityshader.hpp"
 
 enum RenderMode {
 	POINTS,
@@ -22,36 +22,37 @@ enum RenderMode {
 	TRIANGLE_FAN,
 };
 
+using namespace std;
+
 class EntityRenderer
 {
 public:
 	// constructor
-	EntityRenderer();
+	EntityRenderer(EntityShader* pShader, glm::mat4 pProjectionMatrix);
 	// destructor
 	~EntityRenderer();
 
-	// method that should get called before rendering
-	void prepare();
+	// render methods
+	void render(list<Entity> pEntities);
+	void render(list<Entity> pEntities, RenderMode pMode);
+	void render(Entity &pEntity);
 
-	// adds a shader to the renderer
-	void addShader(const char* pVertexShader, const char* pFragmentShader);
+	// methods that get called before the acutal rendering
+	void prepareEntity(Entity pEntity);
+	void prepareEntity(Entity* pEntity);
 
-	// adds a matrix uniform attribute
-	void addUniformAttribute(glm::mat4 pMatrix, const char* pAttributeName);
+	// unbinding all terrains
+	void unbindEntity();
 
-	// enables the shader
-	void enableShader();
+	// load model matrix for a terrain into the shader
+	void loadModelMatrix(Entity pEntity);
+	void loadModelMatrix(Entity* pEntity);
+	void loadViewMatrix(glm::mat4 pViewMatrix);
 
-	// disables the shader
-	void disableShader();
-
-	// renders an entity with the given RenderMode
-	void render(Entity pEntity, Testshader *pShader, RenderMode pMode);
-
-	// renders an entity with RenderMode = GL_LINES
-	void render(Entity pModel, Testshader *pShader);
+	// use or unuse the shader
+	void startShader();
+	void stopShader();
 
 private:
-	Shader* mShader;
+	EntityShader* mShader;
 };
-

@@ -3,10 +3,11 @@
 
 
 // Constructor
-Entityshader::Entityshader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
+EntityShader::EntityShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
-	createShader(pVertexShaderFilePath, pFragementShaderFilePath);
-	getAllUniformLocations();
+	this->createShader(pVertexShaderFilePath, pFragementShaderFilePath);
+	this->getAllUniformLocations();
+	this->bindAllAttributes();
 
 	// Log Shader
 	std::clog << "Shader class was created successfully!" << std::endl;
@@ -14,7 +15,7 @@ Entityshader::Entityshader(const std::string& pVertexShaderFilePath, const std::
 
 // Compilation of the vertex and fragment shader 
 // Function: complieShader(Filepath, Filepath)
-void Entityshader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
+void EntityShader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
 	// First we create a VERTEX SHADER
 	mVertexShaderID = glCreateShader(GL_VERTEX_SHADER);
@@ -52,7 +53,7 @@ void Entityshader::createShader(const std::string& pVertexShaderFilePath, const 
 }
 
 // Linking of vertex and fragment shader
-void Entityshader::linkShader()
+void EntityShader::linkShader()
 {
 	// First we create a new Program with the given Program ID
 	setProgramID(glCreateProgram());
@@ -98,21 +99,21 @@ void Entityshader::linkShader()
 }
 
 // Tell the program to use the shader
-void Entityshader::use()
+void EntityShader::use()
 {
 	// Starting the program with the shader together
 	glUseProgram(getProgramID());
 }
 
 // Tell the program to stop using the shader
-void Entityshader::unuse()
+void EntityShader::unuse()
 {
 	// Destroying refference to program
 	glUseProgram(0);
 }
 
 // Reading fragment shader from file and compiling it
-void Entityshader::compileFragementShader(std::string pFragementShaderFilePath)
+void EntityShader::compileFragementShader(std::string pFragementShaderFilePath)
 {
 	// Opening a file stream with the given file path
 	std::ifstream fragementFile(pFragementShaderFilePath);
@@ -173,7 +174,7 @@ void Entityshader::compileFragementShader(std::string pFragementShaderFilePath)
 
 }
 
-void Entityshader::compileVertexShader(std::string pVertexShaderFilePath)
+void EntityShader::compileVertexShader(std::string pVertexShaderFilePath)
 {
 	// Opening a file stream with the given file path
 	std::ifstream vertexFile(pVertexShaderFilePath);
@@ -234,21 +235,21 @@ void Entityshader::compileVertexShader(std::string pVertexShaderFilePath)
 
 // Getter Functions
 // Returns current Program ID
-GLuint Entityshader::getProgramID() const
+GLuint EntityShader::getProgramID() const
 {
 	return mProgramID;
 }
 // Returns current Vertex Shader ID
-GLuint Entityshader::getVertexShaderID() const
+GLuint EntityShader::getVertexShaderID() const
 {
 	return mVertexShaderID;
 }
 // Returns current Fragement Shader ID
-GLuint Entityshader::getFragementShaderID() const
+GLuint EntityShader::getFragementShaderID() const
 {
 	return mFragementShaderID;
 }
-GLuint Entityshader::getUniformLocation(const char* pUniformName)
+GLuint EntityShader::getUniformLocation(const char* pUniformName)
 {
 	GLuint Location = glGetUniformLocation(this->getProgramID(), pUniformName);
 
@@ -265,32 +266,32 @@ GLuint Entityshader::getUniformLocation(const char* pUniformName)
 
 // Setter Functions
 // Sets current Program ID to a given ID
-void Entityshader::setProgramID(int pProgramID)
+void EntityShader::setProgramID(int pProgramID)
 {
 	mProgramID = pProgramID;
 }
 // Sets current VertexShaderID to a given ID
-void Entityshader::setVertexShaderID(int pVertexShaderID)
+void EntityShader::setVertexShaderID(int pVertexShaderID)
 {
 	mVertexShaderID = pVertexShaderID;
 }
 // Sets current FragementShaderID to a given ID
-void Entityshader::setFragementShaderID(int pFragementShaderID)
+void EntityShader::setFragementShaderID(int pFragementShaderID)
 {
 	mFragementShaderID = pFragementShaderID;
 }
 
-void Entityshader::loadFloat(GLuint pLocation, GLfloat pValue)
+void EntityShader::loadFloat(GLuint pLocation, GLfloat pValue)
 {
 	glUniform1f(pLocation, pValue);
 }
 
-void Entityshader::loadVector(GLuint pLocation, glm::vec3 pVector)
+void EntityShader::loadVector(GLuint pLocation, glm::vec3 pVector)
 {
 	glUniform3f(pLocation, pVector.x, pVector.y, pVector.z);
 }
 
-void Entityshader::loadBool(GLuint pLocation, GLboolean pValue)
+void EntityShader::loadBool(GLuint pLocation, GLboolean pValue)
 {
 	if (pValue == 0)
 	{
@@ -302,34 +303,34 @@ void Entityshader::loadBool(GLuint pLocation, GLboolean pValue)
 	}
 }
 
-void Entityshader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
+void EntityShader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
 {
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, glm::value_ptr(pMatrix));
 }
 
-void Entityshader::loadModelMatrix(glm::mat4 pMatrix)
+void EntityShader::loadModelMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_modelMatrix, pMatrix);
 }
 
-void Entityshader::loadProjectionMatrix(glm::mat4 pMatrix)
+void EntityShader::loadProjectionMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_projectionMatrix, pMatrix);
 }
 
-void Entityshader::loadViewMatrix(glm::mat4 pMatrix)
+void EntityShader::loadViewMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_viewMatrix, pMatrix);
 }
 
 // Destructor
-Entityshader::~Entityshader()
+EntityShader::~EntityShader()
 {
 	// Log Shader
 	std::clog << "Shader class was destroyed successfully!" << std::endl;
 }
 
-void Entityshader::getAllUniformLocations()
+void EntityShader::getAllUniformLocations()
 {
 	mLocation_modelMatrix = glGetUniformLocation(getProgramID(), "model");
 	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projection");
@@ -337,9 +338,16 @@ void Entityshader::getAllUniformLocations()
 }
 
 // Binding an attribtute to the shader
-void Entityshader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
+void EntityShader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
 {
 	// We bind the attribute to the given Program ID
 	glBindAttribLocation(getProgramID(), pAttribute, pAttributeName.c_str());
 	// Then we increase the number of attributes in the whole class
+}
+
+void EntityShader::bindAllAttributes()
+{
+	this->bindAttribute(0, "position");
+	this->bindAttribute(1, "normal");
+	this->bindAttribute(2, "texCoord");
 }

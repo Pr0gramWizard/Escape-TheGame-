@@ -20,12 +20,12 @@
 
 
 // Defintion of the class Shader
-class Entityshader
+class TerrainShader
 {
 	// All public member of the class 
 public:
 	// Constructor
-	Entityshader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
+	TerrainShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
 	// Compile Shader
 	void createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
 	// Bind attribute
@@ -55,7 +55,7 @@ public:
 	void loadViewMatrix(glm::mat4 pMatrix);
 
 	// Destructor
-	~Entityshader();
+	~TerrainShader();
 
 	// All private member of the class
 private:
@@ -73,6 +73,7 @@ private:
 	void compileFragementShader(std::string pFragementShaderFilePath);
 	void compileVertexShader(std::string pFragementShaderFilePath);
 	void getAllUniformLocations();
+	void bindAllAttributes();
 	void loadMatrix(GLuint location, glm::mat4 pMatrix);
 };
 

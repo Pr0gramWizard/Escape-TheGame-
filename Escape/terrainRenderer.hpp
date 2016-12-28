@@ -1,6 +1,6 @@
 #pragma once
 
-#include "testshader.hpp"
+#include "terrainshader.hpp"
 // matrix class
 #include <mat4x4.hpp>
 // List
@@ -18,7 +18,7 @@ class TerrainRenderer
 {
 public:
 	// constructor
-	TerrainRenderer(Testshader* pShader, glm::mat4 pProjectionMatrix);
+	TerrainRenderer(TerrainShader* pShader, glm::mat4 pProjectionMatrix);
 	// destructor
 	~TerrainRenderer();
 
@@ -45,6 +45,6 @@ public:
 
 
 private:
-	Testshader* mShader;
+	TerrainShader* mShader;
 };
 

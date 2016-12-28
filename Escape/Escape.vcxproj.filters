@@ -138,6 +138,9 @@
     <ClCompile Include="mainrenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="terrainshader.cpp">
+      <Filter>Shader\Terrain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.hpp">
@@ -202,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="mainrenderer.hpp">
       <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="terrainshader.hpp">
+      <Filter>Shader\Terrain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

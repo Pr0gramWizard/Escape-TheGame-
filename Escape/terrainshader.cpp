@@ -1,20 +1,29 @@
 // Inclusion of definiton of the class
-#include "entityshader.hpp"
+#include "terrainshader.hpp"
 
 
 // Constructor
-Entityshader::Entityshader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
+TerrainShader::TerrainShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
-	createShader(pVertexShaderFilePath, pFragementShaderFilePath);
-	getAllUniformLocations();
+	this->createShader(pVertexShaderFilePath, pFragementShaderFilePath);
+	this->getAllUniformLocations();
+	this->bindAllAttributes();
 
 	// Log Shader
 	std::clog << "Shader class was created successfully!" << std::endl;
 }
 
+void TerrainShader::bindAllAttributes()
+{
+	this->bindAttribute(0, "position");
+	this->bindAttribute(1, "normal");
+	this->bindAttribute(2, "texCoord");
+}
+
+
 // Compilation of the vertex and fragment shader 
 // Function: complieShader(Filepath, Filepath)
-void Entityshader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
+void TerrainShader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
 	// First we create a VERTEX SHADER
 	mVertexShaderID = glCreateShader(GL_VERTEX_SHADER);
@@ -52,7 +61,7 @@ void Entityshader::createShader(const std::string& pVertexShaderFilePath, const 
 }
 
 // Linking of vertex and fragment shader
-void Entityshader::linkShader()
+void TerrainShader::linkShader()
 {
 	// First we create a new Program with the given Program ID
 	setProgramID(glCreateProgram());
@@ -98,21 +107,21 @@ void Entityshader::linkShader()
 }
 
 // Tell the program to use the shader
-void Entityshader::use()
+void TerrainShader::use()
 {
 	// Starting the program with the shader together
 	glUseProgram(getProgramID());
 }
 
 // Tell the program to stop using the shader
-void Entityshader::unuse()
+void TerrainShader::unuse()
 {
 	// Destroying refference to program
 	glUseProgram(0);
 }
 
 // Reading fragment shader from file and compiling it
-void Entityshader::compileFragementShader(std::string pFragementShaderFilePath)
+void TerrainShader::compileFragementShader(std::string pFragementShaderFilePath)
 {
 	// Opening a file stream with the given file path
 	std::ifstream fragementFile(pFragementShaderFilePath);
@@ -173,7 +182,7 @@ void Entityshader::compileFragementShader(std::string pFragementShaderFilePath)
 
 }
 
-void Entityshader::compileVertexShader(std::string pVertexShaderFilePath)
+void TerrainShader::compileVertexShader(std::string pVertexShaderFilePath)
 {
 	// Opening a file stream with the given file path
 	std::ifstream vertexFile(pVertexShaderFilePath);
@@ -234,21 +243,21 @@ void Entityshader::compileVertexShader(std::string pVertexShaderFilePath)
 
 // Getter Functions
 // Returns current Program ID
-GLuint Entityshader::getProgramID() const
+GLuint TerrainShader::getProgramID() const
 {
 	return mProgramID;
 }
 // Returns current Vertex Shader ID
-GLuint Entityshader::getVertexShaderID() const
+GLuint TerrainShader::getVertexShaderID() const
 {
 	return mVertexShaderID;
 }
 // Returns current Fragement Shader ID
-GLuint Entityshader::getFragementShaderID() const
+GLuint TerrainShader::getFragementShaderID() const
 {
 	return mFragementShaderID;
 }
-GLuint Entityshader::getUniformLocation(const char* pUniformName)
+GLuint TerrainShader::getUniformLocation(const char* pUniformName)
 {
 	GLuint Location = glGetUniformLocation(this->getProgramID(), pUniformName);
 
@@ -265,32 +274,32 @@ GLuint Entityshader::getUniformLocation(const char* pUniformName)
 
 // Setter Functions
 // Sets current Program ID to a given ID
-void Entityshader::setProgramID(int pProgramID)
+void TerrainShader::setProgramID(int pProgramID)
 {
 	mProgramID = pProgramID;
 }
 // Sets current VertexShaderID to a given ID
-void Entityshader::setVertexShaderID(int pVertexShaderID)
+void TerrainShader::setVertexShaderID(int pVertexShaderID)
 {
 	mVertexShaderID = pVertexShaderID;
 }
 // Sets current FragementShaderID to a given ID
-void Entityshader::setFragementShaderID(int pFragementShaderID)
+void TerrainShader::setFragementShaderID(int pFragementShaderID)
 {
 	mFragementShaderID = pFragementShaderID;
 }
 
-void Entityshader::loadFloat(GLuint pLocation, GLfloat pValue)
+void TerrainShader::loadFloat(GLuint pLocation, GLfloat pValue)
 {
 	glUniform1f(pLocation, pValue);
 }
 
-void Entityshader::loadVector(GLuint pLocation, glm::vec3 pVector)
+void TerrainShader::loadVector(GLuint pLocation, glm::vec3 pVector)
 {
 	glUniform3f(pLocation, pVector.x, pVector.y, pVector.z);
 }
 
-void Entityshader::loadBool(GLuint pLocation, GLboolean pValue)
+void TerrainShader::loadBool(GLuint pLocation, GLboolean pValue)
 {
 	if (pValue == 0)
 	{
@@ -302,34 +311,34 @@ void Entityshader::loadBool(GLuint pLocation, GLboolean pValue)
 	}
 }
 
-void Entityshader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
+void TerrainShader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
 {
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, glm::value_ptr(pMatrix));
 }
 
-void Entityshader::loadModelMatrix(glm::mat4 pMatrix)
+void TerrainShader::loadModelMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_modelMatrix, pMatrix);
 }
 
-void Entityshader::loadProjectionMatrix(glm::mat4 pMatrix)
+void TerrainShader::loadProjectionMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_projectionMatrix, pMatrix);
 }
 
-void Entityshader::loadViewMatrix(glm::mat4 pMatrix)
+void TerrainShader::loadViewMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_viewMatrix, pMatrix);
 }
 
 // Destructor
-Entityshader::~Entityshader()
+TerrainShader::~TerrainShader()
 {
 	// Log Shader
 	std::clog << "Shader class was destroyed successfully!" << std::endl;
 }
 
-void Entityshader::getAllUniformLocations()
+void TerrainShader::getAllUniformLocations()
 {
 	mLocation_modelMatrix = glGetUniformLocation(getProgramID(), "model");
 	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projection");
@@ -337,7 +346,7 @@ void Entityshader::getAllUniformLocations()
 }
 
 // Binding an attribtute to the shader
-void Entityshader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
+void TerrainShader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
 {
 	// We bind the attribute to the given Program ID
 	glBindAttribLocation(getProgramID(), pAttribute, pAttributeName.c_str());
