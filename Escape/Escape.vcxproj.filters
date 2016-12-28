@@ -76,13 +76,13 @@
     <Filter Include="Shader\Terrain">
       <UniqueIdentifier>{89664013-7bf4-4ded-a8b5-bd98bdce37ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="OldFiles">
+      <UniqueIdentifier>{9d3653bd-4e5d-4e58-91d2-55d1a52210a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shader.cpp">
-      <Filter>Shader</Filter>
     </ClCompile>
     <ClCompile Include="camera.cpp">
       <Filter>Camera</Filter>
@@ -123,9 +123,6 @@
     <ClCompile Include="objectLoader.cpp">
       <Filter>Loader Functions\Object</Filter>
     </ClCompile>
-    <ClCompile Include="testshader.cpp">
-      <Filter>Shader</Filter>
-    </ClCompile>
     <ClCompile Include="terrainRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
@@ -141,11 +138,14 @@
     <ClCompile Include="terrainshader.cpp">
       <Filter>Shader\Terrain</Filter>
     </ClCompile>
+    <ClCompile Include="testshader.cpp">
+      <Filter>OldFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="shader.cpp">
+      <Filter>OldFiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="shader.hpp">
-      <Filter>Shader</Filter>
-    </ClInclude>
     <ClInclude Include="camera.hpp">
       <Filter>Camera</Filter>
     </ClInclude>
@@ -191,9 +191,6 @@
     <ClInclude Include="objectLoader.h">
       <Filter>Loader Functions\Object</Filter>
     </ClInclude>
-    <ClInclude Include="testshader.hpp">
-      <Filter>Shader</Filter>
-    </ClInclude>
     <ClInclude Include="terrainRenderer.hpp">
       <Filter>Renderer</Filter>
     </ClInclude>
@@ -208,6 +205,12 @@
     </ClInclude>
     <ClInclude Include="terrainshader.hpp">
       <Filter>Shader\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="testshader.hpp">
+      <Filter>OldFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="shader.hpp">
+      <Filter>OldFiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

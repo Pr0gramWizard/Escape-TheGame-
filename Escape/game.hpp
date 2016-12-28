@@ -11,10 +11,6 @@
 #include <glew.h>
 // GLFW
 #include <glfw3.h>
-// Shader class
-#include "shader.hpp"
-#include "EntityShader.hpp"
-#include "testshader.hpp"
 // Camera class
 #include "camera.hpp"
 // Terrain class
@@ -76,9 +72,6 @@ private:
 	GLfloat deltaTime = 0.1f;
 	GLfloat lastFrame = 0.0f;
 	bool firstMouse = true;
-
-	// Pointers to other classes
-	Shader* mShader;
 
 	// Player
 	Player* mPlayer;
