@@ -99,7 +99,7 @@ bool Game::gameLoop()
 		3,4,7,
 		// Back Side
 		2,3,7,
-		2,3,6,
+		2,6,7,
 		// Top Side
 		4,5,7,
 		5,6,7
@@ -138,7 +138,6 @@ bool Game::gameLoop()
 	std::list<Terrain> terrains;
 	terrains.push_back(terrain);
 
-	EntityShader* Test = new EntityShader("shaders/b.vert", "shaders/a.frag");
 
 
 	MainRenderer* mainRenderer = new MainRenderer(mPlayer->getProjectionMatrix());
@@ -158,7 +157,7 @@ bool Game::gameLoop()
 
 		
 		mainRenderer->prepare();
-		/*testShader->use();
+		testShader->use();
 		BlockA->increaseRotation(0, 1, 0,deltaTime);
 		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix());
 		testShader->loadModelMatrix(BlockA->getModelMatrix());
@@ -167,11 +166,11 @@ bool Game::gameLoop()
 		testShader->unuse();
 		testShader->use();
 		BlockB->increaseRotation(0, -1, 0,deltaTime);
-		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix(mHeight, mWidth));
+		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix());
 		testShader->loadModelMatrix(BlockB->getModelMatrix());
 		testShader->loadViewMatrix(mPlayer->getViewMatrix());
 		renderer->render(*BlockB, testShader);
-		testShader->unuse();*/
+		testShader->unuse();
 		testShader->use();
 		testShader->loadProjectionMatrix(mPlayer->getProjectionMatrix());
 		testShader->loadModelMatrix(CoordinateSystem->getModelMatrix());
