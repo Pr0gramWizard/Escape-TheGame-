@@ -74,14 +74,21 @@ bool Game::gameLoop()
 	};
 
 	std::vector<float> tex = {
-		1,0,
-		0,0,
-		0,1,
-		1,1,
-		0,0,
-		1,0,
-		1,1,
-		1,1,
+		// Bottom Side
+		0.0f,1.0f,
+		1.0f,1.0f,
+		1.0f,0.0f,
+		0.0f,0.0f,
+		// Front Size
+		0.0f,0.0f,
+		1.0f,0.0f,
+		0.0f,1.0f,
+		1.0f,1.0f,
+		// Left Side
+		1.0f,0.0f,
+		0.0f,0.0f,
+		1.0f,1.0f,
+		0.0f,1.0f
 
 	};
 
@@ -128,14 +135,14 @@ bool Game::gameLoop()
 
 	Model CoordianteSystem = loader->loadDataToVao(VerticesCoordinateSystem, tex, normal, IndicesCoordianteSystem);
 
-	Model model = loader->loadDataToVao(vertices, tex, normal, indices,"textures/wall.png");
+	Model model = loader->loadDataToVao(vertices, tex, normal, indices,"textures/X.png");
 
 	Entity BlockA(glm::vec3(0, 0, 0), 0, 0, 0, 1, &model);
 	Entity BlockB(glm::vec3(1, 0, 0), 0, 0, 0, 2, &model);
 	Entity BlockC(glm::vec3(0, 2, 0), 1, 0, 0, 1, &model);
 	Entity CoordinateSystem(glm::vec3(0, 0, 0), 0, 0, 0, 1, &CoordianteSystem);
 
-	Terrain terrain(0, 0, 20, 128, "Test", loader);
+	Terrain terrain(0, 0, 0, 64, "Test", loader);
 	std::list<Terrain> terrains;
 	terrains.push_back(terrain);
 

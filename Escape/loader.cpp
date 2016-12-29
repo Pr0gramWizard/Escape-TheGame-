@@ -23,11 +23,11 @@ Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<float> pT
 	// Binding the indices to a VertexBufferObject
 	bindIndices(pIndices);
 	// Store the vertices in the 0th position in the VertexBufferObject
-	storeData(0, pPositions, 3,0);
+	storeData(0, pPositions, 3);
 	// Store the normal coordiantes in the 1th position in the VertexBufferObject
 	/*storeData(1, pNormals, 3);*/
 	// Store the texture coordiantes in the 2th position in the VertexBufferObject
-	storeData(2, pTexCoords, 2,3);
+	storeData(2, pTexCoords, 2);
 	GLuint textureID = loadTexture(pTextureFile);
 	// Unbinds the current VertexArrayObject
 	unbindVao();
@@ -43,7 +43,7 @@ Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<float> pT
 	// Binding the indices to a VertexBufferObject
 	bindIndices(pIndices);
 	// Store the vertices in the 0th position in the VertexBufferObject
-	storeData(0, pPositions, 3,0);
+	storeData(0, pPositions, 3);
 	// Store the normal coordiantes in the 1th position in the VertexBufferObject
 	/*storeData(1, pNormals, 3);*/
 	// Unbinds the current VertexArrayObject
@@ -88,7 +88,7 @@ void Loader::bindIndices(std::vector<int> pIndices) {
 }
 
 // Storing the vertices in a VertexBufferObject
-void Loader::storeData(GLuint pAttributeLocation, std::vector<float> pData, int pSize,GLuint pOffSet)
+void Loader::storeData(GLuint pAttributeLocation, std::vector<float> pData, GLuint pSize)
 {
 	GLuint vbo;
 	// Create new empty BufferObject
@@ -100,7 +100,7 @@ void Loader::storeData(GLuint pAttributeLocation, std::vector<float> pData, int 
 	// Buffer the data to the graphics card
 	glBufferData(GL_ARRAY_BUFFER, pData.size() * sizeof(float),	&pData[0], GL_STATIC_DRAW);
 	// Specify the poistion of the current data in the VertexBufferObject
-	glVertexAttribPointer(pAttributeLocation, pSize, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (GLvoid*)(pOffSet * sizeof(GLfloat)));
+	glVertexAttribPointer(pAttributeLocation, pSize, GL_FLOAT, GL_FALSE, pSize * sizeof(float), (GLvoid*)0);
 	// Unbind the VertexBufferObject
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
