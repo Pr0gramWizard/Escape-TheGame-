@@ -3,19 +3,19 @@
 
 // Defintion of the global player constants
 const GLfloat Player::MOVESPEED = 10;
-const GLfloat Player::GRAVITY = -90;
-const GLfloat Player::JUMPPOWER = 45;
+const GLfloat Player::GRAVITY = -75;
+const GLfloat Player::JUMPPOWER = 20;
 
 // Default Constructor
 Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWindowHeight, int pWindowWidth)
 {
-	setPosition(pPosition);
-	setHeight(pHeight);
-	setName(pName);
-	setMovementSpeed(0);
-	setUpSpeed(0);
-	setWindowHeight(pWindowHeight);
-	setWindowWidth(pWindowWidth);
+	this->setPosition(pPosition);
+	this->setHeight(pHeight);
+	this->setName(pName);
+	this->setMovementSpeed(0);
+	this->setUpSpeed(0);
+	this->setWindowHeight(pWindowHeight);
+	this->setWindowWidth(pWindowWidth);
 	// Creating new instance of the camera class
 	mEye = new Camera();
 }
@@ -30,19 +30,20 @@ Player::~Player()
 // Function to move the player	
 void Player::move(float pDelta)
 {
-	setMoveVariables();
+	this->setMoveVariables();
 	float yRotation = mYRot;
 	// dPos is the distance the player is going to move
 	float dPos = mMovementSpeed * pDelta;
 	float dx = dPos * sin(Math::toRadians(yRotation));
 	float dz = dPos * cos(Math::toRadians(yRotation));
-	incPosition(glm::vec3(dx, 0, dz));
+	this->incPosition(glm::vec3(dx, 0, dz));
 	mUpSpeed += Player::GRAVITY * pDelta;
-	incPosition(glm::vec3(0, mUpSpeed, 0));
+	this->incPosition(glm::vec3(0, mUpSpeed * pDelta, 0));
 
 	// Replace 0 with terrain height at players position
 	if (getPosition().y < 0) {
-		setUpSpeed(0);
+		this->setUpSpeed(0);
+		this->setJumping(false);
 		mPosition.y = 0;
 	}
 
@@ -62,6 +63,15 @@ void Player::incPosition(glm::vec3 pOffset)
 void Player::incRotation(GLfloat pOffsetY)
 {
 	mYRot += pOffsetY;
+}
+
+void Player::jump()
+{
+	if (!this->isJumping())
+	{
+		this->setJumping(true);
+		this->setUpSpeed(Player::JUMPPOWER);
+	}
 }
 
 // Setting the players position to a given point
@@ -105,6 +115,11 @@ void Player::setUpSpeed(GLfloat pUpSpeed)
 	mUpSpeed = pUpSpeed;
 }
 
+void Player::setJumping(bool pJumping)
+{
+	mJumping = pJumping;
+}
+
 // Returns the current position of the player
 glm::vec3 Player::getPosition() const
 {
@@ -114,6 +129,11 @@ glm::vec3 Player::getPosition() const
 glm::vec3 Player::getRotation() const
 {
 	return glm::vec3(0, mYRot, 0);
+}
+
+bool Player::isJumping() const
+{
+	return mJumping;
 }
 
 // Returns the current height of the player
@@ -200,5 +220,9 @@ void Player::setMoveVariables()
 	else if (Keyboard::isKeyPressed(GLFW_KEY_D)) {
 	}
 	else {
+	}
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_SPACE)) {
+		this->jump();
 	}
 }

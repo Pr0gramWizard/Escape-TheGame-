@@ -41,7 +41,10 @@ public:
 	void move(float pDelta);
 	// Function to change the players position by a certain vector
 	void incPosition(glm::vec3 pOffset);
+	// Function to increase the player's rotation (around y-axis)
 	void incRotation(GLfloat pOffsetY);
+	// Jump method
+	void jump();
 
 	// Setter Functions
 	void setPosition(glm::vec3 pPosition);
@@ -51,10 +54,12 @@ public:
 	void setWindowWidth(int pWidth);
 	void setMovementSpeed(GLfloat pMovementSpeed);
 	void setUpSpeed(GLfloat pUpSpeed);
+	void setJumping(bool pJumping);
 
 	// Getter Functions
 	glm::vec3 getPosition() const;
 	glm::vec3 getRotation() const;
+	bool isJumping() const;
 	GLfloat getHeight() const;
 	const char* getName() const;
 	int getWindowHeight() const;
@@ -87,6 +92,8 @@ private:
 	const char* mName;
 	// Pointer to camera class
 	Camera* mEye;
+	// true if player is jumping
+	bool mJumping;
 	// Window Height
 	int mWindowHeight;
 	// Window Width
