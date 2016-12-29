@@ -2,9 +2,10 @@
 #include "player.hpp"
 
 // Defintion of the global player constants
-const GLfloat Player::MOVESPEED = 10;
+const GLfloat Player::MOVESPEED = 15;
 const GLfloat Player::GRAVITY = -50;
 const GLfloat Player::JUMPPOWER = 20;
+const GLfloat Player::STRAFE_ANGLE = 90;
 
 // Default Constructor
 Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWindowHeight, int pWindowWidth)
@@ -14,6 +15,7 @@ Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWi
 	this->setName(pName);
 	this->setMovementSpeed(0);
 	this->setUpSpeed(0);
+	this->setStrafeAngle(0);
 	this->setWindowHeight(pWindowHeight);
 	this->setWindowWidth(pWindowWidth);
 	// Creating new instance of the camera class
@@ -34,8 +36,8 @@ void Player::move(Terrain* pTerrain, float pDelta)
 	float yRotation = mYRot;
 	// dPos is the distance the player is going to move
 	float dPos = mMovementSpeed * pDelta;
-	float dx = dPos * sin(Math::toRadians(yRotation));
-	float dz = dPos * cos(Math::toRadians(yRotation));
+	float dx = dPos * sin(Math::toRadians(yRotation + this->getStrafeAngle()));
+	float dz = dPos * cos(Math::toRadians(yRotation + this->getStrafeAngle()));
 	this->incPosition(glm::vec3(dx, 0, dz));
 	mUpSpeed += Player::GRAVITY * pDelta;
 	this->incPosition(glm::vec3(0, mUpSpeed * pDelta, 0));
@@ -83,6 +85,11 @@ void Player::setPosition(glm::vec3 pPosition)
 void Player::setHeight(GLfloat pHeight)
 {
 	mHeight = pHeight;
+}
+
+void Player::setStrafeAngle(GLfloat pStrafeAngle)
+{
+	mStrafeAngle = pStrafeAngle;
 }
 
 // Setting the players name
@@ -139,6 +146,11 @@ bool Player::isJumping() const
 GLfloat Player::getHeight() const
 {
 	return mHeight;
+}
+
+GLfloat Player::getStrafeAngle() const
+{
+	return mStrafeAngle;
 }
 
 // Returns the name of the player
@@ -204,21 +216,28 @@ void Player::ProcessMouseScroll(GLfloat pYOffset)
 void Player::setMoveVariables()
 {
 	if (Keyboard::isKeyPressed(GLFW_KEY_W)) {
-		mMovementSpeed = Player::MOVESPEED;
+		this->setMovementSpeed(Player::MOVESPEED);
 	}
 	else if (Keyboard::isKeyPressed(GLFW_KEY_S)) {
-		mMovementSpeed = -Player::MOVESPEED;
+		this->setMovementSpeed(-Player::MOVESPEED);
 	}
-	else {
-		mMovementSpeed = 0;
+	else 
+	{
+		this->setMovementSpeed(0);
 	}
 
 	// implement strafing
 	if (Keyboard::isKeyPressed(GLFW_KEY_A)) {
+		this->setMovementSpeed(Player::MOVESPEED);
+		this->setStrafeAngle(Player::STRAFE_ANGLE);
 	}
 	else if (Keyboard::isKeyPressed(GLFW_KEY_D)) {
+		this->setMovementSpeed(Player::MOVESPEED);
+		this->setStrafeAngle(-Player::STRAFE_ANGLE);
 	}
-	else {
+	else 
+	{
+		this->setStrafeAngle(0);
 	}
 
 	if (Keyboard::isKeyPressed(GLFW_KEY_SPACE)) {

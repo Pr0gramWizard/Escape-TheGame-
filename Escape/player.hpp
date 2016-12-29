@@ -27,6 +27,7 @@ public:
 	static const GLfloat MOVESPEED;
 	static const GLfloat GRAVITY;
 	static const GLfloat JUMPPOWER;
+	static const GLfloat STRAFE_ANGLE;
 		
 // All public functions
 public:
@@ -51,6 +52,7 @@ public:
 	// Setter Functions
 	void setPosition(glm::vec3 pPosition);
 	void setHeight(GLfloat pHeight);
+	void setStrafeAngle(GLfloat pStrafeAngle);
 	void setName(const char* pName);
 	void setWindowHeight(int pHeight);
 	void setWindowWidth(int pWidth);
@@ -63,6 +65,7 @@ public:
 	glm::vec3 getRotation() const;
 	bool isJumping() const;
 	GLfloat getHeight() const;
+	GLfloat getStrafeAngle() const;
 	const char* getName() const;
 	int getWindowHeight() const;
 	int getWindowWidth() const;
@@ -90,6 +93,8 @@ private:
 	GLfloat mMovementSpeed;
 	// Current Up Speed
 	GLfloat mUpSpeed;
+	// Current Strafe
+	GLfloat mStrafeAngle;
 	// Player name
 	const char* mName;
 	// Pointer to camera class

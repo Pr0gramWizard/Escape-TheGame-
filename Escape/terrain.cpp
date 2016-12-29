@@ -178,7 +178,7 @@ GLfloat Terrain::getHeight(float x, float z) {
 	int gridX = floor(xPosRelativeToTerrain / mGridSize);
 	int gridZ = floor(zPosRelativeToTerrain / mGridSize);
 
-	if (gridX < 0 || gridZ < 0 || gridX >= mHeights.size() - 1 || gridZ >= mHeights.size() - 1)
+	if (gridX < 0 || gridZ < 0 || gridX >= mVertices - 1 || gridZ >= mVertices - 1)
 	{
 		return 0.0f;
 	}
