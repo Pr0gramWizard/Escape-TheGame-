@@ -1,6 +1,6 @@
 #include "terrain.hpp"
 
-const int Terrain::TERRAIN_SIZE = 5;
+const int Terrain::TERRAIN_SIZE = 150;
 
 Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader)
 {
@@ -143,7 +143,7 @@ void Terrain::generateHeights(Loader * loader)
 	glBindTexture(GL_TEXTURE_2D, heightmap);
 	//height should be equal to width
 	unsigned char* image =
-		SOIL_load_image("textures/bluetest.png", &width, &height, 0, SOIL_LOAD_RGB);
+		SOIL_load_image("textures/heightmap.png", &width, &height, 0, SOIL_LOAD_RGB);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
 		GL_UNSIGNED_BYTE, image);
 	
