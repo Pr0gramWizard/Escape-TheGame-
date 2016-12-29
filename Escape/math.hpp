@@ -13,7 +13,7 @@ public:
 	@param pos: position on the triangle (x,z)
 	@return height at the position
 	*/
-	static float barryCentric(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 pos);
+	static float barryCentricHeight(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 pos);
 
 	static glm::mat4 getTransformationMatrix(glm::vec3 pPosition, GLfloat pXRotation, GLfloat pYRotation, GLfloat pZRotation, GLfloat pScale);
 

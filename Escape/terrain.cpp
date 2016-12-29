@@ -1,6 +1,6 @@
 #include "terrain.hpp"
 
-const int Terrain::TERRAIN_SIZE = 150;
+const int Terrain::TERRAIN_SIZE = 300;
 
 Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader)
 {
@@ -96,6 +96,8 @@ bool Terrain::isPowerOfTwo(int pX)
 
 Model Terrain::generateTerrain(Loader* loader)
 {
+	// set grid size
+	mGridSize = (float) Terrain::TERRAIN_SIZE/(mVertices - 1);
 	int count = mVertices * mVertices;
 	std::vector<float> vertices(count * 3);
 	std::vector<float> normals(count * 3);
@@ -167,4 +169,39 @@ void Terrain::generateHeights(Loader * loader)
 	// set mVertices to width!!
 	
 	mHeights = texture_data;
+}
+
+GLfloat Terrain::getHeight(float x, float z) {
+	float xPosRelativeToTerrain = x - mWorldX;
+	float zPosRelativeToTerrain = z - mWorldX;
+
+	int gridX = floor(xPosRelativeToTerrain / mGridSize);
+	int gridZ = floor(zPosRelativeToTerrain / mGridSize);
+
+	if (gridX < 0 || gridZ < 0 || gridX >= mHeights.size() - 1 || gridZ >= mHeights.size() - 1)
+	{
+		return 0.0f;
+	}
+
+	// position within the grid square between 0 and 1
+	float dX = fmod(xPosRelativeToTerrain, mGridSize) / mGridSize;
+	float dZ = fmod(zPosRelativeToTerrain, mGridSize) / mGridSize;
+
+	if (dX <= (1 - dZ)) {
+		return Math::barryCentricHeight(
+			glm::vec3(0, mHeights[gridZ * mVertices + gridX], 0),
+			glm::vec3(1, mHeights[(gridZ + 1) * mVertices + gridX], 0),
+			glm::vec3(0, mHeights[gridZ * mVertices + (gridX + 1)], 1),
+			glm::vec2(dX, dZ)
+		);
+	}
+	else {
+		return Math::barryCentricHeight(
+			glm::vec3(1, mHeights[(gridZ + 1) * mVertices + gridX], 0),
+			glm::vec3(1, mHeights[(gridZ + 1) * mVertices + (gridX + 1)], 1),
+			glm::vec3(0, mHeights[gridZ * mVertices + (gridX + 1)], 1),
+			glm::vec2(dX, dZ)
+		);
+	}
+	
 }

@@ -16,6 +16,8 @@
 #include "keyboard.hpp"
 // Maths
 #include "math.hpp"
+// Reference to the terrain class
+#include "terrain.hpp"
 
 // Declaration of the player class
 class Player {
@@ -38,7 +40,7 @@ public:
 	~Player();
 
 	// Function to move the player
-	void move(float pDelta);
+	void move(Terrain pTerrain, float pDelta);
 	// Function to change the players position by a certain vector
 	void incPosition(glm::vec3 pOffset);
 	// Function to increase the player's rotation (around y-axis)

@@ -30,7 +30,7 @@ public:
 	glm::mat4 getModelMatrix();
 	Model* getModel();
 	void setModel(Model* pModel);
-
+	GLfloat getHeight(float x, float z);
 public:
 	static const int TERRAIN_SIZE;
 
@@ -40,6 +40,7 @@ private:
 	int mAmplitude;
 	// Getters & Setters needed? Maybe static
 	int mVertices;
+	float mGridSize;
 	const char* mName;
 	Model mModel;
 	std::vector<float> mHeights;
