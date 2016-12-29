@@ -28,7 +28,7 @@ Player::~Player()
 }
 
 // Function to move the player	
-void Player::move(Terrain pTerrain, float pDelta)
+void Player::move(Terrain* pTerrain, float pDelta)
 {
 	this->setMoveVariables();
 	float yRotation = mYRot;
@@ -41,7 +41,7 @@ void Player::move(Terrain pTerrain, float pDelta)
 	this->incPosition(glm::vec3(0, mUpSpeed * pDelta, 0));
 
 	// Replace 0 with terrain height at players position
-	float terrainHeight = pTerrain.getHeight(mPosition.x, mPosition.z);
+	float terrainHeight = pTerrain->getHeight(mPosition.x, mPosition.z);
 	if (getPosition().y < terrainHeight) {
 		this->setUpSpeed(0);
 		this->setJumping(false);

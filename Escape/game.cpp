@@ -162,7 +162,7 @@ bool Game::gameLoop()
 		glfwPollEvents();
 		//do_movement();
 
-		mPlayer->move(terrain, deltaTime);
+		mPlayer->move(&terrain, deltaTime);
 		
 		mainRenderer->prepare();
 		mainRenderer->render(mPlayer->getViewMatrix());

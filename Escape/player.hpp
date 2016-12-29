@@ -40,7 +40,7 @@ public:
 	~Player();
 
 	// Function to move the player
-	void move(Terrain pTerrain, float pDelta);
+	void move(Terrain* pTerrain, float pDelta);
 	// Function to change the players position by a certain vector
 	void incPosition(glm::vec3 pOffset);
 	// Function to increase the player's rotation (around y-axis)
