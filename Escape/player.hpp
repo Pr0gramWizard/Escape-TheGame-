@@ -14,6 +14,8 @@
 #include "camera.hpp"
 // Reference to keyboard
 #include "keyboard.hpp"
+// Maths
+#include "math.hpp"
 
 // Declaration of the player class
 class Player {
@@ -21,7 +23,6 @@ class Player {
 // Some static player settings
 public:
 	static const GLfloat MOVESPEED;
-	static const GLfloat TURNSPEED;
 	static const GLfloat GRAVITY;
 	static const GLfloat JUMPPOWER;
 		
@@ -37,7 +38,7 @@ public:
 	~Player();
 
 	// Function to move the player
-	void move();
+	void move(float pDelta);
 	// Function to change the players position by a certain vector
 	void incPosition(glm::vec3 pOffset);
 	void incRotation(GLfloat pOffsetY);
@@ -49,7 +50,7 @@ public:
 	void setWindowHeight(int pHeight);
 	void setWindowWidth(int pWidth);
 	void setMovementSpeed(GLfloat pMovementSpeed);
-	void setTurnSpeed(GLfloat pTurnSpeed);
+	void setUpSpeed(GLfloat pUpSpeed);
 
 	// Getter Functions
 	glm::vec3 getPosition() const;
@@ -59,7 +60,6 @@ public:
 	int getWindowHeight() const;
 	int getWindowWidth() const;
 	GLfloat getMovementSpeed() const;
-	GLfloat getTurnSpeed() const;
 
 	// Important World Settings
 	glm::mat4 getViewMatrix() const;
@@ -81,8 +81,8 @@ private:
 	GLfloat mHeight;
 	// Current Movement Speed
 	GLfloat mMovementSpeed;
-	// Current TurnSpeed
-	GLfloat mTurnSpeed;
+	// Current Up Speed
+	GLfloat mUpSpeed;
 	// Player name
 	const char* mName;
 	// Pointer to camera class

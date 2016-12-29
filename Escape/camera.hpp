@@ -43,7 +43,7 @@ public:
 
 	// Functions that process user input
 	void ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime);
-	void ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset,GLfloat deltaTime);
+	GLfloat ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset,GLfloat deltaTime);
 	void ProcessMouseScroll(GLfloat pYOffset);
 
 	// Returns the current View Matrix

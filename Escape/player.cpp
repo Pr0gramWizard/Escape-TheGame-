@@ -3,7 +3,6 @@
 
 // Defintion of the global player constants
 const GLfloat Player::MOVESPEED = 10;
-const GLfloat Player::TURNSPEED = 180;
 const GLfloat Player::GRAVITY = -90;
 const GLfloat Player::JUMPPOWER = 45;
 
@@ -14,7 +13,7 @@ Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWi
 	setHeight(pHeight);
 	setName(pName);
 	setMovementSpeed(0);
-	setTurnSpeed(0);
+	setUpSpeed(0);
 	setWindowHeight(pWindowHeight);
 	setWindowWidth(pWindowWidth);
 	// Creating new instance of the camera class
@@ -29,9 +28,27 @@ Player::~Player()
 }
 
 // Function to move the player	
-void Player::move()
+void Player::move(float pDelta)
 {
-	// TODO
+	setMoveVariables();
+	float yRotation = mYRot;
+	// dPos is the distance the player is going to move
+	float dPos = mMovementSpeed * pDelta;
+	float dx = dPos * sin(Math::toRadians(yRotation));
+	float dz = dPos * cos(Math::toRadians(yRotation));
+	incPosition(glm::vec3(dx, 0, dz));
+	mUpSpeed += Player::GRAVITY * pDelta;
+	incPosition(glm::vec3(0, mUpSpeed, 0));
+
+	// Replace 0 with terrain height at players position
+	if (getPosition().y < 0) {
+		setUpSpeed(0);
+		mPosition.y = 0;
+	}
+
+	// Set camera's new position
+	mEye->setPosition(getPosition()+glm::vec3(0,getHeight(), 0));
+	// TODO set camera's new rotation
 }
 
 // Function to change players position by a given offset vector
@@ -83,10 +100,9 @@ void Player::setMovementSpeed(GLfloat pMovementSpeed)
 	mMovementSpeed = pMovementSpeed;
 }
 
-// Setting the players turn speed
-void Player::setTurnSpeed(GLfloat pTurnSpeed)
+void Player::setUpSpeed(GLfloat pUpSpeed)
 {
-	mTurnSpeed = pTurnSpeed;
+	mUpSpeed = pUpSpeed;
 }
 
 // Returns the current position of the player
@@ -136,12 +152,6 @@ GLfloat Player::getMovementSpeed() const
 	return mMovementSpeed;
 }
 
-// Returns the current turn speed of the player
-GLfloat Player::getTurnSpeed() const
-{
-	return mTurnSpeed;
-}
-
 // Returns the current ViewMatrix
 glm::mat4 Player::getViewMatrix() const
 {
@@ -163,7 +173,7 @@ void Player::ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime)
 // Processes the Mouse input by the user
 void Player::ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset,GLfloat deltaTime)
 {
-	mEye->ProcessMouseMovement(pXOffset, pYOffset,deltaTime);
+	mYRot = mEye->ProcessMouseMovement(pXOffset, pYOffset, deltaTime) - 90.0f;
 }
 
 // Processes the Scroll Wheel input by the user
@@ -184,13 +194,11 @@ void Player::setMoveVariables()
 		mMovementSpeed = 0;
 	}
 
+	// implement strafing
 	if (Keyboard::isKeyPressed(GLFW_KEY_A)) {
-		mTurnSpeed = -Player::TURNSPEED;
 	}
 	else if (Keyboard::isKeyPressed(GLFW_KEY_D)) {
-		mTurnSpeed = Player::TURNSPEED;
 	}
 	else {
-		mTurnSpeed = 0;
 	}
 }

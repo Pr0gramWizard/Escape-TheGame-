@@ -59,7 +59,7 @@ void Camera::ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime)
 }
 
 // Process the Mouse input based on X/Y Offset of the mouse
-void Camera::ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset, GLfloat deltaTime)
+GLfloat Camera::ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset, GLfloat deltaTime)
 {
 	GLboolean constrainPitch = true;
 
@@ -81,6 +81,7 @@ void Camera::ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset, GLfloat de
 	// Update Front, Right and Up Vectors using the updated Eular angles
 	this->updateCameraVectors();
 
+	return this->getYaw();
 }
 
 // Process Mouse Scroll input
