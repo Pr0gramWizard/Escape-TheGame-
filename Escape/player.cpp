@@ -3,7 +3,7 @@
 
 // Defintion of the global player constants
 const GLfloat Player::MOVESPEED = 10;
-const GLfloat Player::GRAVITY = -75;
+const GLfloat Player::GRAVITY = -50;
 const GLfloat Player::JUMPPOWER = 20;
 
 // Default Constructor
@@ -48,7 +48,7 @@ void Player::move(Terrain* pTerrain, float pDelta)
 	}
 
 	// Set camera's new position
-	mEye->setPosition(getPosition()+glm::vec3(0,getHeight(), 0));
+	mEye->setPosition(this->getPosition() + glm::vec3(0, this->getHeight(), 0));
 }
 
 // Function to change players position by a given offset vector
