@@ -19,10 +19,6 @@ Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, int pVertices, const ch
 
 	generateHeights(pLoader);
 
-	for (int j = 0; j < 500; ++j) {
-		std::cout << mHeights[j] << std::endl;
-	}
-
 	// Set Model
 	mModel = generateTerrain(pLoader);
 
