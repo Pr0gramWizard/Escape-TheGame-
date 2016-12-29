@@ -29,6 +29,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix)
 	// entities
 	mEntityRenderer->startShader();
 	mEntityRenderer->loadViewMatrix(pViewMatrix);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	mEntityRenderer->render(mEntities);
 	mEntityRenderer->render(mSpecial, LINES);
 	mEntityRenderer->stopShader();
@@ -38,6 +39,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix)
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
 	for (Terrain &terrain : mTerrains)
 	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		mTerrainRenderer->render(terrain);
 	}
 	mTerrainRenderer->stopShader();

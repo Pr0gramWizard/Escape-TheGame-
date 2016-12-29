@@ -22,6 +22,7 @@ void TerrainRenderer::render(list<Terrain> pTerrains)
 		prepareTerrain(terrain);
 		loadModelMatrix(terrain);
 		glDrawElements(GL_TRIANGLES, terrain.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		unbindTerrain();
 	}
 }
@@ -32,6 +33,7 @@ void TerrainRenderer::render(Terrain &pTerrain)
 	prepareTerrain(&pTerrain);
 	loadModelMatrix(&pTerrain);
 	glDrawElements(GL_TRIANGLES, pTerrain.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	unbindTerrain();
 }
 
