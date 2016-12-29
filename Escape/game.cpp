@@ -1,6 +1,6 @@
 #include "game.hpp"
 
-
+bool Game::keys[1024] = {0};
 
 
 Game::Game()
@@ -165,6 +165,7 @@ bool Game::gameLoop()
 		glfwPollEvents();
 		do_movement();
 
+		mPlayer->move();
 		
 		mainRenderer->prepare();
 		mainRenderer->render(mPlayer->getViewMatrix());
@@ -188,19 +189,19 @@ void Game::do_movement()
 {
 
 	// Camera controls
-	if (keys[GLFW_KEY_W]) {
+	if (Game::keys[GLFW_KEY_W]) {
 		mPlayer->ProcessKeyboard(FORWARD, deltaTime);
 	}
-	if (keys[GLFW_KEY_S]) {
+	if (Game::keys[GLFW_KEY_S]) {
 		mPlayer->ProcessKeyboard(BACKWARD, deltaTime);
 	}
-	if (keys[GLFW_KEY_A]) {
+	if (Game::keys[GLFW_KEY_A]) {
 		mPlayer->ProcessKeyboard(LEFT, deltaTime);
 	}
-	if (keys[GLFW_KEY_D]) {
+	if (Game::keys[GLFW_KEY_D]) {
 		mPlayer->ProcessKeyboard(RIGHT, deltaTime);
 	}
-	if (keys[GLFW_KEY_K]) {
+	if (Game::keys[GLFW_KEY_K]) {
 		std::cout << glm::to_string(mPlayer->getViewVector()) << std::endl;
 	}
 
@@ -222,9 +223,9 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)
-			game->keys[key] = true;
+			Game::keys[key] = true;
 		else if (action == GLFW_RELEASE)
-			game->keys[key] = false;
+			Game::keys[key] = false;
 
 }
 
@@ -305,4 +306,9 @@ void Game::setHeight(GLuint pHeight)
 void Game::setTitle(const char * pTitle)
 {
 	mTitle = pTitle;
+}
+
+bool Game::isKeyPressed(int key)
+{
+	return (key >= 0 && key < 1024) ? Game::keys[key] : false;
 }

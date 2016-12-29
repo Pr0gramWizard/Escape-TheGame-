@@ -55,11 +55,12 @@ public:
 	void setHeight(GLuint pHeight);
 	void setTitle(const char* pTitle);
 
-
-
+	
+	static bool isKeyPressed(int key);
 
 
 private:
+	static bool keys[1024];
 	// Variables
 	GLFWwindow* mWindow;
 	GLuint mWidth;
@@ -67,7 +68,6 @@ private:
 	const char* mTitle;
 	Camera* mCamera;
 	// Bool
-	bool keys[1024];
 	GLfloat lastX = 400, lastY = 300;
 	GLfloat deltaTime = 0.1f;
 	GLfloat lastFrame = 0.0f;
