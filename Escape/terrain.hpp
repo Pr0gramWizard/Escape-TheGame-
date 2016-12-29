@@ -14,7 +14,6 @@ class Terrain
 {
 public:
 	Terrain(int pGridX, int pGridZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader);
-	GLfloat* getVertices(int pTiles);
 	~Terrain();
 
 	// Getter functions
@@ -33,7 +32,7 @@ public:
 	void setModel(Model* pModel);
 
 public:
-	static const int TERRAIN_SIZE = 4;
+	static const int TERRAIN_SIZE;
 
 private:
 	int mWorldX;
@@ -43,10 +42,11 @@ private:
 	int mVertices;
 	const char* mName;
 	Model mModel;
+	std::vector<float> mHeights;
 
 private:
 	bool isPowerOfTwo(int pX);
 	Model generateTerrain(Loader* loader);
-	
+	void generateHeights(Loader* loader);
 };
 

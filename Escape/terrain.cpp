@@ -1,10 +1,12 @@
 #include "terrain.hpp"
 
+const int Terrain::TERRAIN_SIZE = 200;
+
 Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader)
 {
 	// Worldspace coordinates
-	mWorldX = pGridX * TERRAIN_SIZE;
-	mWorldZ = pGridZ * TERRAIN_SIZE;
+	mWorldX = pGridX * Terrain::TERRAIN_SIZE;
+	mWorldZ = pGridZ * Terrain::TERRAIN_SIZE;
 	
 	// Set height amplitude for terrain
 	setAmplitude(pAmplitude);
@@ -15,24 +17,18 @@ Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, int pVertices, const ch
 	// Name
 	setName(pName);
 
+	generateHeights(pLoader);
+
+	for (int j = 0; j < 500; ++j) {
+		std::cout << mHeights[j] << std::endl;
+	}
+
 	// Set Model
 	mModel = generateTerrain(pLoader);
 
 	std::cout << "Terrainloader was started successfully!" << std::endl;
 
 }
-
-GLfloat* Terrain::getVertices(int pTiles)
-{
-	if(!isPowerOfTwo(pTiles))
-	{
-		std::cout << "There was an error! The number of tiles is not a power of 2!" << std::endl;
-	}
-
-	GLfloat Test[]  = { 1.0f,2.0f };
-	return Test;
-}
-
 
 Terrain::~Terrain()
 {
@@ -111,9 +107,9 @@ Model Terrain::generateTerrain(Loader* loader)
 	int vertexPointer = 0;
 	for (int i = 0;i<mVertices;i++) {
 		for (int j = 0;j<mVertices;j++) {
-			vertices[vertexPointer * 3] = (float)j / ((float)mVertices - 1) * TERRAIN_SIZE;
-			vertices[vertexPointer * 3 + 1] = 0;
-			vertices[vertexPointer * 3 + 2] = (float)i / ((float)mVertices - 1) * TERRAIN_SIZE;
+			vertices[vertexPointer * 3] = (float)j / ((float)mVertices - 1) * Terrain::TERRAIN_SIZE;
+			vertices[vertexPointer * 3 + 1] = mHeights[i * mVertices + j];
+			vertices[vertexPointer * 3 + 2] = (float)i / ((float)mVertices - 1) * Terrain::TERRAIN_SIZE;
 			normals[vertexPointer * 3] = 0;
 			normals[vertexPointer * 3 + 1] = 1;
 			normals[vertexPointer * 3 + 2] = 0;
@@ -138,4 +134,40 @@ Model Terrain::generateTerrain(Loader* loader)
 		}
 	}
 	return loader->loadDataToVao(vertices, textureCoords, normals, indices);
+}
+
+void Terrain::generateHeights(Loader * loader)
+{
+	// put into Loader
+	GLuint heightmap;
+	glGenTextures(1, &heightmap);
+	int width, height;
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, heightmap);
+	//height should be equal to width
+	unsigned char* image =
+		SOIL_load_image("textures/heightmap.png", &width, &height, 0, SOIL_LOAD_RGB);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
+		GL_UNSIGNED_BYTE, image);
+	
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	SOIL_free_image_data(image);
+
+	std::vector<float> texture_data(width * height);
+	glGetTexImage(GL_TEXTURE_2D, 0, GL_RED, GL_FLOAT, &texture_data[0]);
+
+	// put height between -mAmplitude and +mAmplitude
+	for (int i = 0; i < texture_data.size(); ++i)
+	{
+		texture_data[i] *= 2;
+		texture_data[i] -= 1;
+		texture_data[i] *= mAmplitude;
+	}
+	// set mVertices to width!!
+	
+	mHeights = texture_data;
 }
