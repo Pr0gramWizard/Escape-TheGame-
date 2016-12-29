@@ -40,7 +40,6 @@ void Player::move(Terrain* pTerrain, float pDelta)
 	mUpSpeed += Player::GRAVITY * pDelta;
 	this->incPosition(glm::vec3(0, mUpSpeed * pDelta, 0));
 
-	// Replace 0 with terrain height at players position
 	float terrainHeight = pTerrain->getHeight(mPosition.x, mPosition.z);
 	if (getPosition().y < terrainHeight) {
 		this->setUpSpeed(0);
@@ -50,7 +49,6 @@ void Player::move(Terrain* pTerrain, float pDelta)
 
 	// Set camera's new position
 	mEye->setPosition(getPosition()+glm::vec3(0,getHeight(), 0));
-	// TODO set camera's new rotation
 }
 
 // Function to change players position by a given offset vector
