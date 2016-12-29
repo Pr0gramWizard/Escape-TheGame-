@@ -190,16 +190,16 @@ GLfloat Terrain::getHeight(float x, float z) {
 	if (dX <= (1 - dZ)) {
 		return Math::barryCentricHeight(
 			glm::vec3(0, mHeights[gridZ * mVertices + gridX], 0),
-			glm::vec3(1, mHeights[(gridZ + 1) * mVertices + gridX], 0),
-			glm::vec3(0, mHeights[gridZ * mVertices + (gridX + 1)], 1),
+			glm::vec3(1, mHeights[(gridZ) * mVertices + (gridX + 1)], 0),
+			glm::vec3(0, mHeights[(gridZ + 1) * mVertices + (gridX)], 1),
 			glm::vec2(dX, dZ)
 		);
 	}
 	else {
 		return Math::barryCentricHeight(
-			glm::vec3(1, mHeights[(gridZ + 1) * mVertices + gridX], 0),
+			glm::vec3(1, mHeights[(gridZ) * mVertices + (gridX + 1)], 0),
 			glm::vec3(1, mHeights[(gridZ + 1) * mVertices + (gridX + 1)], 1),
-			glm::vec3(0, mHeights[gridZ * mVertices + (gridX + 1)], 1),
+			glm::vec3(0, mHeights[(gridZ + 1) * mVertices + (gridX)], 1),
 			glm::vec2(dX, dZ)
 		);
 	}
