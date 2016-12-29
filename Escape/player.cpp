@@ -42,6 +42,11 @@ void Player::incPosition(glm::vec3 pOffset)
 	mPosition.z += pOffset.z;
 }
 
+void Player::incRotation(GLfloat pOffsetY)
+{
+	mYRot += pOffsetY;
+}
+
 // Setting the players position to a given point
 void Player::setPosition(glm::vec3 pPosition)
 {
@@ -88,6 +93,11 @@ void Player::setTurnSpeed(GLfloat pTurnSpeed)
 glm::vec3 Player::getPosition() const
 {
 	return mPosition;
+}
+
+glm::vec3 Player::getRotation() const
+{
+	return glm::vec3(0, mYRot, 0);
 }
 
 // Returns the current height of the player
@@ -160,4 +170,27 @@ void Player::ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset,GLfloat del
 void Player::ProcessMouseScroll(GLfloat pYOffset)
 {
 	mEye->ProcessMouseScroll(pYOffset);
+}
+
+void Player::setMoveVariables()
+{
+	if (Keyboard::isKeyPressed(GLFW_KEY_W)) {
+		mMovementSpeed = Player::MOVESPEED;
+	}
+	else if (Keyboard::isKeyPressed(GLFW_KEY_S)) {
+		mMovementSpeed = -Player::MOVESPEED;
+	}
+	else {
+		mMovementSpeed = 0;
+	}
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_A)) {
+		mTurnSpeed = -Player::TURNSPEED;
+	}
+	else if (Keyboard::isKeyPressed(GLFW_KEY_D)) {
+		mTurnSpeed = Player::TURNSPEED;
+	}
+	else {
+		mTurnSpeed = 0;
+	}
 }

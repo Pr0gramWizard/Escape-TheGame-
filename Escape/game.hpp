@@ -11,6 +11,8 @@
 #include <glew.h>
 // GLFW
 #include <glfw3.h>
+// Keyboard class
+#include "keyboard.hpp"
 // Camera class
 #include "camera.hpp"
 // Terrain class
@@ -55,12 +57,8 @@ public:
 	void setHeight(GLuint pHeight);
 	void setTitle(const char* pTitle);
 
-	
-	static bool isKeyPressed(int key);
-
 
 private:
-	static bool keys[1024];
 	// Variables
 	GLFWwindow* mWindow;
 	GLuint mWidth;

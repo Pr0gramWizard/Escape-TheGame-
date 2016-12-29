@@ -135,6 +135,7 @@
     <ClCompile Include="terrainshader.cpp">
       <Filter>Shader\Terrain</Filter>
     </ClCompile>
+    <ClCompile Include="keyboard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.hpp">
@@ -197,6 +198,7 @@
     <ClInclude Include="terrainshader.hpp">
       <Filter>Shader\Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="keyboard.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">

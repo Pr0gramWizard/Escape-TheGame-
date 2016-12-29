@@ -4,12 +4,16 @@
 #include <glm.hpp>
 // OpenGLExtensionWrangler
 #include <glew.h>
+// GLFW
+#include <glfw3.h>
 // 4x4 Matrix
 #include <mat4x4.hpp>
 // 3x1 Vector
 #include <vec3.hpp>
 // Refference to the camera class
 #include "camera.hpp"
+// Reference to keyboard
+#include "keyboard.hpp"
 
 // Declaration of the player class
 class Player {
@@ -36,6 +40,7 @@ public:
 	void move();
 	// Function to change the players position by a certain vector
 	void incPosition(glm::vec3 pOffset);
+	void incRotation(GLfloat pOffsetY);
 
 	// Setter Functions
 	void setPosition(glm::vec3 pPosition);
@@ -48,6 +53,7 @@ public:
 
 	// Getter Functions
 	glm::vec3 getPosition() const;
+	glm::vec3 getRotation() const;
 	GLfloat getHeight() const;
 	const char* getName() const;
 	int getWindowHeight() const;
@@ -69,6 +75,8 @@ public:
 private:
 	// Player position
 	glm::vec3 mPosition;
+	// Player rotation
+	GLfloat mYRot;
 	// Current Player height
 	GLfloat mHeight;
 	// Current Movement Speed
@@ -83,4 +91,7 @@ private:
 	int mWindowHeight;
 	// Window Width
 	int mWindowWidth;
+
+	// Sets Movement Variables
+	void setMoveVariables();
 };

@@ -1,8 +1,5 @@
 #include "game.hpp"
 
-bool Game::keys[1024] = {0};
-
-
 Game::Game()
 {
 
@@ -189,19 +186,19 @@ void Game::do_movement()
 {
 
 	// Camera controls
-	if (Game::keys[GLFW_KEY_W]) {
+	if (Keyboard::isKeyPressed(GLFW_KEY_W)) {
 		mPlayer->ProcessKeyboard(FORWARD, deltaTime);
 	}
-	if (Game::keys[GLFW_KEY_S]) {
+	if (Keyboard::isKeyPressed(GLFW_KEY_S)) {
 		mPlayer->ProcessKeyboard(BACKWARD, deltaTime);
 	}
-	if (Game::keys[GLFW_KEY_A]) {
+	if (Keyboard::isKeyPressed(GLFW_KEY_A)) {
 		mPlayer->ProcessKeyboard(LEFT, deltaTime);
 	}
-	if (Game::keys[GLFW_KEY_D]) {
+	if (Keyboard::isKeyPressed(GLFW_KEY_D)) {
 		mPlayer->ProcessKeyboard(RIGHT, deltaTime);
 	}
-	if (Game::keys[GLFW_KEY_K]) {
+	if (Keyboard::isKeyPressed(GLFW_KEY_K)) {
 		std::cout << glm::to_string(mPlayer->getViewVector()) << std::endl;
 	}
 
@@ -223,9 +220,9 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)
-			Game::keys[key] = true;
+			Keyboard::setKeyPressed(key, true);
 		else if (action == GLFW_RELEASE)
-			Game::keys[key] = false;
+			Keyboard::setKeyPressed(key, false);
 
 }
 
@@ -306,9 +303,4 @@ void Game::setHeight(GLuint pHeight)
 void Game::setTitle(const char * pTitle)
 {
 	mTitle = pTitle;
-}
-
-bool Game::isKeyPressed(int key)
-{
-	return (key >= 0 && key < 1024) ? Game::keys[key] : false;
 }
