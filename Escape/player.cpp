@@ -215,10 +215,18 @@ void Player::ProcessMouseScroll(GLfloat pYOffset)
 
 void Player::setMoveVariables()
 {
+	/*
+	* 0: no move
+	* 1: moving forward
+	* -1: moving backwards
+	*/
+	int movingMode = 0;
 	if (Keyboard::isKeyPressed(GLFW_KEY_W)) {
 		this->setMovementSpeed(Player::MOVESPEED);
+		movingMode = 1;
 	}
 	else if (Keyboard::isKeyPressed(GLFW_KEY_S)) {
+		movingMode = -1;
 		this->setMovementSpeed(-Player::MOVESPEED);
 	}
 	else 
@@ -228,12 +236,26 @@ void Player::setMoveVariables()
 
 	// implement strafing
 	if (Keyboard::isKeyPressed(GLFW_KEY_A)) {
-		this->setMovementSpeed(Player::MOVESPEED);
-		this->setStrafeAngle(Player::STRAFE_ANGLE);
+		if (movingMode != 0)
+		{
+			this->setStrafeAngle(movingMode * Player::STRAFE_ANGLE / 2);
+		}
+		else
+		{
+			this->setMovementSpeed(Player::MOVESPEED);
+			this->setStrafeAngle(Player::STRAFE_ANGLE);
+		}
 	}
 	else if (Keyboard::isKeyPressed(GLFW_KEY_D)) {
-		this->setMovementSpeed(Player::MOVESPEED);
-		this->setStrafeAngle(-Player::STRAFE_ANGLE);
+		if (movingMode != 0)
+		{
+			this->setStrafeAngle(-movingMode * Player::STRAFE_ANGLE / 2);
+		}
+		else
+		{
+			this->setMovementSpeed(Player::MOVESPEED);
+			this->setStrafeAngle(-Player::STRAFE_ANGLE);
+		}
 	}
 	else 
 	{
