@@ -2,7 +2,7 @@
 
 const int Terrain::TERRAIN_SIZE = 500;
 
-Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader)
+Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, const char* pName, Loader* pLoader)
 {
 	// Worldspace coordinates
 	mWorldX = pGridX * Terrain::TERRAIN_SIZE;
@@ -11,13 +11,10 @@ Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, int pVertices, const ch
 	// Set height amplitude for terrain
 	setAmplitude(pAmplitude);
 
-	// Set amount of vertices along a side of the terrain
-	setVertices(pVertices);
-
 	// Name
 	setName(pName);
 
-
+	// Generate heights for the terrain & set mVertices acording to heightmap 
 	generateHeights(pLoader);
 
 	// Set Model
@@ -61,7 +58,7 @@ void Terrain::setVertices(int pVertices)
 {
 	if (!isPowerOfTwo(pVertices))
 	{
-		mVertices = 256;
+		mVertices = 128;
 	}
 	else
 	{
@@ -167,8 +164,10 @@ void Terrain::generateHeights(Loader * loader)
 		texture_data[i] -= 1;
 		texture_data[i] *= mAmplitude;
 	}
-	// set mVertices to width!!
-	
+
+	//Set amount of vertices along a side of the terrain
+	this->setVertices(width);
+
 	mHeights = texture_data;
 }
 
