@@ -130,6 +130,7 @@ Model Terrain::generateTerrain(Loader* loader)
 			indices[pointer++] = bottomRight;
 		}
 	}
+
 	return loader->loadDataToVao(vertices, textureCoords, normals, indices);
 }
 
@@ -205,10 +206,9 @@ GLfloat Terrain::getHeight(float x, float z) {
 	}
 }
 
-glm::vec3 Terrain::computeNormalAt(float x, float z)
+glm::vec3 Terrain::computeNormalAt(int x, int z)
 {
 	// read neightbor heights using an arbitrary small offset
-	glm::vec3 off = glm::vec3(1.0, 1.0, 0.0);
 	float hL = this->getHeight(x - 1, z);
 	float hR = this->getHeight(x + 1, z);
 	float hD = this->getHeight(x, z - 1);

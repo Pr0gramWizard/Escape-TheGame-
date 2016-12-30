@@ -25,7 +25,7 @@ Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<float> pT
 	// Store the vertices in the 0th position in the VertexBufferObject
 	storeData(0, pPositions, 3);
 	// Store the normal coordiantes in the 1th position in the VertexBufferObject
-	/*storeData(1, pNormals, 3);*/
+	storeData(1, pNormals, 3);
 	// Store the texture coordiantes in the 2th position in the VertexBufferObject
 	storeData(2, pTexCoords, 2);
 	GLuint textureID = loadTexture(pTextureFile);
@@ -45,7 +45,7 @@ Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<float> pT
 	// Store the vertices in the 0th position in the VertexBufferObject
 	storeData(0, pPositions, 3);
 	// Store the normal coordiantes in the 1th position in the VertexBufferObject
-	/*storeData(1, pNormals, 3);*/
+	storeData(1, pNormals, 3);
 	// Unbinds the current VertexArrayObject
 	unbindVao();
 	// Returns a model with given VertexArrayObject ID and the number of triangles

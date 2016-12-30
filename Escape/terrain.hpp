@@ -49,6 +49,6 @@ private:
 	bool isPowerOfTwo(int pX);
 	Model generateTerrain(Loader* loader);
 	void generateHeights(Loader* loader);
-	glm::vec3 computeNormalAt(float x, float z);
+	glm::vec3 computeNormalAt(int x, int z);
 };
 
