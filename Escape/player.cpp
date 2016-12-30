@@ -16,6 +16,7 @@ Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWi
 	this->setMovementSpeed(0);
 	this->setUpSpeed(0);
 	this->setStrafeAngle(0);
+	this->setCrouching(false);
 	this->setWindowHeight(pWindowHeight);
 	this->setWindowWidth(pWindowWidth);
 	// Creating new instance of the camera class
@@ -73,6 +74,24 @@ void Player::jump()
 		this->setJumping(true);
 		this->setUpSpeed(Player::JUMPPOWER);
 	}
+}
+
+void Player::crouch()
+{
+	if (!this->getCrouching()) {
+		this->setCrouching(true);
+		this->setHeight(this->getHeight() / 2.0f);
+	}
+}
+
+void Player::setCrouching(bool pCrouching)
+{
+	mCrouching = pCrouching;
+}
+
+bool Player::getCrouching() const
+{
+	return mCrouching;
 }
 
 // Setting the players position to a given point
@@ -221,13 +240,23 @@ void Player::setMoveVariables()
 	* -1: moving backwards
 	*/
 	int movingMode = 0;
+	
+	/*
+	* 1: no crouching
+	* 2: crouching
+	*/
+	int crouchingMode = 1;
+	if (this->getCrouching())
+	{
+		crouchingMode = 2;
+	}
 	if (Keyboard::isKeyPressed(GLFW_KEY_W)) {
-		this->setMovementSpeed(Player::MOVESPEED);
+		this->setMovementSpeed(Player::MOVESPEED / crouchingMode);
 		movingMode = 1;
 	}
 	else if (Keyboard::isKeyPressed(GLFW_KEY_S)) {
 		movingMode = -1;
-		this->setMovementSpeed(-Player::MOVESPEED);
+		this->setMovementSpeed(-Player::MOVESPEED / crouchingMode);
 	}
 	else 
 	{
@@ -242,7 +271,7 @@ void Player::setMoveVariables()
 		}
 		else
 		{
-			this->setMovementSpeed(Player::MOVESPEED);
+			this->setMovementSpeed(Player::MOVESPEED / crouchingMode);
 			this->setStrafeAngle(Player::STRAFE_ANGLE);
 		}
 	}
@@ -253,7 +282,7 @@ void Player::setMoveVariables()
 		}
 		else
 		{
-			this->setMovementSpeed(Player::MOVESPEED);
+			this->setMovementSpeed(Player::MOVESPEED / crouchingMode);
 			this->setStrafeAngle(-Player::STRAFE_ANGLE);
 		}
 	}
@@ -262,7 +291,21 @@ void Player::setMoveVariables()
 		this->setStrafeAngle(0);
 	}
 
-	if (Keyboard::isKeyPressed(GLFW_KEY_SPACE)) {
+	if (Keyboard::isKeyPressed(GLFW_KEY_SPACE)) 
+	{
 		this->jump();
+	}
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_LEFT_CONTROL)) 
+	{
+		this->crouch();
+	}
+	else 
+	{
+		if (this->getCrouching()) 
+		{
+			this->setCrouching(false);
+			this->setHeight(this->getHeight() * 2.0f);
+		}
 	}
 }

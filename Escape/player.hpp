@@ -49,6 +49,12 @@ public:
 	// Jump method
 	void jump();
 
+	void crouch();
+
+	void setCrouching(bool pCrouching);
+
+	bool getCrouching() const;
+
 	// Setter Functions
 	void setPosition(glm::vec3 pPosition);
 	void setHeight(GLfloat pHeight);
@@ -101,6 +107,8 @@ private:
 	Camera* mEye;
 	// true if player is jumping
 	bool mJumping;
+	// true if player is crouching
+	bool mCrouching;
 	// Window Height
 	int mWindowHeight;
 	// Window Width
