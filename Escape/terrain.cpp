@@ -104,16 +104,17 @@ Model Terrain::generateTerrain(Loader* loader)
 	std::vector<float> textureCoords(count * 2);
 	std::vector<int> indices(6 * (mVertices - 1)*(mVertices - 1));
 	int vertexPointer = 0;
-	for (int i = 0;i<mVertices;i++) {
-		for (int j = 0;j<mVertices;j++) {
-			vertices[vertexPointer * 3] = (float)j / ((float)mVertices - 1) * Terrain::TERRAIN_SIZE;
-			vertices[vertexPointer * 3 + 1] = mHeights[i * mVertices + j];
-			vertices[vertexPointer * 3 + 2] = (float)i / ((float)mVertices - 1) * Terrain::TERRAIN_SIZE;
-			normals[vertexPointer * 3] = 0;
-			normals[vertexPointer * 3 + 1] = 1;
-			normals[vertexPointer * 3 + 2] = 0;
-			textureCoords[vertexPointer * 2] = (float)j / ((float)mVertices - 1);
-			textureCoords[vertexPointer * 2 + 1] = (float)i / ((float)mVertices - 1);
+	for (int z = 0;z<mVertices;z++) {
+		for (int x = 0;x<mVertices;x++) {
+			vertices[vertexPointer * 3] = (float)x / ((float)mVertices - 1) * Terrain::TERRAIN_SIZE;
+			vertices[vertexPointer * 3 + 1] = mHeights[z * mVertices + x];
+			vertices[vertexPointer * 3 + 2] = (float)z / ((float)mVertices - 1) * Terrain::TERRAIN_SIZE;
+			glm::vec3 normal = this->computeNormalAt(x, z);
+			normals[vertexPointer * 3] = normal.x;
+			normals[vertexPointer * 3 + 1] = normal.y;
+			normals[vertexPointer * 3 + 2] = normal.z;
+			textureCoords[vertexPointer * 2] = (float)x / ((float)mVertices - 1);
+			textureCoords[vertexPointer * 2 + 1] = (float)z / ((float)mVertices - 1);
 			vertexPointer++;
 		}
 	}
@@ -203,5 +204,20 @@ GLfloat Terrain::getHeight(float x, float z) {
 			glm::vec2(dX, dZ)
 		);
 	}
-	
+}
+
+glm::vec3 Terrain::computeNormalAt(float x, float z)
+{
+	// read neightbor heights using an arbitrary small offset
+	glm::vec3 off = glm::vec3(1.0, 1.0, 0.0);
+	float hL = this->getHeight(x - 1, z);
+	float hR = this->getHeight(x + 1, z);
+	float hD = this->getHeight(x, z - 1);
+	float hU = this->getHeight(x, z + 1);
+
+	// deduce terrain normal
+	glm::vec3 normal = glm::vec3(hL - hR, hD - hU, 2.0);
+	normal = glm::normalize(normal);
+
+	return normal;
 }
