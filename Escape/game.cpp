@@ -21,7 +21,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/,NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(),NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -132,7 +132,7 @@ bool Game::gameLoop()
 
 	Model CoordianteSystem = loader->loadDataToVao(VerticesCoordinateSystem, tex, normal, IndicesCoordianteSystem);
 
-	Model model = loader->loadDataToVao(vertices, tex, normal, indices,"textures/X.png");
+	Model model = loader->loadDataToVao(vertices, tex, normal, indices,"textures/wall.png");
 
 	Entity BlockA(glm::vec3(0, 0, 0), 0, 0, 0, 1, &model);
 	Entity BlockB(glm::vec3(1, 0, 0), 0, 0, 0, 2, &model);
