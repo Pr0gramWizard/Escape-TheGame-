@@ -107,6 +107,7 @@ Model Terrain::generateTerrain(Loader* loader)
 			vertices[vertexPointer * 3 + 1] = mHeights[z * mVertices + x];
 			vertices[vertexPointer * 3 + 2] = (float)z / ((float)mVertices - 1) * Terrain::TERRAIN_SIZE;
 			glm::vec3 normal = this->computeNormalAt(x, z);
+			if(x == z) std::cout << normal.x << ", " << normal.y << ", " << normal.z << std::endl;
 			normals[vertexPointer * 3] = normal.x;
 			normals[vertexPointer * 3 + 1] = normal.y;
 			normals[vertexPointer * 3 + 2] = normal.z;
@@ -215,7 +216,7 @@ glm::vec3 Terrain::computeNormalAt(int x, int z)
 	float hU = this->getHeight(x, z + 1);
 
 	// deduce terrain normal
-	glm::vec3 normal = glm::vec3(hL - hR, hD - hU, 2.0);
+	glm::vec3 normal = glm::vec3(hL - hR, 2.0, hD - hU);
 	normal = glm::normalize(normal);
 
 	return normal;
