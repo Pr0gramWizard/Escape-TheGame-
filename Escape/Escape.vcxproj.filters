@@ -76,6 +76,9 @@
     <Filter Include="Loader Functions\Object Loader">
       <UniqueIdentifier>{a8c780cc-5c02-4167-9287-1d1f4ec2ea59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Light">
+      <UniqueIdentifier>{0fbbed7b-3492-4c2a-b7f8-46d733d89bbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -133,6 +136,9 @@
       <Filter>Shader\Terrain</Filter>
     </ClCompile>
     <ClCompile Include="keyboard.cpp" />
+    <ClCompile Include="light\light.cpp">
+      <Filter>Light</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.hpp">
@@ -193,6 +199,9 @@
       <Filter>Shader\Terrain</Filter>
     </ClInclude>
     <ClInclude Include="keyboard.hpp" />
+    <ClInclude Include="light\light.hpp">
+      <Filter>Light</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
