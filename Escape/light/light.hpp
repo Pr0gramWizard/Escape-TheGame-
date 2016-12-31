@@ -26,7 +26,10 @@ public:
 	void invertColor();
 
 private:
+	// Position in world space
 	glm::vec3 mPosition;
+	// Color
 	glm::vec3 mColor;
+	// Limits the light's spread
 	glm::vec3 mAttenuation;
 };
