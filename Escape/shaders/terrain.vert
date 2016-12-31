@@ -1,7 +1,8 @@
 #version 330 core
 
-in vec3 position;
-
+layout (location = 0) in vec3 position;
+layout (location = 1) in vec3 normal;
+layout (location = 2) in vec2 texCoords;
 out vec3 out_Color;
 
 uniform mat4 model;
@@ -15,5 +16,5 @@ void main()
 	test /= 20.0;
 	test += 1.0;
 	test /= 2.0;
-    out_Color = vec3(0.8 , test, 0.2);
+    out_Color = vec3(0.8 , test , 0.2);
 }
