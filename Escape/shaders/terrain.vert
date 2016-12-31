@@ -9,6 +9,10 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
+uniform vec3 lightPosition;
+uniform vec3 lightColor;
+uniform vec3 lightAttenuation;
+
 void main()
 {
     gl_Position = projection * view * model * vec4(position, 1.0f);
@@ -16,5 +20,5 @@ void main()
 	test /= 20.0;
 	test += 1.0;
 	test /= 2.0;
-    out_Color = vec3(0.8 , test , 0.2);
+	out_Color = vec3(0.8 , test , 0.2) + lightColor;
 }

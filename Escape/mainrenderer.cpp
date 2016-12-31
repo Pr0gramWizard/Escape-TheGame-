@@ -35,8 +35,10 @@ void MainRenderer::render(glm::mat4 pViewMatrix)
 	mEntityRenderer->stopShader();
 
 	// terrain
+	Light* sun = new Light(glm::vec3(100, 100, 100), glm::vec3(0.01, 0.01, 0.2));
 	mTerrainRenderer->startShader();
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
+	mTerrainRenderer->loadLight(sun);
 	for (Terrain &terrain : mTerrains)
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

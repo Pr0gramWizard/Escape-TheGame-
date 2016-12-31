@@ -1,5 +1,4 @@
 #include "terrainRenderer.hpp"
-
 // constructor
 TerrainRenderer::TerrainRenderer(TerrainShader * pShader, glm::mat4 pProjectionMatrix)
 {
@@ -95,6 +94,11 @@ void TerrainRenderer::loadModelMatrix(Terrain* pTerrain)
 void TerrainRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
 {
 	mShader->loadViewMatrix(pViewMatrix);
+}
+
+void TerrainRenderer::loadLight(Light *pLight)
+{
+	mShader->loadLight(pLight);
 }
 
 void TerrainRenderer::startShader()
