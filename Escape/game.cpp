@@ -63,34 +63,30 @@ bool Game::gameLoop()
 		0.0f, 0.0f, 0.0f,
 		0.5f, 0.0f, 0.0f,
 		0.5f, 0.0f, -0.5f,
-		0.0f, 0.0f, -0.5f,
+		0.0f, 0.0f, -0.5f,	
 		0.0f, 0.5f, 0.0f,
 		0.5f, 0.5f, 0.0f,
 		0.5f, 0.5f, -0.5f,
 		0.0f, 0.5f, -0.5f,
 	};
 
+
+
 	std::vector<float> tex = {
-		0.0f,0.0f,
-		1.0f,0.0f,
-		1.0f,1.0f,
-		0.0f,1.0f,
-		0.0f,0.0f,
-		1.0f,0.0f,
-		1.0f,1.0f,
-		0.0f,1.0f,
-		0.0f,0.0f,
-		1.0f,0.0f,
-		1.0f,1.0f,
-		0.0f,1.0f,
-		0.0f,0.0f,
-		1.0f,0.0f,
-		1.0f,1.0f,
-		0.0f,1.0f,
-		1.0f,0.0f,
-		1.0f,1.0f,
-		0.0f,0.0f,
-		0.0f,1.0f
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+
+		1.0f, 0.0f,
+		0.0f, 0.0f,
+		0.0f, 1.0f,
+		1.0f, 1.0f,
+
+		0.0f, 1.0f,
+		1.0f, 0.0f,
+		0.0f, 0.0f,
+		1.0f, 1.0f
 
 	};
 
@@ -99,24 +95,25 @@ bool Game::gameLoop()
 	};
 
 	std::vector<int> indices = {
-		// Button Side
-		0,1,3,
-		1,2,3,
 		// Front Side
 		0,1,4,
 		1,4,5,
-		// Right Side
-		1,2,5,
-		2,5,6,
-		// Left Side
-		0,3,4,
-		3,4,7,
 		// Back Side
 		2,3,7,
 		2,6,7,
 		// Top Side
 		4,5,7,
-		5,6,7
+		5,6,7,
+		// Bottom Side
+		0,1,3,
+		1,2,3,
+		// Right Side
+		1,2,5,
+		2,5,6,
+		// Left Side
+		0,3,4,
+		3,4,7
+
 
 	};
 
@@ -139,9 +136,7 @@ bool Game::gameLoop()
 
 	Model model = loader->loadDataToVao(vertices, tex, normal, indices,"textures/wall.png");
 
-	Entity BlockA(glm::vec3(0, 0, 0), 0, 0, 0, 1, &model);
-	Entity BlockB(glm::vec3(1, 0, 0), 0, 0, 0, 2, &model);
-	Entity BlockC(glm::vec3(0, 2, 0), 1, 0, 0, 1, &model);
+	Entity BlockA(glm::vec3(0, 0, 0), 0, 0, 0, 4, &model);
 	Entity CoordinateSystem(glm::vec3(0, 0, 0), 0, 0, 0, 1, &CoordianteSystem);
 
 	Terrain terrain(0, 0, 15, "Test", loader);
@@ -151,8 +146,6 @@ bool Game::gameLoop()
 	MainRenderer* mainRenderer = new MainRenderer(mPlayer->getProjectionMatrix());
 	mainRenderer->addToList(terrain);
 	mainRenderer->addToList(BlockA);
-	mainRenderer->addToList(BlockB);
-	mainRenderer->addToList(BlockC);
 	mainRenderer->addToList(CoordinateSystem, LINES);
 
     // Game loop

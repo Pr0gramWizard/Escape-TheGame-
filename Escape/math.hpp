@@ -3,6 +3,7 @@
 #include <gtc\matrix_transform.hpp>
 #include <glew.h>
 #include <iostream>
+#include <vector>
 
 class Math {
 public:
@@ -20,4 +21,6 @@ public:
 	static float toRadians(float pAngle);
 
 	static void printMatrix(glm::mat4 pMatrix);
+
+	static void calculateUV(std::vector<float> pVertices);
 };

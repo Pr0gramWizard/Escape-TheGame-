@@ -42,3 +42,31 @@ void Math::printMatrix(glm::mat4 pMatrix)
 		std::cout << std::endl;
 	}
 }
+
+void Math::calculateUV(std::vector<float> pVertices)
+{
+	std::vector<float> UV;
+
+	for (int i = 0; i < pVertices.size() / 3; ++i)
+	{
+		i = i * 3;
+		float x = pVertices.at(i);
+		float y = pVertices.at(i + 1);
+		float z = pVertices.at(i + 2);
+		float x2 = pow(x, 2);
+		float y2 = pow(y, 2);
+		float z2 = pow(z, 2);
+		float U = x / sqrt(x2 + y2 + z2);
+		float V = y / sqrt(x2 + y2 + z2);
+
+		UV.push_back(U);
+		UV.push_back(V);
+	}
+
+	for (int j = 0; j < UV.size()/2; ++j)
+	{
+		std::cout << UV.at(j) << "," << UV.at(j + 1) << std::endl;
+	}
+
+
+}

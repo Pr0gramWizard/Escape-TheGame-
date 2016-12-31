@@ -133,6 +133,9 @@
       <Filter>Shader\Terrain</Filter>
     </ClCompile>
     <ClCompile Include="keyboard.cpp" />
+    <ClCompile Include="texture.cpp">
+      <Filter>Loader Functions\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.hpp">
@@ -155,9 +158,6 @@
     </ClInclude>
     <ClInclude Include="game.hpp">
       <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="textureloader.hpp">
-      <Filter>Loader Functions\Texture</Filter>
     </ClInclude>
     <ClInclude Include="utility.hpp">
       <Filter>Utility Functions</Filter>
@@ -193,6 +193,9 @@
       <Filter>Shader\Terrain</Filter>
     </ClInclude>
     <ClInclude Include="keyboard.hpp" />
+    <ClInclude Include="texture.hpp">
+      <Filter>Loader Functions\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
@@ -225,7 +228,6 @@
     <None Include="shaders\terrain.vert">
       <Filter>Shader\Shaders\Vertex</Filter>
     </None>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\wall.png">

@@ -35,6 +35,7 @@
     <ClCompile Include="terrain.cpp" />
     <ClCompile Include="terrainRenderer.cpp" />
     <ClCompile Include="terrainshader.cpp" />
+    <ClCompile Include="texture.cpp" />
     <ClCompile Include="vector2D.cpp" />
     <ClCompile Include="vector3D.cpp" />
     <ClCompile Include="vector4D.cpp" />
@@ -55,14 +56,13 @@
     <ClInclude Include="terrain.hpp" />
     <ClInclude Include="terrainRenderer.hpp" />
     <ClInclude Include="terrainshader.hpp" />
-    <ClInclude Include="textureloader.hpp" />
+    <ClInclude Include="texture.hpp" />
     <ClInclude Include="utility.hpp" />
     <ClInclude Include="vector2D.hpp" />
     <ClInclude Include="vector3D.hpp" />
     <ClInclude Include="vector4D.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="glew32.dll" />
     <None Include="SDL2.dll" />
     <None Include="shaders\a.frag" />
@@ -129,9 +129,9 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Escape\ExternalDependencies\soil\include;$(SolutionDir)Escape\ExternalDependencies\freeglut\include\GL;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\include\GL;$(SolutionDir)Escape\ExternalDependencies\assimp\include\assimp;$(SolutionDir)Escape\ExternalDependencies\glm\;$(SolutionDir)Escape\ExternalDependencies\glfw\include\GLFW;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Escape\ExternalDependencies\assimp\lib32;$(SolutionDir)Escape\ExternalDependencies\freeglut\lib;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\lib\Release\Win32;$(SolutionDir)Escape\ExternalDependencies\glfw\lib-vc2015;$(SolutionDir)Escape\ExternalDependencies\soil\lib;$(LibraryPath)</LibraryPath>
-    <SourcePath>$(SolutionDir)Escape\ExternalDependencies\assimp\bin32;$(SourcePath)</SourcePath>
+    <IncludePath>$(SolutionDir)Escape\ExternalDependencies\soil\include;$(SolutionDir)Escape\ExternalDependencies\freeglut\include\GL;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\include\GL;$(SolutionDir)Escape\ExternalDependencies\glm\;$(SolutionDir)Escape\ExternalDependencies\glfw\include\GLFW;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Escape\ExternalDependencies\freeglut\lib;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\lib\Release\Win32;$(SolutionDir)Escape\ExternalDependencies\glfw\lib-vc2015;$(SolutionDir)Escape\ExternalDependencies\soil\lib;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)Escape\ExternalDependencies\soil\include;$(SolutionDir)Escape\ExternalDependencies\freeglut\include\GL;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\include\GL;$(SolutionDir)Escape\ExternalDependencies\glm\;$(SolutionDir)Escape\ExternalDependencies\glfw\include\GLFW;$(IncludePath)</IncludePath>
@@ -145,7 +145,7 @@
       <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;freeglut.lib;SOIL.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;freeglut.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
     <Bscmake>
