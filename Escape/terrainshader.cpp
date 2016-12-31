@@ -331,6 +331,13 @@ void TerrainShader::loadViewMatrix(glm::mat4 pMatrix)
 	loadMatrix(mLocation_viewMatrix, pMatrix);
 }
 
+void TerrainShader::loadLight(Light *pLight)
+{
+	loadVector(mLocation_lightPosition, pLight->getPosition());
+	loadVector(mLocation_lightColor, pLight->getColor());
+	loadVector(mLocation_lightAttenuation, pLight->getAttenuation());
+}
+
 // Destructor
 TerrainShader::~TerrainShader()
 {
@@ -343,6 +350,10 @@ void TerrainShader::getAllUniformLocations()
 	mLocation_modelMatrix = glGetUniformLocation(getProgramID(), "model");
 	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projection");
 	mLocation_viewMatrix = glGetUniformLocation(getProgramID(), "view");
+	// Light locations
+	mLocation_lightPosition = glGetUniformLocation(getProgramID(), "lightPosition");
+	mLocation_lightColor = glGetUniformLocation(getProgramID(), "lightColor");
+	mLocation_lightAttenuation = glGetUniformLocation(getProgramID(), "lightAttenuation");
 }
 
 // Binding an attribtute to the shader
