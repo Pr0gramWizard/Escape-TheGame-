@@ -30,8 +30,6 @@
 // List
 #include <list>
 
-#include <Importer.hpp>
-
 #include <mat4x4.hpp>
 #include <vec3.hpp>
 #include <gtc\matrix_transform.hpp>
