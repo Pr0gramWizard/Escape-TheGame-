@@ -24,6 +24,7 @@
     <ClCompile Include="entityshader.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="keyboard.cpp" />
+    <ClCompile Include="light\light.cpp" />
     <ClCompile Include="loader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math.cpp" />
@@ -46,6 +47,7 @@
     <ClInclude Include="entityshader.hpp" />
     <ClInclude Include="game.hpp" />
     <ClInclude Include="keyboard.hpp" />
+    <ClInclude Include="light\light.hpp" />
     <ClInclude Include="loader.hpp" />
     <ClInclude Include="math.hpp" />
     <ClInclude Include="matrix4D.hpp" />

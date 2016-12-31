@@ -17,6 +17,8 @@
 #include <mat4x4.hpp>
 // glm::value_prt
 #include <gtc/type_ptr.hpp>
+// Light class
+#include "light\light.hpp"
 
 
 // Defintion of the class Shader
@@ -54,6 +56,7 @@ public:
 	void loadModelMatrix(glm::mat4 pMatrix);
 	void loadProjectionMatrix(glm::mat4 pMatrix);
 	void loadViewMatrix(glm::mat4 pMatrix);
+	void loadLight(Light *pLight);
 
 	// Destructor
 	~EntityShader();
@@ -69,6 +72,9 @@ private:
 	GLuint mLocation_modelMatrix;
 	GLuint mLocation_projectionMatrix;
 	GLuint mLocation_viewMatrix;
+	GLuint mLocation_lightPosition;
+	GLuint mLocation_lightColor;
+	GLuint mLocation_lightAttenuation;
 
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);

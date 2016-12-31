@@ -27,10 +27,9 @@
 #include "mainrenderer.hpp"
 // Math class
 #include "math.hpp"
-// Texture class
-#include "texture.hpp"
 // List
 #include <list>
+
 #include <mat4x4.hpp>
 #include <vec3.hpp>
 #include <gtc\matrix_transform.hpp>
