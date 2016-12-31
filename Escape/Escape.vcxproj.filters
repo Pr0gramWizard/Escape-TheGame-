@@ -61,9 +61,6 @@
     <Filter Include="Loader Functions\Entities">
       <UniqueIdentifier>{450c6775-2b6e-4ec2-8fe3-58661a6afabc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Loader Functions\Object">
-      <UniqueIdentifier>{a8c780cc-5c02-4167-9287-1d1f4ec2ea59}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shader\Entity">
       <UniqueIdentifier>{24409cb3-bdca-4bf8-ab1f-bc7573ce8715}</UniqueIdentifier>
     </Filter>
@@ -75,6 +72,9 @@
     </Filter>
     <Filter Include="Shader\Terrain">
       <UniqueIdentifier>{89664013-7bf4-4ded-a8b5-bd98bdce37ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Loader Functions\Object Loader">
+      <UniqueIdentifier>{a8c780cc-5c02-4167-9287-1d1f4ec2ea59}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -116,9 +116,6 @@
     </ClCompile>
     <ClCompile Include="entity.cpp">
       <Filter>Loader Functions\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="objectLoader.cpp">
-      <Filter>Loader Functions\Object</Filter>
     </ClCompile>
     <ClCompile Include="terrainRenderer.cpp">
       <Filter>Renderer</Filter>
@@ -180,9 +177,6 @@
     <ClInclude Include="entity.hpp">
       <Filter>Loader Functions\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="objectLoader.h">
-      <Filter>Loader Functions\Object</Filter>
-    </ClInclude>
     <ClInclude Include="terrainRenderer.hpp">
       <Filter>Renderer</Filter>
     </ClInclude>
@@ -231,6 +225,7 @@
     <None Include="shaders\terrain.vert">
       <Filter>Shader\Shaders\Vertex</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\wall.png">
