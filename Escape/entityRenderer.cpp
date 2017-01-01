@@ -87,6 +87,11 @@ void EntityRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
 	mShader->loadViewMatrix(pViewMatrix);
 }
 
+void EntityRenderer::loadLight(Light *pLight)
+{
+	mShader->loadLight(pLight);
+}
+
 void EntityRenderer::startShader()
 {
 	mShader->use();

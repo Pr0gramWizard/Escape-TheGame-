@@ -11,6 +11,8 @@
 #include "model.hpp"
 // maths
 #include "math.hpp"
+// light class
+#include "light\light.hpp"
 
 using namespace std;
 
@@ -38,6 +40,7 @@ public:
 	void loadModelMatrix(Terrain pTerrain);
 	void loadModelMatrix(Terrain* pTerrain);
 	void loadViewMatrix(glm::mat4 pViewMatrix);
+	void loadLight(Light *pLight);
 
 	// use or unuse the shader
 	void startShader();
