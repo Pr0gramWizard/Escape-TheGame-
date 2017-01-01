@@ -43,7 +43,6 @@ void Player::move(Terrain* pTerrain, float pDelta)
 	this->incPosition(glm::vec3(dx, 0, dz));
 	mUpSpeed += Player::GRAVITY * pDelta;
 	this->incPosition(glm::vec3(0, mUpSpeed * pDelta, 0));
-
 	float terrainHeight = pTerrain->getHeight(mPosition.x, mPosition.z);
 	if (getPosition().y < terrainHeight) {
 		this->setUpSpeed(0);
@@ -93,6 +92,16 @@ void Player::setCrouching(bool pCrouching)
 bool Player::getCrouching() const
 {
 	return mCrouching;
+}
+
+void Player::setSprint(bool pSprint)
+{
+	mSprinting = pSprint;
+}
+
+bool Player::getSprint() const
+{
+	return mSprinting;
 }
 
 // Setting the players position to a given point
@@ -263,14 +272,23 @@ void Player::setMoveVariables()
 		crouchingMode = 2;
 	}
 	if (Keyboard::isKeyPressed(GLFW_KEY_W)) {
-		this->setMovementSpeed(Player::MOVESPEED / crouchingMode);
-		movingMode = 1;
+		if (this->getSprint())
+		{
+			this->setMovementSpeed(Player::MOVESPEED * 3);
+			movingMode = 1;
+			this->setSprint(false);
+		}
+		else {
+			this->setMovementSpeed(Player::MOVESPEED / crouchingMode);
+			movingMode = 1;
+		}
+		
 	}
 	else if (Keyboard::isKeyPressed(GLFW_KEY_S)) {
 		movingMode = -1;
 		this->setMovementSpeed(-Player::MOVESPEED / crouchingMode);
 	}
-	else 
+	else
 	{
 		this->setMovementSpeed(0);
 	}

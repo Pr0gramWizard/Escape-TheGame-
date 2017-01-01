@@ -200,6 +200,11 @@ bool Game::gameLoop()
 		glfwPollEvents();
 		//do_movement();
 
+		if (Keyboard::isKeyPressed(GLFW_KEY_LEFT_SHIFT))
+		{
+			mPlayer->setSprint(true);
+		}
+
 		mPlayer->move(&terrain, deltaTime);
 		
 		mainRenderer->prepare();
@@ -235,9 +240,6 @@ void Game::do_movement()
 	}
 	if (Keyboard::isKeyPressed(GLFW_KEY_D)) {
 		mPlayer->ProcessKeyboard(RIGHT, deltaTime);
-	}
-	if (Keyboard::isKeyPressed(GLFW_KEY_K)) {
-		std::cout << glm::to_string(mPlayer->getViewVector()) << std::endl;
 	}
 
 

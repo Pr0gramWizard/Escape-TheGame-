@@ -50,10 +50,11 @@ public:
 	void jump();
 
 	void crouch();
-
 	void setCrouching(bool pCrouching);
-
 	bool getCrouching() const;
+
+	void setSprint(bool pSprint);
+	bool getSprint() const;
 
 	// Setter Functions
 	void setPosition(glm::vec3 pPosition);
@@ -111,6 +112,8 @@ private:
 	bool mJumping;
 	// true if player is crouching
 	bool mCrouching;
+	// Bool to check if player is sprinting
+	bool mSprinting;
 	// Window Height
 	int mWindowHeight;
 	// Window Width
