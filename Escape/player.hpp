@@ -62,6 +62,7 @@ public:
 	void setName(const char* pName);
 	void setWindowHeight(int pHeight);
 	void setWindowWidth(int pWidth);
+	void setYRotation(GLfloat pYRot);
 	void setMovementSpeed(GLfloat pMovementSpeed);
 	void setUpSpeed(GLfloat pUpSpeed);
 	void setJumping(bool pJumping);
@@ -69,6 +70,7 @@ public:
 	// Getter Functions
 	glm::vec3 getPosition() const;
 	glm::vec3 getRotation() const;
+	GLfloat getYRotation() const;
 	bool isJumping() const;
 	GLfloat getHeight() const;
 	GLfloat getStrafeAngle() const;

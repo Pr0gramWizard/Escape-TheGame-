@@ -21,6 +21,7 @@ Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWi
 	this->setWindowWidth(pWindowWidth);
 	// Creating new instance of the camera class
 	mEye = new Camera();
+	this->setYRotation(mEye->getYaw() - 90.0f);
 }
 
 // Default Destructor
@@ -34,7 +35,7 @@ Player::~Player()
 void Player::move(Terrain* pTerrain, float pDelta)
 {
 	this->setMoveVariables();
-	float yRotation = mYRot;
+	float yRotation = this->getYRotation();
 	// dPos is the distance the player is going to move
 	float dPos = mMovementSpeed * pDelta;
 	float dx = dPos * sin(Math::toRadians(yRotation + this->getStrafeAngle()));
@@ -129,6 +130,12 @@ void Player::setWindowWidth(int pWidth)
 	mWindowWidth = pWidth;
 }
 
+// Setting rotation around y-axis
+void Player::setYRotation(GLfloat pYRot)
+{
+	mYRot = pYRot;
+}
+
 // Setting the players movement speed
 void Player::setMovementSpeed(GLfloat pMovementSpeed)
 {
@@ -188,6 +195,11 @@ int Player::getWindowHeight() const
 int Player::getWindowWidth() const
 {
 	return mWindowWidth;
+}
+
+GLfloat Player::getYRotation() const
+{
+	return mYRot;
 }
 
 // Returns the current view vector of the player
