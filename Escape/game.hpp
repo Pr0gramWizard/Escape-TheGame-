@@ -73,6 +73,8 @@ private:
 
 	// Player
 	Player* mPlayer;
+	// Main Renderer
+	MainRenderer* mRenderer;
 
 
 

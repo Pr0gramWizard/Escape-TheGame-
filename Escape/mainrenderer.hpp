@@ -14,6 +14,12 @@
 #include "entityshader.hpp"
 #include "terrainshader.hpp"
 
+// Keyboard
+#include "keyboard.hpp"
+
+// GLFW
+#include <glfw3.h>
+
 // matrix
 #include <mat4x4.hpp>
 
@@ -32,6 +38,9 @@ public:
 	void addToList(Entity &pEntity);
 	void addToList(Terrain &pTerrain);
 	void addToList(Entity &pEntity, RenderMode pMode);
+
+	void setDrawMode(bool pMode);
+	bool getDrawMode() const;
 
 	// prepares for rendering
 	void prepare();
@@ -57,5 +66,7 @@ private:
 	list<Entity> mSpecial;
 	list<RenderMode> mRenderMode;
 	list<Terrain> mTerrains;
+
+	bool drawMode;
 };
 

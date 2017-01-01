@@ -12,6 +12,8 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix)
 
 	TerrainShader* terrainshader = new TerrainShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
 	mTerrainRenderer = new TerrainRenderer(terrainshader, pProjectionMatrix);
+
+	this->setDrawMode(0);
 }
 
 MainRenderer::~MainRenderer()
@@ -41,9 +43,16 @@ void MainRenderer::render(glm::mat4 pViewMatrix)
 	mTerrainRenderer->startShader();
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
 	mTerrainRenderer->loadLight(sun);
-	for (Terrain &terrain : mTerrains)
+	if (this->getDrawMode())
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	for (Terrain &terrain : mTerrains)
+	{
 		mTerrainRenderer->render(terrain);
 	}
 	mTerrainRenderer->stopShader();
@@ -58,6 +67,16 @@ void MainRenderer::addToList(Entity &pEntity, RenderMode pMode)
 {
 	mSpecial.push_back(pEntity);
 	mRenderMode.push_back(pMode);
+}
+
+void MainRenderer::setDrawMode(bool pMode)
+{
+	drawMode = pMode;
+}
+
+bool MainRenderer::getDrawMode() const
+{
+	return drawMode;
 }
 
 void MainRenderer::addToList(Terrain &pTerrain)
