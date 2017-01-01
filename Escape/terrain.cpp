@@ -210,10 +210,15 @@ GLfloat Terrain::getHeight(float x, float z) {
 glm::vec3 Terrain::computeNormalAt(int x, int z)
 {
 	// read neightbor heights using an arbitrary small offset
-	float hL = this->getHeight(x - 1, z);
+	/*float hL = this->getHeight(x - 1, z);
 	float hR = this->getHeight(x + 1, z);
 	float hD = this->getHeight(x, z - 1);
-	float hU = this->getHeight(x, z + 1);
+	float hU = this->getHeight(x, z + 1);*/
+
+	float hL = (x == 0) ? 0 : mHeights[z * mVertices + (x - 1)];
+	float hR = (x == mVertices - 1) ? 0 : mHeights[z * mVertices + (x + 1)];
+	float hD = (z == 0) ? 0 : mHeights[(z - 1) * mVertices + x];
+	float hU = (z == mVertices - 1) ? 0 : mHeights[(z + 1) * mVertices + x];
 
 	// deduce terrain normal
 	glm::vec3 normal = glm::vec3(hL - hR, 2.0, hD - hU);
