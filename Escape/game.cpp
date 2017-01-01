@@ -179,7 +179,7 @@ bool Game::gameLoop()
 	Entity BlockA(glm::vec3(0, 0, 0), 0, 0, 0, 4, &model);
 	Entity CoordinateSystem(glm::vec3(0, 0, 0), 0, 0, 0, 1, &CoordianteSystem);
 
-	Terrain terrain(-0.5, -0.5, 15, "Test", loader);
+	Terrain terrain(0, 0, 15, "Test", loader);
 	std::list<Terrain> terrains;
 	terrains.push_back(terrain);
 

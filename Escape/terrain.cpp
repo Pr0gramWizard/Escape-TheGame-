@@ -2,7 +2,7 @@
 
 const int Terrain::TERRAIN_SIZE = 500;
 
-Terrain::Terrain(float pGridX, float pGridZ, int pAmplitude, const char* pName, Loader* pLoader)
+Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, const char* pName, Loader* pLoader)
 {
 	// Worldspace coordinates
 	mWorldX = pGridX * Terrain::TERRAIN_SIZE;

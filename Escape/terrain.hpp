@@ -13,7 +13,7 @@
 class Terrain
 {
 public:
-	Terrain(float pGridX, float pGridZ, int pAmplitude, const char* pName, Loader* pLoader);
+	Terrain(int pGridX, int pGridZ, int pAmplitude, const char* pName, Loader* pLoader);
 	~Terrain();
 
 	// Getter functions
