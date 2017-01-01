@@ -36,8 +36,8 @@ void MainRenderer::render(glm::mat4 pViewMatrix)
 	mEntityRenderer->stopShader();
 
 	// terrain
-	// Light* sun = new Light(glm::vec3(0, 1, 0), glm::vec3(1, 1, 0), glm::vec3(0.0004, 0.0001, 0.002));
-	Light* sun = new Light(glm::vec3(50, 10, 50), glm::vec3(0.5f, 0.5f, 0.5f));
+	// Light* sun = new Light(glm::vec3(250, 1, 250), glm::vec3(1, 1, 0), glm::vec3(1, 0.01, 0.002));
+	Light* sun = new Light(glm::vec3(250, 10, 250), glm::vec3(1.0f, 1.0f, 0.0f));
 	mTerrainRenderer->startShader();
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
 	mTerrainRenderer->loadLight(sun);

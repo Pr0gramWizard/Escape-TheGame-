@@ -23,8 +23,8 @@ void main()
 	float distance = length(position - lightPosition);
 	float attenuationFactor = lightAttenuation.x + (lightAttenuation.y * distance) + (lightAttenuation.z * distance * distance);
 	//out_Color = vec3(0.8 , test , 0.2) + lightColor;
-	// out_Color = lightColor / attenuationFactor;
-	out_Color = normal;
+     out_Color = lightColor / attenuationFactor;
+	//out_Color = normal;
 
 	//gl_Position = projection * view * model * vec4(position, 1.0f);
 	
