@@ -2,7 +2,7 @@
 
 const int Terrain::TERRAIN_SIZE = 500;
 
-Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, const char* pName, Loader* pLoader)
+Terrain::Terrain(float pGridX, float pGridZ, int pAmplitude, const char* pName, Loader* pLoader)
 {
 	// Worldspace coordinates
 	mWorldX = pGridX * Terrain::TERRAIN_SIZE;
@@ -107,7 +107,7 @@ Model Terrain::generateTerrain(Loader* loader)
 			vertices[vertexPointer * 3 + 1] = mHeights[z * mVertices + x];
 			vertices[vertexPointer * 3 + 2] = (float)z / ((float)mVertices - 1) * Terrain::TERRAIN_SIZE;
 			glm::vec3 normal = this->computeNormalAt(x, z);
-			if(x == z) std::cout << normal.x << ", " << normal.y << ", " << normal.z << std::endl;
+			// if(x == z) std::cout << normal.x << ", " << normal.y << ", " << normal.z << std::endl;
 			normals[vertexPointer * 3] = normal.x;
 			normals[vertexPointer * 3 + 1] = normal.y;
 			normals[vertexPointer * 3 + 2] = normal.z;

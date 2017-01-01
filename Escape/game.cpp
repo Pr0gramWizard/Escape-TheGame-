@@ -73,31 +73,14 @@ bool Game::gameLoop()
 
 
 	std::vector<float> tex = {
-		// Front Side
 		0.0f, 0.0f,
 		1.0f, 0.0f,
 		1.0f, 1.0f,
 		0.0f, 1.0f,
-		// Back Side
 		1.0f, 0.0f,
 		1.0f, 1.0f,
 		0.0f, 1.0f,
 		0.0f, 0.0f,
-		// Right Side
-		1.0f, 0.0f,
-		1.0f, 1.0f,
-		0.0f, 1.0f,
-		0.0f, 0.0f,
-		// Left Side
-		0.0f, 0.0f,
-		1.0f, 0.0f,
-		1.0f, 1.0f,
-		0.0f, 1.0f,
-		// Bottom Side
-		1.0f, 1.0f,
-		1.0f, 1.0f,
-		0.0f, 0.0f,
-		1.0f, 0.0f
 
 
 	};
@@ -130,12 +113,12 @@ bool Game::gameLoop()
 	};
 
 	std::vector<float> VerticesCoordinateSystem = {
-		-10.0f, 0.0f, 0.0f,
-		10.0f, 0.0f, 0.0f,
-		0.0f, -10.0f, 0.0f,
-		0.0f, 10.0f, 0.0f,
-		0.0f, 0.0f, -10.0f,
-		0.0f, 0.0f, 10.0f
+		-1000.0f, 0.0f, 0.0f,
+		1000.0f, 0.0f, 0.0f,
+		0.0f, -1000.0f, 0.0f,
+		0.0f, 1000.0f, 0.0f,
+		0.0f, 0.0f, -1000.0f,
+		0.0f, 0.0f, 1000.0f
 	};
 
 	std::vector<int> IndicesCoordianteSystem = {
@@ -151,13 +134,13 @@ bool Game::gameLoop()
 	Entity BlockA(glm::vec3(0, 0, 0), 0, 0, 0, 4, &model);
 	Entity CoordinateSystem(glm::vec3(0, 0, 0), 0, 0, 0, 1, &CoordianteSystem);
 
-	Terrain terrain(0, 0, 15, "Test", loader);
+	Terrain terrain(-0.5, -0.5, 15, "Test", loader);
 	std::list<Terrain> terrains;
 	terrains.push_back(terrain);
 
 	MainRenderer* mainRenderer = new MainRenderer(mPlayer->getProjectionMatrix());
 	mainRenderer->addToList(terrain);
-	mainRenderer->addToList(BlockA);
+	// mainRenderer->addToList(BlockA);
 	mainRenderer->addToList(CoordinateSystem, LINES);
 
     // Game loop

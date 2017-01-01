@@ -40,6 +40,8 @@ private:
 	void unbindVao();
 	// Stores the data in a certain location in the VertexBufferObject
 	void storeData(GLuint pAttributeLocation, std::vector<float> pData, GLuint pSize);
+	// Stores the texture in a certain location in the VertexBufferObject
+	void storeTexture(GLuint pAttributeLocation, std::vector<float> pData, GLuint pSize);
 	// Loads the texture
 	GLuint loadTexture(const char* pFileName);
 	// Deletes all VertexArrayObject

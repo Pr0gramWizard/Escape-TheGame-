@@ -40,7 +40,7 @@ glm::mat4 Camera::GetViewMatrix()
 glm::mat4 Camera::GetProjectionMatrix(int pHeight, int pWidth)
 {
 	// Using perspective function
-	return glm::perspective(this->getFov(), (float)pWidth / (float)pHeight, 0.1f, 100.0f);
+	return glm::perspective(this->getFov(), (float)pWidth / (float)pHeight, 0.1f, 1000.0f);
 }
 
 // Process the Keyboard input based on the curreent deltaTime

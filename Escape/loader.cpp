@@ -27,7 +27,7 @@ Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<float> pT
 	// Store the normal coordiantes in the 1th position in the VertexBufferObject
 	storeData(1, pNormals, 3);
 	// Store the texture coordiantes in the 2th position in the VertexBufferObject
-	storeData(2, pTexCoords, 2);
+	storeTexture(2, pTexCoords, 2);
 	GLuint textureID = loadTexture(pTextureFile);
 	// Unbinds the current VertexArrayObject
 	unbindVao();
@@ -105,7 +105,27 @@ void Loader::storeData(GLuint pAttributeLocation, std::vector<float> pData, GLui
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-GLuint Loader::loadTexture(const char * pFileName)
+// Storing the vertices in a VertexBufferObject
+void Loader::storeTexture(GLuint pAttributeLocation, std::vector<float> pData, GLuint pSize)
+{
+	GLuint vbo;
+	// Create new empty BufferObject
+	glGenBuffers(1, &vbo);
+	// Add current VertexBufferObject to the list of all VertexBufferObjects
+	mVbos.push_back(vbo);
+	// Bind Buffer to VertexBufferObject
+	glBindBuffer(GL_TEXTURE_COORD_ARRAY, vbo);
+	// Buffer the data to the graphics card
+	glBufferData(GL_TEXTURE_COORD_ARRAY, pData.size() * sizeof(float), &pData[0], GL_STATIC_DRAW);
+	// Specify the poistion of the current data in the VertexBufferObject
+	glTexCoordPointer(pAttributeLocation, GL_FLOAT, pSize * sizeof(float), (GLvoid*)0);
+	// Unbind the VertexBufferObject
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+
+
+	GLuint Loader::loadTexture(const char * pFileName)
 {
 	int width, height;
 	// Loading the image with SOIL
