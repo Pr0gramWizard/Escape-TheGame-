@@ -113,12 +113,12 @@ bool Game::gameLoop()
 	};
 
 	std::vector<float> VerticesCoordinateSystem = {
-		-1000.0f, 0.0f, 0.0f,
-		1000.0f, 0.0f, 0.0f,
-		0.0f, -1000.0f, 0.0f,
-		0.0f, 1000.0f, 0.0f,
-		0.0f, 0.0f, -1000.0f,
-		0.0f, 0.0f, 1000.0f
+		-500.0f, 0.0f, 0.0f,
+		500.0f, 0.0f, 0.0f,
+		0.0f, -100.0f, 0.0f,
+		0.0f, 100.0f, 0.0f,
+		0.0f, 0.0f, -500.0f,
+		0.0f, 0.0f, 500.0f
 	};
 
 	std::vector<int> IndicesCoordianteSystem = {
