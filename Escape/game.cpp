@@ -73,20 +73,32 @@ bool Game::gameLoop()
 
 
 	std::vector<float> tex = {
+		// Front Side
 		0.0f, 0.0f,
 		1.0f, 0.0f,
 		1.0f, 1.0f,
 		0.0f, 1.0f,
-
+		// Back Side
 		1.0f, 0.0f,
-		0.0f, 0.0f,
-		0.0f, 1.0f,
 		1.0f, 1.0f,
-
 		0.0f, 1.0f,
-		1.0f, 0.0f,
 		0.0f, 0.0f,
-		1.0f, 1.0f
+		// Right Side
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+		// Left Side
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		// Bottom Side
+		1.0f, 1.0f,
+		1.0f, 1.0f,
+		0.0f, 0.0f,
+		1.0f, 0.0f
+
 
 	};
 
