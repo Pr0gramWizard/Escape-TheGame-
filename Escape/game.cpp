@@ -59,57 +59,102 @@ bool Game::gameLoop()
 {
 
 	Loader* loader = new Loader();
-	std::vector<float> vertices = {
-		0.0f, 0.0f, 0.0f,
-		0.5f, 0.0f, 0.0f,
-		0.5f, 0.0f, -0.5f,
-		0.0f, 0.0f, -0.5f,	
-		0.0f, 0.5f, 0.0f,
-		0.5f, 0.5f, 0.0f,
-		0.5f, 0.5f, -0.5f,
-		0.0f, 0.5f, -0.5f,
+	std::vector<GLfloat> vertexPositions =
+	{
+		//Back
+		1, 0, 0,
+		0, 0, 0,
+		0, 1, 0,
+		1, 1, 0,
+
+		//Right-Side
+		1, 0, 1,
+		1, 0, 0,
+		1, 1, 0,
+		1, 1, 1,
+
+		//Front
+		0, 0, 1,
+		1, 0, 1,
+		1, 1, 1,
+		0, 1, 1,
+
+		//Left
+		0, 0, 0,
+		0, 0, 1,
+		0, 1, 1,
+		0, 1, 0,
+
+		//Top
+		0, 1, 1,
+		1, 1, 1,
+		1, 1, 0,
+		0, 1, 0,
+
+		//Bottom
+		0, 0, 0,
+		1, 0, 0,
+		1, 0, 1,
+		0, 0, 1
 	};
 
+	std::vector<GLfloat> textureCoords =
+	{
+		//Texture coords are same for every face
+		1.0, 1.0,
+		0.0, 1.0,
+		0.0, 0.0,
+		1.0, 0.0,
 
+		1.0, 1.0,
+		0.0, 1.0,
+		0.0, 0.0,
+		1.0, 0.0,
 
-	std::vector<float> tex = {
-		0.0f, 0.0f,
-		1.0f, 0.0f,
-		1.0f, 1.0f,
-		0.0f, 1.0f,
-		1.0f, 0.0f,
-		1.0f, 1.0f,
-		0.0f, 1.0f,
-		0.0f, 0.0f,
+		1.0, 1.0,
+		0.0, 1.0,
+		0.0, 0.0,
+		1.0, 0.0,
 
+		1.0, 1.0,
+		0.0, 1.0,
+		0.0, 0.0,
+		1.0, 0.0,
 
+		1.0, 1.0,
+		0.0, 1.0,
+		0.0, 0.0,
+		1.0, 0.0,
+
+		1.0, 1.0,
+		0.0, 1.0,
+		0.0, 0.0,
+		1.0, 0.0,
 	};
 
 	std::vector<float> normal = {
-		0,1,0
+		1, 1, 0
 	};
 
-	std::vector<int> indices = {
-		// Front Side
-		0,1,4,
-		1,4,5,
-		// Back Side
-		2,3,7,
-		2,6,7,
-		// Top Side
-		4,5,7,
-		5,6,7,
-		// Bottom Side
-		0,1,3,
-		1,2,3,
-		// Right Side
-		1,2,5,
-		2,5,6,
-		// Left Side
-		0,3,4,
-		3,4,7
+	std::vector<int> indices =
+	{
+		0, 1, 2,
+		2, 3, 0,
 
+		4, 5, 6,
+		6, 7, 4,
 
+		8, 9, 10,
+		10, 11, 8,
+
+		12, 13, 14,
+		14, 15, 12,
+
+		16, 17, 18,
+		18, 19, 16,
+
+		20, 21, 22,
+		22, 23, 20
 	};
 
 	std::vector<float> VerticesCoordinateSystem = {
@@ -127,9 +172,9 @@ bool Game::gameLoop()
 		4,5,
 	};
 
-	Model CoordianteSystem = loader->loadDataToVao(VerticesCoordinateSystem, tex, normal, IndicesCoordianteSystem);
+	Model CoordianteSystem = loader->loadDataToVao(VerticesCoordinateSystem, textureCoords, normal, IndicesCoordianteSystem);
 
-	Model model = loader->loadDataToVao(vertices, tex, normal, indices,"textures/wall.png");
+	Model model = loader->loadDataToVao(vertexPositions, textureCoords, normal, indices,"textures/wall.png");
 
 	Entity BlockA(glm::vec3(0, 0, 0), 0, 0, 0, 4, &model);
 	Entity CoordinateSystem(glm::vec3(0, 0, 0), 0, 0, 0, 1, &CoordianteSystem);
@@ -140,7 +185,7 @@ bool Game::gameLoop()
 
 	MainRenderer* mainRenderer = new MainRenderer(mPlayer->getProjectionMatrix());
 	mainRenderer->addToList(terrain);
-	// mainRenderer->addToList(BlockA);
+	mainRenderer->addToList(BlockA);
 	mainRenderer->addToList(CoordinateSystem, LINES);
 
     // Game loop
