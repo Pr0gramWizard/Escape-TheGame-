@@ -50,5 +50,6 @@ private:
 	Model generateTerrain(Loader* loader);
 	void generateHeights(Loader* loader);
 	glm::vec3 computeNormalAt(int x, int z);
+	GLfloat getVertexHeight(int pVertexX, int pVertexZ);
 };
 

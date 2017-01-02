@@ -207,18 +207,39 @@ GLfloat Terrain::getHeight(float x, float z) {
 	}
 }
 
+GLfloat Terrain::getVertexHeight(int pVertexX, int pVertexZ)
+{
+	if (pVertexX < 0)
+	{
+		pVertexX = 0;
+	}
+	else if (pVertexX >= mVertices)
+	{
+		pVertexX = mVertices - 1;
+	}
+
+	if (pVertexZ < 0)
+	{
+		pVertexZ = 0;
+	}
+	else if (pVertexZ >= mVertices)
+	{
+		pVertexZ = mVertices - 1;
+	}
+
+	return mHeights[pVertexZ * mVertices + pVertexX];
+}
+
 glm::vec3 Terrain::computeNormalAt(int x, int z)
 {
 	// read neightbor heights using an arbitrary small offset
-	/*float hL = this->getHeight(x - 1, z);
-	float hR = this->getHeight(x + 1, z);
-	float hD = this->getHeight(x, z - 1);
-	float hU = this->getHeight(x, z + 1);*/
 
-	float hL = (x == 0) ? 0 : mHeights[z * mVertices + (x - 1)];
-	float hR = (x == mVertices - 1) ? 0 : mHeights[z * mVertices + (x + 1)];
-	float hD = (z == 0) ? 0 : mHeights[(z - 1) * mVertices + x];
-	float hU = (z == mVertices - 1) ? 0 : mHeights[(z + 1) * mVertices + x];
+	float hL = this->getVertexHeight(x - 1, z);
+	float hR = this->getVertexHeight(x + 1, z);
+	float hD = this->getVertexHeight(x, z - 1);
+	float hU = this->getVertexHeight(x, z + 1);
+
+	if (x == z) std::cout << this->getVertexHeight(x, z) << std::endl;
 
 	// deduce terrain normal
 	glm::vec3 normal = glm::vec3(hL - hR, 2.0, hD - hU);
