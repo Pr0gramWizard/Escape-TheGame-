@@ -232,6 +232,21 @@ GLfloat Terrain::getVertexHeight(int pVertexX, int pVertexZ)
 
 glm::vec3 Terrain::computeNormalAt(int x, int z)
 {
+	/*float abstand = Terrain::TERRAIN_SIZE / ((float)mVertices - 1);
+	glm::vec3 point = glm::vec3(mWorldX + x*abstand, this->getHeight(x, z), mWorldZ + z*abstand);
+	glm::vec3 vLeft = glm::normalize(glm::vec3(point.x - abstand, this->getHeight(x - 1, z), point.z));
+	glm::vec3 vRight = glm::normalize(glm::vec3(point.x + abstand, this->getHeight(x + 1, z), point.z));
+	glm::vec3 vDown = glm::normalize(glm::vec3(point.x, this->getHeight(x, z - 1), point.z - abstand));
+	glm::vec3 vUp = glm::normalize(glm::vec3(point.x, this->getHeight(x, z + 1), point.z + abstand));
+
+	glm::vec3 vLD = glm::normalize(glm::cross(vLeft, vDown));
+	glm::vec3 vLU = glm::normalize(glm::cross(vLeft, vUp));
+	glm::vec3 vRD = glm::normalize(glm::cross(vRight, vDown));
+	glm::vec3 vRU = glm::normalize(glm::cross(vRight, vUp));
+
+	glm::vec3 normal = glm::normalize(vLD + vLU + vRD + vRU);
+	return normal;*/
+
 	// read neightbor heights using an arbitrary small offset
 	float hL = this->getVertexHeight(x - 1, z);
 	float hR = this->getVertexHeight(x + 1, z);
