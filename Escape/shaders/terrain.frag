@@ -42,8 +42,11 @@ void main()
 		float dampedFactor = pow(specularFactor,shineDamper);
 		vec3 specular = dampedFactor * reflectivity * lightColor[i];
 
-		totalDiffuse = totalDiffuse + diffuse;
-		totalSpec = totalSpec + specular;
+		float distance = length(toLightVector[i]);
+		float attenuationFactor = lightAttenuation[i].x + (lightAttenuation[i].y * distance) + (lightAttenuation[i].z * distance * distance);
+	
+		totalDiffuse = totalDiffuse + diffuse/attenuationFactor;
+		totalSpec = totalSpec + specular/attenuationFactor;
 	}
 	totalDiffuse = max(totalDiffuse, 0.1);
 	
