@@ -183,10 +183,12 @@ bool Game::gameLoop()
 	std::list<Terrain> terrains;
 	terrains.push_back(terrain);
 
-	MainRenderer* mainRenderer = new MainRenderer(mPlayer->getProjectionMatrix());
-	mainRenderer->addToList(terrain);
-	mainRenderer->addToList(BlockA);
-	mainRenderer->addToList(CoordinateSystem, LINES);
+	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix());
+	mRenderer->addToList(terrain);
+	mRenderer->addToList(BlockA);
+	mRenderer->addToList(CoordinateSystem, LINES);
+
+	double counter = 0;
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
@@ -207,8 +209,8 @@ bool Game::gameLoop()
 
 		mPlayer->move(&terrain, deltaTime);
 		
-		mainRenderer->prepare();
-		mainRenderer->render(mPlayer->getViewMatrix());
+		mRenderer->prepare();
+		mRenderer->render(mPlayer->getViewMatrix());
 		//TerrainShader->use();
 		//TerrainShader->loadViewMatrix(mPlayer->getViewMatrix());
 	    //terrainRenderer->render(terrain);
@@ -264,7 +266,14 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 		else if (action == GLFW_RELEASE)
 			Keyboard::setKeyPressed(key, false);
 
-}
+	}
+
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_Q))
+	{
+		game->mRenderer->setDrawMode(abs(game->mRenderer->getDrawMode() - 1));
+
+	}
 
 }
 
