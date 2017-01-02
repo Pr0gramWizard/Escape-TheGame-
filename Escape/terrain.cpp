@@ -104,7 +104,7 @@ Model Terrain::generateTerrain(Loader* loader)
 	for (int z = 0;z<mVertices;z++) {
 		for (int x = 0;x<mVertices;x++) {
 			vertices[vertexPointer * 3] = (float)x / ((float)mVertices - 1) * Terrain::TERRAIN_SIZE;
-			vertices[vertexPointer * 3 + 1] = mHeights[z * mVertices + x];
+			vertices[vertexPointer * 3 + 1] = this->getVertexHeight(x, z);
 			vertices[vertexPointer * 3 + 2] = (float)z / ((float)mVertices - 1) * Terrain::TERRAIN_SIZE;
 			glm::vec3 normal = this->computeNormalAt(x, z);
 			// if(x == z) std::cout << normal.x << ", " << normal.y << ", " << normal.z << std::endl;
@@ -233,17 +233,13 @@ GLfloat Terrain::getVertexHeight(int pVertexX, int pVertexZ)
 glm::vec3 Terrain::computeNormalAt(int x, int z)
 {
 	// read neightbor heights using an arbitrary small offset
-
 	float hL = this->getVertexHeight(x - 1, z);
 	float hR = this->getVertexHeight(x + 1, z);
 	float hD = this->getVertexHeight(x, z - 1);
 	float hU = this->getVertexHeight(x, z + 1);
 
-	if (x == z) std::cout << this->getVertexHeight(x, z) << std::endl;
-
 	// deduce terrain normal
-	glm::vec3 normal = glm::vec3(hL - hR, 2.0, hD - hU);
-	normal = glm::normalize(normal);
+	glm::vec3 normal = glm::vec3(hL - hR, 2.0f, hD - hU);
 
-	return normal;
+	return glm::normalize(normal);
 }
