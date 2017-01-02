@@ -5,14 +5,15 @@ layout (location = 1) in vec3 normal;
 layout (location = 2) in vec2 texCoords;
 
 out vec3 surfaceNormal;
-out vec3 toLightVector;
+out vec3 toLightVector[6];
 out vec3 toCameraVector;
 
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
-uniform vec3 lightPosition;
+// 6 is MAX_LIGHTS
+uniform vec3 lightPosition[6];
 //uniform vec3 lightColor;
 
 void main()
@@ -23,7 +24,9 @@ void main()
 	//pass_textureCoordinates = textureCoordinates * 10.0;
 	
 	surfaceNormal = mat3(transpose(inverse(model))) * normal;
-	toLightVector = lightPosition - worldPosition.xyz;
+	for(int i = 0; i < 6; i++){
+		toLightVector[i] = lightPosition[i] - worldPosition.xyz;
+	}
 	toCameraVector = (inverse(view) * vec4(0.0,0.0,0.0,1.0)).xyz - worldPosition.xyz;
 }
 

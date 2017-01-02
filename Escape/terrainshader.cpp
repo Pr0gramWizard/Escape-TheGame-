@@ -331,11 +331,21 @@ void TerrainShader::loadViewMatrix(glm::mat4 pMatrix)
 	loadMatrix(mLocation_viewMatrix, pMatrix);
 }
 
-void TerrainShader::loadLight(Light *pLight)
+void TerrainShader::loadLights(vector<Light*> pLights)
 {
-	loadVector(mLocation_lightPosition, pLight->getPosition());
-	loadVector(mLocation_lightColor, pLight->getColor());
-	loadVector(mLocation_lightAttenuation, pLight->getAttenuation());
+	for (int i = 0; i < MAX_LIGHTS; ++i) {
+		if (i < pLights.size()) {
+			loadVector(mLocation_lightPosition[i], pLights[i]->getPosition());
+			loadVector(mLocation_lightColor[i], pLights[i]->getColor());
+			loadVector(mLocation_lightAttenuation[i], pLights[i]->getAttenuation());
+		}
+		else {
+			loadVector(mLocation_lightPosition[i], glm::vec3(0,0,0));
+			loadVector(mLocation_lightColor[i], glm::vec3(0, 0, 0));
+			loadVector(mLocation_lightAttenuation[i], glm::vec3(1, 0, 0));
+		}
+	}
+	
 }
 
 // Destructor
@@ -351,9 +361,37 @@ void TerrainShader::getAllUniformLocations()
 	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projection");
 	mLocation_viewMatrix = glGetUniformLocation(getProgramID(), "view");
 	// Light locations
-	mLocation_lightPosition = glGetUniformLocation(getProgramID(), "lightPosition");
-	mLocation_lightColor = glGetUniformLocation(getProgramID(), "lightColor");
-	mLocation_lightAttenuation = glGetUniformLocation(getProgramID(), "lightAttenuation");
+	const char* lightPos[] = { 
+		"lightPosition[0]", 
+		"lightPosition[1]",
+		"lightPosition[2]", 
+		"lightPosition[3]", 
+		"lightPosition[4]", 
+		"lightPosition[5]" 
+	};
+
+	const char* lightColor[] = {
+		"lightColor[0]",
+		"lightColor[1]",
+		"lightColor[2]",
+		"lightColor[3]",
+		"lightColor[4]",
+		"lightColor[5]"
+	};
+
+	const char* lightAttenuation[] = {
+		"lightAttenuation[0]",
+		"lightAttenuation[1]",
+		"lightAttenuation[2]",
+		"lightAttenuation[3]",
+		"lightAttenuation[4]",
+		"lightAttenuation[5]"
+	};
+	for (int i = 0; i < MAX_LIGHTS; ++i) {
+		mLocation_lightPosition[i] = glGetUniformLocation(getProgramID(), lightPos[i]);
+		mLocation_lightColor[i] = glGetUniformLocation(getProgramID(), lightColor[i]);
+		mLocation_lightAttenuation[i] = glGetUniformLocation(getProgramID(), lightAttenuation[i]);
+	}
 }
 
 // Binding an attribtute to the shader

@@ -96,9 +96,9 @@ void TerrainRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
 	mShader->loadViewMatrix(pViewMatrix);
 }
 
-void TerrainRenderer::loadLight(Light *pLight)
+void TerrainRenderer::loadLights(vector<Light*> pLights)
 {
-	mShader->loadLight(pLight);
+	mShader->loadLights(pLights);
 }
 
 void TerrainRenderer::startShader()
