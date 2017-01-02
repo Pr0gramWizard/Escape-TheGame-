@@ -80,6 +80,8 @@ public:
 	int getWindowWidth() const;
 	GLfloat getMovementSpeed() const;
 
+	glm::vec3 getCameraPosition() const;
+
 	// Important World Settings
 	glm::mat4 getViewMatrix() const;
 	glm::mat4 getProjectionMatrix() const;

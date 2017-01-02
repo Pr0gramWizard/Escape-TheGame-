@@ -183,7 +183,7 @@ bool Game::gameLoop()
 	std::list<Terrain> terrains;
 	terrains.push_back(terrain);
 
-	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix());
+	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(terrain);
 	mRenderer->addToList(BlockA);
 	mRenderer->addToList(CoordinateSystem, LINES);

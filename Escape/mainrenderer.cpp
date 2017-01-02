@@ -5,7 +5,7 @@ const char* MainRenderer::ENTITY_FRAGMENT = "shaders/a.frag";
 const char* MainRenderer::TERRAIN_VERTEX = "shaders/terrain.vert";
 const char* MainRenderer::TERRAIN_FRAGMENT = "shaders/terrain.frag";
 
-MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix)
+MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 {
 	EntityShader* entityshader = new EntityShader(ENTITY_VERTEX, ENTITY_FRAGMENT);
 	mEntityRenderer = new EntityRenderer(entityshader,pProjectionMatrix);
@@ -14,6 +14,8 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix)
 	mTerrainRenderer = new TerrainRenderer(terrainshader, pProjectionMatrix);
 
 	this->setDrawMode(0);
+
+	mPlayer = pPlayer;
 }
 
 MainRenderer::~MainRenderer()
@@ -28,7 +30,7 @@ void MainRenderer::prepare()
 
 void MainRenderer::render(glm::mat4 pViewMatrix)
 {
-	glShadeModel(GL_SMOOTH);
+	// glShadeModel(GL_SMOOTH);
 	// entities
 	mEntityRenderer->startShader();
 	mEntityRenderer->loadViewMatrix(pViewMatrix);
@@ -43,12 +45,13 @@ void MainRenderer::render(glm::mat4 pViewMatrix)
 	Light* sun2 = new Light(glm::vec3(500, 20, 0), glm::vec3(10.0f, 0.0f, 0.0f));
 	Light* sun3 = new Light(glm::vec3(0, 20, 500), glm::vec3(0.0f, 0.0f, 10.0f));
 	Light* sun4 = new Light(glm::vec3(500, 20, 500), glm::vec3(0.0f, 10.0f, 0.0f));
-	Light* lamp = new Light(glm::vec3(250, 8, 250), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1, 0.05, 0.008));
+	// Light* lamp = new Light(mPlayer->getCameraPosition(), glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(0.01, 0.01, 0.01));
+	Light* lamp = new Light(glm::vec3(50,10,-25), glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(0.0001, 0.00001, 0.0001));
 	vector<Light*> lights;
-	//lights.push_back(sun);
-	//lights.push_back(sun2);
-	//lights.push_back(sun3);
-	//lights.push_back(sun4);
+	// lights.push_back(sun);
+	// lights.push_back(sun2);
+	// lights.push_back(sun3);
+	// lights.push_back(sun4);
 	lights.push_back(lamp);
 	mTerrainRenderer->startShader();
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
