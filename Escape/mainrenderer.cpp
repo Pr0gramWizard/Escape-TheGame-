@@ -45,8 +45,8 @@ void MainRenderer::render(glm::mat4 pViewMatrix)
 	Light* sun2 = new Light(glm::vec3(500, 20, 0), glm::vec3(10.0f, 0.0f, 0.0f));
 	Light* sun3 = new Light(glm::vec3(0, 20, 500), glm::vec3(0.0f, 0.0f, 10.0f));
 	Light* sun4 = new Light(glm::vec3(500, 20, 500), glm::vec3(0.0f, 10.0f, 0.0f));
-	// Light* lamp = new Light(mPlayer->getCameraPosition(), glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(0.01, 0.01, 0.01));
-	Light* lamp = new Light(glm::vec3(50,10,-25), glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(0.0001, 0.00001, 0.0001));
+	//Light* lamp = new Light(mPlayer->getCameraPosition(), glm::vec3(2.0f, 2.0f, 0.0f), glm::vec3(1, 0.01, 0.002));
+	Light* lamp = new Light(glm::vec3(0,2,0), glm::vec3(1.0f, 1.0f, 0.0f), glm::vec3(1, 0.01, 0.002));
 	vector<Light*> lights;
 	// lights.push_back(sun);
 	// lights.push_back(sun2);

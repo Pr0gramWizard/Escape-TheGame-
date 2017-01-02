@@ -50,5 +50,6 @@ void main()
 	}
 	totalDiffuse = max(totalDiffuse, 0.3);
 	
-	out_Color =  vec4(totalDiffuse,1.0) * vec4(terrainColor,1.0) + vec4(totalSpec,1.0);
+	//out_Color =  vec4(totalDiffuse,1.0) * vec4(terrainColor,1.0) + vec4(totalSpec,1.0);
+	out_Color = vec4(surfaceNormal,1.0);
 }

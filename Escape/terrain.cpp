@@ -104,7 +104,7 @@ Model Terrain::generateTerrain(Loader* loader)
 	for (int z = 0;z<mVertices;z++) {
 		for (int x = 0;x<mVertices;x++) {
 			vertices[vertexPointer * 3] = (float)x / ((float)mVertices - 1) * Terrain::TERRAIN_SIZE;
-			vertices[vertexPointer * 3 + 1] = mHeights[z * mVertices + x];
+			vertices[vertexPointer * 3 + 1] = this->getVertexHeight(x, z);
 			vertices[vertexPointer * 3 + 2] = (float)z / ((float)mVertices - 1) * Terrain::TERRAIN_SIZE;
 			glm::vec3 normal = this->computeNormalAt(x, z);
 			// if(x == z) std::cout << normal.x << ", " << normal.y << ", " << normal.z << std::endl;
@@ -207,22 +207,54 @@ GLfloat Terrain::getHeight(float x, float z) {
 	}
 }
 
+GLfloat Terrain::getVertexHeight(int pVertexX, int pVertexZ)
+{
+	if (pVertexX < 0)
+	{
+		pVertexX = 0;
+	}
+	else if (pVertexX >= mVertices)
+	{
+		pVertexX = mVertices - 1;
+	}
+
+	if (pVertexZ < 0)
+	{
+		pVertexZ = 0;
+	}
+	else if (pVertexZ >= mVertices)
+	{
+		pVertexZ = mVertices - 1;
+	}
+
+	return mHeights[pVertexZ * mVertices + pVertexX];
+}
+
 glm::vec3 Terrain::computeNormalAt(int x, int z)
 {
-	// read neightbor heights using an arbitrary small offset
-	/*float hL = this->getHeight(x - 1, z);
-	float hR = this->getHeight(x + 1, z);
-	float hD = this->getHeight(x, z - 1);
-	float hU = this->getHeight(x, z + 1);*/
+	/*float abstand = Terrain::TERRAIN_SIZE / ((float)mVertices - 1);
+	glm::vec3 point = glm::vec3(mWorldX + x*abstand, this->getVertexHeight(x, z), mWorldZ + z*abstand);
+	glm::vec3 vLeft = glm::normalize(glm::vec3(point.x - abstand, this->getVertexHeight(x - 1, z), point.z));
+	glm::vec3 vRight = glm::normalize(glm::vec3(point.x + abstand, this->getVertexHeight(x + 1, z), point.z));
+	glm::vec3 vDown = glm::normalize(glm::vec3(point.x, this->getVertexHeight(x, z - 1), point.z - abstand));
+	glm::vec3 vUp = glm::normalize(glm::vec3(point.x, this->getVertexHeight(x, z + 1), point.z + abstand));
 
-	float hL = (x == 0) ? 0 : mHeights[z * mVertices + (x - 1)];
-	float hR = (x == mVertices - 1) ? 0 : mHeights[z * mVertices + (x + 1)];
-	float hD = (z == 0) ? 0 : mHeights[(z - 1) * mVertices + x];
-	float hU = (z == mVertices - 1) ? 0 : mHeights[(z + 1) * mVertices + x];
+	glm::vec3 vLD = glm::normalize(glm::cross(vLeft, vDown));
+	glm::vec3 vLU = glm::normalize(glm::cross(vLeft, vUp));
+	glm::vec3 vRD = glm::normalize(glm::cross(vRight, vDown));
+	glm::vec3 vRU = glm::normalize(glm::cross(vRight, vUp));
+
+	glm::vec3 normal = glm::normalize(vLD + vLU + vRD + vRU);
+	return normal;*/
+
+	// read neightbor heights using an arbitrary small offset
+	float hL = this->getVertexHeight(x - 1, z);
+	float hR = this->getVertexHeight(x + 1, z);
+	float hD = this->getVertexHeight(x, z - 1);
+	float hU = this->getVertexHeight(x, z + 1);
 
 	// deduce terrain normal
-	glm::vec3 normal = glm::vec3(hL - hR, 2.0, hD - hU);
-	normal = glm::normalize(normal);
+	glm::vec3 normal = glm::vec3(hL - hR, 2.0f, hD - hU);
 
-	return normal;
+	return glm::normalize(normal);
 }
