@@ -11,6 +11,8 @@
 // math class
 #include "../math.hpp"
 
+using namespace std;
+
 class Lake
 {
 public:
@@ -46,8 +48,8 @@ private:
 	float mGridSize;
 	const char* mName;
 	Model mModel;
-	std::vector<float> mHeights;
-	std::vector<float> mVelocity;
+	vector<float> mHeights;
+	vector<float> mVelocity;
 
 private:
 	Model generateLake(Loader* loader);

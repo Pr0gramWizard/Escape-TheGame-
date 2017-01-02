@@ -71,15 +71,37 @@ void Lake::setModel(Model * pModel)
 
 GLfloat Lake::getHeight(int pVertexX, int pVertexZ)
 {
-	if (pVertexX < 0 || pVertexX >= mVertices || pVertexZ < 0 || pVertexZ >= mVertices)
+	if (pVertexX < 0)
 	{
-		return 0;
+		pVertexX = 0;
 	}
+	else if (pVertexX >= mVertices)
+	{
+		pVertexX = mVertices - 1;
+	}
+	
+	if (pVertexZ < 0) 
+	{
+		pVertexZ = 0;
+	}
+	else if (pVertexZ >= mVertices)
+	{
+		pVertexZ = mVertices - 1;
+	}
+
 	return mHeights[pVertexZ * mVertices + pVertexX];
 }
 
 void Lake::initLake(Loader * loader)
 {
+	mVelocity = vector<float>(mVertices * mVertices, 0.0f);
+	mHeights = vector<float>(mVertices * mVertices);
+
+	// generates random heights between -mAmplitude and +mAmplitude
+	for (int i = 0; i < mHeights.size(); ++i)
+	{
+		mHeights[i] = ((float)rand() / (float)(RAND_MAX)) * (2 * mAmplitude) - mAmplitude;
+	}
 }
 
 Model Lake::generateLake(Loader * loader)
@@ -89,4 +111,13 @@ Model Lake::generateLake(Loader * loader)
 
 void Lake::updateHeights()
 {
+	// update the heights
+	for (int z = 0;z < mVertices;z++) {
+		for (int x = 0;x < mVertices;x++) {
+			mVelocity[z * mVertices + x] += (this->getHeight(x - 1, z) + this->getHeight(x + 1, z) + this->getHeight(x, z - 1) + this->getHeight(x, z + 1)) / 4 - getHeight(x, z);
+			mVelocity[z * mVertices + x] *= 0.99;
+			mHeights[z * mVertices + x] += mVelocity[z * mVertices + x];
+		}
+	}
+
 }
