@@ -82,6 +82,9 @@
     <Filter Include="Lake">
       <UniqueIdentifier>{475afe78-7e03-477e-bdef-2818caa27844}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader\Lake">
+      <UniqueIdentifier>{5349d455-3583-45c1-8bad-9ea6907487df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -145,6 +148,12 @@
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="lake\lake.cpp">
       <Filter>Lake</Filter>
+    </ClCompile>
+    <ClCompile Include="lakeRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="lakeshader.cpp">
+      <Filter>Shader\Lake</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +219,12 @@
     <ClInclude Include="lake\lake.hpp">
       <Filter>Lake</Filter>
     </ClInclude>
+    <ClInclude Include="lakeRenderer.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="lakeshader.hpp">
+      <Filter>Shader\Lake</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
@@ -240,6 +255,12 @@
       <Filter>Shader\Shaders\Fragment</Filter>
     </None>
     <None Include="shaders\terrain.vert">
+      <Filter>Shader\Shaders\Vertex</Filter>
+    </None>
+    <None Include="shaders\lake.frag">
+      <Filter>Shader\Shaders\Fragment</Filter>
+    </None>
+    <None Include="shaders\lake.vert">
       <Filter>Shader\Shaders\Vertex</Filter>
     </None>
   </ItemGroup>
