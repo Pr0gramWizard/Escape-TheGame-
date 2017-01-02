@@ -14,13 +14,14 @@
 class Lake
 {
 public:
-	Lake(int pWorldX, int pWorldY, int pAmplitude, int pVertices, const char* pName, Loader* pLoader);
+	Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader);
 	~Lake();
 
 	// Getter functions
 	int getWorldX() const;
+	int getWorldY() const;
 	int getWorldZ() const;
-	glm::vec2 getWorldPos() const;
+	glm::vec3 getWorldPos() const;
 	const char* getName();
 
 	// Setter functions
@@ -37,6 +38,7 @@ public:
 
 private:
 	int mWorldX;
+	int mWorldY;
 	int mWorldZ;
 	int mAmplitude;
 	// Getters & Setters needed? Maybe static
