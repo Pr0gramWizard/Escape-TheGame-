@@ -4,6 +4,7 @@
 // Default constructor
 Loader::Loader()
 {
+	mLastVbos = glm::vec4(-1, -1, -1, -1);
 	// Log Message
 	std::cout << "Loader instance was created successfully!" << std::endl;
 }
@@ -81,6 +82,8 @@ void Loader::bindIndices(std::vector<int> pIndices) {
 	glGenBuffers(1, &vbo);
 	// Add current VertexBufferObject to the list of all VertexBufferObjects
 	mVbos.push_back(vbo);
+	// Save vbo
+	mLastVbos.x = vbo;
 	// Bind Buffer to VertexBufferObject
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo);
 	// Buffer the data to the graphics card
@@ -95,6 +98,18 @@ void Loader::storeData(GLuint pAttributeLocation, std::vector<float> pData, GLui
 	glGenBuffers(1, &vbo);
 	// Add current VertexBufferObject to the list of all VertexBufferObjects
 	mVbos.push_back(vbo);
+	if (pAttributeLocation == 0)
+	{
+		mLastVbos.y = vbo;
+	}
+	else if (pAttributeLocation == 1)
+	{
+		mLastVbos.z = vbo;
+	}
+	else if (pAttributeLocation == 2)
+	{
+		mLastVbos.w = vbo;
+	}
 	// Bind Buffer to VertexBufferObject
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	// Buffer the data to the graphics card
@@ -183,6 +198,11 @@ void Loader::deleteTextures()
 	{
 		glDeleteBuffers(1, &texture);
 	}
+}
+
+glm::vec4 Loader::getLastVbos()
+{
+	return mLastVbos;
 }
 
 // Clean up all the mess

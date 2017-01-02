@@ -31,7 +31,7 @@ public:
 	Model loadDataToVao(std::vector<float> pPositions, std::vector<float> pTexCoords, std::vector<float> pNormals, std::vector<int> pIndices);
 	// Function cleans up all the mess after creating the VertexArrayObjects
 	void cleanUp();
-
+	glm::vec4 getLastVbos();
 // All private functions
 private:
 	// Creates a VertexArrayObject
@@ -60,5 +60,13 @@ private:
 	std::list<GLuint> mVbos;
 	// List of all TextureObjects
 	std::list<GLuint> mTextures;
+	// Last set vbos;
+	/*
+	* x = indices
+	* y = positions
+	* z = normals
+	* w = texCoords
+	*/
+	glm::vec4 mLastVbos;
 };
 
