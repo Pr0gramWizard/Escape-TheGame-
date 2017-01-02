@@ -12,7 +12,7 @@ uniform vec3 lightAttenuation[6];
 
 void main()
 {
-	float shineDamper = 0.8;
+	float shineDamper = 1;
 	float reflectivity = 0.1;
 	vec3 terrainColor = vec3(1,1,1);
 
@@ -48,7 +48,7 @@ void main()
 		totalDiffuse = totalDiffuse + diffuse/attenuationFactor;
 		totalSpec = totalSpec + specular/attenuationFactor;
 	}
-	totalDiffuse = max(totalDiffuse, 0.1);
+	totalDiffuse = max(totalDiffuse, 0.3);
 	
 	out_Color =  vec4(totalDiffuse,1.0) * vec4(terrainColor,1.0) + vec4(totalSpec,1.0);
 }
