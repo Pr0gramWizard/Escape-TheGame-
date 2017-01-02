@@ -17,6 +17,9 @@
 // Keyboard
 #include "keyboard.hpp"
 
+// Player class
+#include "player.hpp"
+
 // GLFW
 #include <glfw3.h>
 
@@ -30,7 +33,7 @@ class MainRenderer
 {
 public:
 	// constructor
-	MainRenderer(glm::mat4 pProjectionMatrix);
+	MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer);
 	// destructor
 	~MainRenderer();
 
@@ -61,6 +64,7 @@ public:
 private:
 	EntityRenderer* mEntityRenderer;
 	TerrainRenderer* mTerrainRenderer;
+	Player* mPlayer;
 
 	list<Entity> mEntities;
 	list<Entity> mSpecial;

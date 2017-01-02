@@ -223,6 +223,11 @@ GLfloat Player::getMovementSpeed() const
 	return mMovementSpeed;
 }
 
+glm::vec3 Player::getCameraPosition() const
+{
+	return mEye->getPosition();
+}
+
 // Returns the current ViewMatrix
 glm::mat4 Player::getViewMatrix() const
 {
