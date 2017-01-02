@@ -188,7 +188,11 @@ bool Game::gameLoop()
 	mRenderer->addToList(BlockA);
 	mRenderer->addToList(CoordinateSystem, LINES);
 
-	double counter = 0;
+	Texture* pTest = new Texture("Grass", "textures/wall.png");
+	pTest->loadTexture2D();
+	pTest->setFiltering(TEXTURE_FILTER_MAG_NEAREST, TEXTURE_FILTER_MIN_NEAREST);
+	pTest->bind();
+	
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
@@ -271,7 +275,7 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 
 	if (Keyboard::isKeyPressed(GLFW_KEY_Q))
 	{
-		game->mRenderer->setDrawMode(abs(game->mRenderer->getDrawMode() - 1));
+		game->mRenderer->setDrawMode((bool)abs(game->mRenderer->getDrawMode() - 1));
 
 	}
 

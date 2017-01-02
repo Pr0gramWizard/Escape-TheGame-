@@ -21,6 +21,8 @@
 #include "player.hpp"
 // Loader class
 #include "loader.hpp"
+// Texture class
+#include "texture.hpp"
 // Renderer class
 #include "entityRenderer.hpp"
 #include "terrainRenderer.hpp"
