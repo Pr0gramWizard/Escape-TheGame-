@@ -57,6 +57,7 @@ public:
 	void loadProjectionMatrix(glm::mat4 pMatrix);
 	void loadViewMatrix(glm::mat4 pMatrix);
 	void loadLight(Light *pLight);
+	void loadPlane(glm::vec4 pVector);
 
 	// Destructor
 	~EntityShader();
@@ -75,11 +76,13 @@ private:
 	GLuint mLocation_lightPosition;
 	GLuint mLocation_lightColor;
 	GLuint mLocation_lightAttenuation;
+	GLuint mLocation_plane;
 
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);
 	void compileVertexShader(std::string pFragementShaderFilePath);
 	void getAllUniformLocations();
 	void loadMatrix(GLuint location, glm::mat4 pMatrix);
+	void loadVector4f(GLuint pLocation, glm::vec4 pVector);
 };
 

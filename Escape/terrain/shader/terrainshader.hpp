@@ -58,6 +58,7 @@ public:
 	void loadProjectionMatrix(glm::mat4 pMatrix);
 	void loadViewMatrix(glm::mat4 pMatrix);
 	void loadLights(vector<Light*> pLights);
+	void loadPlane(glm::vec4 pVector);
 
 	// Destructor
 	~TerrainShader();
@@ -76,6 +77,7 @@ private:
 	GLuint mLocation_lightPosition[MAX_LIGHTS];
 	GLuint mLocation_lightColor[MAX_LIGHTS];
 	GLuint mLocation_lightAttenuation[MAX_LIGHTS];
+	GLuint mLocation_plane;
 
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);
@@ -83,5 +85,6 @@ private:
 	void getAllUniformLocations();
 	void bindAllAttributes();
 	void loadMatrix(GLuint location, glm::mat4 pMatrix);
+	void loadVector4f(GLuint pLocation, glm::vec4 pVector);
 };
 
