@@ -45,7 +45,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 
 	glEnable(GL_DEPTH_TEST);
 
-	mPlayer = new Player(glm::vec3(250, 0, 250), 5, "Archie der Entdecker", this->getHeight(), this->getWidth());
+	mPlayer = new Player(glm::vec3(0, 0, 0), 5, "Archie der Entdecker", this->getHeight(), this->getWidth());
 
 }
 

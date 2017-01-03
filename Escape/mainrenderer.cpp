@@ -75,6 +75,13 @@ void MainRenderer::render(glm::mat4 pViewMatrix)
 		mTerrainRenderer->render(terrain);
 	}
 	mTerrainRenderer->stopShader();
+
+	// lake
+	mLakeRenderer->startShader();
+	mLakeRenderer->loadViewMatrix(pViewMatrix);
+	//mLakeRenderer->loadLights(lights);
+	mLakeRenderer->render(*mLake);
+	mLakeRenderer->stopShader();
 }
 
 void MainRenderer::addToList(Entity &pEntity)
