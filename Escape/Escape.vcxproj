@@ -31,7 +31,6 @@
     <ClCompile Include="loader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math.cpp" />
-    <ClCompile Include="matrix4D.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="entityRenderer.cpp" />
@@ -40,9 +39,6 @@
     <ClCompile Include="terrainRenderer.cpp" />
     <ClCompile Include="terrainshader.cpp" />
     <ClCompile Include="texture.cpp" />
-    <ClCompile Include="vector2D.cpp" />
-    <ClCompile Include="vector3D.cpp" />
-    <ClCompile Include="vector4D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.hpp" />
@@ -56,7 +52,6 @@
     <ClInclude Include="light\light.hpp" />
     <ClInclude Include="loader.hpp" />
     <ClInclude Include="math.hpp" />
-    <ClInclude Include="matrix4D.hpp" />
     <ClInclude Include="model.hpp" />
     <ClInclude Include="player.hpp" />
     <ClInclude Include="entityRenderer.hpp" />
@@ -66,9 +61,6 @@
     <ClInclude Include="terrainshader.hpp" />
     <ClInclude Include="texture.hpp" />
     <ClInclude Include="utility.hpp" />
-    <ClInclude Include="vector2D.hpp" />
-    <ClInclude Include="vector3D.hpp" />
-    <ClInclude Include="vector4D.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll" />

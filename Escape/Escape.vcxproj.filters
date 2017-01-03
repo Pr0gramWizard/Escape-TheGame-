@@ -93,19 +93,7 @@
     <ClCompile Include="camera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
-    <ClCompile Include="matrix4D.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
     <ClCompile Include="math.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="vector2D.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="vector3D.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="vector4D.cpp">
       <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="game.cpp">
@@ -145,7 +133,6 @@
     <ClCompile Include="light\light.cpp">
       <Filter>Light</Filter>
     </ClCompile>
-    <ClCompile Include="texture.cpp" />
     <ClCompile Include="lake\lake.cpp">
       <Filter>Lake</Filter>
     </ClCompile>
@@ -155,22 +142,13 @@
     <ClCompile Include="lakeshader.cpp">
       <Filter>Shader\Lake</Filter>
     </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>Loader Functions\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.hpp">
       <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="vector4D.hpp">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="vector3D.hpp">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="vector2D.hpp">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix4D.hpp">
-      <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="math.hpp">
       <Filter>Math</Filter>
@@ -215,7 +193,6 @@
     <ClInclude Include="light\light.hpp">
       <Filter>Light</Filter>
     </ClInclude>
-    <ClInclude Include="texture.hpp" />
     <ClInclude Include="lake\lake.hpp">
       <Filter>Lake</Filter>
     </ClInclude>
@@ -224,6 +201,9 @@
     </ClInclude>
     <ClInclude Include="lakeshader.hpp">
       <Filter>Shader\Lake</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.hpp">
+      <Filter>Loader Functions\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
