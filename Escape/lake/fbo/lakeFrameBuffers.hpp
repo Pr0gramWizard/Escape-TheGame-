@@ -5,7 +5,7 @@
 class LakeFrameBuffers
 {
 public:
-	LakeFrameBuffers();
+	LakeFrameBuffers(GLuint pWindowWidth, GLuint pWindowHeight);
 	~LakeFrameBuffers();
 
 	// binding buffers
@@ -40,6 +40,7 @@ private:
 	GLuint createFrameBuffer();
 	GLuint createTextureAttachment(GLuint pWidth, GLuint pHeight);
 	GLuint createDepthTextureAttachment(GLuint pWidth, GLuint pHeight);
+	GLuint createDepthBufferAttachment(GLuint pWidth, GLuint pHeight);
 
 
 private:
@@ -50,4 +51,7 @@ private:
 	GLuint mRefractionFrameBuffer;
 	GLuint mRefractionTexture;
 	GLuint mRefractionDepthTexture;
+
+	GLuint mWindowWidth;
+	GLuint mWindowHeight;
 };
