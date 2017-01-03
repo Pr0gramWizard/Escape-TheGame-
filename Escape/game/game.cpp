@@ -21,7 +21,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(),NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/,NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -59,16 +59,19 @@ Game::~Game()
 bool Game::gameLoop()
 {
 
+	
 	Loader* loader = new Loader();
+	
 	Terrain terrain(0, 0, 15, "Test", loader);
 	std::list<Terrain> terrains;
 	terrains.push_back(terrain);
 
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(terrain);
-	//Lake
+
 	Lake* lake = new Lake(-500, 0, 0, 20, 60, "Lake", loader);
 	mRenderer->setLake(lake);
+	
 
 	std::vector<GLfloat> Vertices =
 	{
@@ -91,6 +94,7 @@ bool Game::gameLoop()
 	while (!glfwWindowShouldClose(this->getWindow()))
 	{
 	
+		
 		// Calculate deltatime of current frame
 		GLfloat currentFrame = (GLfloat)glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
@@ -111,7 +115,7 @@ bool Game::gameLoop()
 
 
 		mRenderer->render(mPlayer->getViewMatrix());
-
+		
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
 		

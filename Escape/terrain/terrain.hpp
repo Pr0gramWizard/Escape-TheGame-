@@ -4,11 +4,13 @@
 #include <vec2.hpp>
 #include <vector>
 // model class
-#include "model.hpp"
+#include "../model/model.hpp"
 // loader class
-#include "loader.hpp"
+#include "../loader/loader.hpp"
 // math class
-#include "math.hpp"
+#include "../math/math.hpp"
+
+
 
 class Terrain
 {

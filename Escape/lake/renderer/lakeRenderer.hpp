@@ -1,18 +1,18 @@
 #pragma once
 
-#include "lakeshader.hpp"
+#include "../shader/lakeshader.hpp"
 // matrix class
 #include <mat4x4.hpp>
 // List
 #include <list>
 // lake class
-#include "lake\lake.hpp"
+#include "../lake.hpp"
 // model class
-#include "model.hpp"
+#include "../../model/model.hpp"
 // maths
-#include "math.hpp"
+#include "../../math/math.hpp"
 // light class
-#include "light\light.hpp"
+#include "../../light/light.hpp"
 
 using namespace std;
 

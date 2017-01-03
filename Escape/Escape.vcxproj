@@ -19,50 +19,49 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="camera.cpp" />
-    <ClCompile Include="cmodel.cpp" />
-    <ClCompile Include="entity.cpp" />
-    <ClCompile Include="entityshader.cpp" />
-    <ClCompile Include="game.cpp" />
-    <ClCompile Include="keyboard.cpp" />
-    <ClCompile Include="lakeRenderer.cpp" />
-    <ClCompile Include="lakeshader.cpp" />
+    <ClCompile Include="camera\camera.cpp" />
+    <ClCompile Include="entity\entity.cpp" />
+    <ClCompile Include="entity\renderer\entityRenderer.cpp" />
+    <ClCompile Include="entity\shader\entityshader.cpp" />
+    <ClCompile Include="game\game.cpp" />
+    <ClCompile Include="input\keyboard.cpp" />
     <ClCompile Include="lake\lake.cpp" />
+    <ClCompile Include="lake\renderer\lakeRenderer.cpp" />
+    <ClCompile Include="lake\shader\lakeshader.cpp" />
     <ClCompile Include="light\light.cpp" />
-    <ClCompile Include="loader.cpp" />
+    <ClCompile Include="loader\loader.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="math.cpp" />
-    <ClCompile Include="model.cpp" />
-    <ClCompile Include="player.cpp" />
-    <ClCompile Include="entityRenderer.cpp" />
-    <ClCompile Include="mainrenderer.cpp" />
-    <ClCompile Include="terrain.cpp" />
-    <ClCompile Include="terrainRenderer.cpp" />
-    <ClCompile Include="terrainshader.cpp" />
-    <ClCompile Include="texture.cpp" />
+    <ClCompile Include="math\math.cpp" />
+    <ClCompile Include="model\cmodel.cpp" />
+    <ClCompile Include="model\model.cpp" />
+    <ClCompile Include="player\player.cpp" />
+    <ClCompile Include="renderer\mainrenderer.cpp" />
+    <ClCompile Include="terrain\renderer\terrainRenderer.cpp" />
+    <ClCompile Include="terrain\shader\terrainshader.cpp" />
+    <ClCompile Include="terrain\terrain.cpp" />
+    <ClCompile Include="textures\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="camera.hpp" />
-    <ClInclude Include="cmodel.hpp" />
-    <ClInclude Include="entity.hpp" />
-    <ClInclude Include="entityshader.hpp" />
-    <ClInclude Include="game.hpp" />
-    <ClInclude Include="keyboard.hpp" />
-    <ClInclude Include="lakeRenderer.hpp" />
-    <ClInclude Include="lakeshader.hpp" />
+    <ClInclude Include="camera\camera.hpp" />
+    <ClInclude Include="entity\entity.hpp" />
+    <ClInclude Include="entity\renderer\entityRenderer.hpp" />
+    <ClInclude Include="entity\shader\entityshader.hpp" />
+    <ClInclude Include="game\game.hpp" />
+    <ClInclude Include="input\keyboard.hpp" />
     <ClInclude Include="lake\lake.hpp" />
+    <ClInclude Include="lake\renderer\lakeRenderer.hpp" />
+    <ClInclude Include="lake\shader\lakeshader.hpp" />
     <ClInclude Include="light\light.hpp" />
-    <ClInclude Include="loader.hpp" />
-    <ClInclude Include="math.hpp" />
-    <ClInclude Include="model.hpp" />
-    <ClInclude Include="player.hpp" />
-    <ClInclude Include="entityRenderer.hpp" />
-    <ClInclude Include="mainrenderer.hpp" />
-    <ClInclude Include="terrain.hpp" />
-    <ClInclude Include="terrainRenderer.hpp" />
-    <ClInclude Include="terrainshader.hpp" />
-    <ClInclude Include="texture.hpp" />
-    <ClInclude Include="utility.hpp" />
+    <ClInclude Include="loader\loader.hpp" />
+    <ClInclude Include="math\math.hpp" />
+    <ClInclude Include="model\cmodel.hpp" />
+    <ClInclude Include="model\model.hpp" />
+    <ClInclude Include="player\player.hpp" />
+    <ClInclude Include="renderer\mainrenderer.hpp" />
+    <ClInclude Include="terrain\renderer\terrainRenderer.hpp" />
+    <ClInclude Include="terrain\shader\terrainshader.hpp" />
+    <ClInclude Include="terrain\terrain.hpp" />
+    <ClInclude Include="textures\texture.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll" />
@@ -79,8 +78,12 @@
     <None Include="shaders\triangleShader.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="textures\fireblast.png" />
-    <Image Include="textures\wall.png" />
+    <Image Include="textures\res\blacktest.png" />
+    <Image Include="textures\res\bluetest.png" />
+    <Image Include="textures\res\greentest.png" />
+    <Image Include="textures\res\heightmap.png" />
+    <Image Include="textures\res\redtest.png" />
+    <Image Include="textures\res\whitetest.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8DE4231C-F8DD-4A3A-ADC9-9BB74012A2FB}</ProjectGuid>

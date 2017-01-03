@@ -10,9 +10,9 @@
 // Vector
 #include <vector>
 // Model class
-#include "model.hpp"
+#include "../model/model.hpp"
 // Math class
-#include "math.hpp"
+#include "../math/math.hpp"
 // Simple OpenGL Image Loader
 #include <SOIL.h>
 

@@ -5,12 +5,12 @@
 // matrix class
 #include <mat4x4.hpp>
 // maths
-#include "math.hpp"
+#include "../math/math.hpp"
 // glew
 #include <glew.h>
 // model class
-#include "model.hpp"
-#include "cmodel.hpp"
+#include "../model/model.hpp"
+#include "../model/cmodel.hpp"
 
 class Entity
 {

@@ -11,33 +11,37 @@
 #include <glew.h>
 // GLFW
 #include <glfw3.h>
-// Keyboard class
-#include "keyboard.hpp"
-// Camera class
-#include "camera.hpp"
-// Terrain class
-#include "terrain.hpp"
-// Player class
-#include "player.hpp"
-// Loader class
-#include "loader.hpp"
-// Texture class
-#include "texture.hpp"
-#include "cmodel.hpp"
-// Renderer class
-#include "entityRenderer.hpp"
-#include "terrainRenderer.hpp"
-#include "mainrenderer.hpp"
-// Math class
-#include "math.hpp"
 // List
 #include <list>
-
+// 4x4 matrix
 #include <mat4x4.hpp>
+// 3x1 vector
 #include <vec3.hpp>
+// Special glm functions
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
-#include <gtx\string_cast.hpp>
+// Keyboard class
+#include "../input/keyboard.hpp"
+// Camera class
+#include "../camera/camera.hpp"
+// Terrain class
+#include "../terrain/terrain.hpp"
+// Player class
+#include "../player/player.hpp"
+// Loader class
+#include "../loader/loader.hpp"
+// Texture class
+#include "../textures/texture.hpp"
+// New Model class
+#include "../model/cmodel.hpp"
+// Renderer classes
+#include "../entity/renderer/entityRenderer.hpp"
+#include "../terrain/renderer/terrainRenderer.hpp"
+#include "../renderer/mainrenderer.hpp"
+// Math class
+#include "../math/math.hpp"
+// Lake class
+#include "../lake/lake.hpp"
 
 class Game
 {

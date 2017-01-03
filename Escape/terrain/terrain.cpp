@@ -144,8 +144,12 @@ void Terrain::generateHeights(Loader * loader)
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, heightmap);
 	//height should be equal to width
-	unsigned char* image =
-		SOIL_load_image("textures/heightmap.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* image = SOIL_load_image("./terrain/res/A.png", &width, &height, 0, SOIL_LOAD_RGB);
+
+	if (image == 0)
+	{
+		std::cout << "Could not found the heightmap!" << std::endl;
+	}
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
 		GL_UNSIGNED_BYTE, image);
 	

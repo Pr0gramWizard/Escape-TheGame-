@@ -11,13 +11,13 @@
 // 3x1 Vector
 #include <vec3.hpp>
 // Refference to the camera class
-#include "camera.hpp"
+#include "../camera/camera.hpp"
 // Reference to keyboard
-#include "keyboard.hpp"
+#include "../input/keyboard.hpp"
 // Maths
-#include "math.hpp"
+#include "../math/math.hpp"
 // Reference to the terrain class
-#include "terrain.hpp"
+#include "../terrain/terrain.hpp"
 
 // Declaration of the player class
 class Player {

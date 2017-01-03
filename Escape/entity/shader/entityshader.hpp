@@ -18,22 +18,21 @@
 // glm::value_prt
 #include <gtc/type_ptr.hpp>
 // Light class
-#include "light\light.hpp"
+#include "../../light/light.hpp"
 
-#define MAX_LIGHTS 6
 
-using namespace std;
 // Defintion of the class Shader
-class LakeShader
+class EntityShader
 {
 	// All public member of the class 
 public:
 	// Constructor
-	LakeShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
+	EntityShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
 	// Compile Shader
 	void createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
 	// Bind attribute
 	void bindAttribute(GLuint pAttribute, const std::string & pAttributeName);
+	void bindAllAttributes();
 	// Linking Shader
 	void linkShader();
 	// Use/Unuse Function
@@ -57,10 +56,10 @@ public:
 	void loadModelMatrix(glm::mat4 pMatrix);
 	void loadProjectionMatrix(glm::mat4 pMatrix);
 	void loadViewMatrix(glm::mat4 pMatrix);
-	void loadLights(vector<Light*> pLights);
+	void loadLight(Light *pLight);
 
 	// Destructor
-	~LakeShader();
+	~EntityShader();
 
 	// All private member of the class
 private:
@@ -73,15 +72,14 @@ private:
 	GLuint mLocation_modelMatrix;
 	GLuint mLocation_projectionMatrix;
 	GLuint mLocation_viewMatrix;
-	GLuint mLocation_lightPosition[MAX_LIGHTS];
-	GLuint mLocation_lightColor[MAX_LIGHTS];
-	GLuint mLocation_lightAttenuation[MAX_LIGHTS];
+	GLuint mLocation_lightPosition;
+	GLuint mLocation_lightColor;
+	GLuint mLocation_lightAttenuation;
 
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);
 	void compileVertexShader(std::string pFragementShaderFilePath);
 	void getAllUniformLocations();
-	void bindAllAttributes();
 	void loadMatrix(GLuint location, glm::mat4 pMatrix);
 };
 

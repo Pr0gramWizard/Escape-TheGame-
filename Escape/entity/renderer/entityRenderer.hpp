@@ -8,9 +8,9 @@
 #include <gtc/type_ptr.hpp>
 #include <list>
 // model class
-#include "model.hpp"
-#include "entity.hpp"
-#include "entityshader.hpp"
+#include "../../model/model.hpp"
+#include "../../entity/entity.hpp"
+#include "../../entity/shader/entityshader.hpp"
 
 enum RenderMode {
 	POINTS,

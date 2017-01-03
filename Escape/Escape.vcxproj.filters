@@ -25,15 +25,6 @@
     <Filter Include="Game">
       <UniqueIdentifier>{8f853a57-58da-44b7-b97a-006db02e9904}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Loader Functions">
-      <UniqueIdentifier>{74d7eed0-004c-4c1a-970f-87c828eaf916}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Loader Functions\Texture">
-      <UniqueIdentifier>{7b52f6f2-a5e1-4118-a45e-0c0316d1f462}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Loader Functions\Texture\textures">
-      <UniqueIdentifier>{959e4a6f-5acb-4258-a3be-a3047d76642b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utility Functions">
       <UniqueIdentifier>{eb07b2e8-6b1d-464a-94e2-f5d6d16dcd25}</UniqueIdentifier>
     </Filter>
@@ -42,12 +33,6 @@
     </Filter>
     <Filter Include="Shader\Shaders\Vertex">
       <UniqueIdentifier>{2346da93-a568-49cf-9598-b555f6e05c69}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Loader Functions\Terrain">
-      <UniqueIdentifier>{b25e2ad2-8278-4724-a9e6-74f5443ef948}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Loader Functions\Player">
-      <UniqueIdentifier>{f9c9244f-d908-4cad-89db-2e32b59203c2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Loader">
       <UniqueIdentifier>{b5fd864d-de6a-44e1-a0f4-2fd5b6d71e92}</UniqueIdentifier>
@@ -58,44 +43,14 @@
     <Filter Include="Renderer">
       <UniqueIdentifier>{e701581f-adae-4875-8928-500e1b01ef85}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Loader Functions\Entities">
-      <UniqueIdentifier>{450c6775-2b6e-4ec2-8fe3-58661a6afabc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\Entity">
-      <UniqueIdentifier>{24409cb3-bdca-4bf8-ab1f-bc7573ce8715}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\Entity\Fragment">
-      <UniqueIdentifier>{1da2a1dc-5f36-4d0c-be02-411ae7496ecd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\Entity\Vertex">
-      <UniqueIdentifier>{bd35ca7f-0abc-41e2-bea8-9c097b3aaf60}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\Terrain">
-      <UniqueIdentifier>{89664013-7bf4-4ded-a8b5-bd98bdce37ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Loader Functions\Object Loader">
-      <UniqueIdentifier>{a8c780cc-5c02-4167-9287-1d1f4ec2ea59}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Light">
       <UniqueIdentifier>{0fbbed7b-3492-4c2a-b7f8-46d733d89bbb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Lake">
       <UniqueIdentifier>{475afe78-7e03-477e-bdef-2818caa27844}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader\Lake">
-      <UniqueIdentifier>{5349d455-3583-45c1-8bad-9ea6907487df}</UniqueIdentifier>
-    </Filter>
     <Filter Include="User Input">
       <UniqueIdentifier>{513d89b0-f877-4e4b-858d-0f66b1c58c42}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Renderer\Entity">
-      <UniqueIdentifier>{484e137c-e898-4ad6-9ef4-7db813c38476}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Renderer\Terrain">
-      <UniqueIdentifier>{78d3f3f0-f7b0-4624-afaf-f24e8d0b895c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Renderer\Lake">
-      <UniqueIdentifier>{53382574-805e-4e41-9178-629dc6096998}</UniqueIdentifier>
     </Filter>
     <Filter Include="Renderer\Main">
       <UniqueIdentifier>{6ba03f15-5dfc-4db2-b87c-0e12f33542d6}</UniqueIdentifier>
@@ -106,135 +61,165 @@
     <Filter Include="Model\New">
       <UniqueIdentifier>{443ee3fa-3b4a-4c0b-ba61-c3657beb3286}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lake\shader">
+      <UniqueIdentifier>{3f589645-95dc-4207-82d9-dc865f3d2893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lake\renderer">
+      <UniqueIdentifier>{9f5c783e-d879-4be7-ba4c-8b82424280a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity">
+      <UniqueIdentifier>{7fb5a13c-5ded-4cc5-acc3-7ce68a582115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\shader">
+      <UniqueIdentifier>{f588418a-2e5a-4d4b-aa05-36d43844412e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\renderer">
+      <UniqueIdentifier>{99a1a590-6334-4b3b-906b-dc3b0c86d905}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrain">
+      <UniqueIdentifier>{cbbcbcdf-09d4-4d54-9137-a52a37f7e49d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrain\shader">
+      <UniqueIdentifier>{9d08be7e-2d90-4d95-8cc7-ee0d1d408417}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrain\renderer">
+      <UniqueIdentifier>{013682b1-9723-4292-a78d-7cb555b85c92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{0fdf705e-97bb-4f86-ab38-e9ea85e650ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture">
+      <UniqueIdentifier>{f1b4f8e2-f374-41af-819c-3950a0c139f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture\PNG">
+      <UniqueIdentifier>{75d50616-7f34-4aec-8dba-723c3ed9154e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="camera.cpp">
+    <ClCompile Include="camera\camera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
-    <ClCompile Include="math.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
+    <ClCompile Include="game\game.cpp">
       <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="terrain.cpp">
-      <Filter>Loader Functions\Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>Loader Functions\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="loader.cpp">
-      <Filter>Loader</Filter>
-    </ClCompile>
-    <ClCompile Include="entity.cpp">
-      <Filter>Loader Functions\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="entityshader.cpp">
-      <Filter>Shader\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="terrainshader.cpp">
-      <Filter>Shader\Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="light\light.cpp">
-      <Filter>Light</Filter>
     </ClCompile>
     <ClCompile Include="lake\lake.cpp">
       <Filter>Lake</Filter>
     </ClCompile>
-    <ClCompile Include="lakeshader.cpp">
-      <Filter>Shader\Lake</Filter>
+    <ClCompile Include="lake\shader\lakeshader.cpp">
+      <Filter>Lake\shader</Filter>
     </ClCompile>
-    <ClCompile Include="texture.cpp">
-      <Filter>Loader Functions\Texture</Filter>
+    <ClCompile Include="lake\renderer\lakeRenderer.cpp">
+      <Filter>Lake\renderer</Filter>
     </ClCompile>
-    <ClCompile Include="keyboard.cpp">
+    <ClCompile Include="light\light.cpp">
+      <Filter>Light</Filter>
+    </ClCompile>
+    <ClCompile Include="loader\loader.cpp">
+      <Filter>Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="entity\entity.cpp">
+      <Filter>Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="entity\shader\entityshader.cpp">
+      <Filter>Entity\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="entity\renderer\entityRenderer.cpp">
+      <Filter>Entity\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="input\keyboard.cpp">
       <Filter>User Input</Filter>
     </ClCompile>
-    <ClCompile Include="entityRenderer.cpp">
-      <Filter>Renderer\Entity</Filter>
+    <ClCompile Include="terrain\terrain.cpp">
+      <Filter>Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="terrainRenderer.cpp">
-      <Filter>Renderer\Terrain</Filter>
+    <ClCompile Include="terrain\shader\terrainshader.cpp">
+      <Filter>Terrain\shader</Filter>
     </ClCompile>
-    <ClCompile Include="lakeRenderer.cpp">
-      <Filter>Renderer\Lake</Filter>
+    <ClCompile Include="terrain\renderer\terrainRenderer.cpp">
+      <Filter>Terrain\renderer</Filter>
     </ClCompile>
-    <ClCompile Include="mainrenderer.cpp">
+    <ClCompile Include="renderer\mainrenderer.cpp">
       <Filter>Renderer\Main</Filter>
     </ClCompile>
-    <ClCompile Include="cmodel.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="model.cpp">
+    <ClCompile Include="model\model.cpp">
       <Filter>Model\New</Filter>
+    </ClCompile>
+    <ClCompile Include="model\cmodel.cpp">
+      <Filter>Model\Old</Filter>
+    </ClCompile>
+    <ClCompile Include="math\math.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="player\player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="textures\texture.cpp">
+      <Filter>Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="camera.hpp">
+    <ClInclude Include="camera\camera.hpp">
       <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="math.hpp">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="game.hpp">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="utility.hpp">
-      <Filter>Utility Functions</Filter>
-    </ClInclude>
-    <ClInclude Include="terrain.hpp">
-      <Filter>Loader Functions\Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="player.hpp">
-      <Filter>Loader Functions\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="loader.hpp">
-      <Filter>Loader</Filter>
-    </ClInclude>
-    <ClInclude Include="entity.hpp">
-      <Filter>Loader Functions\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="entityshader.hpp">
-      <Filter>Shader\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="terrainshader.hpp">
-      <Filter>Shader\Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="light\light.hpp">
-      <Filter>Light</Filter>
     </ClInclude>
     <ClInclude Include="lake\lake.hpp">
       <Filter>Lake</Filter>
     </ClInclude>
-    <ClInclude Include="lakeshader.hpp">
-      <Filter>Shader\Lake</Filter>
+    <ClInclude Include="lake\shader\lakeshader.hpp">
+      <Filter>Lake\shader</Filter>
     </ClInclude>
-    <ClInclude Include="texture.hpp">
-      <Filter>Loader Functions\Texture</Filter>
+    <ClInclude Include="lake\renderer\lakeRenderer.hpp">
+      <Filter>Lake\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="keyboard.hpp">
+    <ClInclude Include="light\light.hpp">
+      <Filter>Light</Filter>
+    </ClInclude>
+    <ClInclude Include="loader\loader.hpp">
+      <Filter>Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="entity\entity.hpp">
+      <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="entity\shader\entityshader.hpp">
+      <Filter>Entity\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="entity\renderer\entityRenderer.hpp">
+      <Filter>Entity\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="input\keyboard.hpp">
       <Filter>User Input</Filter>
     </ClInclude>
-    <ClInclude Include="entityRenderer.hpp">
-      <Filter>Renderer\Entity</Filter>
+    <ClInclude Include="terrain\terrain.hpp">
+      <Filter>Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="terrainRenderer.hpp">
-      <Filter>Renderer\Terrain</Filter>
+    <ClInclude Include="terrain\shader\terrainshader.hpp">
+      <Filter>Terrain\shader</Filter>
     </ClInclude>
-    <ClInclude Include="lakeRenderer.hpp">
-      <Filter>Renderer\Lake</Filter>
+    <ClInclude Include="terrain\renderer\terrainRenderer.hpp">
+      <Filter>Terrain\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="mainrenderer.hpp">
+    <ClInclude Include="renderer\mainrenderer.hpp">
       <Filter>Renderer\Main</Filter>
     </ClInclude>
-    <ClInclude Include="cmodel.hpp">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="model.hpp">
+    <ClInclude Include="model\model.hpp">
       <Filter>Model\New</Filter>
+    </ClInclude>
+    <ClInclude Include="model\cmodel.hpp">
+      <Filter>Model\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="math\math.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="game\game.hpp">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="player\player.hpp">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="textures\texture.hpp">
+      <Filter>Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -276,11 +261,23 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="textures\wall.png">
-      <Filter>Loader Functions\Texture\textures</Filter>
+    <Image Include="textures\res\blacktest.png">
+      <Filter>Texture\PNG</Filter>
     </Image>
-    <Image Include="textures\fireblast.png">
-      <Filter>Loader Functions\Texture\textures</Filter>
+    <Image Include="textures\res\bluetest.png">
+      <Filter>Texture\PNG</Filter>
+    </Image>
+    <Image Include="textures\res\greentest.png">
+      <Filter>Texture\PNG</Filter>
+    </Image>
+    <Image Include="textures\res\heightmap.png">
+      <Filter>Texture\PNG</Filter>
+    </Image>
+    <Image Include="textures\res\redtest.png">
+      <Filter>Texture\PNG</Filter>
+    </Image>
+    <Image Include="textures\res\whitetest.png">
+      <Filter>Texture\PNG</Filter>
     </Image>
   </ItemGroup>
 </Project>

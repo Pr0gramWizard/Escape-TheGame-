@@ -1,31 +1,28 @@
 #pragma once
 
 // renderer
-#include "entityRenderer.hpp"
-#include "terrainRenderer.hpp"
-#include "lakeRenderer.hpp"
+#include "../entity/renderer/entityRenderer.hpp"
+#include "../terrain/renderer/terrainRenderer.hpp"
+#include "../lake/renderer/lakeRenderer.hpp"
 
 // entity
-#include "entity.hpp"
+#include "../entity/entity.hpp"
 
 // terrain
-#include "terrain.hpp"
+#include "../terrain/terrain.hpp"
 
 //lake
-#include "lake\lake.hpp"
+#include "../lake/lake.hpp"
 
 // shader
-#include "entityshader.hpp"
-#include "terrainshader.hpp"
+#include "../entity/shader/entityShader.hpp"
+#include "../terrain/shader/terrainShader.hpp"
 
 // Keyboard
-#include "keyboard.hpp"
+#include "../input/keyboard.hpp"
 
 // Player class
-#include "player.hpp"
-
-// Lake class
-#include "lake\lake.hpp"
+#include "../player/player.hpp"
 
 // GLFW
 #include <glfw3.h>

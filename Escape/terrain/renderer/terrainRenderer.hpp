@@ -1,18 +1,20 @@
 #pragma once
 
-#include "terrainshader.hpp"
+
 // matrix class
 #include <mat4x4.hpp>
 // List
 #include <list>
 // terrain class
-#include "terrain.hpp"
+#include "../terrain.hpp"
 // model class
-#include "model.hpp"
+#include "../../model/model.hpp"
 // maths
-#include "math.hpp"
+#include "../../math/math.hpp"
 // light class
-#include "light\light.hpp"
+#include "../../light/light.hpp"
+// Terrain shader
+#include "../shader/terrainshader.hpp"
 
 using namespace std;
 
