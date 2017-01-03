@@ -32,6 +32,9 @@
     <ClCompile Include="loader\loader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\math.cpp" />
+    <ClCompile Include="mesh\mesh.cpp" />
+    <ClCompile Include="mesh\renderer\meshrenderer.cpp" />
+    <ClCompile Include="mesh\shader\meshshader.cpp" />
     <ClCompile Include="model\model.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="renderer\mainrenderer.cpp" />
@@ -53,6 +56,9 @@
     <ClInclude Include="light\light.hpp" />
     <ClInclude Include="loader\loader.hpp" />
     <ClInclude Include="math\math.hpp" />
+    <ClInclude Include="mesh\mesh.hpp" />
+    <ClInclude Include="mesh\renderer\meshrenderer.h" />
+    <ClInclude Include="mesh\shader\meshshader.hpp" />
     <ClInclude Include="model\model.hpp" />
     <ClInclude Include="player\player.hpp" />
     <ClInclude Include="renderer\mainrenderer.hpp" />
@@ -134,13 +140,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Escape\ExternalDependencies\soil\include;$(SolutionDir)Escape\ExternalDependencies\freeglut\include\GL;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\include\GL;$(SolutionDir)Escape\ExternalDependencies\glm\;$(SolutionDir)Escape\ExternalDependencies\glfw\include\GLFW;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Escape\ExternalDependencies\freeglut\lib;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\lib\Release\Win32;$(SolutionDir)Escape\ExternalDependencies\glfw\lib-vc2015;$(SolutionDir)Escape\ExternalDependencies\soil\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Escape\ExternalDependencies\assimp\include;$(SolutionDir)Escape\ExternalDependencies\soil\include;$(SolutionDir)Escape\ExternalDependencies\freeglut\include\GL;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\include\GL;$(SolutionDir)Escape\ExternalDependencies\glm\;$(SolutionDir)Escape\ExternalDependencies\glfw\include\GLFW;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Escape\ExternalDependencies\assimp\lib;$(SolutionDir)Escape\ExternalDependencies\freeglut\lib;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\lib\Release\Win32;$(SolutionDir)Escape\ExternalDependencies\glfw\lib-vc2015;$(SolutionDir)Escape\ExternalDependencies\soil\lib;$(LibraryPath)</LibraryPath>
     <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)Escape\ExternalDependencies\soil\include;$(SolutionDir)Escape\ExternalDependencies\freeglut\include\GL;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\include\GL;$(SolutionDir)Escape\ExternalDependencies\glm\;$(SolutionDir)Escape\ExternalDependencies\glfw\include\GLFW;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Escape\ExternalDependencies\freeglut\lib;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\lib\Release\Win32;$(SolutionDir)Escape\ExternalDependencies\glfw\lib-vc2015;$(SolutionDir)Escape\ExternalDependencies\soil\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Escape\ExternalDependencies\assimp\include;$(SolutionDir)Escape\ExternalDependencies\soil\include;$(SolutionDir)Escape\ExternalDependencies\freeglut\include\GL;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\include\GL;$(SolutionDir)Escape\ExternalDependencies\glm\;$(SolutionDir)Escape\ExternalDependencies\glfw\include\GLFW;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Escape\ExternalDependencies\assimp\lib;$(SolutionDir)Escape\ExternalDependencies\freeglut\lib;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\lib\Release\Win32;$(SolutionDir)Escape\ExternalDependencies\glfw\lib-vc2015;$(SolutionDir)Escape\ExternalDependencies\soil\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -150,7 +156,7 @@
       <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;freeglut.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;freeglut.lib;SOIL.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
     <Bscmake>
@@ -175,7 +181,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;freeglut.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;freeglut.lib;SOIL.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
