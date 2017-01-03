@@ -19,7 +19,7 @@
 // Declaration of the loader class
 class Loader
 {
-// All public functions
+	// All public functions
 public:
 	// Default Constructor
 	Loader();
@@ -31,8 +31,8 @@ public:
 	Model loadDataToVao(std::vector<float> pPositions, std::vector<float> pTexCoords, std::vector<float> pNormals, std::vector<int> pIndices);
 	// Function cleans up all the mess after creating the VertexArrayObjects
 	void cleanUp();
-
-// All private functions
+	glm::vec4 getLastVbos();
+	// All private functions
 private:
 	// Creates a VertexArrayObject
 	GLuint createVao();
@@ -52,7 +52,7 @@ private:
 	void deleteTextures();
 	// Creates a VertexBufferObject for the indices
 	void bindIndices(std::vector<int> pIndices);
-// All private member
+	// All private member
 private:
 	// List of all VertexArrayObjects
 	std::list<GLuint> mVaos;
@@ -60,5 +60,12 @@ private:
 	std::list<GLuint> mVbos;
 	// List of all TextureObjects
 	std::list<GLuint> mTextures;
+	// Last set vbos;
+	/*
+	* x = indices
+	* y = positions
+	* z = normals
+	* w = texCoords
+	*/
+	glm::vec4 mLastVbos;
 };
-

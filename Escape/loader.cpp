@@ -4,6 +4,7 @@
 // Default constructor
 Loader::Loader()
 {
+	mLastVbos = glm::vec4(-1, -1, -1, -1);
 	// Log Message
 	std::cout << "Loader instance was created successfully!" << std::endl;
 }
@@ -16,7 +17,7 @@ Loader::~Loader()
 }
 
 // Loads raw Data (Vertices,Texture,Normals,Indices) into a Model
-Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<float> pTexCoords, std::vector<float> pNormals, std::vector<int> pIndices,const char* pTextureFile)
+Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<float> pTexCoords, std::vector<float> pNormals, std::vector<int> pIndices, const char* pTextureFile)
 {
 	// Creates new VertexArrayObject
 	GLuint vaoId = createVao();
@@ -32,7 +33,7 @@ Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<float> pT
 	// Unbinds the current VertexArrayObject
 	unbindVao();
 	// Returns a model with given VertexArrayObject ID and the number of triangles
-	return Model(vaoId, pIndices.size(),textureID);
+	return Model(vaoId, pIndices.size(), textureID);
 }
 
 // Loads raw Data (Vertices,Texture,Normals,Indices) into a VertexArrayObject
@@ -81,6 +82,8 @@ void Loader::bindIndices(std::vector<int> pIndices) {
 	glGenBuffers(1, &vbo);
 	// Add current VertexBufferObject to the list of all VertexBufferObjects
 	mVbos.push_back(vbo);
+	// Save vbo
+	mLastVbos.x = vbo;
 	// Bind Buffer to VertexBufferObject
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo);
 	// Buffer the data to the graphics card
@@ -95,10 +98,22 @@ void Loader::storeData(GLuint pAttributeLocation, std::vector<float> pData, GLui
 	glGenBuffers(1, &vbo);
 	// Add current VertexBufferObject to the list of all VertexBufferObjects
 	mVbos.push_back(vbo);
+	if (pAttributeLocation == 0)
+	{
+		mLastVbos.y = vbo;
+	}
+	else if (pAttributeLocation == 1)
+	{
+		mLastVbos.z = vbo;
+	}
+	else if (pAttributeLocation == 2)
+	{
+		mLastVbos.w = vbo;
+	}
 	// Bind Buffer to VertexBufferObject
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	// Buffer the data to the graphics card
-	glBufferData(GL_ARRAY_BUFFER, pData.size() * sizeof(float),	&pData[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, pData.size() * sizeof(float), &pData[0], GL_STATIC_DRAW);
 	// Specify the poistion of the current data in the VertexBufferObject
 	glVertexAttribPointer(pAttributeLocation, pSize, GL_FLOAT, GL_FALSE, pSize * sizeof(float), (GLvoid*)0);
 	// Unbind the VertexBufferObject
@@ -125,7 +140,7 @@ void Loader::storeTexture(GLuint pAttributeLocation, std::vector<float> pData, G
 
 
 
-	GLuint Loader::loadTexture(const char * pFileName)
+GLuint Loader::loadTexture(const char * pFileName)
 {
 	int width, height;
 	// Loading the image with SOIL
@@ -150,13 +165,13 @@ void Loader::storeTexture(GLuint pAttributeLocation, std::vector<float> pData, G
 
 	// Relocate the image resources
 	SOIL_free_image_data(image);
-	
+
 	return TextureID;
 
 }
 
 // Delete all VertexArrayObjects
-void Loader::deleteVaos() 
+void Loader::deleteVaos()
 {
 	// Loop trough the list of all VertexArrayObjects and delete them
 	for (GLuint vao : mVaos)
@@ -166,10 +181,10 @@ void Loader::deleteVaos()
 }
 
 // Delete all VertexBufferObjects
-void Loader::deleteVbos() 
+void Loader::deleteVbos()
 {
 	// Loop trough the list of all VertexBufferObjects and delete them
-	for (GLuint vbo : mVbos) 
+	for (GLuint vbo : mVbos)
 	{
 		glDeleteBuffers(1, &vbo);
 	}
@@ -183,6 +198,11 @@ void Loader::deleteTextures()
 	{
 		glDeleteBuffers(1, &texture);
 	}
+}
+
+glm::vec4 Loader::getLastVbos()
+{
+	return mLastVbos;
 }
 
 // Clean up all the mess
