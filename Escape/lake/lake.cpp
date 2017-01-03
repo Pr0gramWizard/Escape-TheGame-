@@ -123,16 +123,15 @@ Model Lake::generateLake(Loader * loader)
 	// set grid size
 	mGridSize = (float)Lake::LAKE_SIZE / (mVertices - 1);
 	int count = mVertices * mVertices;
-	std::vector<float> vertices(count * 3);
 	std::vector<float> normals(count * 3);
 	std::vector<float> textureCoords(count * 2);
 	std::vector<int> indices(6 * (mVertices - 1)*(mVertices - 1));
 	int vertexPointer = 0;
 	for (int z = 0;z<mVertices;z++) {
 		for (int x = 0;x<mVertices;x++) {
-			vertices[vertexPointer * 3] = (float)x / ((float)mVertices - 1) * Lake::LAKE_SIZE;
-			vertices[vertexPointer * 3 + 1] = this->getVertexHeight(x, z);
-			vertices[vertexPointer * 3 + 2] = (float)z / ((float)mVertices - 1) * Lake::LAKE_SIZE;
+			mVaryingPositions[vertexPointer * 3] = (float)x / ((float)mVertices - 1) * Lake::LAKE_SIZE;
+			mVaryingPositions[vertexPointer * 3 + 1] = this->getVertexHeight(x, z);
+			mVaryingPositions[vertexPointer * 3 + 2] = (float)z / ((float)mVertices - 1) * Lake::LAKE_SIZE;
 			normals[vertexPointer * 3] = 0;
 			normals[vertexPointer * 3 + 1] = 1;
 			normals[vertexPointer * 3 + 2] = 0;
@@ -157,7 +156,7 @@ Model Lake::generateLake(Loader * loader)
 		}
 	}
 
-	return loader->loadDataToVao(vertices, textureCoords, normals, indices);
+	return loader->loadDataToVao(mVaryingPositions, textureCoords, normals, indices);
 }
 
 void Lake::updateVelocities()
@@ -187,9 +186,7 @@ void Lake::updateHeights()
 		for (int x = 0;x < mVertices;x++) {
 			mHeights[z * mVertices + x] += mVelocity[z * mVertices + x];
 			// update vertices
-			mVaryingPositions[vertexPointer * 3] = (float)x / ((float)mVertices - 1) * Lake::LAKE_SIZE;
-			mVaryingPositions[vertexPointer * 3 + 1] = this->getVertexHeight(x, z);
-			mVaryingPositions[vertexPointer * 3 + 2] = (float)z / ((float)mVertices - 1) * Lake::LAKE_SIZE;
+			mVaryingPositions[vertexPointer * 3 + 1] = mHeights[z * mVertices + x];
 			vertexPointer++;
 		}
 	}
