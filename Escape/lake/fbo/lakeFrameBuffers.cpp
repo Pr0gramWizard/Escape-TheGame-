@@ -1,7 +1,7 @@
 #include "lakeFrameBuffers.hpp"
 
-const int LakeFrameBuffers::REFLECTION_WIDTH = 320;
-const int LakeFrameBuffers::REFLECTION_HEIGHT = 180;
+const int LakeFrameBuffers::REFLECTION_WIDTH = 320; //1280
+const int LakeFrameBuffers::REFLECTION_HEIGHT = 180; //720
 
 const int LakeFrameBuffers::REFRACTION_WIDTH = 1280;
 const int LakeFrameBuffers::REFRACTION_HEIGHT = 720;
