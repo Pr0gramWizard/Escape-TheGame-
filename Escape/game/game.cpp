@@ -110,10 +110,29 @@ bool Game::gameLoop()
 
 		mPlayer->move(&terrain, deltaTime);
 
-		//glEnable(GL_CLIP_DISTANCE0);
+		glEnable(GL_CLIP_DISTANCE0);
 		
+		// reflection
+		lfbos->bindReflectionFrameBuffer();
+		float distance = 2 * (mPlayer->getCameraPosition().y - lake->getWorldY());
+		mPlayer->getCamera()->incYPosition(-distance);
+		mPlayer->getCamera()->invertPitch();
+		// render to buffer
 		mRenderer->prepare();
+		mRenderer->render(mPlayer->getViewMatrix());
+		// move camera back
+		mPlayer->getCamera()->incYPosition(distance);
+		mPlayer->getCamera()->invertPitch();
 
+		// refraction
+		lfbos->bindRefractionFrameBuffer();
+		mRenderer->prepare();
+		mRenderer->render(mPlayer->getViewMatrix());
+
+		// actual rendering
+		glDisable(GL_CLIP_DISTANCE0);
+		lfbos->unbindCurrentFrameBuffer();
+		mRenderer->prepare();
 		mRenderer->render(mPlayer->getViewMatrix());
 
 		// render water
