@@ -75,7 +75,7 @@ bool Game::gameLoop()
 	LakeFrameBuffers* lfbos = new LakeFrameBuffers(mWidth, mHeight);
 	LakeShader* lakeshader = new LakeShader("shaders/lake.vert", "shaders/lake.frag");
 	LakeRenderer* lakerenderer = new LakeRenderer(lakeshader, mPlayer->getProjectionMatrix(), lfbos);
-	Lake* lake = new Lake(0, -3, 0, 20, 50, "Lake", loader);
+	Lake* lake = new Lake(0, -3.5, 0, 20, 50, "Lake", loader);
 	//**** END LAKE STUFF ****
 
 	std::vector<GLfloat> Vertices =
