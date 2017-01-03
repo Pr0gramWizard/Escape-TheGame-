@@ -228,4 +228,6 @@ void Camera::setYPosition(GLfloat pY)
 void Camera::invertPitch()
 {
 	mPitch = -mPitch;
+	//needed?
+	this->updateCameraVectors();
 }

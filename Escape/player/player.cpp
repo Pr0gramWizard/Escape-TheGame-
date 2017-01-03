@@ -228,6 +228,11 @@ glm::vec3 Player::getCameraPosition() const
 	return mEye->getPosition();
 }
 
+Camera* Player::getCamera()
+{
+	return mEye;
+}
+
 // Returns the current ViewMatrix
 glm::mat4 Player::getViewMatrix() const
 {

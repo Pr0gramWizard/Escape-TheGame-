@@ -81,6 +81,7 @@ public:
 	GLfloat getMovementSpeed() const;
 
 	glm::vec3 getCameraPosition() const;
+	Camera* getCamera();
 
 	// Important World Settings
 	glm::mat4 getViewMatrix() const;
