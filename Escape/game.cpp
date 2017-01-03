@@ -47,6 +47,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 
 	mPlayer = new Player(glm::vec3(0, 0, 0), 5, "Archie der Entdecker", this->getHeight(), this->getWidth());
 
+	
 }
 
 
@@ -69,6 +70,23 @@ bool Game::gameLoop()
 	Lake* lake = new Lake(-20, 0, 0, 1, 8, "Lake", loader);
 	mRenderer->setLake(lake);
 
+	std::vector<GLfloat> Vertices =
+	{
+		0.5f,0.5f,
+		-0.5f, 0.5f,
+		-0.5f, -0.5f,
+		-0.5f, -0.5f,
+		0.5f, -0.5f,
+		0.5f, 0.5f,
+	};
+
+	// cModel* BlaMa = new cModel(Vertices);
+
+	// Entity Cube(glm::vec3(0, 0, 0), 0, 0, 0, 1, BlaMa);
+
+	// mRenderer->addToList(Cube);
+
+
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
 	{
@@ -90,6 +108,8 @@ bool Game::gameLoop()
 		mPlayer->move(&terrain, deltaTime);
 		
 		mRenderer->prepare();
+
+
 		mRenderer->render(mPlayer->getViewMatrix());
 
 		// Swap the buffers

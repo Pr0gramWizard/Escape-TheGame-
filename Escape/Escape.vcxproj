@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="cmodel.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="entityshader.cpp" />
     <ClCompile Include="game.cpp" />
@@ -42,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.hpp" />
+    <ClInclude Include="cmodel.hpp" />
     <ClInclude Include="entity.hpp" />
     <ClInclude Include="entityshader.hpp" />
     <ClInclude Include="game.hpp" />

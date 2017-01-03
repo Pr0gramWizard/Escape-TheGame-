@@ -145,6 +145,7 @@
     <ClCompile Include="texture.cpp">
       <Filter>Loader Functions\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="cmodel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.hpp">
@@ -205,6 +206,7 @@
     <ClInclude Include="texture.hpp">
       <Filter>Loader Functions\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="cmodel.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">

@@ -10,12 +10,14 @@
 #include <glew.h>
 // model class
 #include "model.hpp"
+#include "cmodel.hpp"
 
 class Entity
 {
 public:
 	// constructor
 	Entity(glm::vec3 pPosition, GLfloat pXRotation, GLfloat pYRotation, GLfloat pZRotation, GLfloat pScale, Model* pModel);
+	Entity(glm::vec3 pPosition, GLfloat pXRotation, GLfloat pYRotation, GLfloat pZRotation, GLfloat pScale, cModel* pModel);
 	// destructor
 	~Entity();
 
@@ -49,5 +51,6 @@ private:
 	GLfloat mScale;
 	// model
 	Model* mModel;
+	cModel* mCModel;
 };
 

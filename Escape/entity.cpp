@@ -9,6 +9,14 @@ Entity::Entity(glm::vec3 pPosition, GLfloat pXRotation, GLfloat pYRotation, GLfl
 	mModel = pModel;
 }
 
+Entity::Entity(glm::vec3 pPosition, GLfloat pXRotation, GLfloat pYRotation, GLfloat pZRotation, GLfloat pScale, cModel* pModel)
+{
+	setPosition(pPosition);
+	setRotation(pXRotation, pYRotation, pZRotation);
+	mScale = pScale;
+	mCModel = pModel;
+}
+
 // destructor
 Entity::~Entity()
 {

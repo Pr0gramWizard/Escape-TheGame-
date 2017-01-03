@@ -23,6 +23,7 @@
 #include "loader.hpp"
 // Texture class
 #include "texture.hpp"
+#include "cmodel.hpp"
 // Renderer class
 #include "entityRenderer.hpp"
 #include "terrainRenderer.hpp"
