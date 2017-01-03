@@ -130,7 +130,7 @@ bool Game::gameLoop()
 		// actual rendering
 		glDisable(GL_CLIP_DISTANCE0);
 		lfbos->unbindCurrentFrameBuffer();
-		mRenderer->render(mPlayer->getViewMatrix(), glm::vec4(0, 1, 0, 10000));
+		mRenderer->render(mPlayer->getViewMatrix(), glm::vec4(0, -1, 0, 10000));
 
 		// render water
 		lake->updateHeights();

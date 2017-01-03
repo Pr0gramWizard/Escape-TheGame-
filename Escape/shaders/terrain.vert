@@ -14,6 +14,8 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
+uniform vec4 plane;
+
 // 6 is MAX_LIGHTS
 uniform vec3 lightPosition[6];
 
@@ -23,6 +25,9 @@ uniform vec3 lightPosition[6];
 void main()
 {
 	vec4 worldPosition = model * vec4(position,1.0);
+
+	gl_ClipDistance[0] = dot(worldPosition, plane);
+
     gl_Position = projection * view * worldPosition;
 	
 	//pass_textureCoordinates = textureCoordinates * 10.0;
