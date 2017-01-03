@@ -91,6 +91,9 @@
     <Filter Include="Shader\Vertex">
       <UniqueIdentifier>{2346da93-a568-49cf-9598-b555f6e05c69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lake\fbo">
+      <UniqueIdentifier>{855704c1-c0e4-48ad-83d4-e8d15738020c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -153,6 +156,9 @@
     <ClCompile Include="textures\texture.cpp">
       <Filter>Texture</Filter>
     </ClCompile>
+    <ClCompile Include="lakeFrameBuffers.cpp">
+      <Filter>Lake\fbo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -211,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="textures\texture.hpp">
       <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="lakeFrameBuffers.hpp">
+      <Filter>Lake\fbo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
