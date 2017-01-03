@@ -13,9 +13,6 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{0a1a9253-501e-4bee-b2f6-e4bfccfef144}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader\Shaders">
-      <UniqueIdentifier>{f833b7a1-68ed-48cd-b837-152fb635cf78}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Camera">
       <UniqueIdentifier>{db021b67-9ae8-4943-863b-71b45b549339}</UniqueIdentifier>
     </Filter>
@@ -27,12 +24,6 @@
     </Filter>
     <Filter Include="Utility Functions">
       <UniqueIdentifier>{eb07b2e8-6b1d-464a-94e2-f5d6d16dcd25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\Shaders\Fragment">
-      <UniqueIdentifier>{96570648-0421-429d-a13f-a53e00ba1d9e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\Shaders\Vertex">
-      <UniqueIdentifier>{2346da93-a568-49cf-9598-b555f6e05c69}</UniqueIdentifier>
     </Filter>
     <Filter Include="Loader">
       <UniqueIdentifier>{b5fd864d-de6a-44e1-a0f4-2fd5b6d71e92}</UniqueIdentifier>
@@ -94,6 +85,12 @@
     <Filter Include="Texture\PNG">
       <UniqueIdentifier>{75d50616-7f34-4aec-8dba-723c3ed9154e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader\Fragment">
+      <UniqueIdentifier>{96570648-0421-429d-a13f-a53e00ba1d9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Vertex">
+      <UniqueIdentifier>{2346da93-a568-49cf-9598-b555f6e05c69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -146,9 +143,6 @@
     </ClCompile>
     <ClCompile Include="model\model.cpp">
       <Filter>Model\New</Filter>
-    </ClCompile>
-    <ClCompile Include="model\cmodel.cpp">
-      <Filter>Model\Old</Filter>
     </ClCompile>
     <ClCompile Include="math\math.cpp">
       <Filter>Math</Filter>
@@ -206,9 +200,6 @@
     <ClInclude Include="model\model.hpp">
       <Filter>Model\New</Filter>
     </ClInclude>
-    <ClInclude Include="model\cmodel.hpp">
-      <Filter>Model\Old</Filter>
-    </ClInclude>
     <ClInclude Include="math\math.hpp">
       <Filter>Math</Filter>
     </ClInclude>
@@ -230,34 +221,34 @@
       <Filter>Dynamic Link Library</Filter>
     </None>
     <None Include="shaders\triangleShader.frag">
-      <Filter>Shader\Shaders\Fragment</Filter>
+      <Filter>Shader\Fragment</Filter>
     </None>
     <None Include="shaders\triangleShader.vert">
-      <Filter>Shader\Shaders\Vertex</Filter>
+      <Filter>Shader\Vertex</Filter>
     </None>
     <None Include="shaders\worldShader.frag">
-      <Filter>Shader\Shaders\Fragment</Filter>
+      <Filter>Shader\Fragment</Filter>
     </None>
     <None Include="shaders\worldShader.vert">
-      <Filter>Shader\Shaders\Vertex</Filter>
+      <Filter>Shader\Vertex</Filter>
     </None>
     <None Include="shaders\a.frag">
-      <Filter>Shader\Shaders\Fragment</Filter>
+      <Filter>Shader\Fragment</Filter>
     </None>
     <None Include="shaders\b.vert">
-      <Filter>Shader\Shaders\Vertex</Filter>
+      <Filter>Shader\Vertex</Filter>
     </None>
     <None Include="shaders\terrain.frag">
-      <Filter>Shader\Shaders\Fragment</Filter>
+      <Filter>Shader\Fragment</Filter>
     </None>
     <None Include="shaders\terrain.vert">
-      <Filter>Shader\Shaders\Vertex</Filter>
+      <Filter>Shader\Vertex</Filter>
     </None>
     <None Include="shaders\lake.frag">
-      <Filter>Shader\Shaders\Fragment</Filter>
+      <Filter>Shader\Fragment</Filter>
     </None>
     <None Include="shaders\lake.vert">
-      <Filter>Shader\Shaders\Vertex</Filter>
+      <Filter>Shader\Vertex</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

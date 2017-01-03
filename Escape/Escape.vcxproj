@@ -32,7 +32,6 @@
     <ClCompile Include="loader\loader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\math.cpp" />
-    <ClCompile Include="model\cmodel.cpp" />
     <ClCompile Include="model\model.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="renderer\mainrenderer.cpp" />
@@ -54,7 +53,6 @@
     <ClInclude Include="light\light.hpp" />
     <ClInclude Include="loader\loader.hpp" />
     <ClInclude Include="math\math.hpp" />
-    <ClInclude Include="model\cmodel.hpp" />
     <ClInclude Include="model\model.hpp" />
     <ClInclude Include="player\player.hpp" />
     <ClInclude Include="renderer\mainrenderer.hpp" />

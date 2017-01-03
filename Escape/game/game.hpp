@@ -32,8 +32,6 @@
 #include "../loader/loader.hpp"
 // Texture class
 #include "../textures/texture.hpp"
-// New Model class
-#include "../model/cmodel.hpp"
 // Renderer classes
 #include "../entity/renderer/entityRenderer.hpp"
 #include "../terrain/renderer/terrainRenderer.hpp"
