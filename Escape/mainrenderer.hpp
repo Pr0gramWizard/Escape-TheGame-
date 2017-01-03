@@ -20,6 +20,9 @@
 // Player class
 #include "player.hpp"
 
+// Lake class
+#include "lake\lake.hpp"
+
 // GLFW
 #include <glfw3.h>
 

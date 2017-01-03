@@ -16,6 +16,7 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 	this->setDrawMode(0);
 
 	mPlayer = pPlayer;
+
 }
 
 MainRenderer::~MainRenderer()

@@ -24,6 +24,8 @@
     <ClCompile Include="entityshader.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="keyboard.cpp" />
+    <ClCompile Include="lakeRenderer.cpp" />
+    <ClCompile Include="lakeshader.cpp" />
     <ClCompile Include="lake\lake.cpp" />
     <ClCompile Include="light\light.cpp" />
     <ClCompile Include="loader.cpp" />
@@ -48,6 +50,8 @@
     <ClInclude Include="entityshader.hpp" />
     <ClInclude Include="game.hpp" />
     <ClInclude Include="keyboard.hpp" />
+    <ClInclude Include="lakeRenderer.hpp" />
+    <ClInclude Include="lakeshader.hpp" />
     <ClInclude Include="lake\lake.hpp" />
     <ClInclude Include="light\light.hpp" />
     <ClInclude Include="loader.hpp" />
@@ -71,6 +75,8 @@
     <None Include="SDL2.dll" />
     <None Include="shaders\a.frag" />
     <None Include="shaders\b.vert" />
+    <None Include="shaders\lake.frag" />
+    <None Include="shaders\lake.vert" />
     <None Include="shaders\terrain.frag" />
     <None Include="shaders\terrain.vert" />
     <None Include="shaders\worldShader.frag" />

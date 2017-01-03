@@ -193,6 +193,8 @@ bool Game::gameLoop()
 	pTest->setFiltering(TEXTURE_FILTER_MAG_NEAREST, TEXTURE_FILTER_MIN_NEAREST);
 	pTest->bind();
 	
+	//Lake
+	Lake* lake = new Lake(-20, 0, 0, 1, 8, "Lake", loader);
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
