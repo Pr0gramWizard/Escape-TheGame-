@@ -67,7 +67,7 @@ bool Game::gameLoop()
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(terrain);
 	//Lake
-	Lake* lake = new Lake(-50, 0, 0, 2, 25, "Lake", loader);
+	Lake* lake = new Lake(-500, 0, 0, 20, 60, "Lake", loader);
 	mRenderer->setLake(lake);
 
 	std::vector<GLfloat> Vertices =

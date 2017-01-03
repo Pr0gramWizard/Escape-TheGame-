@@ -1,6 +1,6 @@
 #include "lake.hpp"
 
-const int Lake::LAKE_SIZE = 50;
+const int Lake::LAKE_SIZE = 500;
 
 Lake::Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices, const char * pName, Loader * pLoader)
 {
@@ -97,13 +97,21 @@ GLfloat Lake::getVertexHeight(int pVertexX, int pVertexZ)
 void Lake::initLake(Loader * loader)
 {
 	mVelocity = vector<float>(mVertices * mVertices, 0.0f);
-	mHeights = vector<float>(mVertices * mVertices);
+	mHeights = vector<float>(mVertices * mVertices, 0.0f);
+
+	int half = (int)(mVertices / 2.0f);
+
+	mHeights[half * mVertices + half] = 20;
+	mHeights[(half + 1) * mVertices + half] = 15;
+	mHeights[(half - 1) * mVertices + half] = 15;
+	mHeights[half * mVertices + (half + 1)] = 15;
+	mHeights[half * mVertices + (half - 1)] = 15;
 
 	// generates random heights between -mAmplitude and +mAmplitude
-	for (int i = 0; i < mHeights.size(); ++i)
+	/*for (int i = 0; i < mHeights.size(); ++i)
 	{
 		mHeights[i] = ((float)rand() / (float)(RAND_MAX)) * (2 * mAmplitude) - mAmplitude;
-	}
+	}*/
 }
 
 Model Lake::generateLake(Loader * loader)
