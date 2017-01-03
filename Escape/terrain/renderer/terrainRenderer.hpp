@@ -43,6 +43,7 @@ public:
 	void loadModelMatrix(Terrain* pTerrain);
 	void loadViewMatrix(glm::mat4 pViewMatrix);
 	void loadLights(vector<Light*> pLights);
+	void loadClipPlane(glm::vec4 pClipPlane);
 
 	// use or unuse the shader
 	void startShader();

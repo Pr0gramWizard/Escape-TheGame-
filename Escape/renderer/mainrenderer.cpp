@@ -29,12 +29,14 @@ void MainRenderer::prepare()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MainRenderer::render(glm::mat4 pViewMatrix)
+void MainRenderer::render(glm::mat4 pViewMatrix, glm::vec4 pClipPlane)
 {
+	this->prepare();
 	glShadeModel(GL_SMOOTH);
 	// entities
 	mEntityRenderer->startShader();
 	mEntityRenderer->loadViewMatrix(pViewMatrix);
+	mEntityRenderer->loadClipPlane(pClipPlane);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	mEntityRenderer->render(mEntities);
 	mEntityRenderer->render(mSpecial, LINES);
@@ -56,6 +58,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix)
 	lights.push_back(lamp);
 	mTerrainRenderer->startShader();
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
+	mTerrainRenderer->loadClipPlane(pClipPlane);
 	mTerrainRenderer->loadLights(lights);
 	if (this->getDrawMode())
 	{

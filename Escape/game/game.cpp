@@ -118,22 +118,19 @@ bool Game::gameLoop()
 		mPlayer->getCamera()->incYPosition(-distance);
 		mPlayer->getCamera()->invertPitch();
 		// render to buffer
-		mRenderer->prepare();
-		mRenderer->render(mPlayer->getViewMatrix());
+		mRenderer->render(mPlayer->getViewMatrix(), glm::vec4(0, 1, 0, -lake->getWorldY()));
 		// move camera back
 		mPlayer->getCamera()->incYPosition(distance);
 		mPlayer->getCamera()->invertPitch();
 
 		// refraction
 		lfbos->bindRefractionFrameBuffer();
-		mRenderer->prepare();
-		mRenderer->render(mPlayer->getViewMatrix());
+		mRenderer->render(mPlayer->getViewMatrix(), glm::vec4(0, -1, 0, lake->getWorldY()));
 
 		// actual rendering
 		glDisable(GL_CLIP_DISTANCE0);
 		lfbos->unbindCurrentFrameBuffer();
-		mRenderer->prepare();
-		mRenderer->render(mPlayer->getViewMatrix());
+		mRenderer->render(mPlayer->getViewMatrix(), glm::vec4(0, 1, 0, 10000));
 
 		// render water
 		lake->updateHeights();

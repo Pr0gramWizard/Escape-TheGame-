@@ -101,6 +101,11 @@ void TerrainRenderer::loadLights(vector<Light*> pLights)
 	mShader->loadLights(pLights);
 }
 
+void TerrainRenderer::loadClipPlane(glm::vec4 pClipPlane)
+{
+	mShader->loadPlane(pClipPlane);
+}
+
 void TerrainRenderer::startShader()
 {
 	mShader->use();
