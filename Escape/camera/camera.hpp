@@ -75,7 +75,7 @@ public:
 	void setMovementSpeed(GLfloat pMovementSpeed);
 	void setMouseSensitivity(GLfloat pMouseSensitivity);
 	void setFov(GLfloat pFov);
-	void setYPosition(GLfloat pY);
+	void incYPosition(GLfloat pY);
 	void invertPitch();
 
 // All private members of the class
