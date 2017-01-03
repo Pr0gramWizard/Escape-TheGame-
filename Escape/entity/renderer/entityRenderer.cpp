@@ -92,6 +92,11 @@ void EntityRenderer::loadLight(Light *pLight)
 	mShader->loadLight(pLight);
 }
 
+void EntityRenderer::loadClipPlane(glm::vec4 pClipPlane)
+{
+	mShader->loadPlane(pClipPlane);
+}
+
 void EntityRenderer::startShader()
 {
 	mShader->use();

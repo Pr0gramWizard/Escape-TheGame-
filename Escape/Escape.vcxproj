@@ -25,6 +25,7 @@
     <ClCompile Include="entity\shader\entityshader.cpp" />
     <ClCompile Include="game\game.cpp" />
     <ClCompile Include="input\keyboard.cpp" />
+    <ClCompile Include="lake\fbo\lakeFrameBuffers.cpp" />
     <ClCompile Include="lake\lake.cpp" />
     <ClCompile Include="lake\renderer\lakeRenderer.cpp" />
     <ClCompile Include="lake\shader\lakeshader.cpp" />
@@ -50,6 +51,7 @@
     <ClInclude Include="entity\shader\entityshader.hpp" />
     <ClInclude Include="game\game.hpp" />
     <ClInclude Include="input\keyboard.hpp" />
+    <ClInclude Include="lake\fbo\lakeFrameBuffers.hpp" />
     <ClInclude Include="lake\lake.hpp" />
     <ClInclude Include="lake\renderer\lakeRenderer.hpp" />
     <ClInclude Include="lake\shader\lakeshader.hpp" />

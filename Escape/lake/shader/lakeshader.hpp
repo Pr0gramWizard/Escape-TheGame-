@@ -54,10 +54,14 @@ public:
 	void loadFloat(GLuint pLocation, GLfloat pValue);
 	void loadVector(GLuint pLocation, glm::vec3 pVector);
 	void loadBool(GLuint pLocation, GLboolean pValue);
+	void loadInt(GLuint pLocation, GLuint pValue);
 	void loadModelMatrix(glm::mat4 pMatrix);
 	void loadProjectionMatrix(glm::mat4 pMatrix);
 	void loadViewMatrix(glm::mat4 pMatrix);
 	void loadLights(vector<Light*> pLights);
+
+	// connect texture units
+	void connectTextureUnits();
 
 	// Destructor
 	~LakeShader();
@@ -76,6 +80,8 @@ private:
 	GLuint mLocation_lightPosition[MAX_LIGHTS];
 	GLuint mLocation_lightColor[MAX_LIGHTS];
 	GLuint mLocation_lightAttenuation[MAX_LIGHTS];
+	GLuint mLocation_reflectionTexture;
+	GLuint mLocation_refractionTexture;
 
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);

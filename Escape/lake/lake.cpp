@@ -96,10 +96,10 @@ GLfloat Lake::getVertexHeight(int pVertexX, int pVertexZ)
 void Lake::initLake(Loader * loader)
 {
 	mVelocity = vector<float>(mVertices * mVertices, 0.0f);
-	mHeights = vector<float>(mVertices * mVertices, 0.0f);
+	mHeights = vector<float>(mVertices * mVertices, this->getWorldY());
 	mVaryingPositions = vector<float>(mVertices * mVertices * 3, 0.0f);
 
-	int half = (int)(mVertices / 2.0f);
+	/*int half = (int)(mVertices / 2.0f);
 
 	mHeights[mVertices] = 3;
 	mHeights[mVertices - 1] = 2;
@@ -109,7 +109,7 @@ void Lake::initLake(Loader * loader)
 	mVelocity[2 * mVertices] = 15;
 	mVelocity[mVertices - 1] = 15;
 	mVelocity[mVertices - 2] = 10;
-	mVelocity[mVertices * 3] = 10;
+	mVelocity[mVertices * 3] = 10;*/
 
 	// generates random heights between -mAmplitude and +mAmplitude
 	/*for (int i = 0; i < mHeights.size(); ++i)

@@ -9,8 +9,14 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
+uniform vec4 plane;
+
 void main()
 {
-    gl_Position = projection * view * model * vec4(position, 1.0f);
+	vec4 worldPosition = model * vec4(position, 1.0f);
+
+	gl_ClipDistance[0] = dot(worldPosition, plane);
+
+    gl_Position = projection * view * worldPosition;
     TexCoord = texCoord;
 }

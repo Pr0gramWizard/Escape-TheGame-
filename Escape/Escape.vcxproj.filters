@@ -91,14 +91,8 @@
     <Filter Include="Shader\Vertex">
       <UniqueIdentifier>{2346da93-a568-49cf-9598-b555f6e05c69}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Mesh">
-      <UniqueIdentifier>{201d941d-5028-4631-802a-120fe0abb2e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mesh\shader">
-      <UniqueIdentifier>{1027c37e-d421-4dc4-a94e-0a0df8f35209}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mesh\renderer">
-      <UniqueIdentifier>{fe63bc3a-cd0a-44b2-b974-d22c6d5caa9b}</UniqueIdentifier>
+    <Filter Include="Lake\fbo">
+      <UniqueIdentifier>{855704c1-c0e4-48ad-83d4-e8d15738020c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -162,14 +156,8 @@
     <ClCompile Include="textures\texture.cpp">
       <Filter>Texture</Filter>
     </ClCompile>
-    <ClCompile Include="mesh\renderer\meshrenderer.cpp">
-      <Filter>Mesh\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="mesh\shader\meshshader.cpp">
-      <Filter>Mesh\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="mesh\mesh.cpp">
-      <Filter>Mesh</Filter>
+    <ClCompile Include="lake\fbo\lakeFrameBuffers.cpp">
+      <Filter>Lake\fbo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -230,14 +218,8 @@
     <ClInclude Include="textures\texture.hpp">
       <Filter>Texture</Filter>
     </ClInclude>
-    <ClInclude Include="mesh\renderer\meshrenderer.h">
-      <Filter>Mesh\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="mesh\shader\meshshader.hpp">
-      <Filter>Mesh\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="mesh\mesh.hpp">
-      <Filter>Mesh</Filter>
+    <ClInclude Include="lake\fbo\lakeFrameBuffers.hpp">
+      <Filter>Lake\fbo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

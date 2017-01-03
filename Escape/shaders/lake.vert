@@ -1,7 +1,7 @@
 #version 330 core
 layout (location = 0) in vec3 position;
 
-out vec3 fragColor;
+out vec4 clipSpace;
 
 uniform mat4 model;
 uniform mat4 view;
@@ -9,6 +9,6 @@ uniform mat4 projection;
 
 void main()
 {
-    gl_Position = projection * view * model * vec4(position, 1.0f);
-	fragColor = vec3(0,0,1);
+	clipSpace = projection * view * model * vec4(position, 1.0f);
+    gl_Position = clipSpace;
 }

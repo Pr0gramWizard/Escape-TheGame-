@@ -308,6 +308,11 @@ void EntityShader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, glm::value_ptr(pMatrix));
 }
 
+void EntityShader::loadVector4f(GLuint pLocation, glm::vec4 pVector)
+{
+	glUniform4f(pLocation, pVector.x, pVector.y, pVector.z, pVector.w);
+}
+
 void EntityShader::loadModelMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_modelMatrix, pMatrix);
@@ -330,6 +335,11 @@ void EntityShader::loadLight(Light *pLight)
 	loadVector(mLocation_lightAttenuation, pLight->getAttenuation());
 }
 
+void EntityShader::loadPlane(glm::vec4 pVector)
+{
+	this->loadVector4f(mLocation_plane, pVector);
+}
+
 // Destructor
 EntityShader::~EntityShader()
 {
@@ -342,6 +352,7 @@ void EntityShader::getAllUniformLocations()
 	mLocation_modelMatrix = glGetUniformLocation(getProgramID(), "model");
 	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projection");
 	mLocation_viewMatrix = glGetUniformLocation(getProgramID(), "view");
+	mLocation_plane = glGetUniformLocation(getProgramID(), "plane");
 	// Light locations
 	mLocation_lightPosition = glGetUniformLocation(getProgramID(), "lightPosition");
 	mLocation_lightColor = glGetUniformLocation(getProgramID(), "lightColor");

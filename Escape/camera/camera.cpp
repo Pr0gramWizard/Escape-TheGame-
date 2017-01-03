@@ -219,3 +219,15 @@ void Camera::setFov(GLfloat pFov)
 {
 	mFov = pFov;
 }
+
+void Camera::incYPosition(GLfloat pY)
+{
+	mPosition.y += pY;
+}
+
+void Camera::invertPitch()
+{
+	mPitch = -mPitch;
+	//needed?
+	this->updateCameraVectors();
+}

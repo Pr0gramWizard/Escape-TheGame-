@@ -49,6 +49,7 @@ public:
 	void loadModelMatrix(Entity* pEntity);
 	void loadViewMatrix(glm::mat4 pViewMatrix);
 	void loadLight(Light *pLight);
+	void loadClipPlane(glm::vec4 pClipPlane);
 
 	// use or unuse the shader
 	void startShader();

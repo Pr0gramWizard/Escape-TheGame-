@@ -316,6 +316,11 @@ void TerrainShader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, glm::value_ptr(pMatrix));
 }
 
+void TerrainShader::loadVector4f(GLuint pLocation, glm::vec4 pVector)
+{
+	glUniform4f(pLocation, pVector.x, pVector.y, pVector.z, pVector.w);
+}
+
 void TerrainShader::loadModelMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_modelMatrix, pMatrix);
@@ -348,6 +353,11 @@ void TerrainShader::loadLights(vector<Light*> pLights)
 	
 }
 
+void TerrainShader::loadPlane(glm::vec4 pVector)
+{
+	this->loadVector4f(mLocation_plane, pVector);
+}
+
 // Destructor
 TerrainShader::~TerrainShader()
 {
@@ -360,6 +370,7 @@ void TerrainShader::getAllUniformLocations()
 	mLocation_modelMatrix = glGetUniformLocation(getProgramID(), "model");
 	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projection");
 	mLocation_viewMatrix = glGetUniformLocation(getProgramID(), "view");
+	mLocation_plane = glGetUniformLocation(getProgramID(), "plane");
 	// Light locations
 	const char* lightPos[] = { 
 		"lightPosition[0]", 

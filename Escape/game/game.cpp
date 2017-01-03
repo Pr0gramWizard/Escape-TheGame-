@@ -71,9 +71,12 @@ bool Game::gameLoop()
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(terrain);
 
-	Lake* lake = new Lake(-50, 0, 0, 20, 50, "Lake", loader);
-	mRenderer->setLake(lake);
-	
+	//**** LAKE STUFF ****
+	LakeFrameBuffers* lfbos = new LakeFrameBuffers(mWidth, mHeight);
+	LakeShader* lakeshader = new LakeShader("shaders/lake.vert", "shaders/lake.frag");
+	LakeRenderer* lakerenderer = new LakeRenderer(lakeshader, mPlayer->getProjectionMatrix(), lfbos);
+	Lake* lake = new Lake(0, -3, 0, 20, 50, "Lake", loader);
+	//**** END LAKE STUFF ****
 
 	std::vector<GLfloat> Vertices =
 	{
@@ -106,12 +109,36 @@ bool Game::gameLoop()
 		}
 
 		mPlayer->move(&terrain, deltaTime);
-		
-		mRenderer->prepare();
 
-
-		mRenderer->render(mPlayer->getViewMatrix());
+		glEnable(GL_CLIP_DISTANCE0);
 		
+		// reflection
+		lfbos->bindReflectionFrameBuffer();
+		float distance = 2 * (mPlayer->getCameraPosition().y - lake->getWorldY());
+		mPlayer->getCamera()->incYPosition(-distance);
+		mPlayer->getCamera()->invertPitch();
+		// render to buffer
+		mRenderer->render(mPlayer->getViewMatrix(), glm::vec4(0, 1, 0, -lake->getWorldY()));
+		// move camera back
+		mPlayer->getCamera()->incYPosition(distance);
+		mPlayer->getCamera()->invertPitch();
+
+		// refraction
+		lfbos->bindRefractionFrameBuffer();
+		mRenderer->render(mPlayer->getViewMatrix(), glm::vec4(0, -1, 0, lake->getWorldY()));
+
+		// actual rendering
+		glDisable(GL_CLIP_DISTANCE0);
+		lfbos->unbindCurrentFrameBuffer();
+		mRenderer->render(mPlayer->getViewMatrix(), glm::vec4(0, -1, 0, 10000));
+
+		// render water
+		lake->updateHeights();
+		lakerenderer->startShader();
+		lakerenderer->loadViewMatrix(mPlayer->getViewMatrix());
+		lakerenderer->render(*lake);
+		lakerenderer->stopShader();
+
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
 		
