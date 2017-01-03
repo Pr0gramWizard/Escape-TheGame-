@@ -4,6 +4,8 @@ const char* MainRenderer::ENTITY_VERTEX = "shaders/b.vert";
 const char* MainRenderer::ENTITY_FRAGMENT = "shaders/a.frag";
 const char* MainRenderer::TERRAIN_VERTEX = "shaders/terrain.vert";
 const char* MainRenderer::TERRAIN_FRAGMENT = "shaders/terrain.frag";
+const char* MainRenderer::LAKE_VERTEX = "shaders/lake.vert";
+const char* MainRenderer::LAKE_FRAGMENT = "shaders/lake.frag";
 
 MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 {
@@ -12,6 +14,9 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 
 	TerrainShader* terrainshader = new TerrainShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
 	mTerrainRenderer = new TerrainRenderer(terrainshader, pProjectionMatrix);
+
+	LakeShader* lakeshader = new LakeShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
+	mLakeRenderer = new LakeRenderer(lakeshader, pProjectionMatrix);
 
 	this->setDrawMode(0);
 
@@ -81,6 +86,11 @@ void MainRenderer::addToList(Entity &pEntity, RenderMode pMode)
 {
 	mSpecial.push_back(pEntity);
 	mRenderMode.push_back(pMode);
+}
+
+void MainRenderer::setLake(Lake *pLake)
+{
+	mLake = pLake;
 }
 
 void MainRenderer::setDrawMode(bool pMode)

@@ -67,6 +67,7 @@ bool Game::gameLoop()
 	mRenderer->addToList(terrain);
 	//Lake
 	Lake* lake = new Lake(-20, 0, 0, 1, 8, "Lake", loader);
+	mRenderer->setLake(lake);
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
