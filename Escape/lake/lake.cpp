@@ -1,6 +1,6 @@
 #include "lake.hpp"
 
-const int Lake::LAKE_SIZE = 500;
+const int Lake::LAKE_SIZE = 50;
 
 Lake::Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices, const char * pName, Loader * pLoader)
 {
