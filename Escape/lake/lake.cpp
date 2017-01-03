@@ -156,20 +156,12 @@ void Lake::updateHeights()
 	for (int z = 0;z < mVertices;z++) {
 		for (int x = 0;x < mVertices;x++) {
 			mVelocity[z * mVertices + x] += (this->getVertexHeight(x - 1, z) + this->getVertexHeight(x + 1, z) + this->getVertexHeight(x, z - 1) + this->getVertexHeight(x, z + 1)) / 4 - this->getVertexHeight(x, z);
-		}
-	}
-	for (int z = 0;z < mVertices;z++) {
-		for (int x = 0;x < mVertices;x++) {
 			mVelocity[z * mVertices + x] *= 0.99f;
 		}
 	}
 	for (int z = 0;z < mVertices;z++) {
 		for (int x = 0;x < mVertices;x++) {
 			mHeights[z * mVertices + x] += mVelocity[z * mVertices + x];
-		}
-	}
-	for (int z = 0;z < mVertices;z++) {
-		for (int x = 0;x < mVertices;x++) {
 			// update vertices
 			vertices[vertexPointer * 3] = (float)x / ((float)mVertices - 1) * Lake::LAKE_SIZE;
 			vertices[vertexPointer * 3 + 1] = this->getVertexHeight(x, z);
