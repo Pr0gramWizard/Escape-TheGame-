@@ -100,7 +100,7 @@ void Lake::initLake(Loader * loader)
 	mHeights = vector<float>(mVertices * mVertices);
 
 	// generates random heights between -mAmplitude and +mAmplitude
-	for (unsigned int i = 0; i < mHeights.size(); ++i)
+	for (int i = 0; i < mHeights.size(); ++i)
 	{
 		mHeights[i] = ((float)rand() / (float)(RAND_MAX)) * (2 * mAmplitude) - mAmplitude;
 	}
@@ -155,7 +155,7 @@ void Lake::updateHeights()
 	// update the heights
 	for (int z = 0;z < mVertices;z++) {
 		for (int x = 0;x < mVertices;x++) {
-			mVelocity[z * mVertices + x] += (this->getVertexHeight(x - 1, z) + this->getVertexHeight(x + 1, z) + this->getVertexHeight(x, z - 1) + this->getVertexHeight(x, z + 1)) / 4 - getVertexHeight(x, z);
+			mVelocity[z * mVertices + x] += (this->getVertexHeight(x - 1, z) + this->getVertexHeight(x + 1, z) + this->getVertexHeight(x, z - 1) + this->getVertexHeight(x, z + 1)) / 4 - this->getVertexHeight(x, z);
 			mVelocity[z * mVertices + x] *= 0.99f;
 			mHeights[z * mVertices + x] += mVelocity[z * mVertices + x];
 			if (z == 2 && x == 2) std::cout << mVelocity[z * mVertices + x] << std::endl;
