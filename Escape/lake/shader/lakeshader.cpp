@@ -311,6 +311,11 @@ void LakeShader::loadBool(GLuint pLocation, GLboolean pValue)
 	}
 }
 
+void LakeShader::loadInt(GLuint pLocation, GLuint pValue)
+{
+	glUniform1i(pLocation, pValue);
+}
+
 void LakeShader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
 {
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, glm::value_ptr(pMatrix));
@@ -348,6 +353,12 @@ void LakeShader::loadLights(vector<Light*> pLights)
 
 }
 
+void LakeShader::connectTextureUnits()
+{
+	this->loadInt(mLocation_reflectionTexture, 0);
+	this->loadInt(mLocation_refractionTexture, 1);
+}
+
 // Destructor
 LakeShader::~LakeShader()
 {
@@ -360,6 +371,8 @@ void LakeShader::getAllUniformLocations()
 	mLocation_modelMatrix = glGetUniformLocation(getProgramID(), "model");
 	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projection");
 	mLocation_viewMatrix = glGetUniformLocation(getProgramID(), "view");
+	mLocation_reflectionTexture = glGetUniformLocation(getProgramID(), "reflectionTexture");
+	mLocation_refractionTexture = glGetUniformLocation(getProgramID(), "refractionTexture");
 	// Light locations
 	const char* lightPos[] = {
 		"lightPosition[0]",

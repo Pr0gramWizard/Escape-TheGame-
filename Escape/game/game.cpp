@@ -45,7 +45,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 
 	glEnable(GL_DEPTH_TEST);
 
-	mPlayer = new Player(glm::vec3(0, 0, 0), 5, "Archie der Entdecker", this->getHeight(), this->getWidth());
+	mPlayer = new Player(glm::vec3(180, 0, 170), 5, "Archie der Entdecker", this->getHeight(), this->getWidth());
 
 
 
@@ -72,10 +72,10 @@ bool Game::gameLoop()
 	mRenderer->addToList(terrain);
 
 	//**** LAKE STUFF ****
-	LakeShader* lakeshader = new LakeShader("shaders/lake.vert", "shaders/lake.frag");
-	LakeRenderer* lakerenderer = new LakeRenderer(lakeshader, mPlayer->getProjectionMatrix());
-	Lake* lake = new Lake(0, 0, 0, 20, 50, "Lake", loader);
 	LakeFrameBuffers* lfbos = new LakeFrameBuffers(mWidth, mHeight);
+	LakeShader* lakeshader = new LakeShader("shaders/lake.vert", "shaders/lake.frag");
+	LakeRenderer* lakerenderer = new LakeRenderer(lakeshader, mPlayer->getProjectionMatrix(), lfbos);
+	Lake* lake = new Lake(180, -2, 170, 20, 50, "Lake", loader);
 	//**** END LAKE STUFF ****
 
 	std::vector<GLfloat> Vertices =

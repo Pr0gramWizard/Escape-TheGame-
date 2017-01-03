@@ -1,10 +1,12 @@
 #include "lakeRenderer.hpp"
 
 // constructor
-LakeRenderer::LakeRenderer(LakeShader * pShader, glm::mat4 pProjectionMatrix)
+LakeRenderer::LakeRenderer(LakeShader * pShader, glm::mat4 pProjectionMatrix, LakeFrameBuffers* pLakeFbos)
 {
+	mLakeFbos = pLakeFbos;
 	mShader = pShader;
 	mShader->use();
+	mShader->connectTextureUnits();
 	mShader->loadProjectionMatrix(pProjectionMatrix);
 	mShader->unuse();
 }
@@ -53,7 +55,10 @@ void LakeRenderer::prepareLake(Lake* pLake)
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
 	// Texturepart here
-
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, mLakeFbos->getReflactionTexture());
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, mLakeFbos->getRefractionTexture());
 	// end texturepart
 }
 

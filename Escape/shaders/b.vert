@@ -13,7 +13,7 @@ uniform vec4 plane;
 
 void main()
 {
-	vec3 worldPosition = model * vec4(position, 1.0f);
+	vec4 worldPosition = model * vec4(position, 1.0f);
 
 	gl_ClipDistance[0] = dot(worldPosition, plane);
 

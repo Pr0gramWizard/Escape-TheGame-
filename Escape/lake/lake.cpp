@@ -96,7 +96,7 @@ GLfloat Lake::getVertexHeight(int pVertexX, int pVertexZ)
 void Lake::initLake(Loader * loader)
 {
 	mVelocity = vector<float>(mVertices * mVertices, 0.0f);
-	mHeights = vector<float>(mVertices * mVertices, 0.0f);
+	mHeights = vector<float>(mVertices * mVertices, this->getWorldY());
 	mVaryingPositions = vector<float>(mVertices * mVertices * 3, 0.0f);
 
 	/*int half = (int)(mVertices / 2.0f);

@@ -7,6 +7,8 @@
 #include <list>
 // lake class
 #include "../lake.hpp"
+// lake fbo class
+#include "../fbo/lakeFrameBuffers.hpp"
 // model class
 #include "../../model/model.hpp"
 // maths
@@ -20,7 +22,7 @@ class LakeRenderer
 {
 public:
 	// constructor
-	LakeRenderer(LakeShader* pShader, glm::mat4 pProjectionMatrix);
+	LakeRenderer(LakeShader* pShader, glm::mat4 pProjectionMatrix, LakeFrameBuffers* pLakeFbos);
 	// destructor
 	~LakeRenderer();
 
@@ -48,5 +50,6 @@ public:
 
 private:
 	LakeShader* mShader;
+	LakeFrameBuffers* mLakeFbos;
 };
 
