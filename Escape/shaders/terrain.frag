@@ -5,6 +5,8 @@ out vec4 out_Color;
 in vec3 surfaceNormal;
 in vec3 toLightVector[6];
 in vec3 toCameraVector;
+
+//in vec3 color;
   
 //uniform vec3 lightPosition; 
 uniform vec3 lightColor[6];
@@ -24,7 +26,7 @@ void main()
     //vec3 ambient = terrainColor * 0.02; //  to damp the ambient color
 
 	vec3 totalDiffuse = vec3(0,0,0);
-	vec3 totalSpec = vec3(0,0,0);
+	//vec3 totalSpec = vec3(0,0,0);
 
 	for(int i = 0; i < 6; i++){
 		vec3 unitLightVector = normalize(toLightVector[i]);
@@ -35,21 +37,21 @@ void main()
 		vec3 diffuse = brightness * lightColor[i];
 	
 		// specular
-		vec3 lightDir = -unitLightVector;
-		vec3 reflectedLightDir = reflect(lightDir,unitNormal);
-		float specularFactor = dot(reflectedLightDir , unitVectorToCamera);
-		specularFactor = max(specularFactor,0.0);
-		float dampedFactor = pow(specularFactor,shineDamper);
-		vec3 specular = dampedFactor * reflectivity * lightColor[i];
+		//vec3 lightDir = -unitLightVector;
+		//vec3 reflectedLightDir = reflect(lightDir,unitNormal);
+		//float specularFactor = dot(reflectedLightDir , unitVectorToCamera);
+		//specularFactor = max(specularFactor,0.0);
+		//float dampedFactor = pow(specularFactor,shineDamper);
+		//vec3 specular = dampedFactor * reflectivity * lightColor[i];
 
 		float distance = length(toLightVector[i]);
 		float attenuationFactor = lightAttenuation[i].x + (lightAttenuation[i].y * distance) + (lightAttenuation[i].z * distance * distance);
 	
 		totalDiffuse = totalDiffuse + diffuse/attenuationFactor;
-		totalSpec = totalSpec + specular/attenuationFactor;
+		//totalSpec = totalSpec + specular/attenuationFactor;
 	}
-	totalDiffuse = max(totalDiffuse, 0.3);
+	totalDiffuse = max(totalDiffuse, 0.2);
 	
-	//out_Color =  vec4(totalDiffuse,1.0) * vec4(terrainColor,1.0) + vec4(totalSpec,1.0);
-	out_Color = vec4(surfaceNormal,1.0);
+	out_Color =  vec4(totalDiffuse,1.0) * vec4(terrainColor,1.0);// + vec4(totalSpec,1.0);
+	//out_Color = vec4(color,1.0);
 }

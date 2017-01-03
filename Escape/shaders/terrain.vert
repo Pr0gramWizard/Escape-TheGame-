@@ -8,13 +8,17 @@ out vec3 surfaceNormal;
 out vec3 toLightVector[6];
 out vec3 toCameraVector;
 
+//out vec3 color;
+
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
 // 6 is MAX_LIGHTS
 uniform vec3 lightPosition[6];
-//uniform vec3 lightColor;
+
+//uniform vec3 lightColor[6];
+//uniform vec3 lightAttenuation[6];
 
 void main()
 {
@@ -28,6 +32,11 @@ void main()
 		toLightVector[i] = lightPosition[i] - worldPosition.xyz;
 	}
 	toCameraVector = (inverse(view) * vec4(0.0,0.0,0.0,1.0)).xyz - worldPosition.xyz;
+	
+	//works
+	//float distance = length(mat3(model) * position - lightPosition[0]);
+	//float attenuationFactor = lightAttenuation[0].x + (lightAttenuation[0].y * distance) + (lightAttenuation[0].z * distance * distance);
+    //color = lightColor[0] / attenuationFactor;
 }
 
     //float test = position.y;
