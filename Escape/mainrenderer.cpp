@@ -15,7 +15,7 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 	TerrainShader* terrainshader = new TerrainShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
 	mTerrainRenderer = new TerrainRenderer(terrainshader, pProjectionMatrix);
 
-	LakeShader* lakeshader = new LakeShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
+	LakeShader* lakeshader = new LakeShader(LAKE_VERTEX, LAKE_FRAGMENT);
 	mLakeRenderer = new LakeRenderer(lakeshader, pProjectionMatrix);
 
 	this->setDrawMode(0);
