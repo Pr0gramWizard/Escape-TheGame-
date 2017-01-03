@@ -13,7 +13,7 @@ Lake::Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices,
 
 	this->initLake(pLoader);
 	this->setModel(&this->generateLake(pLoader));
-	mPosVbo = pLoader->getLastVbos().y;
+	// mPosVbo = pLoader->getLastVbos().y;
 }
 
 Lake::~Lake()

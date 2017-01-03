@@ -21,7 +21,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/,NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(),NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -59,146 +59,19 @@ bool Game::gameLoop()
 {
 
 	Loader* loader = new Loader();
-	std::vector<GLfloat> vertexPositions =
-	{
-		//Back
-		1, 0, 0,
-		0, 0, 0,
-		0, 1, 0,
-		1, 1, 0,
-
-		//Right-Side
-		1, 0, 1,
-		1, 0, 0,
-		1, 1, 0,
-		1, 1, 1,
-
-		//Front
-		0, 0, 1,
-		1, 0, 1,
-		1, 1, 1,
-		0, 1, 1,
-
-		//Left
-		0, 0, 0,
-		0, 0, 1,
-		0, 1, 1,
-		0, 1, 0,
-
-		//Top
-		0, 1, 1,
-		1, 1, 1,
-		1, 1, 0,
-		0, 1, 0,
-
-		//Bottom
-		0, 0, 0,
-		1, 0, 0,
-		1, 0, 1,
-		0, 0, 1
-	};
-
-	std::vector<GLfloat> textureCoords =
-	{
-		//Texture coords are same for every face
-		1.0, 1.0,
-		0.0, 1.0,
-		0.0, 0.0,
-		1.0, 0.0,
-
-		1.0, 1.0,
-		0.0, 1.0,
-		0.0, 0.0,
-		1.0, 0.0,
-
-		1.0, 1.0,
-		0.0, 1.0,
-		0.0, 0.0,
-		1.0, 0.0,
-
-		1.0, 1.0,
-		0.0, 1.0,
-		0.0, 0.0,
-		1.0, 0.0,
-
-		1.0, 1.0,
-		0.0, 1.0,
-		0.0, 0.0,
-		1.0, 0.0,
-
-		1.0, 1.0,
-		0.0, 1.0,
-		0.0, 0.0,
-		1.0, 0.0,
-	};
-
-	std::vector<float> normal = {
-		1, 1, 0
-	};
-
-	std::vector<int> indices =
-	{
-		0, 1, 2,
-		2, 3, 0,
-
-		4, 5, 6,
-		6, 7, 4,
-
-		8, 9, 10,
-		10, 11, 8,
-
-		12, 13, 14,
-		14, 15, 12,
-
-		16, 17, 18,
-		18, 19, 16,
-
-		20, 21, 22,
-		22, 23, 20
-	};
-
-	std::vector<float> VerticesCoordinateSystem = {
-		-500.0f, 0.0f, 0.0f,
-		500.0f, 0.0f, 0.0f,
-		0.0f, -100.0f, 0.0f,
-		0.0f, 100.0f, 0.0f,
-		0.0f, 0.0f, -500.0f,
-		0.0f, 0.0f, 500.0f
-	};
-
-	std::vector<int> IndicesCoordianteSystem = {
-		0,1,
-		2,3,
-		4,5,
-	};
-
-	Model CoordianteSystem = loader->loadDataToVao(VerticesCoordinateSystem, textureCoords, normal, IndicesCoordianteSystem);
-
-	Model model = loader->loadDataToVao(vertexPositions, textureCoords, normal, indices,"textures/wall.png");
-
-	Entity BlockA(glm::vec3(0, 0, 0), 0, 0, 0, 4, &model);
-	Entity CoordinateSystem(glm::vec3(0, 0, 0), 0, 0, 0, 1, &CoordianteSystem);
-
 	Terrain terrain(0, 0, 15, "Test", loader);
 	std::list<Terrain> terrains;
 	terrains.push_back(terrain);
 
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(terrain);
-	mRenderer->addToList(BlockA);
-	mRenderer->addToList(CoordinateSystem, LINES);
-
-	Texture* pTest = new Texture("Grass", "textures/wall.png");
-	pTest->loadTexture2D();
-	pTest->setFiltering(TEXTURE_FILTER_MAG_NEAREST, TEXTURE_FILTER_MIN_NEAREST);
-	pTest->bind();
-	
 	//Lake
 	Lake* lake = new Lake(-20, 0, 0, 1, 8, "Lake", loader);
 
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
 	{
+	
 		// Calculate deltatime of current frame
 		GLfloat currentFrame = (GLfloat)glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
@@ -217,13 +90,10 @@ bool Game::gameLoop()
 		
 		mRenderer->prepare();
 		mRenderer->render(mPlayer->getViewMatrix());
-		//TerrainShader->use();
-		//TerrainShader->loadViewMatrix(mPlayer->getViewMatrix());
-	    //terrainRenderer->render(terrain);
-		//TerrainShader->unuse();
-		
+
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
+		
 
 	}
 	loader->cleanUp();

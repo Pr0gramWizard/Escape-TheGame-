@@ -21,8 +21,8 @@ void EntityRenderer::render(list<Entity> pEntities)
 	{
 		prepareEntity(entity);
 		loadModelMatrix(entity);
-		glDrawElements(GL_TRIANGLES, entity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glDrawElements(GL_TRIANGLES, entity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 		unbindEntity();
 	}
 }
@@ -31,8 +31,8 @@ void EntityRenderer::render(Entity & pEntity)
 {
 	prepareEntity(&pEntity);
 	loadModelMatrix(&pEntity);
-	glDrawElements(GL_TRIANGLES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glDrawElements(GL_TRIANGLES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 	unbindEntity();
 }
 

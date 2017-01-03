@@ -31,7 +31,7 @@ void MainRenderer::prepare()
 
 void MainRenderer::render(glm::mat4 pViewMatrix)
 {
-	// glShadeModel(GL_SMOOTH);
+	glShadeModel(GL_SMOOTH);
 	// entities
 	mEntityRenderer->startShader();
 	mEntityRenderer->loadViewMatrix(pViewMatrix);
