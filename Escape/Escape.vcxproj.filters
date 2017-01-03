@@ -85,6 +85,27 @@
     <Filter Include="Shader\Lake">
       <UniqueIdentifier>{5349d455-3583-45c1-8bad-9ea6907487df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="User Input">
+      <UniqueIdentifier>{513d89b0-f877-4e4b-858d-0f66b1c58c42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Entity">
+      <UniqueIdentifier>{484e137c-e898-4ad6-9ef4-7db813c38476}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Terrain">
+      <UniqueIdentifier>{78d3f3f0-f7b0-4624-afaf-f24e8d0b895c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Lake">
+      <UniqueIdentifier>{53382574-805e-4e41-9178-629dc6096998}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Main">
+      <UniqueIdentifier>{6ba03f15-5dfc-4db2-b87c-0e12f33542d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Old">
+      <UniqueIdentifier>{dd3a3703-6523-47f0-8c2e-b79053239360}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\New">
+      <UniqueIdentifier>{443ee3fa-3b4a-4c0b-ba61-c3657beb3286}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -108,36 +129,20 @@
     <ClCompile Include="loader.cpp">
       <Filter>Loader</Filter>
     </ClCompile>
-    <ClCompile Include="model.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
     <ClCompile Include="entity.cpp">
       <Filter>Loader Functions\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="terrainRenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="entityRenderer.cpp">
-      <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="entityshader.cpp">
       <Filter>Shader\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="mainrenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="terrainshader.cpp">
       <Filter>Shader\Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="light\light.cpp">
       <Filter>Light</Filter>
     </ClCompile>
     <ClCompile Include="lake\lake.cpp">
       <Filter>Lake</Filter>
-    </ClCompile>
-    <ClCompile Include="lakeRenderer.cpp">
-      <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="lakeshader.cpp">
       <Filter>Shader\Lake</Filter>
@@ -145,7 +150,27 @@
     <ClCompile Include="texture.cpp">
       <Filter>Loader Functions\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="cmodel.cpp" />
+    <ClCompile Include="keyboard.cpp">
+      <Filter>User Input</Filter>
+    </ClCompile>
+    <ClCompile Include="entityRenderer.cpp">
+      <Filter>Renderer\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="terrainRenderer.cpp">
+      <Filter>Renderer\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="lakeRenderer.cpp">
+      <Filter>Renderer\Lake</Filter>
+    </ClCompile>
+    <ClCompile Include="mainrenderer.cpp">
+      <Filter>Renderer\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="cmodel.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>Model\New</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.hpp">
@@ -169,36 +194,20 @@
     <ClInclude Include="loader.hpp">
       <Filter>Loader</Filter>
     </ClInclude>
-    <ClInclude Include="model.hpp">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="entity.hpp">
       <Filter>Loader Functions\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="terrainRenderer.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="entityRenderer.hpp">
-      <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="entityshader.hpp">
       <Filter>Shader\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="mainrenderer.hpp">
-      <Filter>Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="terrainshader.hpp">
       <Filter>Shader\Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="keyboard.hpp" />
     <ClInclude Include="light\light.hpp">
       <Filter>Light</Filter>
     </ClInclude>
     <ClInclude Include="lake\lake.hpp">
       <Filter>Lake</Filter>
-    </ClInclude>
-    <ClInclude Include="lakeRenderer.hpp">
-      <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="lakeshader.hpp">
       <Filter>Shader\Lake</Filter>
@@ -206,7 +215,27 @@
     <ClInclude Include="texture.hpp">
       <Filter>Loader Functions\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="cmodel.hpp" />
+    <ClInclude Include="keyboard.hpp">
+      <Filter>User Input</Filter>
+    </ClInclude>
+    <ClInclude Include="entityRenderer.hpp">
+      <Filter>Renderer\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="terrainRenderer.hpp">
+      <Filter>Renderer\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="lakeRenderer.hpp">
+      <Filter>Renderer\Lake</Filter>
+    </ClInclude>
+    <ClInclude Include="mainrenderer.hpp">
+      <Filter>Renderer\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="cmodel.hpp">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="model.hpp">
+      <Filter>Model\New</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
