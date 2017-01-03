@@ -13,7 +13,8 @@ Lake::Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices,
 
 	this->initLake(pLoader);
 	this->setModel(&this->generateLake(pLoader));
-	// mPosVbo = pLoader->getLastVbos().y;
+	mPosVbo = pLoader->getLastVbos().y;
+	std::cout << "Position VBO: " << mPosVbo << std::endl;
 }
 
 Lake::~Lake()
@@ -157,6 +158,7 @@ void Lake::updateHeights()
 			mVelocity[z * mVertices + x] += (this->getVertexHeight(x - 1, z) + this->getVertexHeight(x + 1, z) + this->getVertexHeight(x, z - 1) + this->getVertexHeight(x, z + 1)) / 4 - getVertexHeight(x, z);
 			mVelocity[z * mVertices + x] *= 0.99;
 			mHeights[z * mVertices + x] += mVelocity[z * mVertices + x];
+			if (z == 2 && x == 2) std::cout << mVelocity[z * mVertices + x] << std::endl;
 
 			// update vertices
 			vertices[vertexPointer * 3] = (float)x / ((float)mVertices - 1) * Lake::LAKE_SIZE;
@@ -167,7 +169,7 @@ void Lake::updateHeights()
 	}
 	// update position vbo
 	glBindBuffer(GL_ARRAY_BUFFER, mPosVbo);
-	glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, vertices.size() * sizeof(float), &vertices[0]);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(float), &vertices[0]);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	//display new fluid

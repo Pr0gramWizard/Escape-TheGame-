@@ -76,6 +76,8 @@ void MainRenderer::render(glm::mat4 pViewMatrix)
 	}
 	mTerrainRenderer->stopShader();
 
+	mLake->updateHeights();
+
 	// lake
 	mLakeRenderer->startShader();
 	mLakeRenderer->loadViewMatrix(pViewMatrix);
