@@ -51,7 +51,6 @@ public:
 	// Returns the current Projection Matrix
 	glm::mat4 GetProjectionMatrix(int pHeight, int pWidth);
 
-
 	// Getter Functions
 	glm::vec3 getPosition() const;
 	glm::vec3 getFront() const;
@@ -76,8 +75,8 @@ public:
 	void setMovementSpeed(GLfloat pMovementSpeed);
 	void setMouseSensitivity(GLfloat pMouseSensitivity);
 	void setFov(GLfloat pFov);
-
-
+	void setYPosition(GLfloat pY);
+	void invertPitch();
 
 // All private members of the class
 private:
