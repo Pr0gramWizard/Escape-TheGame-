@@ -156,7 +156,7 @@
     <ClCompile Include="textures\texture.cpp">
       <Filter>Texture</Filter>
     </ClCompile>
-    <ClCompile Include="lakeFrameBuffers.cpp">
+    <ClCompile Include="lake\fbo\lakeFrameBuffers.cpp">
       <Filter>Lake\fbo</Filter>
     </ClCompile>
   </ItemGroup>
@@ -218,7 +218,7 @@
     <ClInclude Include="textures\texture.hpp">
       <Filter>Texture</Filter>
     </ClInclude>
-    <ClInclude Include="lakeFrameBuffers.hpp">
+    <ClInclude Include="lake\fbo\lakeFrameBuffers.hpp">
       <Filter>Lake\fbo</Filter>
     </ClInclude>
   </ItemGroup>
