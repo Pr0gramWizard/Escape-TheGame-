@@ -71,7 +71,7 @@ bool Game::gameLoop()
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(terrain);
 
-	Lake* lake = new Lake(-500, 0, 0, 20, 60, "Lake", loader);
+	Lake* lake = new Lake(-500, 0, 0, 20, 50, "Lake", loader);
 	mRenderer->setLake(lake);
 	
 

@@ -14,7 +14,6 @@ Lake::Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices,
 	this->initLake(pLoader);
 	this->setModel(&this->generateLake(pLoader));
 	mPosVbo = pLoader->getLastVbos().y;
-	std::cout << "Position VBO: " << mPosVbo << std::endl;
 }
 
 Lake::~Lake()
@@ -98,14 +97,9 @@ void Lake::initLake(Loader * loader)
 {
 	mVelocity = vector<float>(mVertices * mVertices, 0.0f);
 	mHeights = vector<float>(mVertices * mVertices, 0.0f);
+	mVaryingPositions = vector<float>(mVertices * mVertices * 3, 0.0f);
 
 	int half = (int)(mVertices / 2.0f);
-
-	/*mHeights[half * mVertices + half] = 20;
-	mHeights[(half + 1) * mVertices + half] = 15;
-	mHeights[(half - 1) * mVertices + half] = 15;
-	mHeights[half * mVertices + (half + 1)] = 15;
-	mHeights[half * mVertices + (half - 1)] = 15;*/
 
 	mHeights[mVertices] = 3;
 	mHeights[mVertices - 1] = 2;
@@ -166,42 +160,38 @@ Model Lake::generateLake(Loader * loader)
 	return loader->loadDataToVao(vertices, textureCoords, normals, indices);
 }
 
-void Lake::updateHeights()
+void Lake::updateVelocities()
 {
-	std::vector<float> vertices(mVertices * mVertices * 3);
-	int vertexPointer = 0;
-	// update the heights
 	for (int z = 0;z < mVertices;z++) {
 		for (int x = 0;x < mVertices;x++) {
 			mVelocity[z * mVertices + x] += (this->getVertexHeight(x - 1, z) + this->getVertexHeight(x + 1, z) + this->getVertexHeight(x, z - 1) + this->getVertexHeight(x, z + 1)) / 4 - this->getVertexHeight(x, z);
 			mVelocity[z * mVertices + x] *= 0.99f;
 		}
 	}
+}
+
+void Lake::updatePositionVBO()
+{
+	// update position vbo
+	glBindBuffer(GL_ARRAY_BUFFER, mPosVbo);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, mVaryingPositions.size() * sizeof(float), &mVaryingPositions[0]);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void Lake::updateHeights()
+{
+	this->updateVelocities();
+	int vertexPointer = 0;
+	// update the heights
 	for (int z = 0;z < mVertices;z++) {
 		for (int x = 0;x < mVertices;x++) {
 			mHeights[z * mVertices + x] += mVelocity[z * mVertices + x];
 			// update vertices
-			vertices[vertexPointer * 3] = (float)x / ((float)mVertices - 1) * Lake::LAKE_SIZE;
-			vertices[vertexPointer * 3 + 1] = this->getVertexHeight(x, z);
-			vertices[vertexPointer * 3 + 2] = (float)z / ((float)mVertices - 1) * Lake::LAKE_SIZE;
+			mVaryingPositions[vertexPointer * 3] = (float)x / ((float)mVertices - 1) * Lake::LAKE_SIZE;
+			mVaryingPositions[vertexPointer * 3 + 1] = this->getVertexHeight(x, z);
+			mVaryingPositions[vertexPointer * 3 + 2] = (float)z / ((float)mVertices - 1) * Lake::LAKE_SIZE;
 			vertexPointer++;
 		}
 	}
-	// update position vbo
-	glBindBuffer(GL_ARRAY_BUFFER, mPosVbo);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(float), &vertices[0]);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	//display new fluid
-	/*for (int z = 0; z<m_iSize - 1; z++)
-	{
-		glBegin(GL_TRIANGLE_STRIP);
-		//loop through terrain X values
-		for (int x = 0; x<m_iSize; x++)
-		{
-			glVertex3f(x, Height(pHeightMap, x, z), z);
-			glVertex3f(x, Height(pHeightMap, x, x + 1), z + 1);
-		}
-		glEnd();
-	}*/
+	this->updatePositionVBO();
 }

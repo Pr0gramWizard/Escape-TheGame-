@@ -50,11 +50,14 @@ private:
 	Model mModel;
 	vector<float> mHeights;
 	vector<float> mVelocity;
+	vector<float> mVaryingPositions;
 	GLuint mPosVbo;
 
 private:
 	Model generateLake(Loader* loader);
 	void initLake(Loader* loader);
 	GLfloat getVertexHeight(int pVertexX, int pVertexZ);
+	void updateVelocities();
+	void updatePositionVBO();
 };
 
