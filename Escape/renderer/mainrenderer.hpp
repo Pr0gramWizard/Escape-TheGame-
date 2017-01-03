@@ -45,7 +45,6 @@ public:
 	void addToList(Entity &pEntity);
 	void addToList(Terrain &pTerrain);
 	void addToList(Entity &pEntity, RenderMode pMode);
-	void setLake(Lake *pLake);
 
 	void setDrawMode(bool pMode);
 	bool getDrawMode() const;
@@ -65,20 +64,16 @@ public:
 	static const char* ENTITY_FRAGMENT;
 	static const char* TERRAIN_VERTEX;
 	static const char* TERRAIN_FRAGMENT;
-	static const char* LAKE_VERTEX;
-	static const char* LAKE_FRAGMENT;
 
 private:
 	EntityRenderer* mEntityRenderer;
 	TerrainRenderer* mTerrainRenderer;
-	LakeRenderer* mLakeRenderer;
 	Player* mPlayer;
 
 	list<Entity> mEntities;
 	list<Entity> mSpecial;
 	list<RenderMode> mRenderMode;
 	list<Terrain> mTerrains;
-	Lake* mLake;
 
 	bool drawMode;
 };

@@ -71,9 +71,10 @@ bool Game::gameLoop()
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(terrain);
 
+	//**** LAKE STUFF ******
+	LakeShader* lakeshader = new LakeShader("shaders/lake.vert", "shaders/lake.frag");
+	LakeRenderer* lakerenderer = new LakeRenderer(lakeshader, mPlayer->getProjectionMatrix());
 	Lake* lake = new Lake(-50, 0, 0, 20, 50, "Lake", loader);
-	mRenderer->setLake(lake);
-	
 
 	std::vector<GLfloat> Vertices =
 	{
@@ -109,9 +110,15 @@ bool Game::gameLoop()
 		
 		mRenderer->prepare();
 
-
 		mRenderer->render(mPlayer->getViewMatrix());
-		
+
+		// render water
+		lake->updateHeights();
+		lakerenderer->startShader();
+		lakerenderer->loadViewMatrix(mPlayer->getViewMatrix());
+		lakerenderer->render(*lake);
+		lakerenderer->stopShader();
+
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
 		
