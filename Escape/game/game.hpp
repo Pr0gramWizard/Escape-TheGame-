@@ -35,11 +35,14 @@
 // Renderer classes
 #include "../entity/renderer/entityRenderer.hpp"
 #include "../terrain/renderer/terrainRenderer.hpp"
+#include "../lake/renderer/lakeRenderer.hpp"
 #include "../renderer/mainrenderer.hpp"
 // Math class
 #include "../math/math.hpp"
 // Lake class
 #include "../lake/lake.hpp"
+// Lake fbos
+#include "../lake/fbo/lakeFrameBuffers.hpp"
 
 class Game
 {

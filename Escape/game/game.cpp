@@ -71,10 +71,12 @@ bool Game::gameLoop()
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(terrain);
 
-	//**** LAKE STUFF ******
+	//**** LAKE STUFF ****
 	LakeShader* lakeshader = new LakeShader("shaders/lake.vert", "shaders/lake.frag");
 	LakeRenderer* lakerenderer = new LakeRenderer(lakeshader, mPlayer->getProjectionMatrix());
 	Lake* lake = new Lake(-50, 0, 0, 20, 50, "Lake", loader);
+	LakeFrameBuffers* lfbos = new LakeFrameBuffers(mWidth, mHeight);
+	//**** END LAKE STUFF ****
 
 	std::vector<GLfloat> Vertices =
 	{
@@ -107,6 +109,8 @@ bool Game::gameLoop()
 		}
 
 		mPlayer->move(&terrain, deltaTime);
+
+		//glEnable(GL_CLIP_DISTANCE0);
 		
 		mRenderer->prepare();
 
