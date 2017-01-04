@@ -41,7 +41,7 @@ void main()
     vec4 refractColor = texture(refractionTexture, refractionTexCoords);
 
 	vec3 viewVector = normalize(toCameraVector);
-	float refractiveFactor = pow(dot(viewVector, lakeNormal), refactiveExponent);
+	float refractiveFactor = clamp(pow(dot(viewVector, lakeNormal), refactiveExponent), 0.0, 1.0);
 
 	// specular highlights
 	vec3 reflectedLight = reflect(normalize(fromLightVector), lakeNormal);
