@@ -14,7 +14,7 @@ uniform sampler2D depthMap;
 
 const float refactiveExponent = 2.0;
 
-const vec3 lightColor = vec3(1.0,1.0,0.0);
+const vec3 lightColor = vec3(1.0,1.0,1.0);
 const float shineDamper = 20.0;
 const float reflectivity = 0.6;
 
