@@ -106,9 +106,6 @@
     <Filter Include="Object\renderer">
       <UniqueIdentifier>{17cb4392-a8c1-472e-8565-079d7ae9e735}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\OBJ">
-      <UniqueIdentifier>{a6c74ffd-2f81-45d9-88ab-e47893a9662a}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -324,13 +321,5 @@
     <Image Include="textures\res\whitetest.png">
       <Filter>Texture\PNG</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="object\res\sphere\Alpha.obj">
-      <Filter>Object\OBJ</Filter>
-    </Object>
-    <Object Include="object\res\sphere\Sphere.obj">
-      <Filter>Object\OBJ</Filter>
-    </Object>
   </ItemGroup>
 </Project>
