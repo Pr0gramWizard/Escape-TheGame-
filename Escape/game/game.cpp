@@ -79,7 +79,7 @@ bool Game::gameLoop()
 	//**** END LAKE STUFF ****
 
 	// Object* Nano = new Object("object/res/nanosuit/nanosuit.obj");
-	Object* Cube = new Object("object/res/cube/RedCube.obj",glm::vec3(100 ,terrain.getHeight(100,100) + 1, 100));
+	Object* Cube = new Object("object/res/sphere/Alpha.obj",glm::vec3(16 ,terrain.getHeight(16, 78), 77));
 	ObjectShader* objectshader = new ObjectShader("shaders/object.vert", "shaders/object.frag");
 	ObjectRenderer* objectrender = new ObjectRenderer(objectshader, mPlayer->getProjectionMatrix());
 
@@ -111,6 +111,11 @@ bool Game::gameLoop()
 		if (Keyboard::isKeyPressed(GLFW_KEY_LEFT_SHIFT))
 		{
 			mPlayer->setSprint(true);
+		}
+
+		if (Keyboard::isKeyPressed(GLFW_KEY_F2))
+		{
+			std::cout << mPlayer->getPosition().x << "," << mPlayer->getPosition().y << "," << mPlayer->getPosition().z << std::endl;
 		}
 
 		mPlayer->move(&terrain, deltaTime);
