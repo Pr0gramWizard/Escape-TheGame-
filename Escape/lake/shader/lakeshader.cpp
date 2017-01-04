@@ -357,6 +357,7 @@ void LakeShader::connectTextureUnits()
 {
 	this->loadInt(mLocation_reflectionTexture, 0);
 	this->loadInt(mLocation_refractionTexture, 1);
+	this->loadInt(mLocation_depthMap, 2);
 }
 
 // Destructor
@@ -373,6 +374,7 @@ void LakeShader::getAllUniformLocations()
 	mLocation_viewMatrix = glGetUniformLocation(getProgramID(), "view");
 	mLocation_reflectionTexture = glGetUniformLocation(getProgramID(), "reflectionTexture");
 	mLocation_refractionTexture = glGetUniformLocation(getProgramID(), "refractionTexture");
+	mLocation_depthMap = glGetUniformLocation(getProgramID(), "depthMap");
 	// Light locations
 	const char* lightPos[] = {
 		"lightPosition[0]",

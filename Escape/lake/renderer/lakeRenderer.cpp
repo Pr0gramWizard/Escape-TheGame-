@@ -52,22 +52,24 @@ void LakeRenderer::prepareLake(Lake* pLake)
 	Model* model = pLake->getModel();
 	glBindVertexArray(model->getVaoId());
 	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
 	// Texturepart here
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, mLakeFbos->getReflactionTexture());
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, mLakeFbos->getRefractionTexture());
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, mLakeFbos->getRefractionDepthTexture());
+	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	// end texturepart
 }
 
 // disables the vertex array and the used attibutes
 void LakeRenderer::unbindLake()
 {
+	glDisable(GL_BLEND);
 	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
 	glBindVertexArray(0);
 }
 

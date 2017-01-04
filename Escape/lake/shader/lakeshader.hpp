@@ -82,6 +82,7 @@ private:
 	GLuint mLocation_lightAttenuation[MAX_LIGHTS];
 	GLuint mLocation_reflectionTexture;
 	GLuint mLocation_refractionTexture;
+	GLuint mLocation_depthMap;
 
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);

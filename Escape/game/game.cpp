@@ -114,7 +114,7 @@ bool Game::gameLoop()
 		
 		// reflection
 		lfbos->bindReflectionFrameBuffer();
-		float distance = 2 * (mPlayer->getCameraPosition().y - lake->getWorldY());
+		float distance = 2 * (mPlayer->getCameraPosition().y - lake->getWorldY()+0.2);
 		mPlayer->getCamera()->incYPosition(-distance);
 		mPlayer->getCamera()->invertPitch();
 		// render to buffer
