@@ -94,6 +94,18 @@
     <Filter Include="Lake\fbo">
       <UniqueIdentifier>{855704c1-c0e4-48ad-83d4-e8d15738020c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mesh">
+      <UniqueIdentifier>{0c70c59b-b2cd-445d-be99-e702db7bd253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mesh\Shader">
+      <UniqueIdentifier>{655f744f-efe7-42de-bed2-0ff0d3844e67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mesh\Renderer">
+      <UniqueIdentifier>{37196d78-ea15-4075-9e16-337c533a4214}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{9af25994-5233-4ede-9caf-cdc9a48b1b8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -159,6 +171,18 @@
     <ClCompile Include="lake\fbo\lakeFrameBuffers.cpp">
       <Filter>Lake\fbo</Filter>
     </ClCompile>
+    <ClCompile Include="mesh\mesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh\shader\meshshader.cpp">
+      <Filter>Mesh\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh\renderer\meshrenderer.cpp">
+      <Filter>Mesh\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="object\object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -220,6 +244,18 @@
     </ClInclude>
     <ClInclude Include="lake\fbo\lakeFrameBuffers.hpp">
       <Filter>Lake\fbo</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh\mesh.hpp">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh\shader\meshshader.hpp">
+      <Filter>Mesh\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh\renderer\meshrenderer.h">
+      <Filter>Mesh\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="object\object.hpp">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
