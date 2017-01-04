@@ -95,6 +95,10 @@
     <Image Include="textures\res\redtest.png" />
     <Image Include="textures\res\whitetest.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Object Include="object\res\sphere\Alpha.obj" />
+    <Object Include="object\res\sphere\Sphere.obj" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8DE4231C-F8DD-4A3A-ADC9-9BB74012A2FB}</ProjectGuid>
     <RootNamespace>Escape</RootNamespace>
