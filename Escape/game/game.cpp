@@ -143,6 +143,7 @@ bool Game::gameLoop()
 		lakerenderer->stopShader();*/
 
 		
+		/*
 		objectrender->startShader();
 		// objectrender->loadModelMatrix(Sphere);
 		// objectrender->addToList(Sphere);
@@ -151,7 +152,7 @@ bool Game::gameLoop()
 		objectrender->loadViewMatrix(mPlayer->getViewMatrix());
 		objectrender->render();
 		objectrender->stopShader();
-		
+		*/
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
 		
