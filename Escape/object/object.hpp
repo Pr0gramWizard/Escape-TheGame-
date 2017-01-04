@@ -26,7 +26,7 @@ class Object
 public:
 	/*  Functions   */
 	// Constructor, expects a filepath to a 3D Object.
-	Object(GLchar* path);
+	Object(GLchar* path, glm::vec3 pPosition);
 
 	// Draws the Object, and thus all its meshes
 	void Draw(ObjectShader* shader);

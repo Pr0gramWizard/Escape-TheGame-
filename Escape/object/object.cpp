@@ -2,8 +2,9 @@
 
 
 
-Object::Object(GLchar * path)
+Object::Object(GLchar * path, glm::vec3 pPosition)
 {
+	this->setPosition(pPosition);
 	this->loadObject(path);
 }
 
