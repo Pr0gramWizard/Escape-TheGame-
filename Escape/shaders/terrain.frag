@@ -6,52 +6,37 @@ in vec3 surfaceNormal;
 in vec3 toLightVector[6];
 in vec3 toCameraVector;
 
+in vec3 viewPos;
+in vec3 FragPos;
+
 //in vec3 color;
   
-//uniform vec3 lightPosition; 
+uniform vec3 lightPosition[6]; 
 uniform vec3 lightColor[6];
 uniform vec3 lightAttenuation[6];
 
 void main()
 {
-	float shineDamper = 1;
-	float reflectivity = 0.1;
-	vec3 terrainColor = vec3(1,1,1);
+	// Ambient
+    float ambientStrength = 0.1f;
+    vec3 ambient = ambientStrength * lightColor[0];
+  	
+    // Diffuse 
+    vec3 norm = normalize(surfaceNormal);
+    vec3 lightDir = normalize(lightPosition[0] - FragPos);
+    float diff = max(dot(norm, lightDir), 0.0);
+    vec3 diffuse = diff * lightColor[0];
+    
+    // Specular
+    float specularStrength = 0.5f;
+    vec3 viewDir = normalize(viewPos - FragPos);
+    vec3 reflectDir = reflect(-lightDir, norm);  
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+    vec3 specular = specularStrength * spec * lightColor[0];  
 
-	// units
-    vec3 unitNormal = normalize(surfaceNormal);
-	vec3 unitVectorToCamera = normalize(toCameraVector);
-
-	// ambient
-    //vec3 ambient = terrainColor * 0.02; //  to damp the ambient color
-
-	vec3 totalDiffuse = vec3(0,0,0);
-	//vec3 totalSpec = vec3(0,0,0);
-
-	for(int i = 0; i < 6; i++){
-		vec3 unitLightVector = normalize(toLightVector[i]);
-
-		// diffuse
-		float nL = dot(unitNormal,unitLightVector);
-		float brightness = max(nL,0.0);
-		vec3 diffuse = brightness * lightColor[i];
-	
-		// specular
-		//vec3 lightDir = -unitLightVector;
-		//vec3 reflectedLightDir = reflect(lightDir,unitNormal);
-		//float specularFactor = dot(reflectedLightDir , unitVectorToCamera);
-		//specularFactor = max(specularFactor,0.0);
-		//float dampedFactor = pow(specularFactor,shineDamper);
-		//vec3 specular = dampedFactor * reflectivity * lightColor[i];
-
-		float distance = length(toLightVector[i]);
-		float attenuationFactor = lightAttenuation[i].x + (lightAttenuation[i].y * distance) + (lightAttenuation[i].z * distance * distance);
-	
-		totalDiffuse = totalDiffuse + diffuse/attenuationFactor;
-		//totalSpec = totalSpec + specular/attenuationFactor;
-	}
-	totalDiffuse = max(totalDiffuse, 0.2);
-	
-	// out_Color =  vec4(totalDiffuse,1.0) * vec4(terrainColor,1.0);// + vec4(totalSpec,1.0);
-	out_Color = vec4(surfaceNormal,1.0);
+	float distance = length(lightPosition[0] - FragPos);
+	float attenuationFactor = lightAttenuation[0].x + (lightAttenuation[0].y * distance) + (lightAttenuation[0].z * distance * distance);
+        
+    vec3 result = (ambient + (diffuse + specular)/attenuationFactor) * vec3(1,1,0);
+    out_Color = vec4(result, 1.0f);
 }
