@@ -34,6 +34,6 @@ void main()
 	surfaceNormal = mat3(transpose(inverse(model))) * normal;
 	viewPos = (inverse(view) * vec4(0.0,0.0,0.0,1.0)).xyz;
 
-    FragPos = vec3(model * vec4(position, 1.0f));
+    FragPos = vec3(worldPosition);
 	
 }
