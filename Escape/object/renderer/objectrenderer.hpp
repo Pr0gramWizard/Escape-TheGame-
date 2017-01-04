@@ -31,5 +31,6 @@ public:
 	void stopShader();
 
 private:
+	std::list<Object> mObjects;
 	ObjectShader* mShader;
 };

@@ -11,6 +11,8 @@
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 
+#include "../object/shader/objectshader.hpp"
+
 
 struct Vertex {
 	// Position
@@ -39,7 +41,7 @@ public:
 	Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures);
 
 	// Render the mesh
-	void Draw();
+	void Draw(ObjectShader shader);
 
 private:
 	/*  Render data  */

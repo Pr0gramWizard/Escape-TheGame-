@@ -295,6 +295,12 @@
     <None Include="shaders\lake.vert">
       <Filter>Shader\Vertex</Filter>
     </None>
+    <None Include="shaders\object.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="shaders\object.vert">
+      <Filter>Shader\Vertex</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\res\blacktest.png">

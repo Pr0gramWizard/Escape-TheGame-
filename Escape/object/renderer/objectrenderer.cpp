@@ -9,14 +9,18 @@ ObjectRenderer::ObjectRenderer(ObjectShader* pShader, glm::mat4 pProjectionMatri
 	mShader->unuse();
 }
 
-void ObjectRenderer::render(Object & pObject)
+void ObjectRenderer::render(Object &pObject)
 {
-
 }
 
-void ObjectRenderer::loadModelMatrix(Object pEntity)
+void ObjectRenderer::loadModelMatrix(Object pObject)
 {
-	// mShader->loadModelMatrix(pEntity.getModelMatrix());
+	mShader->loadModelMatrix(pObject.getModelMatrix());
+}
+
+void ObjectRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
+{
+	mShader->loadViewMatrix(pViewMatrix);
 }
 
 void ObjectRenderer::startShader()

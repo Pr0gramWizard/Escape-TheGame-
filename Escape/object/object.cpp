@@ -7,10 +7,25 @@ Object::Object(GLchar * path)
 	this->loadObject(path);
 }
 
-void Object::Draw()
+void Object::Draw(ObjectShader shader)
 {
 	for (GLuint i = 0; i < this->meshes.size(); i++)
-		this->meshes[i].Draw();
+		this->meshes[i].Draw(shader);
+}
+
+glm::vec3 Object::getPosition() const
+{
+	return mPosition;
+}
+
+void Object::setPosition(glm::vec3 pPosition)
+{
+	mPosition = pPosition;
+}
+
+glm::mat4 Object::getModelMatrix() const
+{
+	return Math::getTransformationMatrix(this->getPosition(), 0, 0, 0, 1);
 }
 
 void Object::loadObject(string path)
@@ -60,6 +75,7 @@ Mesh Object::processMesh(aiMesh * mesh, const aiScene * scene)
 	for (GLuint i = 0; i < mesh->mNumVertices; i++)
 	{
 		Vertex vertex;
+		std::cout << "hi" << std::endl;
 		glm::vec3 vector; // We declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
 						  // Positions
 		vector.x = mesh->mVertices[i].x;

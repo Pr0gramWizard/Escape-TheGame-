@@ -78,8 +78,6 @@ bool Game::gameLoop()
 	Lake* lake = new Lake(0, -3.5, 0, 20, 50, "Lake", loader);
 	//**** END LAKE STUFF ****
 
-	Object("object/res/nanosuit.obj");
-
 	std::vector<GLfloat> Vertices =
 	{
 		0.5f,0.5f,

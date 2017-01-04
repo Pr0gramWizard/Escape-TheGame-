@@ -78,6 +78,8 @@
     <None Include="shaders\b.vert" />
     <None Include="shaders\lake.frag" />
     <None Include="shaders\lake.vert" />
+    <None Include="shaders\object.frag" />
+    <None Include="shaders\object.vert" />
     <None Include="shaders\terrain.frag" />
     <None Include="shaders\terrain.vert" />
     <None Include="shaders\worldShader.frag" />

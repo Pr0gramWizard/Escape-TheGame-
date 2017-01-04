@@ -10,7 +10,7 @@ ObjectShader::ObjectShader(const std::string& pVertexShaderFilePath, const std::
 	this->bindAllAttributes();
 
 	// Log Shader
-	std::clog << "Shader class was created successfully!" << std::endl;
+	std::clog << "Object Shader class was created successfully!" << std::endl;
 }
 
 // Compilation of the vertex and fragment shader 
@@ -28,7 +28,7 @@ void ObjectShader::createShader(const std::string& pVertexShaderFilePath, const 
 	else
 	{
 		// Success message
-		std::clog << "Vertex shader created successfully! " << std::endl;
+		std::clog << "Object Vertex shader created successfully! " << std::endl;
 	}
 
 	// Then we create a FRAGEMENT SHADER
@@ -42,7 +42,7 @@ void ObjectShader::createShader(const std::string& pVertexShaderFilePath, const 
 	else
 	{
 		// Success message
-		std::clog << "Fragment shader created successfully! " << std::endl;
+		std::clog << "Object Fragment shader created successfully! " << std::endl;
 	}
 
 	// Compling both shader (using private class functions)

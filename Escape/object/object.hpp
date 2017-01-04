@@ -17,6 +17,7 @@ using namespace std;
 #include <postprocess.h>
 
 #include "../mesh/mesh.hpp"
+#include "../math/math.hpp"
 
 GLint TextureFromFile(const char* path, string directory);
 
@@ -28,10 +29,19 @@ public:
 	Object(GLchar* path);
 
 	// Draws the Object, and thus all its meshes
-	void Draw();
+	void Draw(ObjectShader shader);
+
+	// Getter
+	glm::vec3 getPosition() const;
+
+	// Setter
+	void setPosition(glm::vec3 pPosition);
+
+	glm::mat4 getModelMatrix() const;
 
 private:
 	/*  Object Data  */
+	glm::vec3 mPosition;
 	vector<Mesh> meshes;
 	string directory;
 	vector<Texture> textures_loaded;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
