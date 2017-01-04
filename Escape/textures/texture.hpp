@@ -23,12 +23,12 @@ enum MinificationMode {
 };
 
 // Declaration of the Texture class
-class Texture {
+class Texture2D {
 // All public member of the class
 public:
 
 	// Default Constructor
-	Texture(const char* pTextureName, const char* pFilePath);
+	Texture2D(const char* pTextureName, const char* pFilePath);
 	// Load the Texture into the Texture Object
 	bool loadTexture2D(bool pGenerateMipMaps = false);
 	// Binds the Texture to a given Object

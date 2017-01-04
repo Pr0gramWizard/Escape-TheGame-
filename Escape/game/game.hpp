@@ -37,6 +37,9 @@
 #include "../terrain/renderer/terrainRenderer.hpp"
 #include "../lake/renderer/lakeRenderer.hpp"
 #include "../renderer/mainrenderer.hpp"
+// ObjectLoader
+#include "../object/object.hpp"
+#include "../object/renderer/objectrenderer.hpp"
 // Math class
 #include "../math/math.hpp"
 // Lake class

@@ -6,7 +6,6 @@
 #include <iostream>
 #include <vector>
 #include <Importer.hpp>
-#include "shader/meshshader.hpp"
 // GL Includes
 #include <glew.h> // Contains all the necessery OpenGL includes
 #include <glm.hpp>
@@ -40,7 +39,7 @@ public:
 	Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures);
 
 	// Render the mesh
-	void Draw(MeshShader pShader);
+	void Draw();
 
 private:
 	/*  Render data  */

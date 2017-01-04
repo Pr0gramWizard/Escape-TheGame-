@@ -97,14 +97,14 @@
     <Filter Include="Mesh">
       <UniqueIdentifier>{0c70c59b-b2cd-445d-be99-e702db7bd253}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Mesh\Shader">
-      <UniqueIdentifier>{655f744f-efe7-42de-bed2-0ff0d3844e67}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mesh\Renderer">
-      <UniqueIdentifier>{37196d78-ea15-4075-9e16-337c533a4214}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{9af25994-5233-4ede-9caf-cdc9a48b1b8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\shader">
+      <UniqueIdentifier>{1bcb0ec5-675c-416b-b41f-1b9ea5b71da5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\renderer">
+      <UniqueIdentifier>{17cb4392-a8c1-472e-8565-079d7ae9e735}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -174,14 +174,14 @@
     <ClCompile Include="mesh\mesh.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="mesh\shader\meshshader.cpp">
-      <Filter>Mesh\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="mesh\renderer\meshrenderer.cpp">
-      <Filter>Mesh\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="object\object.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="object\shader\objectshader.cpp">
+      <Filter>Object\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="object\renderer\objectrenderer.cpp">
+      <Filter>Object\renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -248,14 +248,14 @@
     <ClInclude Include="mesh\mesh.hpp">
       <Filter>Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="mesh\shader\meshshader.hpp">
-      <Filter>Mesh\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="mesh\renderer\meshrenderer.h">
-      <Filter>Mesh\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="object\object.hpp">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="object\shader\objectshader.hpp">
+      <Filter>Object\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="object\renderer\objectrenderer.hpp">
+      <Filter>Object\renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

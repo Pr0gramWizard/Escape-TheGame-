@@ -1,6 +1,6 @@
 #include "texture.hpp"
 
-Texture::Texture(const char* pTextureName, const char* pFilePath)
+Texture2D::Texture2D(const char* pTextureName, const char* pFilePath)
 {
 	mFilePath = pFilePath;
 	mTextureName = pTextureName;
@@ -8,7 +8,7 @@ Texture::Texture(const char* pTextureName, const char* pFilePath)
 	std::cout << "It is located at: " << mFilePath << std::endl;
 }
 
-bool Texture::loadTexture2D(bool pGenerateMipMaps)
+bool Texture2D::loadTexture2D(bool pGenerateMipMaps)
 {
 	// Loading the image with SOIL
 	unsigned char* image = SOIL_load_image(mFilePath, &mTextureWidth, &mTextureHeight, 0, SOIL_LOAD_RGB);
@@ -42,14 +42,14 @@ bool Texture::loadTexture2D(bool pGenerateMipMaps)
 	return 0;
 }
 
-void Texture::bind(int pTextureUnit)
+void Texture2D::bind(int pTextureUnit)
 {
 	glActiveTexture(GL_TEXTURE0 + pTextureUnit);
 	glBindTexture(GL_TEXTURE_2D, mTextureID);
 	glBindSampler(pTextureUnit, mSamplerID);
 }
 
-void Texture::setFiltering(int pMagnification, int pMinification)
+void Texture2D::setFiltering(int pMagnification, int pMinification)
 {
 	// Set magnification filter
 	if (pMagnification == TEXTURE_FILTER_MAG_NEAREST)
@@ -73,17 +73,17 @@ void Texture::setFiltering(int pMagnification, int pMinification)
 	mMagnification = pMagnification;
 }
 
-int Texture::getMagnification() const
+int Texture2D::getMagnification() const
 {
 	return mMagnification;
 }
 
-int Texture::getMinification() const
+int Texture2D::getMinification() const
 {
 	return mMinification;
 }
 
-void Texture::unbind()
+void Texture2D::unbind()
 {
 	glDeleteSamplers(1, &mSamplerID);
 	glDeleteTextures(1, &mTextureID);

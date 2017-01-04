@@ -34,10 +34,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\math.cpp" />
     <ClCompile Include="mesh\mesh.cpp" />
-    <ClCompile Include="mesh\renderer\meshrenderer.cpp" />
-    <ClCompile Include="mesh\shader\meshshader.cpp" />
     <ClCompile Include="model\model.cpp" />
     <ClCompile Include="object\object.cpp" />
+    <ClCompile Include="object\renderer\objectrenderer.cpp" />
+    <ClCompile Include="object\shader\objectshader.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="renderer\mainrenderer.cpp" />
     <ClCompile Include="terrain\renderer\terrainRenderer.cpp" />
@@ -60,10 +60,10 @@
     <ClInclude Include="loader\loader.hpp" />
     <ClInclude Include="math\math.hpp" />
     <ClInclude Include="mesh\mesh.hpp" />
-    <ClInclude Include="mesh\renderer\meshrenderer.h" />
-    <ClInclude Include="mesh\shader\meshshader.hpp" />
     <ClInclude Include="model\model.hpp" />
     <ClInclude Include="object\object.hpp" />
+    <ClInclude Include="object\renderer\objectrenderer.hpp" />
+    <ClInclude Include="object\shader\objectshader.hpp" />
     <ClInclude Include="player\player.hpp" />
     <ClInclude Include="renderer\mainrenderer.hpp" />
     <ClInclude Include="terrain\renderer\terrainRenderer.hpp" />
