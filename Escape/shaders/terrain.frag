@@ -34,7 +34,7 @@ void main()
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
     vec3 specular = specularStrength * spec * lightColor[0];  
 
-	float distance = length(lightPosition[0] - FragPos);
+	float distance = length(FragPos - lightPosition[0]);
 	float attenuationFactor = lightAttenuation[0].x + (lightAttenuation[0].y * distance) + (lightAttenuation[0].z * distance * distance);
         
     vec3 result = (ambient + (diffuse + specular)/attenuationFactor) * vec3(1,1,0);
