@@ -17,28 +17,14 @@ class ObjectRenderer
 {
 public:
 	// constructor
-	ObjectRenderer(EntityShader* pShader, glm::mat4 pProjectionMatrix);
-	// destructor
-	~ObjectRenderer();
+	ObjectRenderer(ObjectShader* pShader, glm::mat4 pProjectionMatrix);
 
 	// render methods
-	void render(list<Entity> pEntities);
-	void render(list<Entity> pEntities, RenderMode pMode);
-	void render(Entity &pEntity);
-
-	// methods that get called before the acutal rendering
-	void prepareEntity(Entity pEntity);
-	void prepareEntity(Entity* pEntity);
-
-	// unbinding all terrains
-	void unbindEntity();
+	void render(Object &pObject);
 
 	// load model matrix for a terrain into the shader
-	void loadModelMatrix(Entity pEntity);
-	void loadModelMatrix(Entity* pEntity);
+	void loadModelMatrix(Object pObject);
 	void loadViewMatrix(glm::mat4 pViewMatrix);
-	void loadLight(Light *pLight);
-	void loadClipPlane(glm::vec4 pClipPlane);
 
 	// use or unuse the shader
 	void startShader();
