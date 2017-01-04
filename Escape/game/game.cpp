@@ -141,11 +141,11 @@ bool Game::gameLoop()
 		mRenderer->render(mPlayer->getViewMatrix(), glm::vec4(0, -1, 0, 10000));
 
 		// render water
-		lake->updateHeights();
+		/*lake->updateHeights();
 		lakerenderer->startShader();
 		lakerenderer->loadViewMatrix(mPlayer->getViewMatrix());
 		lakerenderer->render(*lake);
-		lakerenderer->stopShader();
+		lakerenderer->stopShader();*/
 
 		
 		objectrender->startShader();
