@@ -127,7 +127,7 @@ bool Game::gameLoop()
 
 		// refraction
 		lfbos->bindRefractionFrameBuffer();
-		mRenderer->render(mPlayer->getViewMatrix(), glm::vec4(0, -1, 0, lake->getWorldY() + 0.3));
+		mRenderer->render(mPlayer->getViewMatrix(), glm::vec4(0, -1, 0, lake->getWorldY() + 0.4));
 
 		// actual rendering
 		glDisable(GL_CLIP_DISTANCE0);
