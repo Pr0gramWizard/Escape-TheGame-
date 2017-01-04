@@ -9,13 +9,27 @@ ObjectRenderer::ObjectRenderer(ObjectShader* pShader, glm::mat4 pProjectionMatri
 	mShader->unuse();
 }
 
-void ObjectRenderer::render(Object &pObject)
+void ObjectRenderer::render()
 {
+	for (Object* pObject : mObjects)
+	{
+		pObject->Draw(mShader);
+	}
 }
 
-void ObjectRenderer::loadModelMatrix(Object pObject)
+void ObjectRenderer::loadModelMatrix(Object* pObject)
 {
-	mShader->loadModelMatrix(pObject.getModelMatrix());
+	mShader->loadModelMatrix(pObject->getModelMatrix());
+}
+
+void ObjectRenderer::addToList(Object* pObject)
+{
+	mObjects.push_back(pObject);
+}
+
+void ObjectRenderer::cleanUp()
+{
+	mObjects.clear();
 }
 
 void ObjectRenderer::loadViewMatrix(glm::mat4 pViewMatrix)

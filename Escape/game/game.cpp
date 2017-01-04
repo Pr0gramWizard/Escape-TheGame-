@@ -78,6 +78,10 @@ bool Game::gameLoop()
 	Lake* lake = new Lake(0, -3.5, 0, 20, 50, "Lake", loader);
 	//**** END LAKE STUFF ****
 
+	Object* Nano = new Object("object/res/nanosuit.obj");
+	ObjectShader* objectshader = new ObjectShader("shaders/object.vert", "shaders/object.frag");
+	ObjectRenderer* objectrender = new ObjectRenderer(objectshader, mPlayer->getProjectionMatrix());
+
 	std::vector<GLfloat> Vertices =
 	{
 		0.5f,0.5f,
@@ -110,6 +114,9 @@ bool Game::gameLoop()
 
 		mPlayer->move(&terrain, deltaTime);
 
+
+
+
 		glEnable(GL_CLIP_DISTANCE0);
 		
 		// reflection
@@ -139,6 +146,14 @@ bool Game::gameLoop()
 		lakerenderer->render(*lake);
 		lakerenderer->stopShader();
 
+		/*
+		objectrender->startShader();
+		objectrender->loadModelMatrix(Nano);
+		objectrender->loadViewMatrix(mPlayer->getViewMatrix());
+		objectrender->addToList(Nano);
+		objectrender->render();
+		objectrender->stopShader();
+		*/
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
 		

@@ -7,7 +7,7 @@ Object::Object(GLchar * path)
 	this->loadObject(path);
 }
 
-void Object::Draw(ObjectShader shader)
+void Object::Draw(ObjectShader* shader)
 {
 	for (GLuint i = 0; i < this->meshes.size(); i++)
 		this->meshes[i].Draw(shader);
@@ -75,7 +75,6 @@ Mesh Object::processMesh(aiMesh * mesh, const aiScene * scene)
 	for (GLuint i = 0; i < mesh->mNumVertices; i++)
 	{
 		Vertex vertex;
-		std::cout << "hi" << std::endl;
 		glm::vec3 vector; // We declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
 						  // Positions
 		vector.x = mesh->mVertices[i].x;

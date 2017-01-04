@@ -20,10 +20,16 @@ public:
 	ObjectRenderer(ObjectShader* pShader, glm::mat4 pProjectionMatrix);
 
 	// render methods
-	void render(Object &pObject);
+	void render();
+
+	// Add to List
+	void addToList(Object* pObject);
+
+	// Clean List
+	void cleanUp();
 
 	// load model matrix for a terrain into the shader
-	void loadModelMatrix(Object pObject);
+	void loadModelMatrix(Object* pObject);
 	void loadViewMatrix(glm::mat4 pViewMatrix);
 
 	// use or unuse the shader
@@ -31,6 +37,6 @@ public:
 	void stopShader();
 
 private:
-	std::list<Object> mObjects;
+	std::list<Object*> mObjects;
 	ObjectShader* mShader;
 };

@@ -29,7 +29,7 @@ public:
 	Object(GLchar* path);
 
 	// Draws the Object, and thus all its meshes
-	void Draw(ObjectShader shader);
+	void Draw(ObjectShader* shader);
 
 	// Getter
 	glm::vec3 getPosition() const;
