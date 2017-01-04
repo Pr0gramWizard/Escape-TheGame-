@@ -79,7 +79,8 @@ bool Game::gameLoop()
 	//**** END LAKE STUFF ****
 
 	// Object* Nano = new Object("object/res/nanosuit/nanosuit.obj");
-	Object* Cube = new Object("object/res/sphere/Alpha.obj",glm::vec3(16 ,terrain.getHeight(16, 78), 77));
+	Object* Sphere = new Object("object/res/sphere/Alpha.obj",glm::vec3(16 ,terrain.getHeight(16, 78), 77));
+	Object* Cube = new Object("object/res/cube/cube.obj", glm::vec3(0, 1, 0));
 	ObjectShader* objectshader = new ObjectShader("shaders/object.vert", "shaders/object.frag");
 	ObjectRenderer* objectrender = new ObjectRenderer(objectshader, mPlayer->getProjectionMatrix());
 
@@ -143,9 +144,11 @@ bool Game::gameLoop()
 
 		
 		objectrender->startShader();
+		// objectrender->loadModelMatrix(Sphere);
+		// objectrender->addToList(Sphere);
 		objectrender->loadModelMatrix(Cube);
-		objectrender->loadViewMatrix(mPlayer->getViewMatrix());
 		objectrender->addToList(Cube);
+		objectrender->loadViewMatrix(mPlayer->getViewMatrix());
 		objectrender->render();
 		objectrender->stopShader();
 		
@@ -155,7 +158,7 @@ bool Game::gameLoop()
 
 	}
 	// delete Nano;
-	delete Cube;
+	delete Sphere;
 	delete objectshader;
 	delete objectrender;
 	loader->cleanUp();
