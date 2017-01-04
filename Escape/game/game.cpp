@@ -83,17 +83,6 @@ bool Game::gameLoop()
 	ObjectShader* objectshader = new ObjectShader("shaders/object.vert", "shaders/object.frag");
 	ObjectRenderer* objectrender = new ObjectRenderer(objectshader, mPlayer->getProjectionMatrix());
 
-	std::vector<GLfloat> Vertices =
-	{
-		0.5f,0.5f,
-		-0.5f, 0.5f,
-		-0.5f, -0.5f,
-		-0.5f, -0.5f,
-		0.5f, -0.5f,
-		0.5f, 0.5f,
-	};
-
-
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
 	{
