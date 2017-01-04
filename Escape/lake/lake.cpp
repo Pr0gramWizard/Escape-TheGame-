@@ -14,6 +14,7 @@ Lake::Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices,
 	this->initLake(pLoader);
 	this->setModel(&this->generateLake(pLoader));
 	mPosVbo = pLoader->getLastVbos().y;
+	mNormalVbo = pLoader->getLastVbos().z;
 }
 
 Lake::~Lake()
@@ -98,6 +99,7 @@ void Lake::initLake(Loader * loader)
 	mVelocity = vector<float>(mVertices * mVertices, 0.0f);
 	mHeights = vector<float>(mVertices * mVertices, this->getWorldY());
 	mVaryingPositions = vector<float>(mVertices * mVertices * 3, 0.0f);
+	mVaryingNormals = vector<float>(mVertices * mVertices * 3, 0.0f);
 
 	int half = (int)(mVertices / 2.0f);
 
@@ -123,7 +125,6 @@ Model Lake::generateLake(Loader * loader)
 	// set grid size
 	mGridSize = (float)Lake::LAKE_SIZE / (mVertices - 1);
 	int count = mVertices * mVertices;
-	std::vector<float> normals(count * 3);
 	std::vector<float> textureCoords(count * 2);
 	std::vector<int> indices(6 * (mVertices - 1)*(mVertices - 1));
 	int vertexPointer = 0;
@@ -132,9 +133,9 @@ Model Lake::generateLake(Loader * loader)
 			mVaryingPositions[vertexPointer * 3] = (float)x / ((float)mVertices - 1) * Lake::LAKE_SIZE;
 			mVaryingPositions[vertexPointer * 3 + 1] = this->getVertexHeight(x, z);
 			mVaryingPositions[vertexPointer * 3 + 2] = (float)z / ((float)mVertices - 1) * Lake::LAKE_SIZE;
-			normals[vertexPointer * 3] = 0;
-			normals[vertexPointer * 3 + 1] = 1;
-			normals[vertexPointer * 3 + 2] = 0;
+			mVaryingNormals[vertexPointer * 3] = 0;
+			mVaryingNormals[vertexPointer * 3 + 1] = 1;
+			mVaryingNormals[vertexPointer * 3 + 2] = 0;
 			textureCoords[vertexPointer * 2] = (float)x / ((float)mVertices - 1);
 			textureCoords[vertexPointer * 2 + 1] = (float)z / ((float)mVertices - 1);
 			vertexPointer++;
@@ -156,7 +157,7 @@ Model Lake::generateLake(Loader * loader)
 		}
 	}
 
-	return loader->loadDataToVao(mVaryingPositions, textureCoords, normals, indices);
+	return loader->loadDataToVao(mVaryingPositions, textureCoords, mVaryingNormals, indices);
 }
 
 void Lake::updateVelocities()
@@ -169,11 +170,37 @@ void Lake::updateVelocities()
 	}
 }
 
+void Lake::updateNormals()
+{
+	int vertexPointer = 0;
+	// update the normals
+	float hL, hR, hD, hU;
+	for (int z = 1;z < mVertices - 1;z++) {
+		for (int x = 1;x < mVertices - 1;x++) {
+
+			hL = mHeights[z * mVertices + (x - 1)]; // this->getVertexHeight(x - 1, z);
+			hR = mHeights[z * mVertices + (x + 1)]; //this->getVertexHeight(x + 1, z);
+			hD = mHeights[(z - 1) * mVertices + x]; //this->getVertexHeight(x, z - 1);
+			hU = mHeights[(z + 1) * mVertices + x]; //this->getVertexHeight(x, z + 1);
+
+			// deduce terrain normal
+			glm::vec3 normal = glm::normalize(glm::vec3(hL - hR, 2.0f, hD - hU));
+			mVaryingNormals[vertexPointer * 3] = normal.x;
+			mVaryingNormals[vertexPointer * 3 + 1] = normal.y;
+			mVaryingNormals[vertexPointer * 3 + 2] = normal.z;
+			vertexPointer++;
+		}
+	}
+}
+
 void Lake::updatePositionVBO()
 {
 	// update position vbo
 	glBindBuffer(GL_ARRAY_BUFFER, mPosVbo);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, mVaryingPositions.size() * sizeof(float), &mVaryingPositions[0]);
+	// update normal vbo
+	glBindBuffer(GL_ARRAY_BUFFER, mNormalVbo);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, mVaryingNormals.size() * sizeof(float), &mVaryingNormals[0]);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
@@ -190,5 +217,6 @@ void Lake::updateHeights()
 			vertexPointer++;
 		}
 	}
+	this->updateNormals();
 	this->updatePositionVBO();
 }
