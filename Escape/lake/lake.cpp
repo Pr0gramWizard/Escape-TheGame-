@@ -99,13 +99,13 @@ void Lake::initLake(Loader * loader)
 	mHeights = vector<float>(mVertices * mVertices, this->getWorldY());
 	mVaryingPositions = vector<float>(mVertices * mVertices * 3, 0.0f);
 
-	/*int half = (int)(mVertices / 2.0f);
+	int half = (int)(mVertices / 2.0f);
 
-	mHeights[mVertices] = 3;
-	mHeights[mVertices - 1] = 2;
-	mHeights[mVertices * 2] = 2;
+	mHeights[half * mVertices + half] = 5;
+	mHeights[half * mVertices + half - 1] = 4;
+	mHeights[half * mVertices + half + 1] = 4;
 
-	mVelocity[mVertices] = 20;
+	/*mVelocity[mVertices] = 20;
 	mVelocity[2 * mVertices] = 15;
 	mVelocity[mVertices - 1] = 15;
 	mVelocity[mVertices - 2] = 10;
@@ -161,8 +161,8 @@ Model Lake::generateLake(Loader * loader)
 
 void Lake::updateVelocities()
 {
-	for (int z = 0;z < mVertices;z++) {
-		for (int x = 0;x < mVertices;x++) {
+	for (int z = 1;z < mVertices - 1;z++) {
+		for (int x = 1;x < mVertices - 1;x++) {
 			mVelocity[z * mVertices + x] += (this->getVertexHeight(x - 1, z) + this->getVertexHeight(x + 1, z) + this->getVertexHeight(x, z - 1) + this->getVertexHeight(x, z + 1)) / 4 - this->getVertexHeight(x, z);
 			mVelocity[z * mVertices + x] *= 0.99f;
 		}
@@ -182,8 +182,8 @@ void Lake::updateHeights()
 	this->updateVelocities();
 	int vertexPointer = 0;
 	// update the heights
-	for (int z = 0;z < mVertices;z++) {
-		for (int x = 0;x < mVertices;x++) {
+	for (int z = 1;z < mVertices -1;z++) {
+		for (int x = 1;x < mVertices - 1;x++) {
 			mHeights[z * mVertices + x] += mVelocity[z * mVertices + x];
 			// update vertices
 			mVaryingPositions[vertexPointer * 3 + 1] = mHeights[z * mVertices + x];
