@@ -152,7 +152,7 @@ bool Game::gameLoop()
 
 		// render water
 		lake->updateHeights();
-		lakerenderer->render(mPlayer->getViewMatrix(), *lake);
+		lakerenderer->render(mPlayer->getViewMatrix(), *lake, lights);
 
 		
 		/*
