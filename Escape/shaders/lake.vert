@@ -13,9 +13,8 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 uniform vec3 lightPosition[4];
-
-const float density = 0.01;
-const float gradient = 1.5;
+uniform float fogDensity;
+uniform float fogGradient;
 
 void main()
 {
@@ -29,7 +28,7 @@ void main()
 	lakeNormal = mat3(transpose(inverse(model))) * normal;
 
 	float distance = length((view * worldPosition).xyz);
-	visibility = exp(-pow((distance * density), gradient));
+	visibility = exp(-pow((distance * fogDensity), fogGradient));
 	visibility = clamp(visibility, 0.0, 1.0);
 
     gl_Position = clipSpace;

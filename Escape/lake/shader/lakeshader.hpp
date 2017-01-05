@@ -59,6 +59,9 @@ public:
 	void loadProjectionMatrix(glm::mat4 pMatrix);
 	void loadViewMatrix(glm::mat4 pMatrix);
 	void loadLights(vector<Light*> pLights);
+	void loadFogData(GLfloat pDensity, GLfloat pGradient);
+	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
+	void loadNearFar(GLfloat pNear, GLfloat pFar);
 
 	// connect texture units
 	void connectTextureUnits();
@@ -83,6 +86,11 @@ private:
 	GLuint mLocation_reflectionTexture;
 	GLuint mLocation_refractionTexture;
 	GLuint mLocation_depthMap;
+	GLuint mLocation_fogDensity;
+	GLuint mLocation_fogGradient;
+	GLuint mLocation_backgroundColor;
+	GLuint mLocation_near;
+	GLuint mLocation_far;
 
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);

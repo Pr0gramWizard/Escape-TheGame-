@@ -8,6 +8,8 @@ LakeRenderer::LakeRenderer(LakeShader * pShader, glm::mat4 pProjectionMatrix, La
 	mShader->use();
 	mShader->connectTextureUnits();
 	mShader->loadProjectionMatrix(pProjectionMatrix);
+	// use camera values instead!!
+	mShader->loadNearFar(0.1f, 1000.0f);
 	mShader->unuse();
 }
 
@@ -22,6 +24,9 @@ void LakeRenderer::render(glm::mat4 pViewMatrix, Lake &pLake, vector<Light*> pLi
 	this->startShader();
 	this->loadViewMatrix(pViewMatrix);
 	this->loadLights(pLights);
+	this->loadFogData(0.01f, 1.5f);
+	// put those variables in static ones!!
+	this->loadBackgroundColor(0.2f, 0.3f, 0.3f);
 	prepareLake(&pLake);
 	loadModelMatrix(&pLake);
 	glDrawElements(GL_TRIANGLES, pLake.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
@@ -99,6 +104,21 @@ void LakeRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
 void LakeRenderer::loadLights(vector<Light*> pLights)
 {
 	mShader->loadLights(pLights);
+}
+
+void LakeRenderer::loadFogData(GLfloat pDensity, GLfloat pGradient)
+{
+	mShader->loadFogData(pDensity, pGradient);
+}
+
+void LakeRenderer::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue)
+{
+	mShader->loadBackgroundColor(pRed, pGreen, pBlue);
+}
+
+void LakeRenderer::loadNearFar(GLfloat pNear, GLfloat pFar)
+{
+	mShader->loadNearFar(pNear, pFar);
 }
 
 void LakeRenderer::startShader()

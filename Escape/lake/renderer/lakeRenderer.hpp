@@ -42,6 +42,9 @@ public:
 	void loadModelMatrix(Lake* pLake);
 	void loadViewMatrix(glm::mat4 pViewMatrix);
 	void loadLights(vector<Light*> pLights);
+	void loadFogData(GLfloat pDensity, GLfloat pGradient);
+	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
+	void loadNearFar(GLfloat pNear, GLfloat pFar);
 
 	// use or unuse the shader
 	void startShader();

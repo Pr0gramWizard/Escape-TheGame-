@@ -14,16 +14,13 @@ uniform sampler2D refractionTexture;
 uniform sampler2D depthMap;
 uniform vec3 lightColor[4];
 uniform vec3 lightAttenuation[4];
+uniform vec3 backgroundColor;
+uniform float near;
+uniform float far;
 
 const float refactiveExponent = 2.0;
-
 const float shineDamper = 20.0;
 const float reflectivity = 0.6;
-
-// load as uniforms!
-const float near = 0.1;
-const float far = 1000.0;
-const vec3 skyColor = vec3(0.2f, 0.3f, 0.3f);
 
 void main()
 {
@@ -64,6 +61,6 @@ void main()
 
 	color = mix(reflectColor, refractColor, refractiveFactor);
 	color =  mix(color, vec4(0,0,1,0), 0.2) + vec4(specularHighlights, 0.0);
-	color = mix(vec4(skyColor, 1.0) , color, visibility);
+	color = mix(vec4(backgroundColor, 1.0) , color, visibility);
 	color.a = clamp(lakeDepth/2.0, 0.0, 1.0);
 }

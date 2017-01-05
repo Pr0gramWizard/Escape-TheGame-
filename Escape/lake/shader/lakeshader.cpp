@@ -353,6 +353,23 @@ void LakeShader::loadLights(vector<Light*> pLights)
 
 }
 
+void LakeShader::loadFogData(GLfloat pDensity, GLfloat pGradient)
+{
+	this->loadFloat(mLocation_fogDensity, pDensity);
+	this->loadFloat(mLocation_fogGradient, pGradient);
+}
+
+void LakeShader::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue)
+{
+	this->loadVector(mLocation_backgroundColor, glm::vec3(pRed, pGreen, pBlue));
+}
+
+void LakeShader::loadNearFar(GLfloat pNear, GLfloat pFar)
+{
+	this->loadFloat(mLocation_near, pNear);
+	this->loadFloat(mLocation_far, pFar);
+}
+
 void LakeShader::connectTextureUnits()
 {
 	this->loadInt(mLocation_reflectionTexture, 0);
@@ -375,6 +392,11 @@ void LakeShader::getAllUniformLocations()
 	mLocation_reflectionTexture = glGetUniformLocation(getProgramID(), "reflectionTexture");
 	mLocation_refractionTexture = glGetUniformLocation(getProgramID(), "refractionTexture");
 	mLocation_depthMap = glGetUniformLocation(getProgramID(), "depthMap");
+	mLocation_fogDensity = glGetUniformLocation(getProgramID(), "fogDensity");
+	mLocation_fogGradient = glGetUniformLocation(getProgramID(), "fogGradient");
+	mLocation_backgroundColor = glGetUniformLocation(getProgramID(), "backgroundColor");
+	mLocation_near = glGetUniformLocation(getProgramID(), "near");
+    mLocation_far = glGetUniformLocation(getProgramID(), "far");
 	// Light locations
 	const char* lightPos[] = {
 		"lightPosition[0]",
