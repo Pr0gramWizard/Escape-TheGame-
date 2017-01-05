@@ -52,7 +52,7 @@ public:
 	// prepares for rendering
 	void prepare();
 	// render
-	void render(glm::mat4 pViewMatrix, glm::vec4 pClipPlane);
+	void render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::vec4 pClipPlane);
 	// clears the render lists
 	void clearLists();
 
