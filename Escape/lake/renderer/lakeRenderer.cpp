@@ -17,12 +17,16 @@ LakeRenderer::~LakeRenderer()
 }
 
 // renders a single Lake
-void LakeRenderer::render(Lake &pLake)
+void LakeRenderer::render(glm::mat4 pViewMatrix, Lake &pLake, vector<Light*> pLights)
 {
+	this->startShader();
+	this->loadViewMatrix(pViewMatrix);
+	this->loadLights(pLights);
 	prepareLake(&pLake);
 	loadModelMatrix(&pLake);
 	glDrawElements(GL_TRIANGLES, pLake.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 	unbindLake();
+	this->stopShader();
 }
 
 

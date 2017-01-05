@@ -87,9 +87,9 @@ void EntityRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
 	mShader->loadViewMatrix(pViewMatrix);
 }
 
-void EntityRenderer::loadLight(Light *pLight)
+void EntityRenderer::loadLights(vector<Light*> pLights)
 {
-	mShader->loadLight(pLight);
+	mShader->loadLights(pLights);
 }
 
 void EntityRenderer::loadClipPlane(glm::vec4 pClipPlane)

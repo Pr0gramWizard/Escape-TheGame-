@@ -20,6 +20,9 @@
 // Light class
 #include "../../light/light.hpp"
 
+#define MAX_LIGHTS 6
+
+using namespace std;
 
 // Defintion of the class Shader
 class EntityShader
@@ -56,7 +59,7 @@ public:
 	void loadModelMatrix(glm::mat4 pMatrix);
 	void loadProjectionMatrix(glm::mat4 pMatrix);
 	void loadViewMatrix(glm::mat4 pMatrix);
-	void loadLight(Light *pLight);
+	void loadLights(vector<Light*> pLights);
 	void loadPlane(glm::vec4 pVector);
 
 	// Destructor
@@ -73,9 +76,9 @@ private:
 	GLuint mLocation_modelMatrix;
 	GLuint mLocation_projectionMatrix;
 	GLuint mLocation_viewMatrix;
-	GLuint mLocation_lightPosition;
-	GLuint mLocation_lightColor;
-	GLuint mLocation_lightAttenuation;
+	GLuint mLocation_lightPosition[MAX_LIGHTS];
+	GLuint mLocation_lightColor[MAX_LIGHTS];
+	GLuint mLocation_lightAttenuation[MAX_LIGHTS];
 	GLuint mLocation_plane;
 
 private:

@@ -350,7 +350,6 @@ void TerrainShader::loadLights(vector<Light*> pLights)
 			loadVector(mLocation_lightAttenuation[i], glm::vec3(1, 0, 0));
 		}
 	}
-	
 }
 
 void TerrainShader::loadPlane(glm::vec4 pVector)

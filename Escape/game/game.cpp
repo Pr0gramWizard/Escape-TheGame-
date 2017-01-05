@@ -84,6 +84,21 @@ bool Game::gameLoop()
 	ObjectShader* objectshader = new ObjectShader("shaders/object.vert", "shaders/object.frag");
 	ObjectRenderer* objectrender = new ObjectRenderer(objectshader, mPlayer->getProjectionMatrix());
 
+	//**** LIGHT STUFF ****
+	//Light* sun = new Light(glm::vec3(250, 1, 250), glm::vec3(1, 1, 0), glm::vec3(1, 0.01, 0.002));
+	Light* sun = new Light(glm::vec3(0, 1, 0), glm::vec3(0.4f, 0.4f, 0.4f));
+	Light* sun2 = new Light(glm::vec3(500, 20, 0), glm::vec3(1.0f, 1.0f, 0.4f));
+	Light* sun3 = new Light(glm::vec3(0, 20, 500), glm::vec3(0.0f, 0.0f, 10.0f));
+	Light* sun4 = new Light(glm::vec3(500, 20, 500), glm::vec3(0.0f, 10.0f, 0.0f));
+	Light* lamp = new Light(mPlayer->getCameraPosition(), glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1, 0.01, 0.002));
+	//Light* lamp = new Light(glm::vec3(0,1,0), glm::vec3(4.0f, 0.0f, 0.0f), glm::vec3(1, 0.01, 0.002));
+	vector<Light*> lights;
+	lights.push_back(sun);
+	lights.push_back(sun2);
+	// lights.push_back(sun3);
+	// lights.push_back(sun4);
+	//lights.push_back(lamp);
+
     // Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
 	{
@@ -121,26 +136,23 @@ bool Game::gameLoop()
 		mPlayer->getCamera()->incYPosition(-distance);
 		mPlayer->getCamera()->invertPitch();
 		// render to buffer
-		mRenderer->render(mPlayer->getViewMatrix(), glm::vec4(0, 1, 0, -lake->getWorldY()));
+		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, 1, 0, -lake->getWorldY()));
 		// move camera back
 		mPlayer->getCamera()->incYPosition(distance);
 		mPlayer->getCamera()->invertPitch();
 
 		// refraction
 		lfbos->bindRefractionFrameBuffer();
-		mRenderer->render(mPlayer->getViewMatrix(), glm::vec4(0, -1, 0, lake->getWorldY() + 0.4));
+		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, -1, 0, lake->getWorldY() + 0.4));
 
 		// actual rendering
 		glDisable(GL_CLIP_DISTANCE0);
 		lfbos->unbindCurrentFrameBuffer();
-		mRenderer->render(mPlayer->getViewMatrix(), glm::vec4(0, -1, 0, 10000));
+		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, -1, 0, 10000));
 
 		// render water
-		/*lake->updateHeights();
-		lakerenderer->startShader();
-		lakerenderer->loadViewMatrix(mPlayer->getViewMatrix());
-		lakerenderer->render(*lake);
-		lakerenderer->stopShader();*/
+		lake->updateHeights();
+		lakerenderer->render(mPlayer->getViewMatrix(), *lake, lights);
 
 		
 		/*
