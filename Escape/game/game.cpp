@@ -45,6 +45,10 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 
 	glEnable(GL_DEPTH_TEST);
 
+	// Cull back faces
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+
 	mPlayer = new Player(glm::vec3(0, 0, 0), 5, "Archie der Entdecker", this->getHeight(), this->getWidth());
 
 

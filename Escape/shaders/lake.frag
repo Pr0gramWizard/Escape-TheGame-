@@ -19,6 +19,11 @@ const float refactiveExponent = 2.0;
 const float shineDamper = 20.0;
 const float reflectivity = 0.6;
 
+// load as uniforms!
+const float near = 0.1;
+const float far = 1000.0;
+
+
 void main()
 {
 	// normalized device coordinates
@@ -26,10 +31,6 @@ void main()
 	// texCoords
 	vec2 reflectionTexCoords = vec2(ndc.x, -ndc.y);
 	vec2 refractionTexCoords = vec2(ndc.x, ndc.y);
-
-	// load as uniform!
-	float near = 0.1;
-	float far = 1000.0;
 
 	float depth = texture(depthMap, refractionTexCoords).r;
 	float floorDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
@@ -46,18 +47,21 @@ void main()
 
 	// specular highlights
 	vec3 specularHighlights;
+
 	for(int i = 0; i < 6; i++){
 		// attenuation
 		float distance = length(fromLightVector[i]);
 		float attenuationFactor = lightAttenuation[i].x + (lightAttenuation[i].y * distance) + (lightAttenuation[i].z * distance * distance);
-		
+
+		//specular highlights
 		vec3 reflectedLight = reflect(normalize(fromLightVector[i]), lakeNormal);
 		float specular = max(dot(reflectedLight, viewVector), 0.0);
 		specular = pow(specular, shineDamper);
 		specularHighlights = specularHighlights + (lightColor[i] * specular * reflectivity * clamp(lakeDepth/2.0, 0.0, 1.0))/attenuationFactor;
+	
 	}
 
 	color = mix(reflectColor, refractColor, refractiveFactor);
-	color = mix(color, vec4(0,0,1,0), 0.2) + vec4(specularHighlights, 0.0);
+	color =  mix(color, vec4(0,0,1,0), 0.2) + vec4(specularHighlights, 0.0);
 	color.a = clamp(lakeDepth/2.0, 0.0, 1.0);
 }
