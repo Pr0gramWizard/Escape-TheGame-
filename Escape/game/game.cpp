@@ -166,6 +166,9 @@ bool Game::gameLoop()
 		objectrender->loadModelMatrix(Cube);
 		objectrender->addToList(Cube);
 		objectrender->loadViewMatrix(mPlayer->getViewMatrix());
+		objectrender->loadFogData(0.01f, 1.5f);
+		// put those variables in static ones!!
+		objectrender->loadBackgroundColor(0.2f, 0.3f, 0.3f);
 		objectrender->render();
 		objectrender->stopShader();
 		*/

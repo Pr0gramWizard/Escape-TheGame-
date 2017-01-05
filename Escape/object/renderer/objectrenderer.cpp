@@ -37,6 +37,16 @@ void ObjectRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
 	mShader->loadViewMatrix(pViewMatrix);
 }
 
+void ObjectRenderer::loadFogData(GLfloat pDensity, GLfloat pGradient)
+{
+	mShader->loadFogData(pDensity, pGradient);
+}
+
+void ObjectRenderer::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue)
+{
+	mShader->loadBackgroundColor(pRed, pGreen, pBlue);
+}
+
 void ObjectRenderer::startShader()
 {
 	mShader->use();

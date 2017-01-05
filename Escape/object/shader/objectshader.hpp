@@ -58,6 +58,8 @@ public:
 	void loadViewMatrix(glm::mat4 pMatrix);
 	void loadLight(Light *pLight);
 	void loadPlane(glm::vec4 pVector);
+	void loadFogData(GLfloat pDensity, GLfloat pGradient);
+	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
 
 	// Destructor
 	~ObjectShader();
@@ -77,6 +79,9 @@ private:
 	GLuint mLocation_lightColor;
 	GLuint mLocation_lightAttenuation;
 	GLuint mLocation_plane;
+	GLuint mLocation_fogDensity;
+	GLuint mLocation_fogGradient;
+	GLuint mLocation_backgroundColor;
 
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);

@@ -340,6 +340,17 @@ void ObjectShader::loadPlane(glm::vec4 pVector)
 	this->loadVector4f(mLocation_plane, pVector);
 }
 
+void ObjectShader::loadFogData(GLfloat pDensity, GLfloat pGradient)
+{
+	this->loadFloat(mLocation_fogDensity, pDensity);
+	this->loadFloat(mLocation_fogGradient, pGradient);
+}
+
+void ObjectShader::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue)
+{
+	this->loadVector(mLocation_backgroundColor, glm::vec3(pRed, pGreen, pBlue));
+}
+
 // Destructor
 ObjectShader::~ObjectShader()
 {
@@ -357,6 +368,9 @@ void ObjectShader::getAllUniformLocations()
 	mLocation_lightPosition = glGetUniformLocation(getProgramID(), "lightPosition");
 	mLocation_lightColor = glGetUniformLocation(getProgramID(), "lightColor");
 	mLocation_lightAttenuation = glGetUniformLocation(getProgramID(), "lightAttenuation");
+	mLocation_fogDensity = glGetUniformLocation(getProgramID(), "fogDensity");
+	mLocation_fogGradient = glGetUniformLocation(getProgramID(), "fogGradient");
+	mLocation_backgroundColor = glGetUniformLocation(getProgramID(), "backgroundColor");
 }
 
 // Binding an attribtute to the shader
