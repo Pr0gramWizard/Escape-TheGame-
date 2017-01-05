@@ -6,9 +6,9 @@ in vec3 fragPos;
 
 out vec4 out_Color;
   
-uniform vec3 lightPosition[6]; 
-uniform vec3 lightColor[6];
-uniform vec3 lightAttenuation[6];
+uniform vec3 lightPosition[4]; 
+uniform vec3 lightColor[4];
+uniform vec3 lightAttenuation[4];
 
 const vec3 terrainColor = vec3(1,1,0);
 
@@ -18,7 +18,7 @@ void main()
     float ambientStrength = 0.1f;
 	vec3 result = vec3(0,0,0);
 
-	for(int i = 0; i < 6; i++){
+	for(int i = 0; i < 4; i++){
 		if(lightPosition[i].x == 0 && lightPosition[i].y == 0 && lightPosition[i].z == 0)
 		{
 			continue;
