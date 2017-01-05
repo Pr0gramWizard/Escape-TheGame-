@@ -1,15 +1,10 @@
 #version 330 core
 
-out vec4 out_Color;
-
 in vec3 surfaceNormal;
-in vec3 toLightVector[6];
-in vec3 toCameraVector;
-
 in vec3 viewPos;
 in vec3 fragPos;
 
-//in vec3 color;
+out vec4 out_Color;
   
 uniform vec3 lightPosition[6]; 
 uniform vec3 lightColor[6];

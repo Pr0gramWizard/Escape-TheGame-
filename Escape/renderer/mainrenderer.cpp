@@ -33,16 +33,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, glm::vec4 pClipPlane)
 {
 	this->prepare();
 	glShadeModel(GL_SMOOTH);
-	// entities
-	mEntityRenderer->startShader();
-	mEntityRenderer->loadViewMatrix(pViewMatrix);
-	mEntityRenderer->loadClipPlane(pClipPlane);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	mEntityRenderer->render(mEntities);
-	mEntityRenderer->render(mSpecial, LINES);
-	mEntityRenderer->stopShader();
 
-	// terrain
 	//Light* sun = new Light(glm::vec3(250, 1, 250), glm::vec3(1, 1, 0), glm::vec3(1, 0.01, 0.002));
 	Light* sun = new Light(glm::vec3(0, 20, 0), glm::vec3(0.4f, 0.4f, 0.4f));
 	Light* sun2 = new Light(glm::vec3(500, 20, 0), glm::vec3(1.0f, 1.0f, 0.4f));
@@ -56,6 +47,18 @@ void MainRenderer::render(glm::mat4 pViewMatrix, glm::vec4 pClipPlane)
 	// lights.push_back(sun3);
 	// lights.push_back(sun4);
 	lights.push_back(lamp);
+
+	// entities
+	mEntityRenderer->startShader();
+	mEntityRenderer->loadViewMatrix(pViewMatrix);
+	mEntityRenderer->loadClipPlane(pClipPlane);
+	mEntityRenderer->loadLights(lights);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	mEntityRenderer->render(mEntities);
+	mEntityRenderer->render(mSpecial, LINES);
+	mEntityRenderer->stopShader();
+
+	// terrain
 	mTerrainRenderer->startShader();
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
 	mTerrainRenderer->loadClipPlane(pClipPlane);
