@@ -24,7 +24,7 @@ void LakeRenderer::render(glm::mat4 pViewMatrix, Lake &pLake, vector<Light*> pLi
 	this->startShader();
 	this->loadViewMatrix(pViewMatrix);
 	this->loadLights(pLights);
-	this->loadFogData(0.01f, 1.5f);
+	this->loadFogData(0.01f, 0.5f);
 	// put those variables in static ones!!
 	this->loadBackgroundColor(0.2f, 0.3f, 0.3f);
 	prepareLake(&pLake);
