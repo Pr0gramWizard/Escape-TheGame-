@@ -97,6 +97,16 @@ void EntityRenderer::loadClipPlane(glm::vec4 pClipPlane)
 	mShader->loadPlane(pClipPlane);
 }
 
+void EntityRenderer::loadFogData(GLfloat pDensity, GLfloat pGradient)
+{
+	mShader->loadFogData(pDensity, pGradient);
+}
+
+void EntityRenderer::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue)
+{
+	mShader->loadBackgroundColor(pRed, pGreen, pBlue);
+}
+
 void EntityRenderer::startShader()
 {
 	mShader->use();

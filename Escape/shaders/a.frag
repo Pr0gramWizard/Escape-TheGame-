@@ -11,10 +11,9 @@ out vec4 out_Color;
 uniform vec3 lightPosition[4]; 
 uniform vec3 lightColor[4];
 uniform vec3 lightAttenuation[4];
+uniform vec3 backgroundColor;
 
 uniform sampler2D ourTexture;
-
-const vec3 skyColor = vec3(0.2f, 0.3f, 0.3f);
 
 void main()
 {
@@ -51,5 +50,5 @@ void main()
     }
 
     out_Color = vec4(result * vec3(textureColor), 1.0f);
-	out_Color = mix(vec4(skyColor, 1.0) , out_Color, visibility);
+	out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
 }

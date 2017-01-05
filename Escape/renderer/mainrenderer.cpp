@@ -39,6 +39,9 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::ve
 	mEntityRenderer->loadViewMatrix(pViewMatrix);
 	mEntityRenderer->loadClipPlane(pClipPlane);
 	mEntityRenderer->loadLights(pLights);
+	mEntityRenderer->loadFogData(0.01f, 1.5f);
+	// put those variables in static ones!!
+	mEntityRenderer->loadBackgroundColor(0.2f, 0.3f, 0.3f);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	mEntityRenderer->render(mEntities);
 	mEntityRenderer->render(mSpecial, LINES);

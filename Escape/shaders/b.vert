@@ -14,9 +14,8 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 uniform vec4 plane;
-
-const float density = 0.01;
-const float gradient = 1.5;
+uniform float fogDensity;
+uniform float fogGradient;
 
 void main()
 {
@@ -29,7 +28,7 @@ void main()
     fragPos = vec3(worldPosition);
 
 	float distance = length((view * worldPosition).xyz);
-	visibility = exp(-pow((distance * density), gradient));
+	visibility = exp(-pow((distance * fogDensity), fogGradient));
 	visibility = clamp(visibility, 0.0, 1.0);
 
 	gl_Position = projection * view * worldPosition;

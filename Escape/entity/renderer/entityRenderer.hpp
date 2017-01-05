@@ -50,6 +50,8 @@ public:
 	void loadViewMatrix(glm::mat4 pViewMatrix);
 	void loadLights(vector<Light*> pLights);
 	void loadClipPlane(glm::vec4 pClipPlane);
+	void loadFogData(GLfloat pDensity, GLfloat pGradient);
+	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
 
 	// use or unuse the shader
 	void startShader();
