@@ -357,6 +357,17 @@ void TerrainShader::loadPlane(glm::vec4 pVector)
 	this->loadVector4f(mLocation_plane, pVector);
 }
 
+void TerrainShader::loadFogData(GLfloat pDensity, GLfloat pGradient)
+{
+	this->loadFloat(mLocation_fogDensity, pDensity);
+	this->loadFloat(mLocation_fogGradient, pGradient);
+}
+
+void TerrainShader::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue)
+{
+	this->loadVector(mLocation_backgroundColor, glm::vec3(pRed, pGreen, pBlue));
+}
+
 // Destructor
 TerrainShader::~TerrainShader()
 {
@@ -370,6 +381,9 @@ void TerrainShader::getAllUniformLocations()
 	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projection");
 	mLocation_viewMatrix = glGetUniformLocation(getProgramID(), "view");
 	mLocation_plane = glGetUniformLocation(getProgramID(), "plane");
+	mLocation_fogDensity = glGetUniformLocation(getProgramID(), "fogDensity");
+	mLocation_fogGradient = glGetUniformLocation(getProgramID(), "fogGradient");
+	mLocation_backgroundColor = glGetUniformLocation(getProgramID(), "backgroundColor");
 	// Light locations
 	const char* lightPos[] = { 
 		"lightPosition[0]", 

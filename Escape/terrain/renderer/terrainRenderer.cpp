@@ -106,6 +106,16 @@ void TerrainRenderer::loadClipPlane(glm::vec4 pClipPlane)
 	mShader->loadPlane(pClipPlane);
 }
 
+void TerrainRenderer::loadFogData(GLfloat pDensity, GLfloat pGradient)
+{
+	mShader->loadFogData(pDensity, pGradient);
+}
+
+void TerrainRenderer::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue)
+{
+	mShader->loadBackgroundColor(pRed, pGreen, pBlue);
+}
+
 void TerrainRenderer::startShader()
 {
 	mShader->use();

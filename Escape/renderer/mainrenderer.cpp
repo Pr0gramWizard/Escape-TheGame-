@@ -49,6 +49,9 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::ve
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
 	mTerrainRenderer->loadClipPlane(pClipPlane);
 	mTerrainRenderer->loadLights(pLights);
+	mTerrainRenderer->loadFogData(0.01f, 1.5f);
+	// put those variables in static ones!!
+	mTerrainRenderer->loadBackgroundColor(0.2f, 0.3f, 0.3f);
 	if (this->getDrawMode())
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
