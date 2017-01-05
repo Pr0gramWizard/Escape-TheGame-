@@ -3,6 +3,7 @@
 in vec3 surfaceNormal;
 in vec3 viewPos;
 in vec3 fragPos;
+in float visibility;
 
 out vec4 out_Color;
   
@@ -11,6 +12,7 @@ uniform vec3 lightColor[4];
 uniform vec3 lightAttenuation[4];
 
 const vec3 terrainColor = vec3(1,1,0);
+const vec3 skyColor = vec3(0.2f, 0.3f, 0.3f);
 
 void main()
 {
@@ -45,4 +47,5 @@ void main()
     }
 
     out_Color = vec4(result * terrainColor, 1.0f);
+	out_Color = mix(vec4(skyColor, 1.0) , out_Color, visibility);
 }

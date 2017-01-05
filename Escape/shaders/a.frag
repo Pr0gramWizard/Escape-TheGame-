@@ -4,6 +4,7 @@ in vec2 TexCoord;
 in vec3 surfaceNormal;
 in vec3 viewPos;
 in vec3 fragPos;
+in float visibility;
 
 out vec4 out_Color;
   
@@ -12,6 +13,8 @@ uniform vec3 lightColor[4];
 uniform vec3 lightAttenuation[4];
 
 uniform sampler2D ourTexture;
+
+const vec3 skyColor = vec3(0.2f, 0.3f, 0.3f);
 
 void main()
 {
@@ -48,4 +51,5 @@ void main()
     }
 
     out_Color = vec4(result * vec3(textureColor), 1.0f);
+	out_Color = mix(vec4(skyColor, 1.0) , out_Color, visibility);
 }

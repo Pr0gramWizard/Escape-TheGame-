@@ -7,11 +7,15 @@ out vec3 toCameraVector;
 out vec3 fromLightVector[4];
 out vec3 lakeNormal;
 out vec3 fragPos;
+out float visibility;
 
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 uniform vec3 lightPosition[4];
+
+const float density = 0.01;
+const float gradient = 1.5;
 
 void main()
 {
@@ -23,5 +27,10 @@ void main()
 		fromLightVector[i] =  worldPosition.xyz - lightPosition[i];
 	}
 	lakeNormal = mat3(transpose(inverse(model))) * normal;
+
+	float distance = length((view * worldPosition).xyz);
+	visibility = exp(-pow((distance * density), gradient));
+	visibility = clamp(visibility, 0.0, 1.0);
+
     gl_Position = clipSpace;
 }

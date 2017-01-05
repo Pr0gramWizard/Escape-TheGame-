@@ -5,6 +5,7 @@ in vec3 toCameraVector;
 in vec3 fromLightVector[4];
 in vec3 lakeNormal;
 in vec3 fragPos;
+in float visibility;
 
 out vec4 color;
 
@@ -22,7 +23,7 @@ const float reflectivity = 0.6;
 // load as uniforms!
 const float near = 0.1;
 const float far = 1000.0;
-
+const vec3 skyColor = vec3(0.2f, 0.3f, 0.3f);
 
 void main()
 {
@@ -63,5 +64,6 @@ void main()
 
 	color = mix(reflectColor, refractColor, refractiveFactor);
 	color =  mix(color, vec4(0,0,1,0), 0.2) + vec4(specularHighlights, 0.0);
+	color = mix(vec4(skyColor, 1.0) , color, visibility);
 	color.a = clamp(lakeDepth/2.0, 0.0, 1.0);
 }
