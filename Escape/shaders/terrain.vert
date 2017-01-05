@@ -10,6 +10,7 @@ out vec3 toCameraVector;
 
 out vec3 viewPos;
 out vec3 FragPos;
+smooth out vec2 vTexCoord;
 //out vec3 color;
 
 uniform mat4 model;
@@ -33,6 +34,8 @@ void main()
 	
 	surfaceNormal = mat3(transpose(inverse(model))) * normal;
 	viewPos = (inverse(view) * vec4(0.0,0.0,0.0,1.0)).xyz;
+
+	vTexCoord = texCoords;
 
     FragPos = vec3(worldPosition);
 	

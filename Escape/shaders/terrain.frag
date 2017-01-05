@@ -8,12 +8,14 @@ in vec3 toCameraVector;
 
 in vec3 viewPos;
 in vec3 FragPos;
+smooth in vec2 vTexCoord;
 
 //in vec3 color;
   
 uniform vec3 lightPosition[6]; 
 uniform vec3 lightColor[6];
 uniform vec3 lightAttenuation[6];
+uniform sampler2D gSampler[2];
 
 void main()
 {
