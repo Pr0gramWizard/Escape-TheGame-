@@ -50,13 +50,6 @@ void TerrainRenderer::prepareTerrain(Terrain pTerrain)
 	// end texturepart
 }
 
-// prepares the renderer for rendering
-void TerrainRenderer::prepare()
-{
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
-
 // binds the vertex array and the needed attributes for the terrain
 void TerrainRenderer::prepareTerrain(Terrain* pTerrain)
 {

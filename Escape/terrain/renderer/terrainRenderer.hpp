@@ -31,7 +31,6 @@ public:
 	void render(Terrain &pTerrain);
 
 	// methods that get called before the acutal rendering
-	void prepare();
 	void prepareTerrain(Terrain pTerrain);
 	void prepareTerrain(Terrain* pTerrain);
 

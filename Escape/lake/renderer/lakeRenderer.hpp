@@ -30,7 +30,6 @@ public:
 	void render(glm::mat4 pViewMatrix, Lake &pTerrain, vector<Light*> pLights, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE);
 
 	// methods that get called before the acutal rendering
-	void prepare();
 	void prepareLake(Lake pLake);
 	void prepareLake(Lake* pLake);
 
