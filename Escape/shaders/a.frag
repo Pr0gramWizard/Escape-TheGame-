@@ -4,13 +4,14 @@ in vec2 TexCoord;
 in vec3 surfaceNormal;
 in vec3 viewPos;
 in vec3 fragPos;
-in float visibility;
 
 out vec4 out_Color;
   
 uniform vec3 lightPosition[4]; 
 uniform vec3 lightColor[4];
 uniform vec3 lightAttenuation[4];
+uniform float fogDensity;
+uniform float fogGradient;
 uniform vec3 backgroundColor;
 
 uniform sampler2D ourTexture;
@@ -48,6 +49,10 @@ void main()
 		
 		result += (ambient + diffuse + specular)/attenuationFactor;
     }
+
+	float distance = length(viewPos - fragPos);
+	float visibility = exp(-pow((distance * fogDensity), fogGradient));
+	visibility = clamp(visibility, 0.0, 1.0);
 
     out_Color = vec4(result * vec3(textureColor), 1.0f);
 	out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);

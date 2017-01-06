@@ -1,11 +1,10 @@
 #version 330 core
 
 in vec4 clipSpace;
-in vec3 toCameraVector;
 in vec3 fromLightVector[4];
 in vec3 lakeNormal;
 in vec3 fragPos;
-in float visibility;
+in vec3 viewPos;
 
 out vec4 color;
 
@@ -14,6 +13,8 @@ uniform sampler2D refractionTexture;
 uniform sampler2D depthMap;
 uniform vec3 lightColor[4];
 uniform vec3 lightAttenuation[4];
+uniform float fogDensity;
+uniform float fogGradient;
 uniform vec3 backgroundColor;
 uniform float near;
 uniform float far;
@@ -24,6 +25,7 @@ const float reflectivity = 0.6;
 
 void main()
 {
+	vec3 toCameraVector = viewPos - fragPos;
 	// normalized device coordinates
 	vec2 ndc = (clipSpace.xy/clipSpace.w)/2.0 + 0.5;
 	// texCoords
@@ -58,6 +60,10 @@ void main()
 		specularHighlights = specularHighlights + (lightColor[i] * specular * reflectivity * clamp(lakeDepth/2.0, 0.0, 1.0))/attenuationFactor;
 	
 	}
+
+	float distance = length(toCameraVector);
+	float visibility = exp(-pow((distance * fogDensity), fogGradient));
+	visibility = clamp(visibility, 0.0, 1.0);
 
 	color = mix(reflectColor, refractColor, refractiveFactor);
 	color =  mix(color, vec4(0,0,1,0), 0.2) + vec4(specularHighlights, 0.0);

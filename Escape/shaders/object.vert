@@ -4,13 +4,12 @@ layout (location = 1) in vec3 normal;
 layout (location = 2) in vec2 texCoords;
 
 out vec2 TexCoords;
-out float visibility;
+out vec3 viewPos;
+out vec3 fragPos;
 
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
-uniform float fogDensity;
-uniform float fogGradient;
 
 void main()
 {
@@ -18,7 +17,6 @@ void main()
     gl_Position = projection * view * worldPosition;
     TexCoords = texCoords;
 
-	float distance = length((view * worldPosition).xyz);
-	visibility = exp(-pow((distance * fogDensity), fogGradient));
-	visibility = clamp(visibility, 0.0, 1.0);
+	viewPos = (inverse(view) * vec4(0.0,0.0,0.0,1.0)).xyz;
+    fragPos = vec3(worldPosition);
 }
