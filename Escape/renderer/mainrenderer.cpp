@@ -39,7 +39,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::ve
 	mEntityRenderer->loadViewMatrix(pViewMatrix);
 	mEntityRenderer->loadClipPlane(pClipPlane);
 	mEntityRenderer->loadLights(pLights);
-	mEntityRenderer->loadFogData(0.01f, 0.5f);
+	mEntityRenderer->loadFogData(0.01f, 2.0f);
 	mEntityRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	mEntityRenderer->render(mEntities);
@@ -51,7 +51,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::ve
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
 	mTerrainRenderer->loadClipPlane(pClipPlane);
 	mTerrainRenderer->loadLights(pLights);
-	mTerrainRenderer->loadFogData(0.01f, 0.5f);
+	mTerrainRenderer->loadFogData(0.01f, 2.0f);
 	mTerrainRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
 	if (this->getDrawMode())
 	{
