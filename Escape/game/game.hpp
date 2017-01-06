@@ -68,6 +68,11 @@ public:
 	void setHeight(GLuint pHeight);
 	void setTitle(const char* pTitle);
 
+public:
+	// background color
+	const static GLfloat RED;
+	const static GLfloat GREEN;
+	const static GLfloat BLUE;
 
 private:
 	// Variables

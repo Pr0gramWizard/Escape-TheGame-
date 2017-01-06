@@ -19,14 +19,13 @@ LakeRenderer::~LakeRenderer()
 }
 
 // renders a single Lake
-void LakeRenderer::render(glm::mat4 pViewMatrix, Lake &pLake, vector<Light*> pLights)
+void LakeRenderer::render(glm::mat4 pViewMatrix, Lake &pLake, vector<Light*> pLights, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE)
 {
 	this->startShader();
 	this->loadViewMatrix(pViewMatrix);
 	this->loadLights(pLights);
 	this->loadFogData(0.01f, 0.5f);
-	// put those variables in static ones!!
-	this->loadBackgroundColor(0.2f, 0.3f, 0.3f);
+	this->loadBackgroundColor(pRED, pGREEN, pBLUE);
 	prepareLake(&pLake);
 	loadModelMatrix(&pLake);
 	glDrawElements(GL_TRIANGLES, pLake.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);

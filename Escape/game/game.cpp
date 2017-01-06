@@ -1,5 +1,9 @@
 #include "game.hpp"
 
+const GLfloat Game::RED = 0.5;
+const GLfloat Game::GREEN = 0.5;
+const GLfloat Game::BLUE = 0.5;
+
 Game::Game()
 {
 
@@ -140,23 +144,23 @@ bool Game::gameLoop()
 		mPlayer->getCamera()->incYPosition(-distance);
 		mPlayer->getCamera()->invertPitch();
 		// render to buffer
-		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, 1, 0, -lake->getWorldY()));
+		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, 1, 0, -lake->getWorldY()), Game::RED, Game::GREEN, Game::BLUE);
 		// move camera back
 		mPlayer->getCamera()->incYPosition(distance);
 		mPlayer->getCamera()->invertPitch();
 
 		// refraction
 		lfbos->bindRefractionFrameBuffer();
-		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, -1, 0, lake->getWorldY() + 0.4));
+		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, -1, 0, lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE);
 
 		// actual rendering
 		glDisable(GL_CLIP_DISTANCE0);
 		lfbos->unbindCurrentFrameBuffer();
-		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, -1, 0, 10000));
+		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE);
 
 		// render water
 		lake->updateHeights();
-		lakerenderer->render(mPlayer->getViewMatrix(), *lake, lights);
+		lakerenderer->render(mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE);
 
 		
 		/*
@@ -168,7 +172,7 @@ bool Game::gameLoop()
 		objectrender->loadViewMatrix(mPlayer->getViewMatrix());
 		objectrender->loadFogData(0.01f, 0.5f);
 		// put those variables in static ones!!
-		objectrender->loadBackgroundColor(0.2f, 0.3f, 0.3f);
+		objectrender->loadBackgroundColor(Game::RED, Game::GREEN, Game::BLUE);
 		objectrender->render();
 		objectrender->stopShader();
 		*/

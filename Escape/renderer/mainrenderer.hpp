@@ -50,9 +50,9 @@ public:
 	bool getDrawMode() const;
 
 	// prepares for rendering
-	void prepare();
+	void prepare(GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE);
 	// render
-	void render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::vec4 pClipPlane);
+	void render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE);
 	// clears the render lists
 	void clearLists();
 

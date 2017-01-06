@@ -23,15 +23,15 @@ MainRenderer::~MainRenderer()
 {
 }
 
-void MainRenderer::prepare()
+void MainRenderer::prepare(GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE)
 {
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClearColor(pRED, pGREEN, pBLUE, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::vec4 pClipPlane)
+void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE)
 {
-	this->prepare();
+	this->prepare(pRED, pGREEN, pBLUE);
 	glShadeModel(GL_SMOOTH);
 
 	// entities
@@ -40,8 +40,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::ve
 	mEntityRenderer->loadClipPlane(pClipPlane);
 	mEntityRenderer->loadLights(pLights);
 	mEntityRenderer->loadFogData(0.01f, 0.5f);
-	// put those variables in static ones!!
-	mEntityRenderer->loadBackgroundColor(0.2f, 0.3f, 0.3f);
+	mEntityRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	mEntityRenderer->render(mEntities);
 	mEntityRenderer->render(mSpecial, LINES);
@@ -53,8 +52,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::ve
 	mTerrainRenderer->loadClipPlane(pClipPlane);
 	mTerrainRenderer->loadLights(pLights);
 	mTerrainRenderer->loadFogData(0.01f, 0.5f);
-	// put those variables in static ones!!
-	mTerrainRenderer->loadBackgroundColor(0.2f, 0.3f, 0.3f);
+	mTerrainRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
 	if (this->getDrawMode())
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
