@@ -53,7 +53,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
-	mPlayer = new Player(glm::vec3(0, 0, 0), 5, "Archie der Entdecker", this->getHeight(), this->getWidth());
+	mPlayer = new Player(glm::vec3(0, 0, 0), 1, "Archie der Entdecker", this->getHeight(), this->getWidth());
 
 
 
@@ -68,8 +68,6 @@ Game::~Game()
 
 bool Game::gameLoop()
 {
-
-	
 	Loader* loader = new Loader();
 	
 	Terrain terrain(0, 0, 15, "Test", loader);
@@ -132,9 +130,6 @@ bool Game::gameLoop()
 		}
 
 		mPlayer->move(&terrain, deltaTime);
-
-
-
 
 		glEnable(GL_CLIP_DISTANCE0);
 		
