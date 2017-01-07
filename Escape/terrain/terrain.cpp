@@ -56,14 +56,7 @@ void Terrain::setAmplitude(int pAmplitude)
 
 void Terrain::setVertices(int pVertices)
 {
-	if (!isPowerOfTwo(pVertices))
-	{
-		mVertices = 128;
-	}
-	else
-	{
-		mVertices = pVertices;
-	}
+	mVertices = pVertices;
 }
 
 void Terrain::setName(const char * pName)
@@ -144,7 +137,7 @@ void Terrain::generateHeights(Loader * loader)
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, heightmap);
 	//height should be equal to width
-	unsigned char* image = SOIL_load_image("./terrain/res/A.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* image = SOIL_load_image("./terrain/res/B.png", &width, &height, 0, SOIL_LOAD_RGB);
 
 	if (image == 0)
 	{

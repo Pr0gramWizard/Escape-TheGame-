@@ -13,10 +13,25 @@ uniform float fogDensity;
 uniform float fogGradient;
 uniform vec3 backgroundColor;
 
-const vec3 terrainColor = vec3(1,1,0);
+
 
 void main()
 {
+	vec3 terrainColor;
+	const vec3 red = vec3(1,0,0);
+	const vec3 green = vec3(0,1,0);
+	const vec3 blue = vec3(0,0,1);
+
+	// Color Calculation
+	if(fragPos.y < 0)
+	{
+		terrainColor = red;
+	}
+	else
+	{
+		terrainColor = green;
+	}
+	
 	// Ambient
     float ambientStrength = 0.1f;
 	vec3 result = vec3(0,0,0);

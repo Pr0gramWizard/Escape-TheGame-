@@ -86,7 +86,7 @@ bool Game::gameLoop()
 
 	// Object* Nano = new Object("object/res/nanosuit/nanosuit.obj");
 	Object* Sphere = new Object("object/res/sphere/Alpha.obj",glm::vec3(16 ,terrain.getHeight(16, 78), 77));
-	Object* Cube = new Object("object/res/cube/cube.obj", glm::vec3(0, 1, 0));
+	// Object* Cube = new Object("object/res/cube/cube.obj", glm::vec3(0, 1, 0));
 	ObjectShader* objectshader = new ObjectShader("shaders/object.vert", "shaders/object.frag");
 	ObjectRenderer* objectrender = new ObjectRenderer(objectshader, mPlayer->getProjectionMatrix());
 
@@ -101,11 +101,11 @@ bool Game::gameLoop()
 	vector<Light*> lights;
 	lights.push_back(sun);
 	lights.push_back(sun2);
-	// lights.push_back(sun3);
+	lights.push_back(sun3);
 	// lights.push_back(sun4);
-	lights.push_back(lamp);
+	// lights.push_back(lamp);
 
-    // Game loop
+	// Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
 	{
 	
@@ -124,10 +124,6 @@ bool Game::gameLoop()
 			mPlayer->setSprint(true);
 		}
 
-		if (Keyboard::isKeyPressed(GLFW_KEY_F2))
-		{
-			std::cout << mPlayer->getPosition().x << "," << mPlayer->getPosition().y << "," << mPlayer->getPosition().z << std::endl;
-		}
 
 		mPlayer->move(&terrain, deltaTime);
 
@@ -158,12 +154,13 @@ bool Game::gameLoop()
 		lakerenderer->render(mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE);
 
 		
+		
 		/*
 		objectrender->startShader();
-		// objectrender->loadModelMatrix(Sphere);
-		// objectrender->addToList(Sphere);
-		objectrender->loadModelMatrix(Cube);
-		objectrender->addToList(Cube);
+		objectrender->loadModelMatrix(Sphere);
+		objectrender->addToList(Sphere);
+		// objectrender->loadModelMatrix(Cube);
+		// Nobjectrender->addToList(Cube);
 		objectrender->loadViewMatrix(mPlayer->getViewMatrix());
 		objectrender->loadFogData(0.01f, 2.0f);
 		objectrender->loadBackgroundColor(Game::RED, Game::GREEN, Game::BLUE);
