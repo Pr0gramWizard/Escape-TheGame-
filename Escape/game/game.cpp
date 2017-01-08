@@ -135,7 +135,7 @@ bool Game::gameLoop()
 		mPlayer->getCamera()->incYPosition(-distance);
 		mPlayer->getCamera()->invertPitch();
 		// render to buffer
-		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, 1, 0, -lake->getWorldY()), Game::RED, Game::GREEN, Game::BLUE);
+		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, 1, 0, -lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE);
 		// move camera back
 		mPlayer->getCamera()->incYPosition(distance);
 		mPlayer->getCamera()->invertPitch();
