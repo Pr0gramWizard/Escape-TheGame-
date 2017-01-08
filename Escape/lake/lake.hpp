@@ -34,7 +34,7 @@ public:
 	Model* getModel();
 	void setModel(Model* pModel);
 
-	void updateHeights();
+	void updateHeights(GLfloat pDeltaTime);
 public:
 	static const int LAKE_SIZE;
 
