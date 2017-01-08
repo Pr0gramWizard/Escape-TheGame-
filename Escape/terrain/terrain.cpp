@@ -22,6 +22,9 @@ Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, const char* pName, Load
 
 	this->loadGrasTexture();
 	this->loadStoneTexture();
+	this->loadFlowerTexture();
+	this->loadMudTexture();
+	this->loadBlendMapTexture();
 
 
 	std::cout << "Terrainloader was started successfully!" << std::endl;
