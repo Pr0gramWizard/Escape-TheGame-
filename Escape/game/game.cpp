@@ -53,7 +53,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
-	mPlayer = new Player(glm::vec3(0, 0, 0), 1, "Archie der Entdecker", this->getHeight(), this->getWidth());
+	mPlayer = new Player(glm::vec3(80, 0, 80), 1, "Archie der Entdecker", this->getHeight(), this->getWidth());
 
 
 
@@ -81,7 +81,7 @@ bool Game::gameLoop()
 	LakeFrameBuffers* lfbos = new LakeFrameBuffers(mWidth, mHeight);
 	LakeShader* lakeshader = new LakeShader("shaders/lake.vert", "shaders/lake.frag");
 	LakeRenderer* lakerenderer = new LakeRenderer(lakeshader, mPlayer->getProjectionMatrix(), lfbos);
-	Lake* lake = new Lake(0, -3.5, 0, 20, 50, "Lake", loader);
+	Lake* lake = new Lake(75, -6, 80, 50, 50, "Lake", loader);
 	//**** END LAKE STUFF ****
 
 	// Object* Nano = new Object("object/res/nanosuit/nanosuit.obj");
