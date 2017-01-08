@@ -14,27 +14,35 @@ uniform float fogDensity;
 uniform float fogGradient;
 uniform vec3 backgroundColor;
 
-uniform sampler2D grass;
-uniform sampler2D stone;
+uniform sampler2D backgroundTexture;
+uniform sampler2D rTexture;
+uniform sampler2D gTexture;
+uniform sampler2D bTexture;
+uniform sampler2D blendMap;
+
 
 
 
 void main()
 {
+
+	vec4 blendMapColor = texture(blendMap,TexCoord);
+
+	float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
+	vec2 tiledCoords = TexCoord * 40;
+	vec4 backgroundTextureColor = texture(backgroundTexture, tiledCoords) * backTextureAmount;
+	vec4 rTextureColor = texture(backgroundTexture, tiledCoords) * blendMapColor.r;
+	vec4 gTextureColor = texture(backgroundTexture, tiledCoords) * blendMapColor.g;
+	vec4   = texture(backgroundTexture, tiledCoords) * blendMapColor.b;
+
+	vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
+
+
 	vec4 terrainColor;
-	const vec3 red = vec3(1,0,0);
-	const vec3 green = vec3(0,1,0);
-	const vec3 blue = vec3(0,0,1);
 
 	// Color Calculation
-	if(fragPos.y < 0)
-	{
-		terrainColor = texture(grass, TexCoord);
-	}
-	else
-	{
-		terrainColor = texture(stone, TexCoord);
-	}
+	terrainColor = texture(stone, TexCoord);
+
 	
 	// Ambient
     float ambientStrength = 0.1f;
@@ -70,6 +78,6 @@ void main()
 	float visibility = exp(-pow((distance * fogDensity), fogGradient));
 	visibility = clamp(visibility, 0.0, 1.0);
 
-    out_Color = terrainColor;
+    out_Color = totalColor;
 	out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
 }

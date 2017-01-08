@@ -41,8 +41,8 @@ void Terrain::loadGrasTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	// Set texture filtering
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	// Load, create texture and generate mipmaps
 	int width, height;
 	unsigned char* grass = SOIL_load_image("textures/res/grass.png", &width, &height, 0, SOIL_LOAD_RGB);
@@ -77,7 +77,7 @@ void Terrain::loadStoneTexture()
 		std::cout << "The stone texture could not be found!" << std::endl;
 	}
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, stone);
-
+	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(stone);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
