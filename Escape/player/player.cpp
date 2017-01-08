@@ -2,7 +2,7 @@
 #include "player.hpp"
 
 // Defintion of the global player constants
-const GLfloat Player::MOVESPEED = 15;
+const GLfloat Player::MOVESPEED = 5;
 const GLfloat Player::GRAVITY = -50;
 const GLfloat Player::JUMPPOWER = 20;
 const GLfloat Player::STRAFE_ANGLE = 90;

@@ -1,6 +1,6 @@
 #include "terrain.hpp"
 
-const int Terrain::TERRAIN_SIZE = 500;
+const int Terrain::TERRAIN_SIZE = 256;
 
 Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, const char* pName, Loader* pLoader)
 {
