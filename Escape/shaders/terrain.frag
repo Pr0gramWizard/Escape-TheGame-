@@ -14,10 +14,10 @@ uniform float fogDensity;
 uniform float fogGradient;
 uniform vec3 backgroundColor;
 
-uniform sampler2D backgroundTexture;
-uniform sampler2D rTexture;
-uniform sampler2D gTexture;
-uniform sampler2D bTexture;
+uniform sampler2D grass;
+uniform sampler2D stone;
+uniform sampler2D flower;
+uniform sampler2D mud;
 uniform sampler2D blendMap;
 
 
@@ -29,11 +29,11 @@ void main()
 	vec4 blendMapColor = texture(blendMap,TexCoord);
 
 	float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
-	vec2 tiledCoords = TexCoord * 40;
-	vec4 backgroundTextureColor = texture(backgroundTexture, tiledCoords) * backTextureAmount;
-	vec4 rTextureColor = texture(backgroundTexture, tiledCoords) * blendMapColor.r;
-	vec4 gTextureColor = texture(backgroundTexture, tiledCoords) * blendMapColor.g;
-	vec4   = texture(backgroundTexture, tiledCoords) * blendMapColor.b;
+	vec2 tiledCoords = TexCoord;
+	vec4 backgroundTextureColor = texture(grass, tiledCoords) * backTextureAmount;
+	vec4 rTextureColor = texture(stone, tiledCoords) * blendMapColor.r;
+	vec4 gTextureColor = texture(flower, tiledCoords) * blendMapColor.g;
+	vec4 bTextureColor = texture(mud, tiledCoords) * blendMapColor.b;
 
 	vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
 

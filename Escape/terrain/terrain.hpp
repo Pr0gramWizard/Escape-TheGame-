@@ -17,9 +17,21 @@ class Terrain
 public:
 	Terrain(int pGridX, int pGridZ, int pAmplitude, const char* pName, Loader* pLoader);
 	~Terrain();
-
+	
+	// Loading all important textures
 	void loadGrasTexture();
 	void loadStoneTexture();
+	void loadFlowerTexture();
+	void loadMudTexture();
+	void loadBlendMapTexture();
+
+	// Getting the texture ID
+	GLuint getGrasTexture();
+	GLuint getStoneTexture();
+	GLuint getFlowerTexture();
+	GLuint getMudTexture();
+	GLuint getBlendMapTexture();
+
 
 	// Getter functions
 	int getWorldX() const;
@@ -33,8 +45,6 @@ public:
 	void setName(const char* pName);
 
 
-	GLuint getGrasTexture();
-	GLuint getStoneTexture();
 	glm::mat4 getModelMatrix();
 	Model* getModel();
 	void setModel(Model* pModel);
@@ -54,8 +64,17 @@ private:
 	const char* mName;
 	Model mModel;
 	std::vector<float> mHeights;
+	// Grass texture
 	GLuint mGrassTex;
+	// Stone texture
 	GLuint mStoneTex;
+	// Flower texture
+	GLuint mFlowerTex;
+	// Mud Texture
+	GLuint mMudTex;
+	// Blend Map
+	GLuint mBlendMapTex;
+
 
 private:
 	bool isPowerOfTwo(int pX);

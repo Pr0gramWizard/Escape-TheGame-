@@ -37,10 +37,23 @@ void TerrainRenderer::render(Terrain &pTerrain)
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, pTerrain.getGrasTexture());
 	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "grass"), 0);
-	
+
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, pTerrain.getStoneTexture());
 	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "stone"), 1);
+
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, pTerrain.getFlowerTexture());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "flower"), 2);
+
+	glActiveTexture(GL_TEXTURE3);
+	glBindTexture(GL_TEXTURE_2D, pTerrain.getMudTexture());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "mud"), 3);
+
+	glActiveTexture(GL_TEXTURE4);
+	glBindTexture(GL_TEXTURE_2D, pTerrain.getBlendMapTexture());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "blendMap"), 4);
+
 	glDrawElements(GL_TRIANGLES, pTerrain.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	unbindTerrain();
