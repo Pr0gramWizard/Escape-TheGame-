@@ -3,6 +3,7 @@
 in vec3 surfaceNormal;
 in vec3 viewPos;
 in vec3 fragPos;
+in vec2 TexCoord;
 
 out vec4 out_Color;
   
@@ -13,11 +14,14 @@ uniform float fogDensity;
 uniform float fogGradient;
 uniform vec3 backgroundColor;
 
+uniform sampler2D grass;
+uniform sampler2D stone;
+
 
 
 void main()
 {
-	vec3 terrainColor;
+	vec4 terrainColor;
 	const vec3 red = vec3(1,0,0);
 	const vec3 green = vec3(0,1,0);
 	const vec3 blue = vec3(0,0,1);
@@ -25,11 +29,11 @@ void main()
 	// Color Calculation
 	if(fragPos.y < 0)
 	{
-		terrainColor = red;
+		terrainColor = texture(grass, TexCoord);
 	}
 	else
 	{
-		terrainColor = green;
+		terrainColor = texture(stone, TexCoord);
 	}
 	
 	// Ambient
@@ -66,6 +70,6 @@ void main()
 	float visibility = exp(-pow((distance * fogDensity), fogGradient));
 	visibility = clamp(visibility, 0.0, 1.0);
 
-    out_Color = vec4(result * terrainColor, 1.0f);
+    out_Color = terrainColor;
 	out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
 }

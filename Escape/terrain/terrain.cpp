@@ -20,6 +20,10 @@ Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, const char* pName, Load
 	// Set Model
 	mModel = generateTerrain(pLoader);
 
+	this->loadGrasTexture();
+	this->loadStoneTexture();
+
+
 	std::cout << "Terrainloader was started successfully!" << std::endl;
 
 }
@@ -27,6 +31,57 @@ Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, const char* pName, Load
 Terrain::~Terrain()
 {
 	std::cout << "Terrainloader was stopped successfully!" << std::endl;
+}
+
+void Terrain::loadGrasTexture()
+{
+	glGenTextures(1, &mGrassTex);
+	glBindTexture(GL_TEXTURE_2D, mGrassTex); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
+											 // Set our texture parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// Set texture filtering
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Load, create texture and generate mipmaps
+	int width, height;
+	unsigned char* grass = SOIL_load_image("textures/res/grass.png", &width, &height, 0, SOIL_LOAD_RGB);
+	if (grass == 0)
+	{
+		std::cout << "The gras texture could not be found!" << std::endl;
+	}
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, grass);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(grass);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+
+}
+
+void Terrain::loadStoneTexture()
+{
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &mStoneTex);
+	glBindTexture(GL_TEXTURE_2D, mStoneTex); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
+											 // Set our texture parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// Set texture filtering
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Load, create texture and generate mipmaps
+	int width, height;
+	unsigned char* stone = SOIL_load_image("textures/res/stone.png", &width, &height, 0, SOIL_LOAD_RGB);
+	if (stone == 0)
+	{
+		std::cout << "The stone texture could not be found!" << std::endl;
+	}
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, stone);
+
+	SOIL_free_image_data(stone);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+
 }
 
 int Terrain::getWorldX() const
@@ -62,6 +117,18 @@ void Terrain::setVertices(int pVertices)
 void Terrain::setName(const char * pName)
 {
 	mName = pName;
+}
+
+GLuint Terrain::getGrasTexture()
+{
+
+	
+	return mGrassTex;
+}
+
+GLuint Terrain::getStoneTexture()
+{
+	return mStoneTex;
 }
 
 glm::mat4 Terrain::getModelMatrix()
@@ -136,7 +203,7 @@ void Terrain::generateHeights(Loader * loader)
 	int width, height;
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, heightmap);
-	//height should be equal to width
+	// height should be equal to width
 	unsigned char* image = SOIL_load_image("./terrain/res/B.png", &width, &height, 0, SOIL_LOAD_RGB);
 
 	if (image == 0)
@@ -164,7 +231,7 @@ void Terrain::generateHeights(Loader * loader)
 		texture_data[i] *= mAmplitude;
 	}
 
-	//Set amount of vertices along a side of the terrain
+	// Set amount of vertices along a side of the terrain
 	this->setVertices(width);
 
 	mHeights = texture_data;

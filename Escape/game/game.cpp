@@ -25,7 +25,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(),NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/,NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -105,6 +105,9 @@ bool Game::gameLoop()
 	// lights.push_back(sun4);
 	// lights.push_back(lamp);
 
+	
+
+
 	// Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
 	{
@@ -128,12 +131,15 @@ bool Game::gameLoop()
 		mPlayer->move(&terrain, deltaTime);
 
 		glEnable(GL_CLIP_DISTANCE0);
+		glEnable(GL_TEXTURE_2D);
 		
 		// reflection
 		lfbos->bindReflectionFrameBuffer();
 		float distance = 2 * (mPlayer->getCameraPosition().y - lake->getWorldY());
 		mPlayer->getCamera()->incYPosition(-distance);
 		mPlayer->getCamera()->invertPitch();
+
+
 		// render to buffer
 		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, 1, 0, -lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE);
 		// move camera back

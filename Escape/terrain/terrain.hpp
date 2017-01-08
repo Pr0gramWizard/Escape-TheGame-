@@ -18,6 +18,9 @@ public:
 	Terrain(int pGridX, int pGridZ, int pAmplitude, const char* pName, Loader* pLoader);
 	~Terrain();
 
+	void loadGrasTexture();
+	void loadStoneTexture();
+
 	// Getter functions
 	int getWorldX() const;
 	int getWorldZ() const;
@@ -29,10 +32,15 @@ public:
 	void setVertices(int pVertices);
 	void setName(const char* pName);
 
+
+	GLuint getGrasTexture();
+	GLuint getStoneTexture();
 	glm::mat4 getModelMatrix();
 	Model* getModel();
 	void setModel(Model* pModel);
 	GLfloat getHeight(float x, float z);
+
+	
 public:
 	static const int TERRAIN_SIZE;
 
@@ -46,6 +54,8 @@ private:
 	const char* mName;
 	Model mModel;
 	std::vector<float> mHeights;
+	GLuint mGrassTex;
+	GLuint mStoneTex;
 
 private:
 	bool isPowerOfTwo(int pX);
@@ -53,5 +63,6 @@ private:
 	void generateHeights(Loader* loader);
 	glm::vec3 computeNormalAt(int x, int z);
 	GLfloat getVertexHeight(int pVertexX, int pVertexZ);
+
 };
 

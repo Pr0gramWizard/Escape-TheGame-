@@ -31,9 +31,22 @@ void TerrainRenderer::render(Terrain &pTerrain)
 {
 	prepareTerrain(&pTerrain);
 	loadModelMatrix(&pTerrain);
+
+	mShader->use();
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, pTerrain.getGrasTexture());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "grass"), 0);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, pTerrain.getStoneTexture());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "stone"), 1);
 	glDrawElements(GL_TRIANGLES, pTerrain.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	unbindTerrain();
+}
+
+GLuint TerrainRenderer::getProgramID() const
+{
+	return mShader->getProgramID();
 }
 
 
@@ -46,7 +59,6 @@ void TerrainRenderer::prepareTerrain(Terrain pTerrain)
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
 	// Texturepart here
-
 	// end texturepart
 }
 

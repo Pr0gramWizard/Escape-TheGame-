@@ -59,6 +59,9 @@ public:
 	// cleans up when closing the game
 	void cleanUp();
 
+	EntityRenderer* mEntityRenderer;
+	TerrainRenderer* mTerrainRenderer;
+
 public:
 	static const char* ENTITY_VERTEX;
 	static const char* ENTITY_FRAGMENT;
@@ -66,8 +69,6 @@ public:
 	static const char* TERRAIN_FRAGMENT;
 
 private:
-	EntityRenderer* mEntityRenderer;
-	TerrainRenderer* mTerrainRenderer;
 	Player* mPlayer;
 
 	list<Entity> mEntities;
