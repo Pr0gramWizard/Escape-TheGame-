@@ -103,15 +103,17 @@ void Lake::initLake(Loader * loader)
 
 	int half = (int)(mVertices / 2.0f);
 
-	mHeights[half * mVertices + half] = 5;
-	mHeights[half * mVertices + half - 1] = 4;
-	mHeights[half * mVertices + half + 1] = 4;
+	mHeights[half * mVertices + half] = 20;
+	mHeights[half * mVertices + half - 1] = 15;
+	mHeights[half * mVertices + half + 1] = 15;
+	mHeights[(half+1) * mVertices + half] = 15;
+	mHeights[(half-1) * mVertices + half] = 15;
 
-	/*mVelocity[mVertices] = 20;
+	mVelocity[mVertices] = 20;
 	mVelocity[2 * mVertices] = 15;
 	mVelocity[mVertices - 1] = 15;
 	mVelocity[mVertices - 2] = 10;
-	mVelocity[mVertices * 3] = 10;*/
+	mVelocity[mVertices * 3] = 10;
 
 	// generates random heights between -mAmplitude and +mAmplitude
 	/*for (int i = 0; i < mHeights.size(); ++i)
@@ -204,14 +206,14 @@ void Lake::updatePositionVBO()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void Lake::updateHeights()
+void Lake::updateHeights(GLfloat pDeltaTime)
 {
 	this->updateVelocities();
 	int vertexPointer = 0;
 	// update the heights
 	for (int z = 1;z < mVertices -1;z++) {
 		for (int x = 1;x < mVertices - 1;x++) {
-			mHeights[z * mVertices + x] += mVelocity[z * mVertices + x];
+			mHeights[z * mVertices + x] += mVelocity[z * mVertices + x] * pDeltaTime;
 			// update vertices
 			mVaryingPositions[vertexPointer * 3 + 1] = mHeights[z * mVertices + x];
 			vertexPointer++;
