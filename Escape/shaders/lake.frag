@@ -57,7 +57,7 @@ void main()
 		vec3 reflectedLight = reflect(normalize(fromLightVector[i]), lakeNormal);
 		float specular = max(dot(reflectedLight, viewVector), 0.0);
 		specular = pow(specular, shineDamper);
-		specularHighlights = specularHighlights + (lightColor[i] * specular * reflectivity * clamp(lakeDepth/2.0, 0.0, 1.0))/attenuationFactor;
+		specularHighlights = specularHighlights + (lightColor[i] * specular * reflectivity * clamp(lakeDepth/8.0, 0.0, 1.0))/attenuationFactor;
 	
 	}
 
@@ -68,5 +68,5 @@ void main()
 	color = mix(reflectColor, refractColor, refractiveFactor);
 	color =  mix(color, vec4(0,0,1,0), 0.2) + vec4(specularHighlights, 0.0);
 	color = mix(vec4(backgroundColor, 1.0) , color, visibility);
-	color.a = clamp(lakeDepth/2.0, 0.0, 1.0);
+	color.a = clamp(lakeDepth/8.0, 0.0, 1.0);
 }
