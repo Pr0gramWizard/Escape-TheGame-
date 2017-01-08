@@ -36,14 +36,7 @@ void main()
 	vec4 bTextureColor = texture(mud, tiledCoords) * blendMapColor.b;
 
 	vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
-
-
-	vec4 terrainColor;
-
-	// Color Calculation
-	terrainColor = texture(stone, TexCoord);
-
-	
+		
 	// Ambient
     float ambientStrength = 0.1f;
 	vec3 result = vec3(0,0,0);
