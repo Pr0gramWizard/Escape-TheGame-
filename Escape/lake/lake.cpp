@@ -1,6 +1,7 @@
 #include "lake.hpp"
 
 const int Lake::LAKE_SIZE = 87;
+const GLfloat Lake::LAKE_COEFFICIENT = 7.0f;
 
 Lake::Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices, const char * pName, Loader * pLoader)
 {
@@ -103,17 +104,11 @@ void Lake::initLake(Loader * loader)
 
 	int half = (int)(mVertices / 2.0f);
 
-	mHeights[half * mVertices + half] = 20;
-	mHeights[half * mVertices + half - 1] = 15;
-	mHeights[half * mVertices + half + 1] = 15;
-	mHeights[(half+1) * mVertices + half] = 15;
-	mHeights[(half-1) * mVertices + half] = 15;
-
-	mVelocity[mVertices] = 20;
-	mVelocity[2 * mVertices] = 15;
-	mVelocity[mVertices - 1] = 15;
-	mVelocity[mVertices - 2] = 10;
-	mVelocity[mVertices * 3] = 10;
+	mVelocity[half * mVertices + half] = -20;
+	mVelocity[half * mVertices + half - 1] = -10;
+	mVelocity[half * mVertices + half + 1] = -10;
+	mVelocity[(half + 1) * mVertices + half] = -10;
+	mVelocity[(half - 1) * mVertices + half] = -10;
 
 	// generates random heights between -mAmplitude and +mAmplitude
 	/*for (int i = 0; i < mHeights.size(); ++i)
@@ -166,7 +161,7 @@ void Lake::updateVelocities()
 {
 	for (int z = 1;z < mVertices - 1;z++) {
 		for (int x = 1;x < mVertices - 1;x++) {
-			mVelocity[z * mVertices + x] += (this->getVertexHeight(x - 1, z) + this->getVertexHeight(x + 1, z) + this->getVertexHeight(x, z - 1) + this->getVertexHeight(x, z + 1)) / 4 - this->getVertexHeight(x, z);
+			mVelocity[z * mVertices + x] += LAKE_COEFFICIENT*((this->getVertexHeight(x - 1, z) + this->getVertexHeight(x + 1, z) + this->getVertexHeight(x, z - 1) + this->getVertexHeight(x, z + 1)) / 4 - this->getVertexHeight(x, z));
 			mVelocity[z * mVertices + x] *= 0.99f;
 		}
 	}

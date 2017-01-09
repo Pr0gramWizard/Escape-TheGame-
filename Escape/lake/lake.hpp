@@ -37,6 +37,7 @@ public:
 	void updateHeights(GLfloat pDeltaTime);
 public:
 	static const int LAKE_SIZE;
+	static const GLfloat LAKE_COEFFICIENT;
 
 private:
 	int mWorldX;
