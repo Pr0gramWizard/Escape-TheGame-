@@ -48,7 +48,7 @@ Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<float> pT
 	// Store the normal coordiantes in the 1th position in the VertexBufferObject
 	storeData(1, pNormals, 3);
 	// Store the texture coordinates
-	storeData(2, pTexCoords, 3);
+	storeData(2, pTexCoords, 2);
 	// Unbinds the current VertexArrayObject
 	unbindVao();
 	// Returns a model with given VertexArrayObject ID and the number of triangles
