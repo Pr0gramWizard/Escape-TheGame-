@@ -105,8 +105,8 @@ bool Game::gameLoop()
 	// lights.push_back(sun4);
 	// lights.push_back(lamp);
 
-	
-
+	// start background music
+	PlaySound("music/DungeonThemeAlpha.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
 
 	// Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))

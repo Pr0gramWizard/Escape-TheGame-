@@ -1,9 +1,12 @@
 #pragma once
+#pragma comment(lib, "winmm.lib")
 
 // Inclusion of libraries
 
 // Standard Input/Output Stream
 #include <iostream>
+// used for sound
+#include <Windows.h>
 // SOIL
 #include <SOIL.h>
 // GLEW
