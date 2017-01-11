@@ -89,8 +89,8 @@ void Terrain::loadStoneTexture()
 
 void Terrain::loadFlowerTexture()
 {
-	glGenTextures(1, &mGrassTex);
-	glBindTexture(GL_TEXTURE_2D, mGrassTex); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
+	glGenTextures(1, &mFlowerTex);
+	glBindTexture(GL_TEXTURE_2D, mFlowerTex); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
 											 // Set our texture parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -112,8 +112,8 @@ void Terrain::loadFlowerTexture()
 
 void Terrain::loadMudTexture()
 {
-	glGenTextures(1, &mGrassTex);
-	glBindTexture(GL_TEXTURE_2D, mGrassTex); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
+	glGenTextures(1, &mMudTex);
+	glBindTexture(GL_TEXTURE_2D, mMudTex); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
 											 // Set our texture parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
