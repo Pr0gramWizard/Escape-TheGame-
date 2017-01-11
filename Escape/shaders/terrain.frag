@@ -29,7 +29,7 @@ void main()
 	vec4 blendMapColor = texture(blendMap,TexCoord);
 
 	float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
-	vec2 tiledCoords = TexCoord;
+	vec2 tiledCoords = TexCoord * 50;
 	vec4 backgroundTextureColor = texture(grass, tiledCoords) * backTextureAmount;
 	vec4 rTextureColor = texture(stone, tiledCoords) * blendMapColor.r;
 	vec4 gTextureColor = texture(flower, tiledCoords) * blendMapColor.g;
