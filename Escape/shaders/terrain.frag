@@ -20,9 +20,6 @@ uniform sampler2D flower;
 uniform sampler2D mud;
 uniform sampler2D blendMap;
 
-const float lakeHeight = -6;
-
-
 void main()
 {
 
@@ -72,8 +69,5 @@ void main()
 	visibility = clamp(visibility, 0.0, 1.0);
 
     out_Color = vec4(result,1.0) * totalColor;
-	if(viewPos.y < lakeHeight){
-		out_Color = mix(out_Color , vec4(0,0,1,0), 0.5);
-	}
 	out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
 }
