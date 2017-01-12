@@ -40,6 +40,17 @@ void Player::move(Terrain* pTerrain, float pDelta)
 	float yRotation = this->getYRotation();
 	// dPos is the distance the player is going to move
 	float dPos = mMovementSpeed * pDelta;
+	
+	// play walk sound if needed
+	if (dPos != 0) {
+		if (!WalkSound->isCurrentlyPlaying("audio/walk.mp3")) {
+			WalkSound->play2D("audio/walk.mp3", GL_FALSE);
+		}
+	}
+	else {
+		WalkSound->stopAllSounds();
+	}
+
 	float dx = dPos * sin(Math::toRadians(yRotation + this->getStrafeAngle()));
 	float dz = dPos * cos(Math::toRadians(yRotation + this->getStrafeAngle()));
 	this->incPosition(glm::vec3(dx, 0, dz));
