@@ -71,6 +71,6 @@ void main()
 	float visibility = exp(-pow((distance * fogDensity), fogGradient));
 	visibility = clamp(visibility, 0.0, 1.0);
 
-    out_Color = totalColor;
+    out_Color = vec4(result,1.0) * totalColor;
 	out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
 }
