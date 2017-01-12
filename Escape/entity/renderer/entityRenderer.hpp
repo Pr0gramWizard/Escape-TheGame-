@@ -13,7 +13,7 @@
 #include "../../entity/shader/entityshader.hpp"
 
 enum RenderMode {
-	POINTS2,
+	POINTS,
 	LINES,
 	LINE_STRIP,
 	LINE_LOOP,

@@ -125,7 +125,7 @@ void EntityRenderer::render(std::list<Entity> pEntities, RenderMode pMode)
 		loadModelMatrix(pEntity);
 		switch (pMode)
 		{
-		case RenderMode::POINTS2:
+		case RenderMode::POINTS:
 			glDrawElements(GL_POINTS, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 			break;
 		case RenderMode::LINES:
