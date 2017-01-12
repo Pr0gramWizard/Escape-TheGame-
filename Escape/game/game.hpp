@@ -1,6 +1,4 @@
 #pragma once
-#pragma comment(lib, "winmm.lib")
-
 // Inclusion of libraries
 
 // Standard Input/Output Stream
@@ -49,6 +47,8 @@
 #include "../lake/lake.hpp"
 // Lake fbos
 #include "../lake/fbo/lakeFrameBuffers.hpp"
+
+#include <irrKlang.h>
 
 class Game
 {

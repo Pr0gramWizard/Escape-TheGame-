@@ -22,6 +22,8 @@ Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWi
 	// Creating new instance of the camera class
 	mEye = new Camera();
 	this->setYRotation(mEye->getYaw() - 90.0f);
+	WalkSound = irrklang::createIrrKlangDevice();
+
 }
 
 // Default Destructor
@@ -50,8 +52,10 @@ void Player::move(Terrain* pTerrain, float pDelta)
 		mPosition.y = terrainHeight;
 	}
 
+
 	// Set camera's new position
 	mEye->setPosition(this->getPosition() + glm::vec3(0, this->getHeight(), 0));
+
 }
 
 // Function to change players position by a given offset vector
@@ -292,7 +296,8 @@ void Player::setMoveVariables()
 			this->setMovementSpeed(Player::MOVESPEED / crouchingMode);
 			movingMode = 1;
 		}
-		
+
+		// WalkSound->play2D("audio/walk.mp3", GL_FALSE);
 	}
 	else if (Keyboard::isKeyPressed(GLFW_KEY_S)) {
 		movingMode = -1;

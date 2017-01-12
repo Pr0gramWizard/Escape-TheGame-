@@ -105,8 +105,12 @@ bool Game::gameLoop()
 	// lights.push_back(sun4);
 	// lights.push_back(lamp);
 
-	// start background music
-	PlaySound("music/DungeonThemeAlpha.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+	irrklang::ISoundEngine* SoundEngine = irrklang::createIrrKlangDevice();
+
+	SoundEngine->play2D("audio/MainTheme.mp3", GL_TRUE);
+
+	
+
 
 	// Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
@@ -125,6 +129,32 @@ bool Game::gameLoop()
 		if (Keyboard::isKeyPressed(GLFW_KEY_LEFT_SHIFT))
 		{
 			mPlayer->setSprint(true);
+		}
+
+		if (Keyboard::isKeyPressed(GLFW_KEY_KP_SUBTRACT))
+		{
+			if (SoundEngine->getSoundVolume() <= 0.0f)
+			{
+				SoundEngine->setSoundVolume(0.0f);
+			}
+			else
+			{
+				SoundEngine->setSoundVolume(SoundEngine->getSoundVolume() - (0.5f * deltaTime));
+			}
+			std::cout << SoundEngine->getSoundVolume() << std::endl;
+		}
+
+		if (Keyboard::isKeyPressed(GLFW_KEY_KP_ADD))
+		{
+			if (SoundEngine->getSoundVolume() >= 1.0f)
+			{
+				SoundEngine->setSoundVolume(1.0f);
+			}
+			else
+			{
+				SoundEngine->setSoundVolume(SoundEngine->getSoundVolume() + (0.5f * deltaTime));
+			}
+			std::cout << SoundEngine->getSoundVolume() << std::endl;
 		}
 
 

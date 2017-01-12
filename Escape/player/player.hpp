@@ -19,6 +19,8 @@
 // Reference to the terrain class
 #include "../terrain/terrain.hpp"
 
+#include <irrKlang.h>
+
 // Declaration of the player class
 class Player {
 
@@ -121,6 +123,8 @@ private:
 	int mWindowHeight;
 	// Window Width
 	int mWindowWidth;
+
+	irrklang::ISoundEngine* WalkSound;
 
 	// Sets Movement Variables
 	void setMoveVariables();
