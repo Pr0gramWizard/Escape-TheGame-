@@ -104,11 +104,11 @@ void Lake::initLake(Loader * loader)
 
 	int half = (int)(mVertices / 2.0f);
 
-	mVelocity[half * mVertices + half] = -20;
-	mVelocity[half * mVertices + half - 1] = -10;
-	mVelocity[half * mVertices + half + 1] = -10;
-	mVelocity[(half + 1) * mVertices + half] = -10;
-	mVelocity[(half - 1) * mVertices + half] = -10;
+	mVelocity[half * mVertices + half] = -5;
+	mVelocity[half * mVertices + half - 1] = -2.5f;
+	mVelocity[half * mVertices + half + 1] = -2.5f;
+	mVelocity[(half + 1) * mVertices + half] = -2.5f;
+	mVelocity[(half - 1) * mVertices + half] = -2.5f;
 
 	// generates random heights between -mAmplitude and +mAmplitude
 	/*for (int i = 0; i < mHeights.size(); ++i)
