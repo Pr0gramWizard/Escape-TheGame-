@@ -101,7 +101,7 @@ bool Game::gameLoop()
 	vector<Light*> lights;
 	lights.push_back(sun);
 	lights.push_back(sun2);
-	lights.push_back(sun3);
+	// lights.push_back(sun3);
 	// lights.push_back(sun4);
 	// lights.push_back(lamp);
 
