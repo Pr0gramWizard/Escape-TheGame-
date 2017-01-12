@@ -42,7 +42,7 @@ void Player::move(Terrain* pTerrain, float pDelta)
 	float dPos = mMovementSpeed * pDelta;
 	
 	// play walk sound if needed
-	if (dPos != 0) {
+	if (dPos != 0 && !mJumping) {
 		if (!WalkSound->isCurrentlyPlaying("audio/walk.mp3")) {
 			WalkSound->play2D("audio/walk.mp3", GL_FALSE);
 		}
