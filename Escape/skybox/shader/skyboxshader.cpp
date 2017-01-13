@@ -1,21 +1,19 @@
-// Inclusion of definiton of the class
-#include "objectshader.hpp"
-
+#include "skyboxshader.hpp"
 
 // Constructor
-ObjectShader::ObjectShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
+SkyboxShader::SkyboxShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
 	this->createShader(pVertexShaderFilePath, pFragementShaderFilePath);
 	this->getAllUniformLocations();
 	this->bindAllAttributes();
 
 	// Log Shader
-	std::clog << "Object Shader class was created successfully!" << std::endl;
+	std::clog << "Skybox Shader class was created successfully!" << std::endl;
 }
 
 // Compilation of the vertex and fragment shader 
 // Function: complieShader(Filepath, Filepath)
-void ObjectShader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
+void SkyboxShader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
 	// First we create a VERTEX SHADER
 	mVertexShaderID = glCreateShader(GL_VERTEX_SHADER);
@@ -28,7 +26,7 @@ void ObjectShader::createShader(const std::string& pVertexShaderFilePath, const 
 	else
 	{
 		// Success message
-		std::clog << "Object Vertex shader created successfully! " << std::endl;
+		std::clog << "Skybox Vertex shader created successfully! " << std::endl;
 	}
 
 	// Then we create a FRAGEMENT SHADER
@@ -42,7 +40,7 @@ void ObjectShader::createShader(const std::string& pVertexShaderFilePath, const 
 	else
 	{
 		// Success message
-		std::clog << "Object Fragment shader created successfully! " << std::endl;
+		std::clog << "Skybox Fragment shader created successfully! " << std::endl;
 	}
 
 	// Compling both shader (using private class functions)
@@ -53,7 +51,7 @@ void ObjectShader::createShader(const std::string& pVertexShaderFilePath, const 
 }
 
 // Linking of vertex and fragment shader
-void ObjectShader::linkShader()
+void SkyboxShader::linkShader()
 {
 	// First we create a new Program with the given Program ID
 	setProgramID(glCreateProgram());
@@ -99,21 +97,21 @@ void ObjectShader::linkShader()
 }
 
 // Tell the program to use the shader
-void ObjectShader::use()
+void SkyboxShader::use()
 {
 	// Starting the program with the shader together
 	glUseProgram(getProgramID());
 }
 
 // Tell the program to stop using the shader
-void ObjectShader::unuse()
+void SkyboxShader::unuse()
 {
 	// Destroying refference to program
 	glUseProgram(0);
 }
 
 // Reading fragment shader from file and compiling it
-void ObjectShader::compileFragementShader(std::string pFragementShaderFilePath)
+void SkyboxShader::compileFragementShader(std::string pFragementShaderFilePath)
 {
 	// Opening a file stream with the given file path
 	std::ifstream fragementFile(pFragementShaderFilePath);
@@ -174,7 +172,7 @@ void ObjectShader::compileFragementShader(std::string pFragementShaderFilePath)
 
 }
 
-void ObjectShader::compileVertexShader(std::string pVertexShaderFilePath)
+void SkyboxShader::compileVertexShader(std::string pVertexShaderFilePath)
 {
 	// Opening a file stream with the given file path
 	std::ifstream vertexFile(pVertexShaderFilePath);
@@ -235,21 +233,21 @@ void ObjectShader::compileVertexShader(std::string pVertexShaderFilePath)
 
 // Getter Functions
 // Returns current Program ID
-GLuint ObjectShader::getProgramID() const
+GLuint SkyboxShader::getProgramID() const
 {
 	return mProgramID;
 }
 // Returns current Vertex Shader ID
-GLuint ObjectShader::getVertexShaderID() const
+GLuint SkyboxShader::getVertexShaderID() const
 {
 	return mVertexShaderID;
 }
 // Returns current Fragement Shader ID
-GLuint ObjectShader::getFragementShaderID() const
+GLuint SkyboxShader::getFragementShaderID() const
 {
 	return mFragementShaderID;
 }
-GLuint ObjectShader::getUniformLocation(const char* pUniformName)
+GLuint SkyboxShader::getUniformLocation(const char* pUniformName)
 {
 	GLuint Location = glGetUniformLocation(this->getProgramID(), pUniformName);
 
@@ -266,32 +264,32 @@ GLuint ObjectShader::getUniformLocation(const char* pUniformName)
 
 // Setter Functions
 // Sets current Program ID to a given ID
-void ObjectShader::setProgramID(int pProgramID)
+void SkyboxShader::setProgramID(int pProgramID)
 {
 	mProgramID = pProgramID;
 }
 // Sets current VertexShaderID to a given ID
-void ObjectShader::setVertexShaderID(int pVertexShaderID)
+void SkyboxShader::setVertexShaderID(int pVertexShaderID)
 {
 	mVertexShaderID = pVertexShaderID;
 }
 // Sets current FragementShaderID to a given ID
-void ObjectShader::setFragementShaderID(int pFragementShaderID)
+void SkyboxShader::setFragementShaderID(int pFragementShaderID)
 {
 	mFragementShaderID = pFragementShaderID;
 }
 
-void ObjectShader::loadFloat(GLuint pLocation, GLfloat pValue)
+void SkyboxShader::loadFloat(GLuint pLocation, GLfloat pValue)
 {
 	glUniform1f(pLocation, pValue);
 }
 
-void ObjectShader::loadVector(GLuint pLocation, glm::vec3 pVector)
+void SkyboxShader::loadVector(GLuint pLocation, glm::vec3 pVector)
 {
 	glUniform3f(pLocation, pVector.x, pVector.y, pVector.z);
 }
 
-void ObjectShader::loadBool(GLuint pLocation, GLboolean pValue)
+void SkyboxShader::loadBool(GLuint pLocation, GLboolean pValue)
 {
 	if (pValue == 0)
 	{
@@ -303,62 +301,62 @@ void ObjectShader::loadBool(GLuint pLocation, GLboolean pValue)
 	}
 }
 
-void ObjectShader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
+void SkyboxShader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
 {
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, glm::value_ptr(pMatrix));
 }
 
-void ObjectShader::loadVector4f(GLuint pLocation, glm::vec4 pVector)
+void SkyboxShader::loadVector4f(GLuint pLocation, glm::vec4 pVector)
 {
 	glUniform4f(pLocation, pVector.x, pVector.y, pVector.z, pVector.w);
 }
 
-void ObjectShader::loadModelMatrix(glm::mat4 pMatrix)
+void SkyboxShader::loadModelMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_modelMatrix, pMatrix);
 }
 
-void ObjectShader::loadProjectionMatrix(glm::mat4 pMatrix)
+void SkyboxShader::loadProjectionMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_projectionMatrix, pMatrix);
 }
 
-void ObjectShader::loadViewMatrix(glm::mat4 pMatrix)
+void SkyboxShader::loadViewMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_viewMatrix, pMatrix);
 }
 
-void ObjectShader::loadLight(Light *pLight)
+void SkyboxShader::loadLight(Light *pLight)
 {
 	loadVector(mLocation_lightPosition, pLight->getPosition());
 	loadVector(mLocation_lightColor, pLight->getColor());
 	loadVector(mLocation_lightAttenuation, pLight->getAttenuation());
 }
 
-void ObjectShader::loadPlane(glm::vec4 pVector)
+void SkyboxShader::loadPlane(glm::vec4 pVector)
 {
 	this->loadVector4f(mLocation_plane, pVector);
 }
 
-void ObjectShader::loadFogData(GLfloat pDensity, GLfloat pGradient)
+void SkyboxShader::loadFogData(GLfloat pDensity, GLfloat pGradient)
 {
 	this->loadFloat(mLocation_fogDensity, pDensity);
 	this->loadFloat(mLocation_fogGradient, pGradient);
 }
 
-void ObjectShader::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue)
+void SkyboxShader::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue)
 {
 	this->loadVector(mLocation_backgroundColor, glm::vec3(pRed, pGreen, pBlue));
 }
 
 // Destructor
-ObjectShader::~ObjectShader()
+SkyboxShader::~SkyboxShader()
 {
 	// Log Shader
 	std::clog << "Shader class was destroyed successfully!" << std::endl;
 }
 
-void ObjectShader::getAllUniformLocations()
+void SkyboxShader::getAllUniformLocations()
 {
 	mLocation_modelMatrix = glGetUniformLocation(getProgramID(), "model");
 	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projection");
@@ -374,14 +372,16 @@ void ObjectShader::getAllUniformLocations()
 }
 
 // Binding an attribtute to the shader
-void ObjectShader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
+void SkyboxShader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
 {
 	// We bind the attribute to the given Program ID
 	glBindAttribLocation(getProgramID(), pAttribute, pAttributeName.c_str());
 	// Then we increase the number of attributes in the whole class
 }
 
-void ObjectShader::bindAllAttributes()
+void SkyboxShader::bindAllAttributes()
 {
 	this->bindAttribute(0, "position");
+	this->bindAttribute(1, "normal");
+	this->bindAttribute(2, "texCoords");
 }

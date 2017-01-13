@@ -45,6 +45,8 @@
 #include "../lake/lake.hpp"
 // Lake fbos
 #include "../lake/fbo/lakeFrameBuffers.hpp"
+// Skybox class
+#include "../skybox/skybox.hpp"
 
 #include <irrKlang.h>
 
@@ -92,6 +94,8 @@ private:
 	Player* mPlayer;
 	// Main Renderer
 	MainRenderer* mRenderer;
+	// Skybox
+	Skybox* mSkybox;
 
 
 

@@ -106,6 +106,12 @@
     <Filter Include="Object\renderer">
       <UniqueIdentifier>{17cb4392-a8c1-472e-8565-079d7ae9e735}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Skybox">
+      <UniqueIdentifier>{8cd8864c-eb99-45e0-afee-bc15dd6fcfec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skybox\shader">
+      <UniqueIdentifier>{bb04ac1d-9e78-441c-bf5b-e5ca771c1f68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -183,6 +189,12 @@
     <ClCompile Include="object\renderer\objectrenderer.cpp">
       <Filter>Object\renderer</Filter>
     </ClCompile>
+    <ClCompile Include="skybox\skybox.cpp">
+      <Filter>Skybox</Filter>
+    </ClCompile>
+    <ClCompile Include="skybox\shader\skyboxshader.cpp">
+      <Filter>Skybox\shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -257,6 +269,12 @@
     <ClInclude Include="object\renderer\objectrenderer.hpp">
       <Filter>Object\renderer</Filter>
     </ClInclude>
+    <ClInclude Include="skybox\skybox.hpp">
+      <Filter>Skybox</Filter>
+    </ClInclude>
+    <ClInclude Include="skybox\shader\skyboxshader.hpp">
+      <Filter>Skybox\shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
@@ -299,6 +317,12 @@
       <Filter>Shader\Fragment</Filter>
     </None>
     <None Include="shaders\object.vert">
+      <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="shaders\skybox.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="shaders\skybox.vert">
       <Filter>Shader\Vertex</Filter>
     </None>
   </ItemGroup>

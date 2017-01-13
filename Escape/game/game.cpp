@@ -25,7 +25,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(),NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/,NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -54,6 +54,8 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glCullFace(GL_BACK);
 
 	mPlayer = new Player(glm::vec3(80, 0, 80), 1, "Archie der Entdecker", this->getHeight(), this->getWidth());
+
+	mSkybox = new Skybox();
 
 
 
@@ -84,12 +86,6 @@ bool Game::gameLoop()
 	Lake* lake = new Lake(75, -6, 80, 50, 50, "Lake", loader);
 	//**** END LAKE STUFF ****
 
-	// Object* Nano = new Object("object/res/nanosuit/nanosuit.obj");
-	Object* Sphere = new Object("object/res/sphere/Alpha.obj",glm::vec3(16 ,terrain.getHeight(16, 78), 77));
-	// Object* Cube = new Object("object/res/cube/cube.obj", glm::vec3(0, 1, 0));
-	ObjectShader* objectshader = new ObjectShader("shaders/object.vert", "shaders/object.frag");
-	ObjectRenderer* objectrender = new ObjectRenderer(objectshader, mPlayer->getProjectionMatrix());
-
 	//**** LIGHT STUFF ****
 	//Light* sun = new Light(glm::vec3(250, 1, 250), glm::vec3(1, 1, 0), glm::vec3(1, 0.01, 0.002));
 	Light* sun = new Light(glm::vec3(0, 1, 0), glm::vec3(0.4f, 0.4f, 0.4f));
@@ -108,6 +104,18 @@ bool Game::gameLoop()
 	irrklang::ISoundEngine* SoundEngine = irrklang::createIrrKlangDevice();
 
 	SoundEngine->play2D("audio/MainTheme.mp3", GL_TRUE);
+
+
+	SoundEngine->setSoundVolume(0.1f);
+
+	mSkybox->addTexture("skybox/res/top.jpg");
+	mSkybox->addTexture("skybox/res/bottom.jpg");
+	mSkybox->addTexture("skybox/res/back.jpg");
+	mSkybox->addTexture("skybox/res/front.jpg");
+	mSkybox->addTexture("skybox/res/left.jpg");
+	mSkybox->addTexture("skybox/res/right.jpg");
+
+	mSkybox->setCubeMapTexture(mSkybox->loadTexture());
 
 	
 
@@ -157,7 +165,7 @@ bool Game::gameLoop()
 			std::cout << SoundEngine->getSoundVolume() << std::endl;
 		}
 
-
+		mSkybox->render(mPlayer->getViewMatrix(), mPlayer->getProjectionMatrix());
 		mPlayer->move(&terrain, deltaTime);
 
 		glEnable(GL_CLIP_DISTANCE0);
@@ -168,6 +176,7 @@ bool Game::gameLoop()
 		float distance = 2 * (mPlayer->getCameraPosition().y - lake->getWorldY());
 		mPlayer->getCamera()->incYPosition(-distance);
 		mPlayer->getCamera()->invertPitch();
+	
 
 
 		// render to buffer
@@ -190,28 +199,13 @@ bool Game::gameLoop()
 		lakerenderer->render(mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE);
 
 		
+
 		
-		/*
-		objectrender->startShader();
-		objectrender->loadModelMatrix(Sphere);
-		objectrender->addToList(Sphere);
-		// objectrender->loadModelMatrix(Cube);
-		// Nobjectrender->addToList(Cube);
-		objectrender->loadViewMatrix(mPlayer->getViewMatrix());
-		objectrender->loadFogData(0.01f, 2.0f);
-		objectrender->loadBackgroundColor(Game::RED, Game::GREEN, Game::BLUE);
-		objectrender->render();
-		objectrender->stopShader();
-		*/
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
 		
 
 	}
-	// delete Nano;
-	delete Sphere;
-	delete objectshader;
-	delete objectrender;
 	loader->cleanUp();
 	delete loader;
 	glfwTerminate();
