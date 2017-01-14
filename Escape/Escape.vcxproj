@@ -40,6 +40,7 @@
     <ClCompile Include="object\shader\objectshader.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="renderer\mainrenderer.cpp" />
+    <ClCompile Include="skybox\renderer\skyboxrenderer.cpp" />
     <ClCompile Include="skybox\shader\skyboxshader.cpp" />
     <ClCompile Include="skybox\skybox.cpp" />
     <ClCompile Include="terrain\renderer\terrainRenderer.cpp" />
@@ -68,6 +69,7 @@
     <ClInclude Include="object\shader\objectshader.hpp" />
     <ClInclude Include="player\player.hpp" />
     <ClInclude Include="renderer\mainrenderer.hpp" />
+    <ClInclude Include="skybox\renderer\skyboxrenderer.hpp" />
     <ClInclude Include="skybox\shader\skyboxshader.hpp" />
     <ClInclude Include="skybox\skybox.hpp" />
     <ClInclude Include="terrain\renderer\terrainRenderer.hpp" />

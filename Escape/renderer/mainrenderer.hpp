@@ -1,22 +1,23 @@
 #pragma once
 
-// renderer
-#include "../entity/renderer/entityRenderer.hpp"
-#include "../terrain/renderer/terrainRenderer.hpp"
-#include "../lake/renderer/lakeRenderer.hpp"
-
 // entity
 #include "../entity/entity.hpp"
-
+#include "../entity/shader/entityShader.hpp"
+#include "../entity/renderer/entityRenderer.hpp"
 // terrain
 #include "../terrain/terrain.hpp"
 
+#include "../terrain/shader/terrainShader.hpp"
+#include "../terrain/renderer/terrainRenderer.hpp"
 //lake
 #include "../lake/lake.hpp"
+#include "../lake/renderer/lakeRenderer.hpp"
 
-// shader
-#include "../entity/shader/entityShader.hpp"
-#include "../terrain/shader/terrainShader.hpp"
+// skybox
+#include "../skybox/skybox.hpp"
+#include "../skybox/renderer/skyboxrenderer.hpp"
+#include "../skybox/shader/skyboxshader.hpp"
+
 
 // Keyboard
 #include "../input/keyboard.hpp"
@@ -45,6 +46,7 @@ public:
 	void addToList(Entity &pEntity);
 	void addToList(Terrain &pTerrain);
 	void addToList(Entity &pEntity, RenderMode pMode);
+	void addToList(Skybox* Skybox);
 
 	void setDrawMode(bool pMode);
 	bool getDrawMode() const;
@@ -61,15 +63,19 @@ public:
 
 	EntityRenderer* mEntityRenderer;
 	TerrainRenderer* mTerrainRenderer;
+	SkyboxRenderer* mSkyboxRenderer;
 
 public:
 	static const char* ENTITY_VERTEX;
 	static const char* ENTITY_FRAGMENT;
 	static const char* TERRAIN_VERTEX;
 	static const char* TERRAIN_FRAGMENT;
+	static const char* SKYBOX_VERTEX;
+	static const char* SKYBOX_FRAGMENT;
 
 private:
 	Player* mPlayer;
+	Skybox* mSkybox;
 
 	list<Entity> mEntities;
 	list<Entity> mSpecial;

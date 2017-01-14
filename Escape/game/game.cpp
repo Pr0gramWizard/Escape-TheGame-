@@ -25,7 +25,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/,NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(),glfwGetPrimaryMonitor(),NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -117,6 +117,8 @@ bool Game::gameLoop()
 
 	mSkybox->setCubeMapTexture(mSkybox->loadTexture());
 
+	mRenderer->addToList(mSkybox);
+
 	
 
 
@@ -165,7 +167,6 @@ bool Game::gameLoop()
 			std::cout << SoundEngine->getSoundVolume() << std::endl;
 		}
 
-		mSkybox->render(mPlayer->getViewMatrix(), mPlayer->getProjectionMatrix());
 		mPlayer->move(&terrain, deltaTime);
 
 		glEnable(GL_CLIP_DISTANCE0);

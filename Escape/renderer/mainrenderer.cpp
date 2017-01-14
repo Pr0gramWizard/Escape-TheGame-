@@ -4,6 +4,8 @@ const char* MainRenderer::ENTITY_VERTEX = "shaders/b.vert";
 const char* MainRenderer::ENTITY_FRAGMENT = "shaders/a.frag";
 const char* MainRenderer::TERRAIN_VERTEX = "shaders/terrain.vert";
 const char* MainRenderer::TERRAIN_FRAGMENT = "shaders/terrain.frag";
+const char* MainRenderer::SKYBOX_VERTEX = "shaders/skybox.vert";
+const char* MainRenderer::SKYBOX_FRAGMENT = "shaders/skybox.frag";
 
 MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 {
@@ -12,6 +14,9 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 
 	TerrainShader* terrainshader = new TerrainShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
 	mTerrainRenderer = new TerrainRenderer(terrainshader, pProjectionMatrix);
+
+	SkyboxShader* skyboxshader = new SkyboxShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
+	mSkyboxRenderer = new SkyboxRenderer(skyboxshader, pProjectionMatrix);
 
 	this->setDrawMode(0);
 
@@ -66,6 +71,15 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::ve
 		mTerrainRenderer->render(terrain);
 	}
 	mTerrainRenderer->stopShader();
+
+	/*
+	mSkyboxRenderer->startShader();
+	mSkyboxRenderer->loadViewMatrix(pViewMatrix);
+	mSkyboxRenderer->render(mSkybox);
+	mSkyboxRenderer->stopShader();
+	*/
+
+
 }
 
 void MainRenderer::addToList(Entity &pEntity)
@@ -77,6 +91,11 @@ void MainRenderer::addToList(Entity &pEntity, RenderMode pMode)
 {
 	mSpecial.push_back(pEntity);
 	mRenderMode.push_back(pMode);
+}
+
+void MainRenderer::addToList(Skybox* Skybox)
+{
+	mSkybox = Skybox;
 }
 
 void MainRenderer::setDrawMode(bool pMode)

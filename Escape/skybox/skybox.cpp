@@ -48,11 +48,6 @@ Skybox::Skybox()
 		1.0f, -1.0f, 1.0f
 };
 
-	for (int i = 0; i < mVertices.size(); ++i)
-	{
-		mVertices.at(i) = mVertices.at(i) * 500;
-	}
-
 	mShader = new SkyboxShader("shaders/skybox.vert", "shaders/skybox.frag");
 
 	this->loadVAO();
@@ -68,7 +63,6 @@ void Skybox::addTexture(const char * pTextureLocation)
 
 void Skybox::loadVAO()
 {
-	std::cout << "HELLO!" << std::endl;
 	glGenVertexArrays(1, &mSkyBoxVAO);
 	glGenBuffers(1, &mSkyBoxVBO);
 	glBindVertexArray(mSkyBoxVAO);
@@ -83,21 +77,6 @@ void Skybox::loadVAO()
 
 }
 
-void Skybox::render(glm::mat4 pViewMatrix, glm::mat4 pProjectionMatrix)
-{
-	glDepthFunc(GL_LEQUAL);  // Change depth function so depth test passes when values are equal to depth buffer's content
-	mShader->use();
-	mShader->loadViewMatrix(pViewMatrix);
-	mShader->loadProjectionMatrix(pProjectionMatrix);
-	// skybox cube
-	glBindVertexArray(this->getVAO());
-	glActiveTexture(GL_TEXTURE0);
-	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "skybox"), 0);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, this->getCubeMapTexture());
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-	glBindVertexArray(0);
-	glDepthFunc(GL_LESS); // Set dep
-}
 
 void Skybox::setVAO(GLuint pVAO)
 {
@@ -131,7 +110,6 @@ GLuint Skybox::getCubeMapTexture() const
 
 GLuint Skybox::loadTexture()
 {
-	std::cout << "HELLO!" << std::endl;
 		GLuint textureID;
 		glGenTextures(1, &textureID);
 

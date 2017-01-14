@@ -17,8 +17,6 @@ public:
 	
 	void loadVAO();
 
-	void render(glm::mat4 pViewMatrix, glm::mat4 pProjectionMatrix);
-
 	void setVAO(GLuint pVAO);
 	GLuint getVAO() const;
 

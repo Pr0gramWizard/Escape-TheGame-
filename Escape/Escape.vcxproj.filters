@@ -112,6 +112,9 @@
     <Filter Include="Skybox\shader">
       <UniqueIdentifier>{bb04ac1d-9e78-441c-bf5b-e5ca771c1f68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Skybox\renderer">
+      <UniqueIdentifier>{8766d80f-4b8c-49e4-af01-fa113074b1ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -195,6 +198,9 @@
     <ClCompile Include="skybox\shader\skyboxshader.cpp">
       <Filter>Skybox\shader</Filter>
     </ClCompile>
+    <ClCompile Include="skybox\renderer\skyboxrenderer.cpp">
+      <Filter>Skybox\renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -274,6 +280,9 @@
     </ClInclude>
     <ClInclude Include="skybox\shader\skyboxshader.hpp">
       <Filter>Skybox\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="skybox\renderer\skyboxrenderer.hpp">
+      <Filter>Skybox\renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
