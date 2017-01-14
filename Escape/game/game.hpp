@@ -45,9 +45,12 @@
 #include "../lake/lake.hpp"
 // Lake fbos
 #include "../lake/fbo/lakeFrameBuffers.hpp"
-// Skybox class
+// Skybox classw
 #include "../skybox/skybox.hpp"
 
+
+#include <ft2build.h>
+#include FT_FREETYPE_H
 #include <irrKlang.h>
 
 class Game

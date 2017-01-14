@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera\camera.cpp" />
+    <ClCompile Include="debugmode\debugmode.cpp" />
     <ClCompile Include="entity\entity.cpp" />
     <ClCompile Include="entity\renderer\entityRenderer.cpp" />
     <ClCompile Include="entity\shader\entityshader.cpp" />
@@ -50,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp" />
+    <ClInclude Include="debugmode\debugmode.hpp" />
     <ClInclude Include="entity\entity.hpp" />
     <ClInclude Include="entity\renderer\entityRenderer.hpp" />
     <ClInclude Include="entity\shader\entityshader.hpp" />
@@ -154,12 +156,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Escape\ExternalDependencies\assimp\include;$(SolutionDir)Escape\ExternalDependencies\soil\include;$(SolutionDir)Escape\ExternalDependencies\freeglut\include\GL;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\include\GL;$(SolutionDir)Escape\ExternalDependencies\glm\;$(SolutionDir)Escape\ExternalDependencies\glfw\include\GLFW;$(SolutionDir)Escape\ExternalDependencies\irrklang\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Escape\ExternalDependencies\freetype;$(SolutionDir)Escape\ExternalDependencies\freetype\freetype;$(SolutionDir)Escape\ExternalDependencies\assimp\include;$(SolutionDir)Escape\ExternalDependencies\soil\include;$(SolutionDir)Escape\ExternalDependencies\freeglut\include\GL;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\include\GL;$(SolutionDir)Escape\ExternalDependencies\glm\;$(SolutionDir)Escape\ExternalDependencies\glfw\include\GLFW;$(SolutionDir)Escape\ExternalDependencies\irrklang\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Escape\ExternalDependencies\irrklang\lib;$(SolutionDir)Escape\ExternalDependencies\assimp\lib;$(SolutionDir)Escape\ExternalDependencies\freeglut\lib;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\lib\Release\Win32;$(SolutionDir)Escape\ExternalDependencies\glfw\lib-vc2015;$(SolutionDir)Escape\ExternalDependencies\soil\lib;$(LibraryPath)</LibraryPath>
     <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)Escape\ExternalDependencies\assimp\include;$(SolutionDir)Escape\ExternalDependencies\soil\include;$(SolutionDir)Escape\ExternalDependencies\freeglut\include\GL;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\include\GL;$(SolutionDir)Escape\ExternalDependencies\glm\;$(SolutionDir)Escape\ExternalDependencies\glfw\include\GLFW;$(SolutionDir)Escape\ExternalDependencies\irrklang\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Escape\ExternalDependencies\freetype;$(SolutionDir)Escape\ExternalDependencies\freetype\freetype;$(SolutionDir)Escape\ExternalDependencies\assimp\include;$(SolutionDir)Escape\ExternalDependencies\soil\include;$(SolutionDir)Escape\ExternalDependencies\freeglut\include\GL;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\include\GL;$(SolutionDir)Escape\ExternalDependencies\glm\;$(SolutionDir)Escape\ExternalDependencies\glfw\include\GLFW;$(SolutionDir)Escape\ExternalDependencies\irrklang\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Escape\ExternalDependencies\irrklang\lib;$(SolutionDir)Escape\ExternalDependencies\assimp\lib;$(SolutionDir)Escape\ExternalDependencies\freeglut\lib;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\lib\Release\Win32;$(SolutionDir)Escape\ExternalDependencies\glfw\lib-vc2015;$(SolutionDir)Escape\ExternalDependencies\soil\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
