@@ -48,6 +48,8 @@
     <ClCompile Include="terrain\shader\terrainshader.cpp" />
     <ClCompile Include="terrain\terrain.cpp" />
     <ClCompile Include="textures\texture.cpp" />
+    <ClCompile Include="text\shader\textshader.cpp" />
+    <ClCompile Include="text\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp" />
@@ -78,6 +80,8 @@
     <ClInclude Include="terrain\shader\terrainshader.hpp" />
     <ClInclude Include="terrain\terrain.hpp" />
     <ClInclude Include="textures\texture.hpp" />
+    <ClInclude Include="text\shader\textshader.hpp" />
+    <ClInclude Include="text\TextRenderer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll" />

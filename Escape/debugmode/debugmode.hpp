@@ -2,7 +2,8 @@
 class DebugMode
 {
 public:
-	DebugMode();
-	~DebugMode();
+
+	void static startDebug();
+	void static stopDebug();
 };
 

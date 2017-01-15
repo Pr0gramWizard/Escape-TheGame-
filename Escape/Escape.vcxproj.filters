@@ -118,6 +118,12 @@
     <Filter Include="DebugMode">
       <UniqueIdentifier>{5eb366e1-27e3-4c93-a473-41adf9fcad69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Text">
+      <UniqueIdentifier>{c17aae93-2475-4d14-a814-937d6cec84b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Text\shader">
+      <UniqueIdentifier>{68024237-d148-4fcc-8456-9ae5e1dfb306}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -207,6 +213,12 @@
     <ClCompile Include="debugmode\debugmode.cpp">
       <Filter>DebugMode</Filter>
     </ClCompile>
+    <ClCompile Include="text\TextRenderer.cpp">
+      <Filter>Text</Filter>
+    </ClCompile>
+    <ClCompile Include="text\shader\textshader.cpp">
+      <Filter>Text\shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -292,6 +304,12 @@
     </ClInclude>
     <ClInclude Include="debugmode\debugmode.hpp">
       <Filter>DebugMode</Filter>
+    </ClInclude>
+    <ClInclude Include="text\TextRenderer.hpp">
+      <Filter>Text</Filter>
+    </ClInclude>
+    <ClInclude Include="text\shader\textshader.hpp">
+      <Filter>Text\shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
