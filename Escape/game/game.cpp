@@ -103,7 +103,7 @@ bool Game::gameLoop()
 
 	irrklang::ISoundEngine* SoundEngine = irrklang::createIrrKlangDevice();
 
-	SoundEngine->play2D("audio/MainTheme.mp3", GL_TRUE);
+	SoundEngine->play2D("audio/MainTheme.wav", GL_TRUE);
 
 
 	SoundEngine->setSoundVolume(0.1f);
