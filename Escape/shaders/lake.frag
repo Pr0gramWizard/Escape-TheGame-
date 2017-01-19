@@ -35,9 +35,16 @@ void main()
 	vec2 reflectionTexCoords = vec2(ndc.x, -ndc.y);
 	vec2 refractionTexCoords = vec2(ndc.x, ndc.y);
 
+	float depth = texture(depthMap, refractionTexCoords).r;
+	float floorDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
+
+	depth = gl_FragCoord.z;
+	float lakeDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
+	float lakeDepth = floorDistance - lakeDistance;
+
 	vec2 distortion1 = (texture(dudvMap, vec2(textureCoords.x + waterMoveFactor, textureCoords.y)).rg * 2.0 - 1.0) * waveStrength;
 	vec2 distortion2 = (texture(dudvMap, vec2(-textureCoords.x + waterMoveFactor, textureCoords.y + waterMoveFactor)).rg * 2.0 - 1.0) * waveStrength;
-	vec2 distortion = distortion1 + distortion2;
+	vec2 distortion = (distortion1 + distortion2) * clamp(lakeDepth/8.0, 0.0, 1.0);
 
 	reflectionTexCoords += distortion;
 	reflectionTexCoords.x = clamp(reflectionTexCoords.x, 0.01, 0.999);
@@ -45,13 +52,6 @@ void main()
 
 	refractionTexCoords += distortion;
 	refractionTexCoords = clamp(refractionTexCoords, 0.01, 0.999);
-
-	float depth = texture(depthMap, refractionTexCoords).r;
-	float floorDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
-
-	depth = gl_FragCoord.z;
-	float lakeDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
-	float lakeDepth = floorDistance - lakeDistance;
 
 	vec4 reflectColor = texture(reflectionTexture, reflectionTexCoords);
     vec4 refractColor = texture(refractionTexture, refractionTexCoords);
