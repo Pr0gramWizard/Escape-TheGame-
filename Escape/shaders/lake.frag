@@ -42,15 +42,15 @@ void main()
 	float lakeDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
 	float lakeDepth = floorDistance - lakeDistance;
 
-	vec2 distortion1 = (texture(dudvMap, vec2(textureCoords.x + waterMoveFactor, textureCoords.y)).rg * 2.0 - 1.0) * waveStrength;
-	vec2 distortion2 = (texture(dudvMap, vec2(-textureCoords.x + waterMoveFactor, textureCoords.y + waterMoveFactor)).rg * 2.0 - 1.0) * waveStrength;
-	vec2 distortion = (distortion1 + distortion2) * clamp(lakeDepth/8.0, 0.0, 1.0);
+	vec2 distortedTexCoords = texture(dudvMap, vec2(textureCoords.x + waterMoveFactor, textureCoords.y)).rg*0.1;
+	distortedTexCoords = textureCoords + vec2(distortedTexCoords.x, distortedTexCoords.y + waterMoveFactor);
+	vec2 totalDistortion = (texture(dudvMap, distortedTexCoords).rg * 2.0 - 1.0) * waveStrength * clamp(lakeDepth/8.0, 0.0, 1.0);
 
-	reflectionTexCoords += distortion;
+	reflectionTexCoords += totalDistortion;
 	reflectionTexCoords.x = clamp(reflectionTexCoords.x, 0.01, 0.999);
 	reflectionTexCoords.y = clamp(reflectionTexCoords.y, -0.999, -0.01);
 
-	refractionTexCoords += distortion;
+	refractionTexCoords += totalDistortion;
 	refractionTexCoords = clamp(refractionTexCoords, 0.01, 0.999);
 
 	vec4 reflectColor = texture(reflectionTexture, reflectionTexCoords);
