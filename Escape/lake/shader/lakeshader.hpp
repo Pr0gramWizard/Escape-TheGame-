@@ -63,6 +63,8 @@ public:
 	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
 	void loadNearFar(GLfloat pNear, GLfloat pFar);
 
+	void loadWaterMoveFactor(GLfloat pFactor);
+
 	// connect texture units
 	void connectTextureUnits();
 
@@ -91,6 +93,8 @@ private:
 	GLuint mLocation_backgroundColor;
 	GLuint mLocation_near;
 	GLuint mLocation_far;
+	GLuint mLocation_dudvMap;
+	GLuint mLocation_waterMoveFactor;
 
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);

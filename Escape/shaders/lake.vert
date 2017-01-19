@@ -3,6 +3,7 @@ layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 normal;
 
 out vec4 clipSpace;
+out vec2 textureCoords;
 out vec3 fromLightVector[4];
 out vec3 lakeNormal;
 out vec3 fragPos;
@@ -15,6 +16,8 @@ uniform vec3 lightPosition[4];
 uniform float fogDensity;
 uniform float fogGradient;
 
+const float dudvTiling = 6.0;
+
 void main()
 {
 	vec4 worldPosition = model * vec4(position, 1.0f);
@@ -25,6 +28,8 @@ void main()
 		fromLightVector[i] =  worldPosition.xyz - lightPosition[i];
 	}
 	lakeNormal = mat3(transpose(inverse(model))) * normal;
+
+	textureCoords = position.xy * dudvTiling;
 
     gl_Position = clipSpace;
 }

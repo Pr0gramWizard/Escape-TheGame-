@@ -370,11 +370,16 @@ void LakeShader::loadNearFar(GLfloat pNear, GLfloat pFar)
 	this->loadFloat(mLocation_far, pFar);
 }
 
+void LakeShader::loadWaterMoveFactor(GLfloat pFactor) {
+	this->loadFloat(mLocation_waterMoveFactor, pFactor);
+}
+
 void LakeShader::connectTextureUnits()
 {
 	this->loadInt(mLocation_reflectionTexture, 0);
 	this->loadInt(mLocation_refractionTexture, 1);
 	this->loadInt(mLocation_depthMap, 2);
+	this->loadInt(mLocation_dudvMap, 3);
 }
 
 // Destructor
@@ -397,6 +402,8 @@ void LakeShader::getAllUniformLocations()
 	mLocation_backgroundColor = glGetUniformLocation(getProgramID(), "backgroundColor");
 	mLocation_near = glGetUniformLocation(getProgramID(), "near");
     mLocation_far = glGetUniformLocation(getProgramID(), "far");
+	mLocation_dudvMap = glGetUniformLocation(getProgramID(), "dudvMap");
+	mLocation_waterMoveFactor = glGetUniformLocation(getProgramID(), "waterMoveFactor");
 	// Light locations
 	const char* lightPos[] = {
 		"lightPosition[0]",

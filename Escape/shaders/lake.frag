@@ -1,6 +1,7 @@
 #version 330 core
 
 in vec4 clipSpace;
+in vec2 textureCoords;
 in vec3 fromLightVector[4];
 in vec3 lakeNormal;
 in vec3 fragPos;
@@ -11,6 +12,8 @@ out vec4 color;
 uniform sampler2D reflectionTexture;
 uniform sampler2D refractionTexture;
 uniform sampler2D depthMap;
+uniform sampler2D dudvMap;
+uniform float waterMoveFactor;
 uniform vec3 lightColor[4];
 uniform vec3 lightAttenuation[4];
 uniform float fogDensity;
@@ -22,7 +25,7 @@ uniform float far;
 const float refactiveExponent = 2.0;
 const float shineDamper = 20.0;
 const float reflectivity = 0.6;
-
+const float waveStrength = 0.02;
 void main()
 {
 	vec3 toCameraVector = viewPos - fragPos;
@@ -31,6 +34,17 @@ void main()
 	// texCoords
 	vec2 reflectionTexCoords = vec2(ndc.x, -ndc.y);
 	vec2 refractionTexCoords = vec2(ndc.x, ndc.y);
+
+	vec2 distortion1 = (texture(dudvMap, vec2(textureCoords.x + waterMoveFactor, textureCoords.y)).rg * 2.0 - 1.0) * waveStrength;
+	vec2 distortion2 = (texture(dudvMap, vec2(-textureCoords.x + waterMoveFactor, textureCoords.y + waterMoveFactor)).rg * 2.0 - 1.0) * waveStrength;
+	vec2 distortion = distortion1 + distortion2;
+
+	reflectionTexCoords += distortion;
+	reflectionTexCoords.x = clamp(reflectionTexCoords.x, 0.01, 0.999);
+	reflectionTexCoords.y = clamp(reflectionTexCoords.y, -0.999, -0.01);
+
+	refractionTexCoords += distortion;
+	refractionTexCoords = clamp(refractionTexCoords, 0.01, 0.999);
 
 	float depth = texture(depthMap, refractionTexCoords).r;
 	float floorDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
@@ -69,4 +83,6 @@ void main()
 	color =  mix(color, vec4(0,0,1,0), 0.2) + vec4(specularHighlights, 0.0);
 	color = mix(vec4(backgroundColor, 1.0) , color, visibility);
 	color.a = clamp(lakeDepth/8.0, 0.0, 1.0);
+
+	color = texture(dudvMap, textureCoords);
 }

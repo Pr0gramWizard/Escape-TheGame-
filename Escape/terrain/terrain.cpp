@@ -57,8 +57,6 @@ void Terrain::loadGrasTexture()
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(grass);
 	glBindTexture(GL_TEXTURE_2D, 0);
-
-
 }
 
 void Terrain::loadStoneTexture()
