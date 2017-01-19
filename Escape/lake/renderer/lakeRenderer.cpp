@@ -67,6 +67,7 @@ void LakeRenderer::prepareLake(Lake* pLake)
 	glBindVertexArray(model->getVaoId());
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
 	// Texturepart here
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, mLakeFbos->getReflactionTexture());
@@ -88,6 +89,7 @@ void LakeRenderer::unbindLake()
 	glDisable(GL_BLEND);
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
 	glBindVertexArray(0);
 }
 

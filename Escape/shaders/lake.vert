@@ -17,7 +17,7 @@ uniform vec3 lightPosition[4];
 uniform float fogDensity;
 uniform float fogGradient;
 
-const float dudvTiling = 60.0;
+const float dudvTiling = 6.0;
 
 void main()
 {
