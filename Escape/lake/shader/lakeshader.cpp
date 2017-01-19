@@ -380,6 +380,7 @@ void LakeShader::connectTextureUnits()
 	this->loadInt(mLocation_refractionTexture, 1);
 	this->loadInt(mLocation_depthMap, 2);
 	this->loadInt(mLocation_dudvMap, 3);
+	this->loadInt(mLocation_normalMap, 4);
 }
 
 // Destructor
@@ -404,6 +405,7 @@ void LakeShader::getAllUniformLocations()
     mLocation_far = glGetUniformLocation(getProgramID(), "far");
 	mLocation_dudvMap = glGetUniformLocation(getProgramID(), "dudvMap");
 	mLocation_waterMoveFactor = glGetUniformLocation(getProgramID(), "waterMoveFactor");
+	mLocation_normalMap = glGetUniformLocation(getProgramID(), "normalMap");
 	// Light locations
 	const char* lightPos[] = {
 		"lightPosition[0]",

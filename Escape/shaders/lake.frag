@@ -13,6 +13,7 @@ uniform sampler2D reflectionTexture;
 uniform sampler2D refractionTexture;
 uniform sampler2D depthMap;
 uniform sampler2D dudvMap;
+uniform sampler2D normalMap;
 uniform float waterMoveFactor;
 uniform vec3 lightColor[4];
 uniform vec3 lightAttenuation[4];
@@ -26,6 +27,9 @@ const float refactiveExponent = 2.0;
 const float shineDamper = 20.0;
 const float reflectivity = 0.6;
 const float waveStrength = 0.02;
+
+const float activateNormalMapping = 0.0;
+
 void main()
 {
 	vec3 toCameraVector = viewPos - fragPos;
@@ -56,8 +60,15 @@ void main()
 	vec4 reflectColor = texture(reflectionTexture, reflectionTexCoords);
     vec4 refractColor = texture(refractionTexture, refractionTexCoords);
 
+	// calculate normal
+	vec3 usedLakeNormal = lakeNormal;
+	if(activateNormalMapping != 0.0 && lakeNormal.y >= 0.95){
+		vec4 normalColor = texture(normalMap, distortedTexCoords);
+		usedLakeNormal = vec3(normalColor.r * 2.0 - 1.0, normalColor.b, normalColor.g * 2.0 - 1.0);
+	}
+
 	vec3 viewVector = normalize(toCameraVector);
-	float refractiveFactor = clamp(pow(dot(viewVector, lakeNormal), refactiveExponent), 0.0, 1.0);
+	float refractiveFactor = clamp(pow(dot(viewVector, usedLakeNormal), refactiveExponent), 0.0, 1.0);
 
 	// specular highlights
 	vec3 specularHighlights;
@@ -68,7 +79,7 @@ void main()
 		float attenuationFactor = lightAttenuation[i].x + (lightAttenuation[i].y * distance) + (lightAttenuation[i].z * distance * distance);
 
 		//specular highlights
-		vec3 reflectedLight = reflect(normalize(fromLightVector[i]), lakeNormal);
+		vec3 reflectedLight = reflect(normalize(fromLightVector[i]), usedLakeNormal);
 		float specular = max(dot(reflectedLight, viewVector), 0.0);
 		specular = pow(specular, shineDamper);
 		specularHighlights = specularHighlights + (lightColor[i] * specular * reflectivity * clamp(lakeDepth/8.0, 0.0, 1.0))/attenuationFactor;
@@ -84,5 +95,5 @@ void main()
 	color = mix(vec4(backgroundColor, 1.0) , color, visibility);
 	color.a = clamp(lakeDepth/8.0, 0.0, 1.0);
 
-	//color = texture(dudvMap, textureCoords);
+	//color = vec4(1,0,0, 1);
 }

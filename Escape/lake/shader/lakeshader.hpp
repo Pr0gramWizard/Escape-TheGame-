@@ -95,6 +95,7 @@ private:
 	GLuint mLocation_far;
 	GLuint mLocation_dudvMap;
 	GLuint mLocation_waterMoveFactor;
+	GLuint mLocation_normalMap;
 
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);

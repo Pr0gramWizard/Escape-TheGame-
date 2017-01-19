@@ -24,6 +24,7 @@ class LakeRenderer
 {
 public:
 	const static char* LakeRenderer::DUDV_MAP;
+	const static char* LakeRenderer::NORMAL_MAP;
 	const static float LakeRenderer::LAKE_WAVE_MOVEMENT_SPEED;
 
 public:
@@ -33,6 +34,7 @@ public:
 	~LakeRenderer();
 
 	void loadDuDvMap(const char* pFile);
+	void loadNormalMap(const char* pFile);
 
 	// render methods
 	void render(GLfloat pDeltaTime, glm::mat4 pViewMatrix, Lake &pTerrain, vector<Light*> pLights, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE);
@@ -65,5 +67,6 @@ private:
 	LakeFrameBuffers* mLakeFbos;
 	GLuint mDuDvMap;
 	GLfloat mLakeMoveFactor;
+	GLuint mNormalMap;
 };
 

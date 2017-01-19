@@ -1,6 +1,7 @@
 #include "lakeRenderer.hpp"
 
 const char* LakeRenderer::DUDV_MAP = "lake/res/dudv.png";
+const char* LakeRenderer::NORMAL_MAP = "lake/res/normal.png";
 const float LakeRenderer::LAKE_WAVE_MOVEMENT_SPEED = 0.03f;
 
 // constructor
@@ -10,6 +11,7 @@ LakeRenderer::LakeRenderer(LakeShader * pShader, glm::mat4 pProjectionMatrix, La
 	mShader = pShader;
 	mLakeMoveFactor = 0.0f;
 	loadDuDvMap(DUDV_MAP);
+	loadNormalMap(LakeRenderer::NORMAL_MAP);
 	mShader->use();
 	mShader->connectTextureUnits();
 	mShader->loadProjectionMatrix(pProjectionMatrix);
@@ -77,6 +79,8 @@ void LakeRenderer::prepareLake(Lake* pLake)
 	glBindTexture(GL_TEXTURE_2D, mLakeFbos->getRefractionDepthTexture());
 	glActiveTexture(GL_TEXTURE3);
 	glBindTexture(GL_TEXTURE_2D, this->mDuDvMap);
+	glActiveTexture(GL_TEXTURE4);
+	glBindTexture(GL_TEXTURE_2D, this->mNormalMap);
 	
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -165,6 +169,31 @@ void LakeRenderer::loadDuDvMap(const char* pFile) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -0.4f);
 	SOIL_free_image_data(dudv);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void LakeRenderer::loadNormalMap(const char * pFile)
+{
+	glGenTextures(1, &mNormalMap);
+	glBindTexture(GL_TEXTURE_2D, mNormalMap); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
+											// Set our texture parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// Set texture filtering
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	// Load, create texture and generate mipmaps
+	int width, height;
+	unsigned char* normal = SOIL_load_image(pFile, &width, &height, 0, SOIL_LOAD_RGB);
+	if (normal == 0)
+	{
+		std::cout << "The normal map texture could not be found!" << std::endl;
+	}
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, normal);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -0.4f);
+	SOIL_free_image_data(normal);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
