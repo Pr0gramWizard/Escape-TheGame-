@@ -82,7 +82,7 @@ bool Game::gameLoop()
 	//**** LAKE STUFF ****
 	LakeFrameBuffers* lfbos = new LakeFrameBuffers(mWidth, mHeight);
 	LakeShader* lakeshader = new LakeShader("shaders/lake.vert", "shaders/lake.frag");
-	LakeRenderer* lakerenderer = new LakeRenderer(lakeshader, mPlayer->getProjectionMatrix(), lfbos, loader);
+	LakeRenderer* lakerenderer = new LakeRenderer(lakeshader, mPlayer->getProjectionMatrix(), lfbos);
 	Lake* lake = new Lake(75, -6, 80, 50, 50, "Lake", loader);
 	//**** END LAKE STUFF ****
 

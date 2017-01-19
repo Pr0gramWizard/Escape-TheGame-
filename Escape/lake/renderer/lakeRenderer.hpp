@@ -28,7 +28,7 @@ public:
 
 public:
 	// constructor
-	LakeRenderer(LakeShader* pShader, glm::mat4 pProjectionMatrix, LakeFrameBuffers* pLakeFbos, Loader* pLoader);
+	LakeRenderer(LakeShader* pShader, glm::mat4 pProjectionMatrix, LakeFrameBuffers* pLakeFbos);
 	// destructor
 	~LakeRenderer();
 

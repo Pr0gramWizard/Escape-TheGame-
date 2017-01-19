@@ -83,6 +83,4 @@ void main()
 	color =  mix(color, vec4(0,0,1,0), 0.2) + vec4(specularHighlights, 0.0);
 	color = mix(vec4(backgroundColor, 1.0) , color, visibility);
 	color.a = clamp(lakeDepth/8.0, 0.0, 1.0);
-
-	color = texture(dudvMap, textureCoords);
 }

@@ -4,7 +4,7 @@ const char* LakeRenderer::DUDV_MAP = "lake/res/dudv.png";
 const float LakeRenderer::LAKE_WAVE_MOVEMENT_SPEED = 0.03f;
 
 // constructor
-LakeRenderer::LakeRenderer(LakeShader * pShader, glm::mat4 pProjectionMatrix, LakeFrameBuffers* pLakeFbos, Loader* pLoader)
+LakeRenderer::LakeRenderer(LakeShader * pShader, glm::mat4 pProjectionMatrix, LakeFrameBuffers* pLakeFbos)
 {
 	mLakeFbos = pLakeFbos;
 	mShader = pShader;
@@ -149,8 +149,8 @@ void LakeRenderer::loadDuDvMap(const char* pFile) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	// Set texture filtering
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	// Load, create texture and generate mipmaps
 	int width, height;
 	unsigned char* dudv = SOIL_load_image(pFile, &width, &height, 0, SOIL_LOAD_RGB);

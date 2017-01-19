@@ -1,6 +1,7 @@
 #version 330 core
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 normal;
+layout (location = 2) in vec2 texCoords;
 
 out vec4 clipSpace;
 out vec2 textureCoords;
@@ -16,7 +17,7 @@ uniform vec3 lightPosition[4];
 uniform float fogDensity;
 uniform float fogGradient;
 
-const float dudvTiling = 6.0;
+const float dudvTiling = 60.0;
 
 void main()
 {
@@ -29,7 +30,7 @@ void main()
 	}
 	lakeNormal = mat3(transpose(inverse(model))) * normal;
 
-	textureCoords = position.xy * dudvTiling;
+	textureCoords = texCoords * dudvTiling;
 
     gl_Position = clipSpace;
 }
