@@ -199,6 +199,8 @@ bool Game::gameLoop()
 		lake->updateHeights(deltaTime);
 		lakerenderer->render(deltaTime, mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE);
 
+		mRenderer->renderDebugInformation();
+
 		
 
 		

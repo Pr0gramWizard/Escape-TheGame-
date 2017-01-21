@@ -10,6 +10,8 @@
 // OpenGLMath
 #include <glm.hpp>
 #include <vec2.hpp>
+#include <mat4x4.hpp>
+#include <gtc\matrix_transform.hpp>
 
 // Standarad I/0 Library
 #include <iostream>
@@ -20,23 +22,40 @@
 // Text Shader
 #include "shader\textshader.hpp"
 
+// Struct that contains a single character
 struct Character {
-	GLuint TextureID;   // ID handle of the glyph texture
-	glm::ivec2 Size;    // Size of glyph
-	glm::ivec2 Bearing;  // Offset from baseline to left/top of glyph
-	GLuint Advance;    // Horizontal offset to advance to next glyph
+	// ID handle of the glyph texture
+	GLuint TextureID;
+	// Size of glyph
+	glm::ivec2 Size;    
+	// Offset from baseline to left/top of glyph
+	glm::ivec2 Bearing;
+	// Horizontal offset to advance to next glyph
+	GLuint Advance;    
 };
 
 class TextRenderer
 {
+// Public functions
 public:
-	TextRenderer();
+	TextRenderer(TextShader* pShader);
 	~TextRenderer();
+	void prepareShader(int pWidth, int pHeight);
+	void prepareText();
+	void bindVAO();
 
-	void RenderText(TextShader &shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
+	void RenderText(std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
 
+	GLuint getVAO() const;
+	GLuint getVBO() const;
+	
+
+// Private members
 private:
 	std::map<GLchar, Character> Characters;
-	GLuint VAO, VBO;
+	GLuint mVAO, mVBO;
+	TextShader* mShader;
+
+
 };
 

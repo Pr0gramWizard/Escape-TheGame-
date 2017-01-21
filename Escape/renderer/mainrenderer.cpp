@@ -6,6 +6,8 @@ const char* MainRenderer::TERRAIN_VERTEX = "shaders/terrain.vert";
 const char* MainRenderer::TERRAIN_FRAGMENT = "shaders/terrain.frag";
 const char* MainRenderer::SKYBOX_VERTEX = "shaders/skybox.vert";
 const char* MainRenderer::SKYBOX_FRAGMENT = "shaders/skybox.frag";
+const char* MainRenderer::TEXT_VERTEX = "shaders/text.vert";
+const char* MainRenderer::TEXT_FRAGMENT = "shaders/text.frag";
 
 MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 {
@@ -17,6 +19,9 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 
 	SkyboxShader* skyboxshader = new SkyboxShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
 	mSkyboxRenderer = new SkyboxRenderer(skyboxshader, pProjectionMatrix);
+
+	TextShader* textshader = new TextShader(TEXT_VERTEX, TEXT_FRAGMENT);
+	mTextRenderer = new TextRenderer(textshader);
 
 	this->setDrawMode(0);
 
@@ -72,6 +77,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::ve
 	}
 	mTerrainRenderer->stopShader();
 
+
 	/*
 	mSkyboxRenderer->startShader();
 	mSkyboxRenderer->loadViewMatrix(pViewMatrix);
@@ -80,6 +86,34 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::ve
 	*/
 
 
+}
+
+void MainRenderer::renderDebugInformation()
+{
+	if (this->getDrawMode())
+	{
+		glEnable(GL_BLEND);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		std::string PlayerPosition = "Player Position: ";
+		float XPos = mPlayer->getPosition().x;
+		float YPos = mPlayer->getPosition().y;
+		float ZPos = mPlayer->getPosition().z;
+
+		PlayerPosition = PlayerPosition + std::to_string(XPos) + "," + std::to_string(YPos) + "," + std::to_string(ZPos);
+
+		std::string PlayerName = "Name: " + (std::string)mPlayer->getName();
+		std::string PlayerMovementSpeed = "Movementspeed: " + std::to_string(mPlayer->getMovementSpeed());
+
+
+
+		mTextRenderer->RenderText(PlayerName.c_str(), 10.0f, 1000.0f, 0.4f, glm::vec3(1, 1, 1));
+		mTextRenderer->RenderText(PlayerPosition.c_str() , 10.0f, 980.0f, 0.4f, glm::vec3(1, 1, 1));
+		mTextRenderer->RenderText(PlayerMovementSpeed.c_str(), 10.0f, 960.0f, 0.4f, glm::vec3(1, 1, 1));
+		
+	}
+	
 }
 
 void MainRenderer::addToList(Entity &pEntity)

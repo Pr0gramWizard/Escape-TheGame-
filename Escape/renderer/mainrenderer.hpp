@@ -18,6 +18,10 @@
 #include "../skybox/renderer/skyboxrenderer.hpp"
 #include "../skybox/shader/skyboxshader.hpp"
 
+// Text Rendering
+#include "../text/TextRenderer.hpp"
+#include "../text/shader/textshader.hpp"
+
 
 // Keyboard
 #include "../input/keyboard.hpp"
@@ -55,7 +59,7 @@ public:
 	void prepare(GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE);
 	// render
 	void render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE);
-	// clears the render lists
+	void renderDebugInformation();
 	void clearLists();
 
 	// cleans up when closing the game
@@ -64,6 +68,7 @@ public:
 	EntityRenderer* mEntityRenderer;
 	TerrainRenderer* mTerrainRenderer;
 	SkyboxRenderer* mSkyboxRenderer;
+	TextRenderer* mTextRenderer;
 
 public:
 	static const char* ENTITY_VERTEX;
@@ -72,6 +77,8 @@ public:
 	static const char* TERRAIN_FRAGMENT;
 	static const char* SKYBOX_VERTEX;
 	static const char* SKYBOX_FRAGMENT;
+	static const char* TEXT_VERTEX;
+	static const char* TEXT_FRAGMENT;
 
 private:
 	Player* mPlayer;

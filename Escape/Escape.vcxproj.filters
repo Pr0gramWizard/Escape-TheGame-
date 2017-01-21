@@ -115,9 +115,6 @@
     <Filter Include="Skybox\renderer">
       <UniqueIdentifier>{8766d80f-4b8c-49e4-af01-fa113074b1ec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DebugMode">
-      <UniqueIdentifier>{5eb366e1-27e3-4c93-a473-41adf9fcad69}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Text">
       <UniqueIdentifier>{c17aae93-2475-4d14-a814-937d6cec84b5}</UniqueIdentifier>
     </Filter>
@@ -210,9 +207,6 @@
     <ClCompile Include="skybox\renderer\skyboxrenderer.cpp">
       <Filter>Skybox\renderer</Filter>
     </ClCompile>
-    <ClCompile Include="debugmode\debugmode.cpp">
-      <Filter>DebugMode</Filter>
-    </ClCompile>
     <ClCompile Include="text\TextRenderer.cpp">
       <Filter>Text</Filter>
     </ClCompile>
@@ -302,9 +296,6 @@
     <ClInclude Include="skybox\renderer\skyboxrenderer.hpp">
       <Filter>Skybox\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="debugmode\debugmode.hpp">
-      <Filter>DebugMode</Filter>
-    </ClInclude>
     <ClInclude Include="text\TextRenderer.hpp">
       <Filter>Text</Filter>
     </ClInclude>
@@ -360,6 +351,12 @@
     </None>
     <None Include="shaders\skybox.vert">
       <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="shaders\text.vert">
+      <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="shaders\text.frag">
+      <Filter>Shader\Fragment</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

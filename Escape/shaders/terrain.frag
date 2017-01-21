@@ -50,7 +50,7 @@ void main()
 		vec3 lightDir = normalize(lightPosition[i] - fragPos);
 		float diff = max(dot(norm, lightDir), 0.0);
 		vec3 diffuse = diff * lightColor[i];
-    
+	
 		// Specular
 		float specularStrength = 0.5f;
 		vec3 viewDir = normalize(viewPos - fragPos);
