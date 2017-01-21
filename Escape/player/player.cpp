@@ -109,6 +109,11 @@ bool Player::getCrouching() const
 	return mCrouching;
 }
 
+bool Player::getJumping() const
+{
+	return mJumping;
+}
+
 void Player::setSprint(bool pSprint)
 {
 	mSprinting = pSprint;

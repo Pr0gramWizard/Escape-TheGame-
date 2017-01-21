@@ -52,11 +52,11 @@ public:
 	void jump();
 
 	void crouch();
-	void setCrouching(bool pCrouching);
-	bool getCrouching() const;
 
-	void setSprint(bool pSprint);
-	bool getSprint() const;
+
+
+
+
 
 	// Setter Functions
 	void setPosition(glm::vec3 pPosition);
@@ -69,6 +69,8 @@ public:
 	void setMovementSpeed(GLfloat pMovementSpeed);
 	void setUpSpeed(GLfloat pUpSpeed);
 	void setJumping(bool pJumping);
+	void setCrouching(bool pCrouching);
+	void setSprint(bool pSprint);
 
 	// Getter Functions
 	glm::vec3 getPosition() const;
@@ -81,7 +83,9 @@ public:
 	int getWindowHeight() const;
 	int getWindowWidth() const;
 	GLfloat getMovementSpeed() const;
-
+	bool getSprint() const;
+	bool getCrouching() const;
+	bool getJumping() const;
 	glm::vec3 getCameraPosition() const;
 	Camera* getCamera();
 

@@ -199,6 +199,7 @@ bool Game::gameLoop()
 		lake->updateHeights(deltaTime);
 		lakerenderer->render(deltaTime, mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE);
 
+		// Render Debug Information
 		mRenderer->renderDebugInformation();
 
 		
@@ -261,6 +262,12 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 	if (Keyboard::isKeyPressed(GLFW_KEY_Q))
 	{
 		game->mRenderer->setDrawMode((bool)abs(game->mRenderer->getDrawMode() - 1));
+
+	}
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_F1))
+	{
+		game->mRenderer->setDebugMode((bool)abs(game->mRenderer->getDrawMode() - 1));
 
 	}
 

@@ -55,6 +55,9 @@ public:
 	void setDrawMode(bool pMode);
 	bool getDrawMode() const;
 
+	void setDebugMode(bool pMode);
+	bool getDebugMode() const;
+
 	// prepares for rendering
 	void prepare(GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE);
 	// render
@@ -90,5 +93,6 @@ private:
 	list<Terrain> mTerrains;
 
 	bool drawMode;
+	bool debugMode;
 };
 

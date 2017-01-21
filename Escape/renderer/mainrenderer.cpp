@@ -90,7 +90,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::ve
 
 void MainRenderer::renderDebugInformation()
 {
-	if (this->getDrawMode())
+	if (this->getDebugMode())
 	{
 		glEnable(GL_BLEND);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -105,12 +105,45 @@ void MainRenderer::renderDebugInformation()
 
 		std::string PlayerName = "Name: " + (std::string)mPlayer->getName();
 		std::string PlayerMovementSpeed = "Movementspeed: " + std::to_string(mPlayer->getMovementSpeed());
+		std::string PlayerCrouch = "Crouching: ";
+		std::string PlayerSprint = "Sprinting: ";
+		std::string PlayerJump = "Jumping: ";
 
+		if (mPlayer->getCrouching())
+		{
+			PlayerCrouch += "True";
+		}
+		else
+		{
+			PlayerCrouch += "False";
+		}
 
+		if (Keyboard::isKeyPressed(GLFW_KEY_LEFT_SHIFT))
+		{
+			PlayerSprint += "True";
+		}
+		else
+		{
+			PlayerSprint += "False";
+		}
 
-		mTextRenderer->RenderText(PlayerName.c_str(), 10.0f, 1000.0f, 0.4f, glm::vec3(1, 1, 1));
-		mTextRenderer->RenderText(PlayerPosition.c_str() , 10.0f, 980.0f, 0.4f, glm::vec3(1, 1, 1));
-		mTextRenderer->RenderText(PlayerMovementSpeed.c_str(), 10.0f, 960.0f, 0.4f, glm::vec3(1, 1, 1));
+		if (mPlayer->getJumping())
+		{
+			PlayerJump += "True";
+		}
+		else
+		{
+			PlayerJump += "False";
+		}
+
+	
+
+		mTextRenderer->RenderText(PlayerName.c_str(), 20.0f, 1000.0f, 0.4f, glm::vec3(1, 1, 1));
+		mTextRenderer->RenderText(PlayerPosition.c_str() , 20.0f, 980.0f, 0.4f, glm::vec3(1, 1, 1));
+		mTextRenderer->RenderText(PlayerMovementSpeed.c_str(), 20.0f, 960.0f, 0.4f, glm::vec3(1, 1, 1));
+		mTextRenderer->RenderText(PlayerCrouch.c_str(), 20.0f, 940.0f, 0.4f, glm::vec3(1, 1, 1));
+		mTextRenderer->RenderText(PlayerSprint.c_str(), 20.0f, 920.0f, 0.4f, glm::vec3(1, 1, 1));
+		mTextRenderer->RenderText(PlayerJump.c_str(), 20.0f, 900.0f, 0.4f, glm::vec3(1, 1, 1));
 		
 	}
 	
@@ -140,6 +173,16 @@ void MainRenderer::setDrawMode(bool pMode)
 bool MainRenderer::getDrawMode() const
 {
 	return drawMode;
+}
+
+void MainRenderer::setDebugMode(bool pMode)
+{
+	debugMode = pMode;
+}
+
+bool MainRenderer::getDebugMode() const
+{
+	return debugMode;
 }
 
 void MainRenderer::addToList(Terrain &pTerrain)
