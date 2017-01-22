@@ -287,7 +287,7 @@ void Terrain::generateHeights(Loader * loader)
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, heightmap);
 	// height should be equal to width
-	unsigned char* image = SOIL_load_image("./terrain/res/B.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* image = SOIL_load_image("./terrain/res/test2.png", &width, &height, 0, SOIL_LOAD_RGB);
 
 	if (image == 0)
 	{
