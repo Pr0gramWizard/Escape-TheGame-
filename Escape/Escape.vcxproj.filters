@@ -127,6 +127,9 @@
     <Filter Include="Particles\shader">
       <UniqueIdentifier>{562b76c0-bc5c-4ed6-8862-83e99499224a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particles\renderer">
+      <UniqueIdentifier>{9fc847ef-13d5-45b1-801f-12ebcb3816d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -222,7 +225,12 @@
     <ClCompile Include="particle\particle.cpp">
       <Filter>Particles</Filter>
     </ClCompile>
-    <ClCompile Include="particle\shader\particleshader.cpp" />
+    <ClCompile Include="particle\shader\particleshader.cpp">
+      <Filter>Particles\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\renderer\particlerenderer.cpp">
+      <Filter>Particles\renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -315,7 +323,12 @@
     <ClInclude Include="particle\particle.hpp">
       <Filter>Particles</Filter>
     </ClInclude>
-    <ClInclude Include="particle\shader\particleshader.hpp" />
+    <ClInclude Include="particle\shader\particleshader.hpp">
+      <Filter>Particles\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\renderer\particlerenderer.hpp">
+      <Filter>Particles\renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
