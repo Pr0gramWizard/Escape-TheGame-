@@ -2,11 +2,12 @@
 
 const int Terrain::TERRAIN_SIZE = 512;
 
-Terrain::Terrain(int pGridX, int pGridZ, int pAmplitude, const char* pName, Loader* pLoader)
+Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader)
 {
 	// Worldspace coordinates
 	mWorldX = pGridX * Terrain::TERRAIN_SIZE;
 	mWorldZ = pGridZ * Terrain::TERRAIN_SIZE;
+	mOffset = pOffset;
 	
 	// Set height amplitude for terrain
 	setAmplitude(pAmplitude);
@@ -164,6 +165,11 @@ int Terrain::getWorldZ() const
 	return mWorldZ;
 }
 
+int Terrain::getOffset() const
+{
+	return mOffset;
+}
+
 glm::vec2 Terrain::getWorldPos() const
 {
 	return glm::vec2(mWorldX, mWorldZ);
@@ -291,7 +297,7 @@ void Terrain::generateHeights(Loader * loader)
 
 	if (image == 0)
 	{
-		std::cout << "Could not found the heightmap!" << std::endl;
+		std::cout << "Could not find the heightmap!" << std::endl;
 	}
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
 		GL_UNSIGNED_BYTE, image);
@@ -312,6 +318,8 @@ void Terrain::generateHeights(Loader * loader)
 		texture_data[i] *= 2;
 		texture_data[i] -= 1;
 		texture_data[i] *= mAmplitude;
+		// Add height offset;
+		texture_data[i] += mOffset;
 	}
 
 	// Set amount of vertices along a side of the terrain

@@ -15,7 +15,7 @@
 class Terrain
 {
 public:
-	Terrain(int pGridX, int pGridZ, int pAmplitude, const char* pName, Loader* pLoader);
+	Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader);
 	~Terrain();
 	
 	// Loading all important textures
@@ -36,6 +36,7 @@ public:
 	// Getter functions
 	int getWorldX() const;
 	int getWorldZ() const;
+	int getOffset() const;
 	glm::vec2 getWorldPos() const;
 	const char* getName();
 
@@ -57,6 +58,8 @@ public:
 private:
 	int mWorldX;
 	int mWorldZ;
+	// Height offset
+	float mOffset;
 	int mAmplitude;
 	// Getters & Setters needed? Maybe static
 	int mVertices;
