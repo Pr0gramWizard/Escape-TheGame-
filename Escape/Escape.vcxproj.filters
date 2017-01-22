@@ -121,6 +121,12 @@
     <Filter Include="Text\shader">
       <UniqueIdentifier>{68024237-d148-4fcc-8456-9ae5e1dfb306}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particles">
+      <UniqueIdentifier>{64b16df8-252f-44e3-8483-621e5f71346a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particles\shader">
+      <UniqueIdentifier>{562b76c0-bc5c-4ed6-8862-83e99499224a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -213,6 +219,10 @@
     <ClCompile Include="text\shader\textshader.cpp">
       <Filter>Text\shader</Filter>
     </ClCompile>
+    <ClCompile Include="particle\particle.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\shader\particleshader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -302,6 +312,10 @@
     <ClInclude Include="text\shader\textshader.hpp">
       <Filter>Text\shader</Filter>
     </ClInclude>
+    <ClInclude Include="particle\particle.hpp">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\shader\particleshader.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">

@@ -79,6 +79,9 @@ bool Game::gameLoop()
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(terrain);
 
+	Object* Torch = new Object("object/res/torch/torch.obj", glm::vec3(0,0,0));
+	ObjectShader ObjectShader("shaders/object.vert", "shaders/object.frag");
+	ObjectRenderer ObjectRenderer(&ObjectShader, mPlayer->getProjectionMatrix());
 	//**** LAKE STUFF ****
 	LakeFrameBuffers* lfbos = new LakeFrameBuffers(mWidth, mHeight);
 	LakeShader* lakeshader = new LakeShader("shaders/lake.vert", "shaders/lake.frag");
@@ -202,6 +205,15 @@ bool Game::gameLoop()
 		// Render Debug Information
 		mRenderer->renderDebugInformation();
 
+		/*
+		ObjectRenderer.startShader();
+		ObjectRenderer.loadModelMatrix(Torch);
+		ObjectRenderer.loadViewMatrix(mPlayer->getViewMatrix());
+		ObjectRenderer.addToList(Torch);
+		Torch->setPosition(mPlayer->getPosition() + glm::vec3(0.0f, 1.0f, -1.0f));
+		ObjectRenderer.render();
+		ObjectRenderer.stopShader();
+		*/
 		
 
 		
