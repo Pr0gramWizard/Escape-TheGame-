@@ -73,7 +73,9 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::ve
 	}
 	for (Terrain &terrain : mTerrains)
 	{
+		glDisable(GL_CULL_FACE);
 		mTerrainRenderer->render(terrain);
+		glEnable(GL_CULL_FACE);
 	}
 	mTerrainRenderer->stopShader();
 
