@@ -72,7 +72,7 @@ bool Game::gameLoop()
 {
 	Loader* loader = new Loader();
 	
-	Terrain terrain(0, 0, 0, 100, "Test", loader, "./terrain/res/test3.png");
+	Terrain terrain(0, 0, 0, 10, "Test", loader, "./terrain/res/GG4.png");
 	std::list<Terrain> terrains;
 	terrains.push_back(terrain);
 
