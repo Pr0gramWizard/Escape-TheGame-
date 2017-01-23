@@ -15,7 +15,7 @@
 class Terrain
 {
 public:
-	Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader);
+	Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap);
 	~Terrain();
 	
 	// Loading all important textures
@@ -82,7 +82,7 @@ private:
 private:
 	bool isPowerOfTwo(int pX);
 	Model generateTerrain(Loader* loader);
-	void generateHeights(Loader* loader);
+	void generateHeights(Loader* loader, const char* pHeightmap);
 	glm::vec3 computeNormalAt(int x, int z);
 	GLfloat getVertexHeight(int pVertexX, int pVertexZ);
 

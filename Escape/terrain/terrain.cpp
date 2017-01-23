@@ -2,7 +2,7 @@
 
 const int Terrain::TERRAIN_SIZE = 512;
 
-Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader)
+Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap)
 {
 	// Worldspace coordinates
 	mWorldX = pGridX * Terrain::TERRAIN_SIZE;
@@ -16,7 +16,7 @@ Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const ch
 	setName(pName);
 
 	// Generate heights for the terrain & set mVertices acording to heightmap 
-	generateHeights(pLoader);
+	generateHeights(pLoader, pHeightmap);
 
 	// Set Model
 	mModel = generateTerrain(pLoader);
@@ -284,7 +284,7 @@ Model Terrain::generateTerrain(Loader* loader)
 	return loader->loadDataToVao(vertices, textureCoords, normals, indices);
 }
 
-void Terrain::generateHeights(Loader * loader)
+void Terrain::generateHeights(Loader * loader, const char* pHeightmap)
 {
 	// put into Loader
 	GLuint heightmap;
@@ -293,7 +293,7 @@ void Terrain::generateHeights(Loader * loader)
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, heightmap);
 	// height should be equal to width
-	unsigned char* image = SOIL_load_image("./terrain/res/test2.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* image = SOIL_load_image(pHeightmap, &width, &height, 0, SOIL_LOAD_RGB);
 
 	if (image == 0)
 	{
