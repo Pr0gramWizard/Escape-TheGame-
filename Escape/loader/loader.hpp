@@ -29,6 +29,8 @@ public:
 	Model loadDataToVao(std::vector<float> pPositions, std::vector<float> pTexCoords, std::vector<float> pNormals, std::vector<int> pIndices, const char* pTextureFile);
 	// Function loads raw data to Model
 	Model loadDataToVao(std::vector<float> pPositions, std::vector<float> pTexCoords, std::vector<float> pNormals, std::vector<int> pIndices);
+	// Render Quad for particles
+	Model loadDataToVao(std::vector<float> pPositions, std::vector<int> pIndices);
 	// Function cleans up all the mess after creating the VertexArrayObjects
 	void cleanUp();
 	glm::vec4 getLastVbos();

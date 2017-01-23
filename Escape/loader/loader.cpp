@@ -55,6 +55,22 @@ Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<float> pT
 	return Model(vaoId, pIndices.size());
 }
 
+// Loads raw Data (Vertices,Texture,Normals,Indices) into a VertexArrayObject
+Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<int> pIndices)
+{
+	// Creates new VertexArrayObject
+	GLuint vaoId = createVao();
+	// Binding the indices to a VertexBufferObject
+	bindIndices(pIndices);
+	// Store the vertices in the 0th position in the VertexBufferObject
+	storeData(0, pPositions, 3);
+	// Unbinds the current VertexArrayObject
+	unbindVao();
+	// Returns a model with given VertexArrayObject ID and the number of triangles
+	return Model(vaoId, pIndices.size());
+}
+
+
 
 // Creates a VertexArrayObject and returns the ID
 GLuint Loader::createVao()

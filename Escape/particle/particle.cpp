@@ -44,9 +44,9 @@ GLfloat Particle::getLifeSpan() const
 	return mLifeSpan;
 }
 
-GLfloat Particle::getRotation() const
+glm::vec3 Particle::getRotation() const
 {
-	return mRotation;
+	return glm::vec3(mRotation, mRotation, mRotation);
 }
 
 GLfloat Particle::getScale() const

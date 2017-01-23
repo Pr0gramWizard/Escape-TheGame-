@@ -22,7 +22,7 @@ public:
 	glm::vec3 getVelocity() const;
 	GLfloat getGravityEffect() const;
 	GLfloat getLifeSpan() const;
-	GLfloat getRotation() const;
+	glm::vec3 getRotation() const;
 	GLfloat getScale() const;
 
 	// Setters
