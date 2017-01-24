@@ -30,6 +30,7 @@ public:
 	static const GLfloat GRAVITY;
 	static const GLfloat JUMPPOWER;
 	static const GLfloat STRAFE_ANGLE;
+	static const GLfloat Player::ANGLE_CLIMB;
 		
 // All public functions
 public:

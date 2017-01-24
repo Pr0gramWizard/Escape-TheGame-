@@ -362,6 +362,30 @@ GLfloat Terrain::getHeight(float x, float z) {
 	}
 }
 
+glm::vec3 Terrain::getNormalAt(float x, float z) {
+	float xPosRelativeToTerrain = x - mWorldX;
+	float zPosRelativeToTerrain = z - mWorldX;
+
+	int gridX = floor(xPosRelativeToTerrain / mGridSize);
+	int gridZ = floor(zPosRelativeToTerrain / mGridSize);
+
+	if (gridX < 0 || gridZ < 0 || gridX >= mVertices - 1 || gridZ >= mVertices - 1)
+	{
+		return glm::vec3(0.0f);
+	}
+
+	// position within the grid square between 0 and 1
+	float dX = fmod(xPosRelativeToTerrain, mGridSize) / mGridSize;
+	float dZ = fmod(zPosRelativeToTerrain, mGridSize) / mGridSize;
+
+	if (dX <= (1 - dZ)) {
+		return normalize(this->computeNormalAt(gridX, gridZ) + this->computeNormalAt(gridX + 1, gridZ) + this->computeNormalAt(gridX, gridZ + 1));
+	}
+	else {
+		return normalize(this->computeNormalAt(gridX + 1, gridZ) + this->computeNormalAt(gridX + 1, gridZ + 1) + this->computeNormalAt(gridX, gridZ + 1));
+	}
+}
+
 GLfloat Terrain::getVertexHeight(int pVertexX, int pVertexZ)
 {
 	if (pVertexX < 0)

@@ -51,6 +51,8 @@ public:
 	void setModel(Model* pModel);
 	GLfloat getHeight(float x, float z);
 
+	glm::vec3 getNormalAt(float x, float z);
+
 	
 public:
 	static const int TERRAIN_SIZE;
