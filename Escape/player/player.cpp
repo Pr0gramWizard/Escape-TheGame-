@@ -6,6 +6,7 @@ const GLfloat Player::MOVESPEED = 7;
 const GLfloat Player::GRAVITY = -50;
 const GLfloat Player::JUMPPOWER = 20;
 const GLfloat Player::STRAFE_ANGLE = 90;
+const GLfloat Player::ANGLE_CLIMB = 0.7f;
 
 // Default Constructor
 Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWindowHeight, int pWindowWidth)
@@ -54,9 +55,25 @@ void Player::move(Terrain* pTerrain, float pDelta)
 	float dx = dPos * sin(Math::toRadians(yRotation + this->getStrafeAngle()));
 	float dz = dPos * cos(Math::toRadians(yRotation + this->getStrafeAngle()));
 	this->incPosition(glm::vec3(dx, 0, dz));
+
+	float terrainHeight;
+
+	float nextTerrainHeight = pTerrain->getHeight(mPosition.x, mPosition.z);
+	float angle = atan((nextTerrainHeight - mPosition.y)/sqrt(dx * dx + dz * dz));
+	glm::vec3 normal = pTerrain->getNormalAt(mPosition.x, mPosition.z);
+	float normalDot = glm::dot(normal, glm::vec3(0, 1, 0));
+	bool allowBlock = angle > 0 || this->isJumping();
+	if (allowBlock && normalDot < Player::ANGLE_CLIMB) {
+		this->incPosition(glm::vec3(-dx, 0, -dz));
+		terrainHeight = pTerrain->getHeight(mPosition.x, mPosition.z);
+		WalkSound->stopAllSounds();
+	}
+	else {
+		terrainHeight = nextTerrainHeight;
+	}
+	
 	mUpSpeed += Player::GRAVITY * pDelta;
 	this->incPosition(glm::vec3(0, mUpSpeed * pDelta, 0));
-	float terrainHeight = pTerrain->getHeight(mPosition.x, mPosition.z);
 	if (getPosition().y < terrainHeight) {
 		this->setUpSpeed(0);
 		this->setJumping(false);
