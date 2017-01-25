@@ -6,7 +6,7 @@ const GLfloat Player::MOVESPEED = 7;
 const GLfloat Player::GRAVITY = -50;
 const GLfloat Player::JUMPPOWER = 20;
 const GLfloat Player::STRAFE_ANGLE = 90;
-const GLfloat Player::ANGLE_CLIMB = 0.0f;
+const GLfloat Player::ANGLE_CLIMB = 0.7f;
 
 // Default Constructor
 Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWindowHeight, int pWindowWidth)
@@ -71,15 +71,18 @@ void Player::move(Terrain* pTerrain, float pDelta)
 
 		glm::vec3 input = glm::vec3(dx, 0, dz);
 		// tune this to "fudge" the "push away" from the wall
-		float k_bounceFudge = 2.0f;
+		float bounceFudge = 1.01f;
 
 		// normalize input, but keep track of original size
 		float inputLength = glm::length(input);
 		input = input * glm::vec3(1.0f / inputLength);
 
+		// only user x and z component of normal
+		normal = glm::normalize(glm::vec3(normal.x, 0.0f, normal.z));
+
 		float dot = glm::dot(input, normal);
 		glm::vec3 intoWall = normal * glm::vec3(dot);
-		intoWall = intoWall * glm::vec3(k_bounceFudge);
+		intoWall = intoWall * glm::vec3(bounceFudge);
 
 		glm::vec3 alongWall = glm::normalize(input - intoWall);
 		alongWall = alongWall * glm::vec3(inputLength);
