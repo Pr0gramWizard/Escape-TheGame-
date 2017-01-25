@@ -4,7 +4,7 @@
 // Defintion of the global player constants
 const GLfloat Player::MOVESPEED = 4;
 const GLfloat Player::GRAVITY = -40;
-const GLfloat Player::JUMPPOWER = 10.0f;
+const GLfloat Player::JUMPPOWER = 13.0f;
 const GLfloat Player::STRAFE_ANGLE = 90;
 const GLfloat Player::ANGLE_CLIMB = 0.0f;
 
