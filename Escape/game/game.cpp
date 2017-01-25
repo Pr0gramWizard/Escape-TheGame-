@@ -53,7 +53,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
-	mPlayer = new Player(glm::vec3(0, 0, 0), 0.5, "Hans Dieter", this->getHeight(), this->getWidth());
+	mPlayer = new Player(glm::vec3(0, 0, 0), 1, "Hans Dieter", this->getHeight(), this->getWidth());
 
 	mSkybox = new Skybox();
 
@@ -72,7 +72,7 @@ bool Game::gameLoop()
 {
 	Loader* loader = new Loader();
 	
-	Terrain terrain(0, 0, 0, 10, "Test", loader, "./terrain/res/ColorBoden2.png");
+	Terrain terrain(0, 0, 0, 10, "Test", loader, "./terrain/res/ColorBoden3.png");
 	Terrain terrain2(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
 	std::list<Terrain> terrains;
 	terrains.push_back(terrain);
