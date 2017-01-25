@@ -65,6 +65,31 @@ void Player::move(Terrain* pTerrain, float pDelta)
 	bool allowBlock = angle > 0 || this->isJumping();
 	if (allowBlock && normalDot < Player::ANGLE_CLIMB) {
 		this->incPosition(glm::vec3(-dx, 0, -dz));
+		/*glm::vec3 undesierdMotion = normal * glm::dot(glm::vec3(dx, 0, dz), normal);
+		glm::vec3 desiredMotion = glm::vec3(dx, 0, dz) - (undesierdMotion - glm::vec3(normal.x*0.1, 0, normal.z * 0.1));
+		std::cout << desiredMotion.x << ", " << desiredMotion.z;*/
+
+		glm::vec3 input = glm::vec3(dx, 0, dz);
+		// tune this to "fudge" the "push away" from the wall
+		float k_bounceFudge = 2.0f;
+
+		// normalize input, but keep track of original size
+		float inputLength = glm::length(input);
+		input = input * glm::vec3(1.0f / inputLength);
+
+		float dot = glm::dot(input, normal);
+		glm::vec3 intoWall = normal * glm::vec3(dot);
+		intoWall = intoWall * glm::vec3(k_bounceFudge);
+
+		glm::vec3 alongWall = glm::normalize(input - intoWall);
+		alongWall = alongWall * glm::vec3(inputLength);
+
+		this->incPosition(alongWall);
+
+
+
+
+		//this->incPosition(desiredMotion);
 		terrainHeight = pTerrain->getHeight(mPosition.x, mPosition.z);
 		WalkSound->stopAllSounds();
 	}
