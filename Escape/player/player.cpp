@@ -69,7 +69,7 @@ void Player::move(Terrain* pTerrain, float pDelta)
 		glm::vec3 desiredMotion = glm::vec3(dx, 0, dz) - (undesierdMotion - glm::vec3(normal.x*0.1, 0, normal.z * 0.1));
 		std::cout << desiredMotion.x << ", " << desiredMotion.z;*/
 
-		glm::vec3 input = glm::vec3(dx, 0, dz);
+		glm::vec3 input = glm::vec3(dx, 0.0f, dz);
 		// tune this to "fudge" the "push away" from the wall
 		float bounceFudge = 1.01f;
 
