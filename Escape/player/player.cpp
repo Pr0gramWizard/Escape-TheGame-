@@ -6,7 +6,7 @@ const GLfloat Player::MOVESPEED = 7;
 const GLfloat Player::GRAVITY = -50;
 const GLfloat Player::JUMPPOWER = 20;
 const GLfloat Player::STRAFE_ANGLE = 90;
-const GLfloat Player::ANGLE_CLIMB = 0.7f;
+const GLfloat Player::ANGLE_CLIMB = 0.0f;
 
 // Default Constructor
 Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWindowHeight, int pWindowWidth)
