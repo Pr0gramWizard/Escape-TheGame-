@@ -36,11 +36,11 @@ void TerrainRenderer::render(Terrain &pTerrain)
 	
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, pTerrain.getGrasTexture());
-	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "grass"), 0);
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "stone"), 0);
 
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, pTerrain.getStoneTexture());
-	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "stone"), 1);
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "grass"), 1);
 
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, pTerrain.getFlowerTexture());

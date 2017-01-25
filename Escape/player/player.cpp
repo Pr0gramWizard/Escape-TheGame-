@@ -2,11 +2,11 @@
 #include "player.hpp"
 
 // Defintion of the global player constants
-const GLfloat Player::MOVESPEED = 7;
-const GLfloat Player::GRAVITY = -50;
-const GLfloat Player::JUMPPOWER = 20;
+const GLfloat Player::MOVESPEED = 4;
+const GLfloat Player::GRAVITY = -40;
+const GLfloat Player::JUMPPOWER = 10.0f;
 const GLfloat Player::STRAFE_ANGLE = 90;
-const GLfloat Player::ANGLE_CLIMB = 0.7f;
+const GLfloat Player::ANGLE_CLIMB = 0.0f;
 
 // Default Constructor
 Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWindowHeight, int pWindowWidth)
@@ -349,7 +349,7 @@ void Player::setMoveVariables()
 	if (Keyboard::isKeyPressed(GLFW_KEY_W)) {
 		if (this->getSprint())
 		{
-			this->setMovementSpeed(Player::MOVESPEED * 3);
+			this->setMovementSpeed(Player::MOVESPEED * 1.5f);
 			movingMode = 1;
 			this->setSprint(false);
 		}

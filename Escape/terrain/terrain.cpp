@@ -1,6 +1,6 @@
 #include "terrain.hpp"
 
-const int Terrain::TERRAIN_SIZE = 128;
+const int Terrain::TERRAIN_SIZE = 256;
 
 Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap)
 {
@@ -73,7 +73,7 @@ void Terrain::loadStoneTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// Load, create texture and generate mipmaps
 	int width, height;
-	unsigned char* stone = SOIL_load_image("terrain/res/texture/stone.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* stone = SOIL_load_image("terrain/res/texture/wall.png", &width, &height, 0, SOIL_LOAD_RGB);
 	if (stone == 0)
 	{
 		std::cout << "The stone texture could not be found!" << std::endl;
