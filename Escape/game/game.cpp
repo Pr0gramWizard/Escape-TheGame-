@@ -78,10 +78,6 @@ bool Game::gameLoop()
 	terrains.push_back(terrain);
 	// terrains.push_back(terrain2);
 
-	glm::vec3 bla(4.0f);
-
-	std::cout << bla.x << " " << bla.y << " " << bla.z << std::endl;
-
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(terrain);
 	// mRenderer->addToList(terrain2);
