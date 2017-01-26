@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="blurrBuffer.cpp" />
     <ClCompile Include="camera\camera.cpp" />
     <ClCompile Include="entity\entity.cpp" />
     <ClCompile Include="entity\renderer\entityRenderer.cpp" />
@@ -54,6 +55,7 @@
     <ClCompile Include="text\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="blurrBuffer.hpp" />
     <ClInclude Include="camera\camera.hpp" />
     <ClInclude Include="entity\entity.hpp" />
     <ClInclude Include="entity\renderer\entityRenderer.hpp" />

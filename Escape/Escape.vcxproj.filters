@@ -234,6 +234,7 @@
     <ClCompile Include="particle\renderer\particlerenderer.cpp">
       <Filter>Particles\renderer</Filter>
     </ClCompile>
+    <ClCompile Include="blurrBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -332,6 +333,7 @@
     <ClInclude Include="particle\renderer\particlerenderer.hpp">
       <Filter>Particles\renderer</Filter>
     </ClInclude>
+    <ClInclude Include="blurrBuffer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
