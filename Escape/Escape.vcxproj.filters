@@ -136,6 +136,9 @@
     <Filter Include="Blur">
       <UniqueIdentifier>{7e5f119a-3aa3-4dcc-b7c3-98d4c4e15440}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Blur\shader">
+      <UniqueIdentifier>{26318689-c28e-4fee-b001-8f5a56e08e10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -240,6 +243,9 @@
     <ClCompile Include="blur\blurBuffer.cpp">
       <Filter>Blur</Filter>
     </ClCompile>
+    <ClCompile Include="blur\shader\blurShader.cpp">
+      <Filter>Blur\shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -341,6 +347,9 @@
     <ClInclude Include="blur\blurBuffer.hpp">
       <Filter>Blur</Filter>
     </ClInclude>
+    <ClInclude Include="blur\shader\blurShader.hpp">
+      <Filter>Blur\shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
@@ -405,6 +414,12 @@
     </None>
     <None Include="shaders\terrain_normal.gs">
       <Filter>Shader\Geometry</Filter>
+    </None>
+    <None Include="shaders\blur.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="shaders\blur.vert">
+      <Filter>Shader\Vertex</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

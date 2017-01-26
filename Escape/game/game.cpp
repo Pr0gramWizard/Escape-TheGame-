@@ -92,6 +92,10 @@ bool Game::gameLoop()
 	Lake* lake = new Lake(84, -2, 28, 50, 50, "Lake", loader);
 	//**** END LAKE STUFF ****
 
+	//**** BLUR STUFF ****
+
+	//**** END BLUR STUFF ****
+
 	//**** LIGHT STUFF ****
 	//Light* sun = new Light(glm::vec3(250, 1, 250), glm::vec3(1, 1, 0), glm::vec3(1, 0.01, 0.002));
 	Light* sun = new Light(glm::vec3(0, 1, 0), glm::vec3(0.4f, 0.4f, 0.4f));
@@ -230,6 +234,20 @@ bool Game::gameLoop()
 		ObjectRenderer.stopShader();
 		*/
 		
+
+		// Blur bright fragments w/ two-pass Gaussian Blur  --> set higher?
+		/*GLboolean first_iteration = true;
+		GLuint amount = 10;
+		blurfbos->startShader();
+		for (GLuint i = 0; i < amount; i++)
+		{
+			blurfbos->prepare();
+			glBindTexture(GL_TEXTURE_2D, first_iteration ? colorBuffers[1] : blurfbos->getLastBluredTexture());  // bind texture of other framebuffer (or scene if first iteration)
+			mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE);
+			if (first_iteration)
+				first_iteration = false;
+		}
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);*/
 
 		
 		// Swap the buffers
