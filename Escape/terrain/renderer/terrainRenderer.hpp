@@ -46,6 +46,7 @@ public:
 	void loadClipPlane(glm::vec4 pClipPlane);
 	void loadFogData(GLfloat pDensity, GLfloat pGradient);
 	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
+	void loadPlayerBelowLake(GLfloat pPlayerBelowLake);
 
 	// use or unuse the shader
 	void startShader();

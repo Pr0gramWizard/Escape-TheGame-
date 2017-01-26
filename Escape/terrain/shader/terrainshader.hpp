@@ -61,6 +61,7 @@ public:
 	void loadPlane(glm::vec4 pVector);
 	void loadFogData(GLfloat pDensity, GLfloat pGradient);
 	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
+	void loadPlayerBelowLake(GLfloat pPlayerBelowLake);
 	// Destructor
 	~TerrainShader();
 
@@ -82,6 +83,7 @@ private:
 	GLuint mLocation_fogDensity;
 	GLuint mLocation_fogGradient;
 	GLuint mLocation_backgroundColor;
+	GLuint mLocation_playerBelowLake;
 
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);

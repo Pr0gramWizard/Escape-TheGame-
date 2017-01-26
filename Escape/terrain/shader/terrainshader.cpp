@@ -368,6 +368,11 @@ void TerrainShader::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pB
 	this->loadVector(mLocation_backgroundColor, glm::vec3(pRed, pGreen, pBlue));
 }
 
+void TerrainShader::loadPlayerBelowLake(GLfloat pPlayerBelowLake)
+{
+	this->loadBool(mLocation_playerBelowLake, pPlayerBelowLake);
+}
+
 // Destructor
 TerrainShader::~TerrainShader()
 {
@@ -384,6 +389,7 @@ void TerrainShader::getAllUniformLocations()
 	mLocation_fogDensity = glGetUniformLocation(getProgramID(), "fogDensity");
 	mLocation_fogGradient = glGetUniformLocation(getProgramID(), "fogGradient");
 	mLocation_backgroundColor = glGetUniformLocation(getProgramID(), "backgroundColor");
+	mLocation_playerBelowLake = glGetUniformLocation(getProgramID(), "playerBelowLake");
 	// Light locations
 	const char* lightPos[] = { 
 		"lightPosition[0]", 

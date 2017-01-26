@@ -180,22 +180,33 @@ bool Game::gameLoop()
 		mPlayer->getCamera()->incYPosition(-distance);
 		mPlayer->getCamera()->invertPitch();
 		
-		//
-		float sign = (mPlayer->getPosition().y + mPlayer->getHeight() < lake->getWorldY()) ? -1.0f : 1.0f;
+		//calculate sign and if the player is below the lake plane
+		glm::vec3 playerPosition = mPlayer->getPosition();
+		glm::vec3 lakePosition = lake->getWorldPos();
+		float sign = (playerPosition.y + mPlayer->getHeight() < lake->getWorldY()) ? -1.0f : 1.0f;
+		float isPlayerBelowLake = (sign == -1 
+			&& playerPosition.x >= lakePosition.x 
+			&& playerPosition.x <= lakePosition.x + lake->LAKE_SIZE
+			&& playerPosition.z >= lakePosition.z
+			&& playerPosition.z <= lakePosition.z + lake->LAKE_SIZE
+		);
 		// render to buffer
-		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, sign, 0, -sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE);
+		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, sign, 0, -sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE);
 		// move camera back
 		mPlayer->getCamera()->incYPosition(distance);
 		mPlayer->getCamera()->invertPitch();
 
 		// refraction
 		lfbos->bindRefractionFrameBuffer();
-		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, -sign, 0, sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE);
+		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, -sign, 0, sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE);
 
 		// actual rendering
 		glDisable(GL_CLIP_DISTANCE0);
 		lfbos->unbindCurrentFrameBuffer();
-		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE);
+		/*
+		* sign is -1 if player is below the lake
+		*/
+		mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE);
 
 		// render water
 		lake->updateHeights(deltaTime);

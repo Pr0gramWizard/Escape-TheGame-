@@ -136,6 +136,11 @@ void TerrainRenderer::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat 
 	mShader->loadBackgroundColor(pRed, pGreen, pBlue);
 }
 
+void TerrainRenderer::loadPlayerBelowLake(GLfloat pPlayerBelowLake)
+{
+	mShader->loadPlayerBelowLake(pPlayerBelowLake);
+}
+
 void TerrainRenderer::startShader()
 {
 	mShader->use();

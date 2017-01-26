@@ -39,7 +39,7 @@ void MainRenderer::prepare(GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE)
+void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE)
 {
 	this->prepare(pRED, pGREEN, pBLUE);
 	glShadeModel(GL_SMOOTH);
@@ -62,6 +62,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, glm::ve
 	mTerrainRenderer->loadClipPlane(pClipPlane);
 	mTerrainRenderer->loadLights(pLights);
 	mTerrainRenderer->loadFogData(0.01f, 2.0f);
+	mTerrainRenderer->loadPlayerBelowLake(pPlayerBelowLake);
 	mTerrainRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
 	if (this->getDrawMode())
 	{

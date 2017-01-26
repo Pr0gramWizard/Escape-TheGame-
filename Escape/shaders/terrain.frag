@@ -13,6 +13,7 @@ uniform vec3 lightAttenuation[4];
 uniform float fogDensity;
 uniform float fogGradient;
 uniform vec3 backgroundColor;
+uniform bool playerBelowLake;
 
 uniform sampler2D grass;
 uniform sampler2D stone;
@@ -70,4 +71,8 @@ void main()
 
     out_Color = vec4(result,1.0) * totalColor;
 	out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
+
+	if(playerBelowLake){
+		out_Color = mix(out_Color, vec4(0.0, 0.0, 1.0, 1.0), 0.2);
+	}
 }
