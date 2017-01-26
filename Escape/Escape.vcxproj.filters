@@ -133,6 +133,9 @@
     <Filter Include="Shader\Geometry">
       <UniqueIdentifier>{1e30a9cb-304d-46df-b00c-bc258a1c0850}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Blur">
+      <UniqueIdentifier>{7e5f119a-3aa3-4dcc-b7c3-98d4c4e15440}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -234,7 +237,9 @@
     <ClCompile Include="particle\renderer\particlerenderer.cpp">
       <Filter>Particles\renderer</Filter>
     </ClCompile>
-    <ClCompile Include="blurrBuffer.cpp" />
+    <ClCompile Include="blur\blurBuffer.cpp">
+      <Filter>Blur</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -333,7 +338,9 @@
     <ClInclude Include="particle\renderer\particlerenderer.hpp">
       <Filter>Particles\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="blurrBuffer.hpp" />
+    <ClInclude Include="blur\blurBuffer.hpp">
+      <Filter>Blur</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
