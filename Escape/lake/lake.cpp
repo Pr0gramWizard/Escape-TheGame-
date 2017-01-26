@@ -1,6 +1,6 @@
 #include "lake.hpp"
 
-const int Lake::LAKE_SIZE = 128;
+const int Lake::LAKE_SIZE = 64;
 const GLfloat Lake::LAKE_COEFFICIENT = 7.0f;
 
 Lake::Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices, const char * pName, Loader * pLoader)
