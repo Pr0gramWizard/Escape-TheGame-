@@ -55,6 +55,9 @@ public:
 	void setDrawMode(bool pMode);
 	bool getDrawMode() const;
 
+	void setNormalMode(bool pMode);
+	bool getNormalMode() const;
+
 	void setDebugMode(bool pMode);
 	bool getDebugMode() const;
 
@@ -70,6 +73,7 @@ public:
 
 	EntityRenderer* mEntityRenderer;
 	TerrainRenderer* mTerrainRenderer;
+	TerrainRenderer* mNormalRenderer;
 	SkyboxRenderer* mSkyboxRenderer;
 	TextRenderer* mTextRenderer;
 
@@ -82,6 +86,9 @@ public:
 	static const char* SKYBOX_FRAGMENT;
 	static const char* TEXT_VERTEX;
 	static const char* TEXT_FRAGMENT;
+	static const char* TERRAIN_NORMAL_VERTEX;
+	static const char* TERRAIN_NORMAL_FRAGMENT;
+	static const char* TERRAIN_NORMAL_GEOMETRY;
 
 private:
 	Player* mPlayer;
@@ -94,5 +101,6 @@ private:
 
 	bool drawMode;
 	bool debugMode;
+	bool normalMode;
 };
 

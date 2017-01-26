@@ -4,6 +4,9 @@ const char* MainRenderer::ENTITY_VERTEX = "shaders/b.vert";
 const char* MainRenderer::ENTITY_FRAGMENT = "shaders/a.frag";
 const char* MainRenderer::TERRAIN_VERTEX = "shaders/terrain.vert";
 const char* MainRenderer::TERRAIN_FRAGMENT = "shaders/terrain.frag";
+const char* MainRenderer::TERRAIN_NORMAL_VERTEX = "shaders/terrain_normal.vert";
+const char* MainRenderer::TERRAIN_NORMAL_FRAGMENT = "shaders/terrain_normal.frag";
+const char* MainRenderer::TERRAIN_NORMAL_GEOMETRY = "shaders/terrain_normal.gs";
 const char* MainRenderer::SKYBOX_VERTEX = "shaders/skybox.vert";
 const char* MainRenderer::SKYBOX_FRAGMENT = "shaders/skybox.frag";
 const char* MainRenderer::TEXT_VERTEX = "shaders/text.vert";
@@ -15,7 +18,9 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 	mEntityRenderer = new EntityRenderer(entityshader,pProjectionMatrix);
 
 	TerrainShader* terrainshader = new TerrainShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
+	TerrainShader* normalshader = new TerrainShader(TERRAIN_NORMAL_VERTEX, TERRAIN_NORMAL_FRAGMENT, TERRAIN_NORMAL_GEOMETRY);
 	mTerrainRenderer = new TerrainRenderer(terrainshader, pProjectionMatrix);
+	mNormalRenderer = new TerrainRenderer(normalshader, pProjectionMatrix);
 
 	SkyboxShader* skyboxshader = new SkyboxShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
 	mSkyboxRenderer = new SkyboxRenderer(skyboxshader, pProjectionMatrix);
@@ -64,21 +69,35 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 	mTerrainRenderer->loadFogData(0.01f, 2.0f);
 	mTerrainRenderer->loadPlayerBelowLake(pPlayerBelowLake);
 	mTerrainRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
+
+	mNormalRenderer->startShader();
+	mNormalRenderer->loadViewMatrix(pViewMatrix);
+	mNormalRenderer->loadPlayerBelowLake(pPlayerBelowLake);
+	mNormalRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
+
 	if (this->getDrawMode())
 	{
+		
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 	else
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
+
+
 	for (Terrain &terrain : mTerrains)
 	{
 		glDisable(GL_CULL_FACE);
+		mTerrainRenderer->loadTexture(terrain);
 		mTerrainRenderer->render(terrain);
+		if (this->getNormalMode())
+		{
+			mNormalRenderer->render(terrain);
+		}
 		glEnable(GL_CULL_FACE);
 	}
-	mTerrainRenderer->stopShader();
+
 
 
 	/*
@@ -176,6 +195,16 @@ void MainRenderer::setDrawMode(bool pMode)
 bool MainRenderer::getDrawMode() const
 {
 	return drawMode;
+}
+
+void MainRenderer::setNormalMode(bool pMode)
+{
+	normalMode = pMode;
+}
+
+bool MainRenderer::getNormalMode() const
+{
+	return normalMode;
 }
 
 void MainRenderer::setDebugMode(bool pMode)

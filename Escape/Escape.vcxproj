@@ -99,7 +99,10 @@
     <None Include="shaders\skybox.frag" />
     <None Include="shaders\skybox.vert" />
     <None Include="shaders\terrain.frag" />
+    <None Include="shaders\terrain_normal.gs" />
     <None Include="shaders\terrain.vert" />
+    <None Include="shaders\terrain_normal.frag" />
+    <None Include="shaders\terrain_normal.vert" />
     <None Include="shaders\text.frag" />
     <None Include="shaders\text.vert" />
     <None Include="shaders\worldShader.frag" />

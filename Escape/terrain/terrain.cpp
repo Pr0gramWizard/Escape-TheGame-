@@ -284,6 +284,7 @@ Model Terrain::generateTerrain(Loader* loader)
 	return loader->loadDataToVao(vertices, textureCoords, normals, indices);
 }
 
+
 void Terrain::generateHeights(Loader * loader, const char* pHeightmap)
 {
 	// put into Loader

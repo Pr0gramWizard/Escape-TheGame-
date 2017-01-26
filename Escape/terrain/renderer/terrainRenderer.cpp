@@ -1,6 +1,6 @@
 #include "terrainRenderer.hpp"
 // constructor
-TerrainRenderer::TerrainRenderer(TerrainShader * pShader, glm::mat4 pProjectionMatrix)
+TerrainRenderer::TerrainRenderer(TerrainShader * pShader,glm::mat4 pProjectionMatrix)
 {
 	mShader = pShader;
 	mShader->use();
@@ -33,7 +33,13 @@ void TerrainRenderer::render(Terrain &pTerrain)
 	loadModelMatrix(&pTerrain);
 
 	mShader->use();
-	
+	glDrawElements(GL_TRIANGLES, pTerrain.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+
+	unbindTerrain();
+}
+
+void TerrainRenderer::loadTexture(Terrain &pTerrain)
+{
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, pTerrain.getGrasTexture());
 	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "stone"), 0);
@@ -53,10 +59,6 @@ void TerrainRenderer::render(Terrain &pTerrain)
 	glActiveTexture(GL_TEXTURE4);
 	glBindTexture(GL_TEXTURE_2D, pTerrain.getBlendMapTexture());
 	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "blendMap"), 4);
-
-	glDrawElements(GL_TRIANGLES, pTerrain.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	unbindTerrain();
 }
 
 GLuint TerrainRenderer::getProgramID() const

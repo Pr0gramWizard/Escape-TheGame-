@@ -25,7 +25,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(),NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/,NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -213,7 +213,6 @@ bool Game::gameLoop()
 		* sign is -1 if player is below the lake
 		*/
 		mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE);
-
 		// render water
 		lake->updateHeights(deltaTime);
 		lakerenderer->render(deltaTime, mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE);
@@ -302,7 +301,11 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 	if (Keyboard::isKeyPressed(GLFW_KEY_F1))
 	{
 		game->mRenderer->setDebugMode((bool)abs(game->mRenderer->getDrawMode() - 1));
+	}
 
+	if (Keyboard::isKeyPressed(GLFW_KEY_F2))
+	{
+		game->mRenderer->setNormalMode((bool)abs(game->mRenderer->getNormalMode() - 1));
 	}
 
 }

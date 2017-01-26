@@ -3,12 +3,11 @@
 // Inclusion of every important header file
 // Input/Output Stream
 #include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
 // GLEW Library
 #include <glew.h>
-// File Stream
-#include <fstream>
-// String class
-#include <string>
 // Vector class
 #include <vector>
 // vec3
@@ -30,6 +29,7 @@ class TerrainShader
 public:
 	// Constructor
 	TerrainShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
+	TerrainShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath, const std::string& pGeometryShaderFilePath);
 	// Compile Shader
 	void createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
 	// Bind attribute
@@ -42,12 +42,14 @@ public:
 	// Getter Functions
 	GLuint getProgramID() const;
 	GLuint getVertexShaderID() const;
+	GLuint getGeometryShaderID() const;
 	GLuint getFragementShaderID() const;
 	GLuint getUniformLocation(const char* pUniformName);
 
 	// Setter Functions
 	void setProgramID(int pProgramID);
 	void setVertexShaderID(int pVertexShaderID);
+	void setGeometryShaderID(int pGeometryShaderID);
 	void setFragementShaderID(int pFragementShaderID);
 
 	// load uniform variables
@@ -70,6 +72,7 @@ private:
 	GLuint mProgramID;
 	GLuint mVertexShaderID;
 	GLuint mFragementShaderID;
+	GLuint mGeometryShaderID;
 	// All private functions of the class
 
 	//uniform locations
@@ -88,6 +91,7 @@ private:
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);
 	void compileVertexShader(std::string pFragementShaderFilePath);
+	void compileGeometryShader(std::string pGeometryShaderFilePath);
 	void getAllUniformLocations();
 	void bindAllAttributes();
 	void loadMatrix(GLuint location, glm::mat4 pMatrix);

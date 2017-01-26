@@ -5,9 +5,114 @@
 // Constructor
 TerrainShader::TerrainShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
+
 	this->createShader(pVertexShaderFilePath, pFragementShaderFilePath);
 	this->getAllUniformLocations();
 	this->bindAllAttributes();
+
+	// Log Shader
+	std::clog << "Shader class was created successfully!" << std::endl;
+}
+
+TerrainShader::TerrainShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath, const std::string& pGeometryShaderFilePath)
+{
+	// 1. Retrieve the vertex/fragment source code from filePath
+	std::string vertexCode;
+	std::string fragmentCode;
+	std::string geometryCode;
+	std::ifstream vShaderFile;
+	std::ifstream fShaderFile;
+	std::ifstream gShaderFile;
+	// ensures ifstream objects can throw exceptions:
+	vShaderFile.exceptions(std::ifstream::badbit);
+	fShaderFile.exceptions(std::ifstream::badbit);
+	gShaderFile.exceptions(std::ifstream::badbit);
+	try
+	{
+		// Open files
+		vShaderFile.open(pVertexShaderFilePath);
+		fShaderFile.open(pFragementShaderFilePath);
+		gShaderFile.open(pGeometryShaderFilePath);
+		std::stringstream vShaderStream, fShaderStream, gShaderStream;
+		// Read file's buffer contents into streams
+		vShaderStream << vShaderFile.rdbuf();
+		fShaderStream << fShaderFile.rdbuf();
+		gShaderStream << gShaderFile.rdbuf();
+		// close file handlers
+		vShaderFile.close();
+		fShaderFile.close();
+		gShaderFile.close();
+		// Convert stream into string
+		vertexCode = vShaderStream.str();
+		fragmentCode = fShaderStream.str();
+		geometryCode = gShaderStream.str();
+	}
+	catch (std::ifstream::failure e)
+	{
+		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+	}
+	const GLchar* vShaderCode = vertexCode.c_str();
+	const GLchar * fShaderCode = fragmentCode.c_str();
+	const GLchar * gShaderCode = geometryCode.c_str();
+	// 2. Compile shaders
+	GLuint vertex, fragment, geometry;
+	GLint success;
+	GLchar infoLog[512];
+	// Vertex Shader
+	vertex = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertex, 1, &vShaderCode, NULL);
+	glCompileShader(vertex);
+	// Print compile errors if any
+	glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
+	if (!success)
+	{
+		glGetShaderInfoLog(vertex, 512, NULL, infoLog);
+		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+	}
+	// Fragment Shader
+	fragment = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragment, 1, &fShaderCode, NULL);
+	glCompileShader(fragment);
+	// Print compile errors if any
+	glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
+	if (!success)
+	{
+		glGetShaderInfoLog(fragment, 512, NULL, infoLog);
+		std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+	}
+	// geometry shader
+	geometry = glCreateShader(GL_GEOMETRY_SHADER);
+	glShaderSource(geometry, 1, &gShaderCode, NULL);
+	glCompileShader(geometry);
+	// Print compile errors if any
+	glGetShaderiv(geometry, GL_COMPILE_STATUS, &success);
+	if (!success)
+	{
+		glGetShaderInfoLog(geometry, 512, NULL, infoLog);
+		std::cout << "ERROR::SHADER::geometry::COMPILATION_FAILED\n" << infoLog << std::endl;
+	}
+	// Shader Program
+	this->mProgramID = glCreateProgram();
+	std::cout << mProgramID << std::endl;
+	glAttachShader(this->getProgramID(), vertex);
+	glAttachShader(this->getProgramID(), fragment);
+	glAttachShader(this->getProgramID(), geometry);
+	glLinkProgram(this->getProgramID());
+	// Print linking errors if any
+	glGetProgramiv(this->getProgramID(), GL_LINK_STATUS, &success);
+	if (!success)
+	{
+		glGetProgramInfoLog(this->getProgramID(), 512, NULL, infoLog);
+		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+	}
+	// Delete the shaders as they're linked into our program now and no longer necessery
+	glDeleteShader(vertex);
+	glDeleteShader(fragment);
+	glDeleteShader(geometry);
+
+	this->getAllUniformLocations();
+	this->bindAllAttributes();
+
 
 	// Log Shader
 	std::clog << "Shader class was created successfully!" << std::endl;
@@ -57,7 +162,8 @@ void TerrainShader::createShader(const std::string& pVertexShaderFilePath, const
 	compileVertexShader(pVertexShaderFilePath);
 	compileFragementShader(pFragementShaderFilePath);
 	linkShader();
-
+	this->getAllUniformLocations();
+	this->bindAllAttributes();
 }
 
 // Linking of vertex and fragment shader
@@ -66,9 +172,12 @@ void TerrainShader::linkShader()
 	// First we create a new Program with the given Program ID
 	setProgramID(glCreateProgram());
 
+	std::cout << mProgramID << std::endl;
+
 	// Then we attach both shader to the program
 	glAttachShader(getProgramID(), getVertexShaderID());
 	glAttachShader(getProgramID(), getFragementShaderID());
+	glAttachShader(getProgramID(), getGeometryShaderID());
 
 	// Link the Program together
 	glLinkProgram(getProgramID());
@@ -100,9 +209,11 @@ void TerrainShader::linkShader()
 	// Detach:
 	glDetachShader(getProgramID(), getVertexShaderID());
 	glDetachShader(getProgramID(), getFragementShaderID());
+	glDetachShader(getProgramID(), getGeometryShaderID());
 	// Delete:
 	glDeleteShader(getVertexShaderID());
 	glDeleteShader(getFragementShaderID());
+	glDeleteShader(getGeometryShaderID());
 
 }
 
@@ -182,6 +293,49 @@ void TerrainShader::compileFragementShader(std::string pFragementShaderFilePath)
 
 }
 
+void TerrainShader::compileGeometryShader(std::string pGeometryShaderFilePath)
+{
+	// Opening a file stream with the given file path
+	std::ifstream geometryFile(pGeometryShaderFilePath);
+	// Checking if the file was opened correctly
+	if (geometryFile.fail())
+	{
+		// Error message
+		std::clog << "Failed to open: " << pGeometryShaderFilePath.c_str() << std::endl;
+	}
+	else
+	{
+		// If file was opend correctly
+		// We read the content of the file to a string to get our information
+
+		// File content
+		std::string fileContent = "";
+		// Current line
+		std::string line;
+
+		// Itterating through the file until we reach the end of the file
+		while (std::getline(geometryFile, line))
+		{
+			// Write everything into a string
+			fileContent += line + "\n";
+		}
+
+		// Close file
+		geometryFile.close();
+
+		// Converting string to const char* to use a pointer
+		const char* contentPtr = fileContent.c_str();
+
+		// Loading the shader from the string
+		glShaderSource(getGeometryShaderID(), 1, &contentPtr, nullptr);
+		// Compiling the shader
+		glCompileShader(getGeometryShaderID());
+
+	}
+
+
+}
+
 void TerrainShader::compileVertexShader(std::string pVertexShaderFilePath)
 {
 	// Opening a file stream with the given file path
@@ -252,6 +406,10 @@ GLuint TerrainShader::getVertexShaderID() const
 {
 	return mVertexShaderID;
 }
+GLuint TerrainShader::getGeometryShaderID() const
+{
+	return GLuint();
+}
 // Returns current Fragement Shader ID
 GLuint TerrainShader::getFragementShaderID() const
 {
@@ -282,6 +440,9 @@ void TerrainShader::setProgramID(int pProgramID)
 void TerrainShader::setVertexShaderID(int pVertexShaderID)
 {
 	mVertexShaderID = pVertexShaderID;
+}
+void TerrainShader::setGeometryShaderID(int pGeometryShaderID)
+{
 }
 // Sets current FragementShaderID to a given ID
 void TerrainShader::setFragementShaderID(int pFragementShaderID)

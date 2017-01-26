@@ -130,6 +130,9 @@
     <Filter Include="Particles\renderer">
       <UniqueIdentifier>{9fc847ef-13d5-45b1-801f-12ebcb3816d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader\Geometry">
+      <UniqueIdentifier>{1e30a9cb-304d-46df-b00c-bc258a1c0850}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -384,6 +387,15 @@
     </None>
     <None Include="shaders\text.frag">
       <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="shaders\terrain_normal.vert">
+      <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="shaders\terrain_normal.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="shaders\terrain_normal.gs">
+      <Filter>Shader\Geometry</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

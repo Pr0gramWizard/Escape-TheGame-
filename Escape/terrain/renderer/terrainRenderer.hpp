@@ -25,6 +25,8 @@ public:
 	TerrainRenderer(TerrainShader* pShader, glm::mat4 pProjectionMatrix);
 	// destructor
 	~TerrainRenderer();
+	
+	void loadTexture(Terrain &pTerrain);
 
 	// render methods
 	void render(list<Terrain> pTerrains);
@@ -51,7 +53,6 @@ public:
 	// use or unuse the shader
 	void startShader();
 	void stopShader();
-
 
 private:
 	TerrainShader* mShader;
