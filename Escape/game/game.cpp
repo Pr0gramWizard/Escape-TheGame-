@@ -25,7 +25,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(),glfwGetPrimaryMonitor(),NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(),NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -53,7 +53,11 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
-	mPlayer = new Player(glm::vec3(78, 0, 61), 1, "Hans Dieter", this->getHeight(), this->getWidth());
+	glm::vec3 Origin(0);
+	glm::vec3 Sea(78, 0, 61);
+	glm::vec3 WayToLookOut(63, 0, 23);
+
+	mPlayer = new Player(WayToLookOut, 1, "Hans Dieter", this->getHeight(), this->getWidth());
 
 	mSkybox = new Skybox();
 
