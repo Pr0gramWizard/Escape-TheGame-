@@ -43,12 +43,18 @@ void Player::move(Terrain* pTerrain, float pDelta)
 	float dPos = mMovementSpeed * pDelta;
 	
 	// play walk sound if needed
-	if (dPos != 0 && !mJumping) {
+	if (dPos != 0 && !mJumping && !isBelowLake()) {
 		if (!WalkSound->isCurrentlyPlaying("audio/steps.wav")) {
 			WalkSound->play2D("audio/steps.wav", GL_FALSE);
 		}
 	}
-	else {
+	else if(isBelowLake()) {
+		if (!WalkSound->isCurrentlyPlaying("audio/underwater.mp3")) {
+			WalkSound->play2D("audio/underwater.mp3", GL_FALSE);
+		}
+	}
+	else
+	{
 		WalkSound->stopAllSounds();
 	}
 
