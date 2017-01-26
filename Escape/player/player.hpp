@@ -72,6 +72,7 @@ public:
 	void setJumping(bool pJumping);
 	void setCrouching(bool pCrouching);
 	void setSprint(bool pSprint);
+	void setIsBelowLake(bool pIsBelowLake);
 
 	// Getter Functions
 	glm::vec3 getPosition() const;
@@ -87,6 +88,7 @@ public:
 	bool getSprint() const;
 	bool getCrouching() const;
 	bool getJumping() const;
+	bool isBelowLake() const;
 	glm::vec3 getCameraPosition() const;
 	Camera* getCamera();
 
@@ -128,6 +130,9 @@ private:
 	int mWindowHeight;
 	// Window Width
 	int mWindowWidth;
+	// true if player is below lake
+	bool mIsBelowLake;
+
 
 	irrklang::ISoundEngine* WalkSound;
 

@@ -159,9 +159,19 @@ bool Player::getJumping() const
 	return mJumping;
 }
 
+bool Player::isBelowLake() const
+{
+	return this->mIsBelowLake;
+}
+
 void Player::setSprint(bool pSprint)
 {
 	mSprinting = pSprint;
+}
+
+void Player::setIsBelowLake(bool pIsBelowLake)
+{
+	this->mIsBelowLake = pIsBelowLake;
 }
 
 bool Player::getSprint() const
@@ -413,5 +423,10 @@ void Player::setMoveVariables()
 			this->setCrouching(false);
 			this->setHeight(this->getHeight() * 2.0f);
 		}
+	}
+
+	if (this->isBelowLake()) 
+	{
+		this->setMovementSpeed(this->getMovementSpeed() / 2.0f);
 	}
 }

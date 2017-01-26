@@ -190,6 +190,8 @@ bool Game::gameLoop()
 			&& playerPosition.z >= lakePosition.z
 			&& playerPosition.z <= lakePosition.z + lake->LAKE_SIZE
 		);
+		// tell the player if he is under the lake
+		mPlayer->setIsBelowLake(isPlayerBelowLake);
 		// render to buffer
 		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, sign, 0, -sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE);
 		// move camera back
