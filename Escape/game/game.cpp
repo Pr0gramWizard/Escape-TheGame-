@@ -53,7 +53,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
-	mPlayer = new Player(glm::vec3(0, 0, 0), 1, "Hans Dieter", this->getHeight(), this->getWidth());
+	mPlayer = new Player(glm::vec3(83, -4, 40), 1, "Hans Dieter", this->getHeight(), this->getWidth());
 
 	mSkybox = new Skybox();
 
@@ -63,10 +63,6 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 }
 
 
-Game::~Game()
-{
-	delete mPlayer;
-}
 
 bool Game::gameLoop()
 {
@@ -89,7 +85,7 @@ bool Game::gameLoop()
 	LakeFrameBuffers* lfbos = new LakeFrameBuffers(mWidth, mHeight);
 	LakeShader* lakeshader = new LakeShader("shaders/lake.vert", "shaders/lake.frag");
 	LakeRenderer* lakerenderer = new LakeRenderer(lakeshader, mPlayer->getProjectionMatrix(), lfbos);
-	Lake* lake = new Lake(75, -6, 80, 50, 50, "Lake", loader);
+	Lake* lake = new Lake(83, -4, 40, 50, 50, "Lake", loader);
 	//**** END LAKE STUFF ****
 
 	//**** LIGHT STUFF ****
@@ -229,6 +225,12 @@ bool Game::gameLoop()
 	delete loader;
 	glfwTerminate();
 	return 0;
+}
+
+
+Game::~Game()
+{
+	delete mPlayer;
 }
 
 // Moves/alters the camera positions based on user input
