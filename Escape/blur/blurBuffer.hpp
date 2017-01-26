@@ -15,7 +15,12 @@ public:
 
 	void setHorizontal(bool pHorizontal);
 	bool getHorizontal() const;
+	// call to bind the correct framebuffer and set shader uniforms
 	void prepare();
+	// return the id of the last used texture to blur it and invert mHorizontal
+	GLuint getLastBluredTexture();
+	void unbind();
+	// starts shader and sets mHorizontal to true
 	void startShader();
 	void stopShader();
 

@@ -22,8 +22,27 @@ bool BlurFrameBuffers::getHorizontal() const
 	return this->mHorizontal;
 }
 
+void BlurFrameBuffers::prepare()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, mFBO[mHorizontal]);
+	this->mShader->loadHorizontal(mHorizontal);
+}
+
+GLuint BlurFrameBuffers::getLastBluredTexture()
+{
+	GLuint tex = mColorbuffers[!mHorizontal];
+	mHorizontal = !mHorizontal;
+	return tex;
+}
+
+void BlurFrameBuffers::unbind()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
 void BlurFrameBuffers::startShader()
 {
+	this->setHorizontal(true);
 	this->mShader->use();
 }
 
