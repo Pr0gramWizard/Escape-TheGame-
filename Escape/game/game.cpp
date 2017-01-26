@@ -173,24 +173,24 @@ bool Game::gameLoop()
 
 		glEnable(GL_CLIP_DISTANCE0);
 		glEnable(GL_TEXTURE_2D);
-		
+
 		// reflection
 		lfbos->bindReflectionFrameBuffer();
 		float distance = 2 * (mPlayer->getCameraPosition().y - lake->getWorldY());
 		mPlayer->getCamera()->incYPosition(-distance);
 		mPlayer->getCamera()->invertPitch();
-	
-
-
+		
+		//
+		float sign = (mPlayer->getPosition().y + mPlayer->getHeight() < lake->getWorldY()) ? -1.0f : 1.0f;
 		// render to buffer
-		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, 1, 0, -lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE);
+		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, sign, 0, -sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE);
 		// move camera back
 		mPlayer->getCamera()->incYPosition(distance);
 		mPlayer->getCamera()->invertPitch();
 
 		// refraction
 		lfbos->bindRefractionFrameBuffer();
-		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, -1, 0, lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE);
+		mRenderer->render(mPlayer->getViewMatrix(), lights, glm::vec4(0, -sign, 0, sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE);
 
 		// actual rendering
 		glDisable(GL_CLIP_DISTANCE0);
