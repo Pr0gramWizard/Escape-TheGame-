@@ -7,7 +7,8 @@ in vec3 lakeNormal;
 in vec3 fragPos;
 in vec3 viewPos;
 
-out vec4 color;
+layout (location = 0) out vec4 color;
+layout (location = 1) out vec4 BrightColor;
 
 uniform sampler2D reflectionTexture;
 uniform sampler2D refractionTexture;
@@ -94,6 +95,11 @@ void main()
 	color =  mix(color, vec4(0,0,1,0), 0.2) + vec4(specularHighlights, 0.0);
 	color = mix(vec4(backgroundColor, 1.0) , color, visibility);
 	color.a = clamp(lakeDepth/8.0, 0.0, 1.0);
+
+	float brightness = dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));
+    if(brightness > 0.25){
+		BrightColor = vec4(color.rgb, 1.0);
+	}
 
 	//color = vec4(1,0,0, 1);
 }

@@ -232,15 +232,16 @@ bool Game::gameLoop()
 			*/
 			mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE);
 			// render water
-			//lake->updateHeights(deltaTime);
-			//lakerenderer->render(deltaTime, mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE);
+			lake->updateHeights(deltaTime);
+			lakerenderer->render(deltaTime, mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE);
 		prebloomfbo->unbind();
 
 		// Blur bright fragments w/ two-pass Gaussian Blur
 		GLboolean first_iteration = true;
-		GLuint amount = 0;
+		GLuint amount = 10;
 		blurfbos->setHorizontal(true);
 		blurfbos->startShader();
+		glActiveTexture(GL_TEXTURE0);
 			for (GLuint i = 0; i < amount; i++)
 			{
 				blurfbos->prepare();
@@ -268,7 +269,7 @@ bool Game::gameLoop()
 		finalbloomshader->unuse();
 
 		// Render Debug Information
-		mRenderer->renderDebugInformation();
+		//mRenderer->renderDebugInformation();
 
 		/*
 		ObjectRenderer.startShader();
