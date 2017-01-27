@@ -96,7 +96,9 @@ private:
 
 // All private functions of the class
 private:
+	// Updating the Camera Vectors
 	void updateCameraVectors();
+	// Converting angle from degree to radian
 	static float toRadians(float pAngle);
 
 

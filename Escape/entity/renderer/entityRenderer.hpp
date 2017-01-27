@@ -2,16 +2,24 @@
 
 // GLEW
 #define GLEW_STATIC
+// OpenGLExtensionWrangler
 #include <glew.h>
+// Standard Input/Output Stream
 #include <iostream>
+// Matrix 4 x 4
 #include <mat4x4.hpp>
+// Matrix pointer
 #include <gtc/type_ptr.hpp>
+// List
 #include <list>
-// model class
+// Model class
 #include "../../model/model.hpp"
+// Entity class
 #include "../../entity/entity.hpp"
+// Entity shader
 #include "../../entity/shader/entityshader.hpp"
 
+// Defines several possible options for render mopdes
 enum RenderMode {
 	POINTS,
 	LINES,
@@ -22,41 +30,66 @@ enum RenderMode {
 	TRIANGLE_FAN,
 };
 
-using namespace std;
 
+// Declaration of the Entity Renderer
 class EntityRenderer
 {
 public:
-	// constructor
+	// Constructor
 	EntityRenderer(EntityShader* pShader, glm::mat4 pProjectionMatrix);
-	// destructor
+
+	//Destructor 
 	~EntityRenderer();
 
-	// render methods
-	void render(list<Entity> pEntities);
-	void render(list<Entity> pEntities, RenderMode pMode);
-	void render(Entity &pEntity);
+	// Render methods:
 
-	// methods that get called before the acutal rendering
+	// List of Entities
+	void render(list<Entity> pEntities);
+	// List of Entities with given RenderMode
+	void render(list<Entity> pEntities, RenderMode pMode);
+	// Single Entity
+	void render(Entity &pEntity);
+	// Single Entity with given RenderMode
+	void render(Entity &pEntity, RenderMode pMode);
+
+	// Prepare methods:
+
+	// Prepare single Entity (given as direct object)
 	void prepareEntity(Entity pEntity);
+	// Prepare single Entity (given as pointer to object)
 	void prepareEntity(Entity* pEntity);
 
-	// unbinding all terrains
+	// Clean Up Methods:
+
+	// Unbinding the entity
 	void unbindEntity();
 
-	// load model matrix for a terrain into the shader
+	// Loader Functions:
+
+	// Load Model Matrix with given Entity (given as object)
 	void loadModelMatrix(Entity pEntity);
+	// Load Model Matrix with given Entity (given as pointer to object)
 	void loadModelMatrix(Entity* pEntity);
+	// Load View Matrix
 	void loadViewMatrix(glm::mat4 pViewMatrix);
+	// Load lights
 	void loadLights(vector<Light*> pLights);
+	// Load clipping plane
 	void loadClipPlane(glm::vec4 pClipPlane);
+	// Load fog data with given density and gradient
 	void loadFogData(GLfloat pDensity, GLfloat pGradient);
+	// Load backgroundcolor (R,G,B)
 	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
 
-	// use or unuse the shader
+	// Shader functions:
+
+	// Starting the shader
 	void startShader();
+	// Stopping the shader
 	void stopShader();
 
+// All private member of the class
 private:
+	// Pointer to EntityShader
 	EntityShader* mShader;
 };

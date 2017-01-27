@@ -219,15 +219,14 @@ void Camera::setFov(GLfloat pFov)
 {
 	mFov = pFov;
 }
-
+// Increases the Y-Position of the camera
 void Camera::incYPosition(GLfloat pY)
 {
 	mPosition.y += pY;
 }
-
+// Inverts the pitch of the camera
 void Camera::invertPitch()
 {
 	mPitch = -mPitch;
-	//needed?
 	this->updateCameraVectors();
 }
