@@ -9,7 +9,7 @@ BlurShader::BlurShader(const std::string& pVertexShaderFilePath, const std::stri
 	this->bindAllAttributes();
 
 	// Log Shader
-	std::clog << "Shader class was created successfully!" << std::endl;
+	std::clog << "Blur Shader class was created successfully!" << std::endl;
 }
 
 void BlurShader::bindAllAttributes()
@@ -34,7 +34,7 @@ void BlurShader::createShader(const std::string& pVertexShaderFilePath, const st
 	else
 	{
 		// Success message
-		std::clog << "Vertex shader created successfully! " << std::endl;
+		std::clog << "Blur Vertex shader created successfully! " << std::endl;
 	}
 
 	// Then we create a FRAGEMENT SHADER
@@ -48,7 +48,7 @@ void BlurShader::createShader(const std::string& pVertexShaderFilePath, const st
 	else
 	{
 		// Success message
-		std::clog << "Fragment shader created successfully! " << std::endl;
+		std::clog << "Blur Fragment shader created successfully! " << std::endl;
 	}
 
 	// Compling both shader (using private class functions)
@@ -323,7 +323,7 @@ void BlurShader::loadHorizontal(GLboolean pHorizontal)
 BlurShader::~BlurShader()
 {
 	// Log Shader
-	std::clog << "Shader class was destroyed successfully!" << std::endl;
+	std::clog << "Blur Shader class was destroyed successfully!" << std::endl;
 }
 
 void BlurShader::getAllUniformLocations()

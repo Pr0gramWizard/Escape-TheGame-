@@ -96,8 +96,14 @@ bool Game::gameLoop()
 	//**** END LAKE STUFF ****
 
 	//**** BLUR STUFF ****
-
+	BlurShader *blurshader = new BlurShader("shaders/blur.vert", "shaders/blur.frag");
+	BlurFrameBuffers *blurfbos = new BlurFrameBuffers(blurshader, mWidth, mHeight);
 	//**** END BLUR STUFF ****
+
+	//**** BLOOM STUFF ****
+	PreBloomFBO *prebloomfbo = new PreBloomFBO(mWidth, mHeight);
+	FinalBloomShader *finalbloomshader = new FinalBloomShader("shaders/finalbloom.vert", "shaders/finalbloom.frag");
+	//**** END BLOOM STUFF ****
 
 	//**** LIGHT STUFF ****
 	//Light* sun = new Light(glm::vec3(250, 1, 250), glm::vec3(1, 1, 0), glm::vec3(1, 0.01, 0.002));

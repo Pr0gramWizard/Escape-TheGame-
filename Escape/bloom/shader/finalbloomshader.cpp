@@ -14,7 +14,7 @@ FinalBloomShader::FinalBloomShader(const std::string& pVertexShaderFilePath, con
 	this->unuse();
 
 	// Log Shader
-	std::clog << "Shader class was created successfully!" << std::endl;
+	std::clog << "Bloom Shader class was created successfully!" << std::endl;
 }
 
 void FinalBloomShader::bindAllAttributes()
@@ -39,7 +39,7 @@ void FinalBloomShader::createShader(const std::string& pVertexShaderFilePath, co
 	else
 	{
 		// Success message
-		std::clog << "Vertex shader created successfully! " << std::endl;
+		std::clog << "Bloom Vertex shader created successfully! " << std::endl;
 	}
 
 	// Then we create a FRAGEMENT SHADER
@@ -53,7 +53,7 @@ void FinalBloomShader::createShader(const std::string& pVertexShaderFilePath, co
 	else
 	{
 		// Success message
-		std::clog << "Fragment shader created successfully! " << std::endl;
+		std::clog << "Bloom Fragment shader created successfully! " << std::endl;
 	}
 
 	// Compling both shader (using private class functions)
@@ -339,7 +339,7 @@ void FinalBloomShader::loadExposure(GLfloat pExposure)
 FinalBloomShader::~FinalBloomShader()
 {
 	// Log Shader
-	std::clog << "Shader class was destroyed successfully!" << std::endl;
+	std::clog << "Bloom Shader class was destroyed successfully!" << std::endl;
 }
 
 void FinalBloomShader::getAllUniformLocations()
