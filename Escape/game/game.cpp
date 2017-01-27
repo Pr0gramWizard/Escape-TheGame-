@@ -261,6 +261,7 @@ bool Game::gameLoop()
 		// Now render floating point color buffer to 2D quad and tonemap HDR colors to default framebuffer's (clamped) color range
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		finalbloomshader->use();
+			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, prebloomfbo->getColorBuffer(0));
 			glActiveTexture(GL_TEXTURE1);
 			glBindTexture(GL_TEXTURE_2D, blurfbos->getLastBluredTexture());
