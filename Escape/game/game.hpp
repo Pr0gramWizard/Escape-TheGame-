@@ -47,6 +47,14 @@
 #include "../lake/fbo/lakeFrameBuffers.hpp"
 // Skybox classw
 #include "../skybox/skybox.hpp"
+// blur fbo
+#include "../blur/blurBuffer.hpp"
+// blur shader
+#include "../blur/shader/blurShader.hpp"
+// bloom fbo
+#include "../bloom/preBloomFBO.hpp"
+// bloom shader
+#include "../bloom/shader/finalbloomshader.hpp"
 
 
 #include <ft2build.h>

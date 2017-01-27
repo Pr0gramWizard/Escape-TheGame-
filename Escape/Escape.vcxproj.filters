@@ -139,10 +139,10 @@
     <Filter Include="Blur\shader">
       <UniqueIdentifier>{26318689-c28e-4fee-b001-8f5a56e08e10}</UniqueIdentifier>
     </Filter>
-    <Filter Include="bloom">
+    <Filter Include="Bloom">
       <UniqueIdentifier>{64cc291e-bb21-404a-b1db-a9a1dd6ef3e9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="bloom\shader">
+    <Filter Include="Bloom\shader">
       <UniqueIdentifier>{8a8b8ce3-36e3-4fba-84da-e8453240d7c2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -253,7 +253,10 @@
       <Filter>Blur\shader</Filter>
     </ClCompile>
     <ClCompile Include="bloom\preBloomFBO.cpp">
-      <Filter>bloom</Filter>
+      <Filter>Bloom</Filter>
+    </ClCompile>
+    <ClCompile Include="bloom\shader\finalbloomshader.cpp">
+      <Filter>Bloom\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -360,7 +363,10 @@
       <Filter>Blur\shader</Filter>
     </ClInclude>
     <ClInclude Include="bloom\preBloomFBO.hpp">
-      <Filter>bloom</Filter>
+      <Filter>Bloom</Filter>
+    </ClInclude>
+    <ClInclude Include="bloom\shader\finalbloomshader.hpp">
+      <Filter>Bloom\shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -432,6 +438,12 @@
     </None>
     <None Include="shaders\blur.vert">
       <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="shaders\finalbloom.vert">
+      <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="shaders\finalbloom.frag">
+      <Filter>Shader\Fragment</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
