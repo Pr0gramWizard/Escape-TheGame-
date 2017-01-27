@@ -255,6 +255,9 @@
     <ClCompile Include="bloom\preBloomFBO.cpp">
       <Filter>bloom</Filter>
     </ClCompile>
+    <ClCompile Include="bloom\shader\finalbloomshader.cpp">
+      <Filter>bloom\shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -362,6 +365,9 @@
     <ClInclude Include="bloom\preBloomFBO.hpp">
       <Filter>bloom</Filter>
     </ClInclude>
+    <ClInclude Include="bloom\shader\finalbloomshader.hpp">
+      <Filter>bloom\shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
@@ -432,6 +438,12 @@
     </None>
     <None Include="shaders\blur.vert">
       <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="shaders\finalbloom.vert">
+      <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="shaders\finalbloom.frag">
+      <Filter>Shader\Fragment</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

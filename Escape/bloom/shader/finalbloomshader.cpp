@@ -1,18 +1,23 @@
-#include "blurShader.hpp"
+#include "finalbloomshader.hpp"
+
+
 
 // Constructor
-BlurShader::BlurShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
+FinalBloomShader::FinalBloomShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
 
 	this->createShader(pVertexShaderFilePath, pFragementShaderFilePath);
 	this->getAllUniformLocations();
 	this->bindAllAttributes();
+	this->use();
+	this->bindTextures();
+	this->unuse();
 
 	// Log Shader
 	std::clog << "Shader class was created successfully!" << std::endl;
 }
 
-void BlurShader::bindAllAttributes()
+void FinalBloomShader::bindAllAttributes()
 {
 	this->bindAttribute(0, "position");
 	this->bindAttribute(1, "texCoord");
@@ -21,7 +26,7 @@ void BlurShader::bindAllAttributes()
 
 // Compilation of the vertex and fragment shader 
 // Function: complieShader(Filepath, Filepath)
-void BlurShader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
+void FinalBloomShader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
 	// First we create a VERTEX SHADER
 	mVertexShaderID = glCreateShader(GL_VERTEX_SHADER);
@@ -60,7 +65,7 @@ void BlurShader::createShader(const std::string& pVertexShaderFilePath, const st
 }
 
 // Linking of vertex and fragment shader
-void BlurShader::linkShader()
+void FinalBloomShader::linkShader()
 {
 	// First we create a new Program with the given Program ID
 	setProgramID(glCreateProgram());
@@ -108,21 +113,21 @@ void BlurShader::linkShader()
 }
 
 // Tell the program to use the shader
-void BlurShader::use()
+void FinalBloomShader::use()
 {
 	// Starting the program with the shader together
 	glUseProgram(getProgramID());
 }
 
 // Tell the program to stop using the shader
-void BlurShader::unuse()
+void FinalBloomShader::unuse()
 {
 	// Destroying refference to program
 	glUseProgram(0);
 }
 
 // Reading fragment shader from file and compiling it
-void BlurShader::compileFragementShader(std::string pFragementShaderFilePath)
+void FinalBloomShader::compileFragementShader(std::string pFragementShaderFilePath)
 {
 	// Opening a file stream with the given file path
 	std::ifstream fragementFile(pFragementShaderFilePath);
@@ -183,7 +188,7 @@ void BlurShader::compileFragementShader(std::string pFragementShaderFilePath)
 
 }
 
-void BlurShader::compileVertexShader(std::string pVertexShaderFilePath)
+void FinalBloomShader::compileVertexShader(std::string pVertexShaderFilePath)
 {
 	// Opening a file stream with the given file path
 	std::ifstream vertexFile(pVertexShaderFilePath);
@@ -244,22 +249,22 @@ void BlurShader::compileVertexShader(std::string pVertexShaderFilePath)
 
 // Getter Functions
 // Returns current Program ID
-GLuint BlurShader::getProgramID() const
+GLuint FinalBloomShader::getProgramID() const
 {
 	return mProgramID;
 }
 // Returns current Vertex Shader ID
-GLuint BlurShader::getVertexShaderID() const
+GLuint FinalBloomShader::getVertexShaderID() const
 {
 	return mVertexShaderID;
 }
 
 // Returns current Fragement Shader ID
-GLuint BlurShader::getFragementShaderID() const
+GLuint FinalBloomShader::getFragementShaderID() const
 {
 	return mFragementShaderID;
 }
-GLuint BlurShader::getUniformLocation(const char* pUniformName)
+GLuint FinalBloomShader::getUniformLocation(const char* pUniformName)
 {
 	GLuint Location = glGetUniformLocation(this->getProgramID(), pUniformName);
 
@@ -276,28 +281,28 @@ GLuint BlurShader::getUniformLocation(const char* pUniformName)
 
 // Setter Functions
 // Sets current Program ID to a given ID
-void BlurShader::setProgramID(int pProgramID)
+void FinalBloomShader::setProgramID(int pProgramID)
 {
 	mProgramID = pProgramID;
 }
 // Sets current VertexShaderID to a given ID
-void BlurShader::setVertexShaderID(int pVertexShaderID)
+void FinalBloomShader::setVertexShaderID(int pVertexShaderID)
 {
 	mVertexShaderID = pVertexShaderID;
 }
 
 // Sets current FragementShaderID to a given ID
-void BlurShader::setFragementShaderID(int pFragementShaderID)
+void FinalBloomShader::setFragementShaderID(int pFragementShaderID)
 {
 	mFragementShaderID = pFragementShaderID;
 }
 
-void BlurShader::loadInt(GLuint pLocation, GLuint pValue)
+void FinalBloomShader::loadInt(GLuint pLocation, GLuint pValue)
 {
-	glUniform1ui(pLocation, pValue);
+	glUniform1i(pLocation, pValue);
 }
 
-void BlurShader::loadBool(GLuint pLocation, GLboolean pValue)
+void FinalBloomShader::loadBool(GLuint pLocation, GLboolean pValue)
 {
 	if (pValue == 0)
 	{
@@ -309,31 +314,44 @@ void BlurShader::loadBool(GLuint pLocation, GLboolean pValue)
 	}
 }
 
-void BlurShader::loadImage(GLuint pImage)
+void FinalBloomShader::loadFloat(GLuint pLocation, GLfloat pValue)
 {
-	this->loadInt(mLocation_image, pImage);
+	glUniform1f(pLocation, pValue);
 }
 
-void BlurShader::loadHorizontal(GLboolean pHorizontal)
+void FinalBloomShader::bindTextures()
 {
-	this->loadBool(mLocation_horizontal, pHorizontal);
+	this->loadInt(mLocation_scene, 0);
+	this->loadInt(mLocation_bloomBlur, 1);
+}
+
+void FinalBloomShader::loadBloom(GLboolean pBloom)
+{
+	this->loadBool(mLocation_bloom, pBloom);
+}
+
+void FinalBloomShader::loadExposure(GLfloat pExposure)
+{
+	this->loadFloat(mLocation_exposure, pExposure);
 }
 
 // Destructor
-BlurShader::~BlurShader()
+FinalBloomShader::~FinalBloomShader()
 {
 	// Log Shader
 	std::clog << "Shader class was destroyed successfully!" << std::endl;
 }
 
-void BlurShader::getAllUniformLocations()
+void FinalBloomShader::getAllUniformLocations()
 {
-	mLocation_image = glGetUniformLocation(getProgramID(), "image");
-	mLocation_horizontal = glGetUniformLocation(getProgramID(), "horizontal");
+	mLocation_scene = glGetUniformLocation(getProgramID(), "scene");
+	mLocation_bloomBlur = glGetUniformLocation(getProgramID(), "bloomBlur");
+	mLocation_bloom = glGetUniformLocation(getProgramID(), "bloom");
+	mLocation_exposure = glGetUniformLocation(getProgramID(), "exposure");
 }
 
 // Binding an attribtute to the shader
-void BlurShader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
+void FinalBloomShader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
 {
 	// We bind the attribute to the given Program ID
 	glBindAttribLocation(getProgramID(), pAttribute, pAttributeName.c_str());
