@@ -10,6 +10,10 @@
 #include <mat4x4.hpp>
 // 3x1 Vector
 #include <vec3.hpp>
+// String
+#include <string>
+// Random number
+#include <random>
 // Refference to the camera class
 #include "../camera/camera.hpp"
 // Reference to keyboard
@@ -138,5 +142,5 @@ private:
 
 	// Sets Movement Variables
 	void setMoveVariables();
-	void playWalkingSound(const char* pWalkingSound, GLenum pEnum);
+	void playWalkingSound(int StepNumber);
 };

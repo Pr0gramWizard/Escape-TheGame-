@@ -34,9 +34,18 @@ Player::~Player()
 	delete mEye;
 }
 
-void Player::playWalkingSound(const char* pWalkingSound, GLenum pEnum)
+
+void Player::playWalkingSound(int StepNumber)
 {
-	std::cout << rand() << std::endl;
+	std::string FilePath = "audio/walking/step";
+	FilePath += std::to_string(StepNumber);
+	FilePath += ".wav";
+
+	
+
+	if (!WalkSound->isCurrentlyPlaying("audio/walking/step1.wav") && !WalkSound->isCurrentlyPlaying("audio/walking/step2.wav") && !WalkSound->isCurrentlyPlaying("audio/walking/step3.wav") && !WalkSound->isCurrentlyPlaying("audio/walking/step4.wav")) {
+		WalkSound->play2D(FilePath.c_str(), GL_FALSE);
+	}
 }
 
 // Function to move the player	
@@ -46,10 +55,23 @@ void Player::move(Terrain* pTerrain, float pDelta)
 	float yRotation = this->getYRotation();
 	// dPos is the distance the player is going to move
 	float dPos = mMovementSpeed * pDelta;
-	
+
+	// Random seed
+	std::random_device rd;
+
+	// Initialize Mersenne Twister pseudo-random number generator
+	std::mt19937 gen(rd());
+
+	// Generate pseudo-random numbers
+	// uniformly distributed in range (1, 100)
+	std::uniform_int_distribution<> dis(1, 4);
+
+	int randomX = dis(gen);
+
+
 	// play walk sound if needed
 	if (dPos != 0 && !mJumping && !isBelowLake()) {
-		playWalkingSound("audio/walking.wav", GL_FALSE);
+		playWalkingSound(randomX);
 	}
 	else if(isBelowLake()) {
 		if (!WalkSound->isCurrentlyPlaying("audio/underwater.mp3")) {
