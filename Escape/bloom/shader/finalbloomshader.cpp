@@ -10,6 +10,7 @@ FinalBloomShader::FinalBloomShader(const std::string& pVertexShaderFilePath, con
 	this->getAllUniformLocations();
 	this->bindAllAttributes();
 	this->use();
+	glActiveTexture(GL_TEXTURE0);
 	this->bindTextures();
 	this->unuse();
 
