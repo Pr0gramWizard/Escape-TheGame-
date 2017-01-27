@@ -138,4 +138,5 @@ private:
 
 	// Sets Movement Variables
 	void setMoveVariables();
+	void playWalkingSound(const char* pWalkingSound, GLenum pEnum);
 };

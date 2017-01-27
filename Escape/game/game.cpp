@@ -99,14 +99,15 @@ bool Game::gameLoop()
 	//**** LIGHT STUFF ****
 	//Light* sun = new Light(glm::vec3(250, 1, 250), glm::vec3(1, 1, 0), glm::vec3(1, 0.01, 0.002));
 	Light* sun = new Light(glm::vec3(0, 1, 0), glm::vec3(0.4f, 0.4f, 0.4f));
-	Light* sun2 = new Light(glm::vec3(500, 20, 0), glm::vec3(1.0f, 1.0f, 0.4f));
+	Light* sun2 = new Light(glm::vec3(112, 6, 10), glm::vec3(1.0f, 0.6f, 0.0f));
 	Light* sun3 = new Light(glm::vec3(0, 20, 500), glm::vec3(0.0f, 0.0f, 10.0f));
 	Light* sun4 = new Light(glm::vec3(500, 20, 500), glm::vec3(0.0f, 10.0f, 0.0f));
 	//Light* lamp = new Light(mPlayer->getCameraPosition(), glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1, 0.01, 0.002));
 	Light* lamp = new Light(glm::vec3(45.0f, terrain.getHeight(45.0f, 45.0f) + 15, 45.0f), glm::vec3(1.0f,0.0f,0.0f), glm::vec3(1, 0.01, 0.002));
 	vector<Light*> lights;
 	lights.push_back(sun);
-	// lights.push_back(sun2);
+	lights.push_back(sun2);
+
 	// lights.push_back(sun3);
 	// lights.push_back(sun4);
 	// lights.push_back(lamp);

@@ -34,6 +34,11 @@ Player::~Player()
 	delete mEye;
 }
 
+void Player::playWalkingSound(const char* pWalkingSound, GLenum pEnum)
+{
+	std::cout << rand() << std::endl;
+}
+
 // Function to move the player	
 void Player::move(Terrain* pTerrain, float pDelta)
 {
@@ -44,9 +49,7 @@ void Player::move(Terrain* pTerrain, float pDelta)
 	
 	// play walk sound if needed
 	if (dPos != 0 && !mJumping && !isBelowLake()) {
-		if (!WalkSound->isCurrentlyPlaying("audio/steps.wav")) {
-			WalkSound->play2D("audio/steps.wav", GL_FALSE);
-		}
+		playWalkingSound("audio/walking.wav", GL_FALSE);
 	}
 	else if(isBelowLake()) {
 		if (!WalkSound->isCurrentlyPlaying("audio/underwater.mp3")) {
