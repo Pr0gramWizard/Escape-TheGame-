@@ -31,8 +31,11 @@ void BlurFrameBuffers::prepare()
 GLuint BlurFrameBuffers::getLastBluredTexture()
 {
 	GLuint tex = mColorbuffers[!mHorizontal];
-	mHorizontal = !mHorizontal;
 	return tex;
+}
+
+void BlurFrameBuffers::invertHorizontal() {
+	this->setHorizontal(!this->getHorizontal());
 }
 
 void BlurFrameBuffers::unbind()
@@ -42,13 +45,17 @@ void BlurFrameBuffers::unbind()
 
 void BlurFrameBuffers::startShader()
 {
-	this->setHorizontal(true);
 	this->mShader->use();
 }
 
 void BlurFrameBuffers::stopShader()
 {
 	this->mShader->unuse();
+}
+
+void BlurFrameBuffers::loadHorizontal(GLboolean pHorizontal)
+{
+	this->mShader->loadHorizontal(pHorizontal);
 }
 
 void BlurFrameBuffers::init(GLuint pWidth, GLuint pHeight)

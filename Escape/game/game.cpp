@@ -223,13 +223,49 @@ bool Game::gameLoop()
 		// actual rendering
 		glDisable(GL_CLIP_DISTANCE0);
 		lfbos->unbindCurrentFrameBuffer();
-		/*
-		* sign is -1 if player is below the lake
-		*/
-		mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE);
-		// render water
-		lake->updateHeights(deltaTime);
-		lakerenderer->render(deltaTime, mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE);
+
+		//render to prebloomfbo
+		prebloomfbo->bind();
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			/*
+			* sign is -1 if player is below the lake
+			*/
+			mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE);
+			// render water
+			//lake->updateHeights(deltaTime);
+			//lakerenderer->render(deltaTime, mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE);
+		prebloomfbo->unbind();
+
+		// Blur bright fragments w/ two-pass Gaussian Blur
+		GLboolean first_iteration = true;
+		GLuint amount = 0;
+		blurfbos->setHorizontal(true);
+		blurfbos->startShader();
+			for (GLuint i = 0; i < amount; i++)
+			{
+				blurfbos->prepare();
+				glBindTexture(GL_TEXTURE_2D, first_iteration ? prebloomfbo->getColorBuffer(1) : blurfbos->getLastBluredTexture());  // bind texture of other framebuffer (or scene if first iteration)
+				RenderQuad();
+				blurfbos->invertHorizontal();
+				if (first_iteration)
+				{
+					first_iteration = false;
+				}	
+			}
+		blurfbos->stopShader();
+		blurfbos->unbind();
+
+		// 2. Now render floating point color buffer to 2D quad and tonemap HDR colors to default framebuffer's (clamped) color range
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		finalbloomshader->use();
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, prebloomfbo->getColorBuffer(0));
+			glActiveTexture(GL_TEXTURE1);
+			glBindTexture(GL_TEXTURE_2D, blurfbos->getLastBluredTexture());
+			finalbloomshader->loadBloom(true);
+			finalbloomshader->loadExposure(1.0f);
+			RenderQuad();
+		finalbloomshader->unuse();
 
 		// Render Debug Information
 		mRenderer->renderDebugInformation();
@@ -243,22 +279,6 @@ bool Game::gameLoop()
 		ObjectRenderer.render();
 		ObjectRenderer.stopShader();
 		*/
-		
-
-		// Blur bright fragments w/ two-pass Gaussian Blur  --> set higher?
-		/*GLboolean first_iteration = true;
-		GLuint amount = 10;
-		blurfbos->startShader();
-		for (GLuint i = 0; i < amount; i++)
-		{
-			blurfbos->prepare();
-			glBindTexture(GL_TEXTURE_2D, first_iteration ? colorBuffers[1] : blurfbos->getLastBluredTexture());  // bind texture of other framebuffer (or scene if first iteration)
-			RenderQuad();
-			if (first_iteration)
-				first_iteration = false;
-		}
-		blurfbos->stopShader();
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);*/
 
 		
 		// Swap the buffers

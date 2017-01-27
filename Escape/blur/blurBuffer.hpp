@@ -19,10 +19,13 @@ public:
 	void prepare();
 	// return the id of the last used texture to blur it and invert mHorizontal
 	GLuint getLastBluredTexture();
+	void invertHorizontal();
 	void unbind();
 	// starts shader and sets mHorizontal to true
 	void startShader();
 	void stopShader();
+	
+	void loadHorizontal(GLboolean pHorizontal);
 
 private:
 	void init(GLuint pWidth, GLuint pHeight);
