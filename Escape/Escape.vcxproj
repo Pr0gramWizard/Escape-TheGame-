@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="bloom\preBloomFBO.cpp" />
     <ClCompile Include="blur\blurBuffer.cpp" />
     <ClCompile Include="blur\shader\blurShader.cpp" />
     <ClCompile Include="camera\camera.cpp" />
@@ -56,6 +57,7 @@
     <ClCompile Include="text\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bloom\preBloomFBO.hpp" />
     <ClInclude Include="blur\blurBuffer.hpp" />
     <ClInclude Include="blur\shader\blurShader.hpp" />
     <ClInclude Include="camera\camera.hpp" />

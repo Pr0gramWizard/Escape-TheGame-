@@ -19,8 +19,7 @@ BlurShader::BlurShader(const std::string& pVertexShaderFilePath, const std::stri
 void BlurShader::bindAllAttributes()
 {
 	this->bindAttribute(0, "position");
-	this->bindAttribute(1, "normal");
-	this->bindAttribute(2, "texCoord");
+	this->bindAttribute(1, "texCoord");
 }
 
 
