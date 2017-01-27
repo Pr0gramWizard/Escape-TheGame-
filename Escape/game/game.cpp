@@ -231,6 +231,8 @@ bool Game::gameLoop()
 			* sign is -1 if player is below the lake
 			*/
 			mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE);
+			// Render Debug Information
+			mRenderer->renderDebugInformation();
 			// render water
 			lake->updateHeights(deltaTime);
 			lakerenderer->render(deltaTime, mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE);
@@ -256,7 +258,7 @@ bool Game::gameLoop()
 		blurfbos->stopShader();
 		blurfbos->unbind();
 
-		// 2. Now render floating point color buffer to 2D quad and tonemap HDR colors to default framebuffer's (clamped) color range
+		// Now render floating point color buffer to 2D quad and tonemap HDR colors to default framebuffer's (clamped) color range
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		finalbloomshader->use();
 			glActiveTexture(GL_TEXTURE0);
@@ -268,8 +270,6 @@ bool Game::gameLoop()
 			RenderQuad();
 		finalbloomshader->unuse();
 
-		// Render Debug Information
-		//mRenderer->renderDebugInformation();
 
 		/*
 		ObjectRenderer.startShader();
