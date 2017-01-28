@@ -85,6 +85,7 @@
     <ClInclude Include="particle\shader\particleshader.hpp" />
     <ClInclude Include="player\player.hpp" />
     <ClInclude Include="renderer\mainrenderer.hpp" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="skybox\renderer\skyboxrenderer.hpp" />
     <ClInclude Include="skybox\shader\skyboxshader.hpp" />
     <ClInclude Include="skybox\skybox.hpp" />
@@ -123,12 +124,16 @@
     <None Include="shaders\triangleShader.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="game\Icon.ico" />
     <Image Include="textures\res\blacktest.png" />
     <Image Include="textures\res\bluetest.png" />
     <Image Include="textures\res\greentest.png" />
     <Image Include="textures\res\heightmap.png" />
     <Image Include="textures\res\redtest.png" />
     <Image Include="textures\res\whitetest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Escape.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8DE4231C-F8DD-4A3A-ADC9-9BB74012A2FB}</ProjectGuid>
@@ -203,6 +208,10 @@
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
     </Bscmake>
+    <ResourceCompile>
+      <SuppressStartupBanner>false</SuppressStartupBanner>
+      <ShowProgress>true</ShowProgress>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -225,6 +234,10 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;freeglut.lib;SOIL.lib;assimp.lib;irrKlang.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
+    <ResourceCompile>
+      <SuppressStartupBanner>false</SuppressStartupBanner>
+      <ShowProgress>true</ShowProgress>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

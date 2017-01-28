@@ -7,11 +7,6 @@ const GLfloat Game::BLUE = 0.5;
 // Used for post-processing effects
 void RenderQuad();
 
-Game::Game()
-{
-
-}
-
 Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 {
 	setHeight(pHeight);

@@ -44,9 +44,9 @@ public:
 	// Render methods:
 
 	// List of Entities
-	void render(list<Entity> pEntities);
+	void render(std::list<Entity> pEntities);
 	// List of Entities with given RenderMode
-	void render(list<Entity> pEntities, RenderMode pMode);
+	void render(std::list<Entity> pEntities, RenderMode pMode);
 	// Single Entity
 	void render(Entity &pEntity);
 	// Single Entity with given RenderMode
@@ -73,7 +73,7 @@ public:
 	// Load View Matrix
 	void loadViewMatrix(glm::mat4 pViewMatrix);
 	// Load lights
-	void loadLights(vector<Light*> pLights);
+	void loadLights(std::vector<Light*> pLights);
 	// Load clipping plane
 	void loadClipPlane(glm::vec4 pClipPlane);
 	// Load fog data with given density and gradient

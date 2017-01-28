@@ -55,16 +55,19 @@
 #include "../bloom/preBloomFBO.hpp"
 // bloom shader
 #include "../bloom/shader/finalbloomshader.hpp"
-
-
+// Text Loader class
 #include <ft2build.h>
 #include FT_FREETYPE_H
+// Audio class
 #include <irrKlang.h>
+#include "../resource.h"
 
+// Declaration of game class
 class Game
 {
+// All public functions of the class
 public:
-	Game();
+	// Constructor with given Window Width, Window Height and Window Title
 	Game(GLuint pWidth, GLuint pHeigth, const char* pWindowTitle);
 	~Game();
 	bool gameLoop();

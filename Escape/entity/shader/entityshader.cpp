@@ -10,7 +10,7 @@ EntityShader::EntityShader(const std::string& pVertexShaderFilePath, const std::
 	this->bindAllAttributes();
 
 	// Log Shader
-	std::clog << "Shader class was created successfully!" << std::endl;
+	std::clog << "Entity Shader class was created successfully!" << std::endl;
 }
 
 // Compilation of the vertex and fragment shader 
@@ -233,22 +233,25 @@ void EntityShader::compileVertexShader(std::string pVertexShaderFilePath)
 	}
 }
 
-// Getter Functions
 // Returns current Program ID
 GLuint EntityShader::getProgramID() const
 {
 	return mProgramID;
 }
+
 // Returns current Vertex Shader ID
 GLuint EntityShader::getVertexShaderID() const
 {
 	return mVertexShaderID;
 }
+
 // Returns current Fragement Shader ID
 GLuint EntityShader::getFragementShaderID() const
 {
 	return mFragementShaderID;
 }
+
+// Returns the uniform location of given uniform
 GLuint EntityShader::getUniformLocation(const char* pUniformName)
 {
 	GLuint Location = glGetUniformLocation(this->getProgramID(), pUniformName);
@@ -264,33 +267,37 @@ GLuint EntityShader::getUniformLocation(const char* pUniformName)
 	}
 }
 
-// Setter Functions
 // Sets current Program ID to a given ID
 void EntityShader::setProgramID(int pProgramID)
 {
 	mProgramID = pProgramID;
 }
+
 // Sets current VertexShaderID to a given ID
 void EntityShader::setVertexShaderID(int pVertexShaderID)
 {
 	mVertexShaderID = pVertexShaderID;
 }
+
 // Sets current FragementShaderID to a given ID
 void EntityShader::setFragementShaderID(int pFragementShaderID)
 {
 	mFragementShaderID = pFragementShaderID;
 }
 
+// Load float to given location
 void EntityShader::loadFloat(GLuint pLocation, GLfloat pValue)
 {
 	glUniform1f(pLocation, pValue);
 }
 
+// Load vector (3x1) to given location
 void EntityShader::loadVector(GLuint pLocation, glm::vec3 pVector)
 {
 	glUniform3f(pLocation, pVector.x, pVector.y, pVector.z);
 }
 
+// Load bool to given location
 void EntityShader::loadBool(GLuint pLocation, GLboolean pValue)
 {
 	if (pValue == 0)
@@ -303,33 +310,40 @@ void EntityShader::loadBool(GLuint pLocation, GLboolean pValue)
 	}
 }
 
+// Load matrix (4x4) to given location
 void EntityShader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
 {
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, glm::value_ptr(pMatrix));
 }
 
+// Load vector (4x1) to given location
 void EntityShader::loadVector4f(GLuint pLocation, glm::vec4 pVector)
 {
 	glUniform4f(pLocation, pVector.x, pVector.y, pVector.z, pVector.w);
 }
 
+// Load model matrix
 void EntityShader::loadModelMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_modelMatrix, pMatrix);
 }
 
+// Load projection matrix
 void EntityShader::loadProjectionMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_projectionMatrix, pMatrix);
 }
 
+// Load view matrix
 void EntityShader::loadViewMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_viewMatrix, pMatrix);
 }
 
-void EntityShader::loadLights(vector<Light*> pLights)
+// Load list of lights
+void EntityShader::loadLights(std::vector<Light*> pLights)
 {
+	// Loading each light vector
 	for (int i = 0; i < MAX_LIGHTS; ++i) {
 		if (i < pLights.size()) {
 			loadVector(mLocation_lightPosition[i], pLights[i]->getPosition());
@@ -345,17 +359,20 @@ void EntityShader::loadLights(vector<Light*> pLights)
 
 }
 
+// Load clipping plane
 void EntityShader::loadPlane(glm::vec4 pVector)
 {
 	this->loadVector4f(mLocation_plane, pVector);
 }
 
+// Log fog data
 void EntityShader::loadFogData(GLfloat pDensity, GLfloat pGradient)
 {
 	this->loadFloat(mLocation_fogDensity, pDensity);
 	this->loadFloat(mLocation_fogGradient, pGradient);
 }
 
+// Load Background color
 void EntityShader::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue)
 {
 	this->loadVector(mLocation_backgroundColor, glm::vec3(pRed, pGreen, pBlue));
@@ -365,18 +382,27 @@ void EntityShader::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBl
 EntityShader::~EntityShader()
 {
 	// Log Shader
-	std::clog << "Shader class was destroyed successfully!" << std::endl;
+	std::clog << "Entity Shader class was destroyed successfully!" << std::endl;
 }
 
 void EntityShader::getAllUniformLocations()
 {
+	// Caluclating every uniform location
+	// Model matrix
 	mLocation_modelMatrix = glGetUniformLocation(getProgramID(), "model");
+	// Projection matrix
 	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projection");
+	// View matrix
 	mLocation_viewMatrix = glGetUniformLocation(getProgramID(), "view");
+	// Clipping plane
 	mLocation_plane = glGetUniformLocation(getProgramID(), "plane");
+	// Fog Density
 	mLocation_fogDensity = glGetUniformLocation(getProgramID(), "fogDensity");
+	// Fog Gradient
 	mLocation_fogGradient = glGetUniformLocation(getProgramID(), "fogGradient");
+	// Background Color
 	mLocation_backgroundColor = glGetUniformLocation(getProgramID(), "backgroundColor");
+
 	// Light locations
 	const char* lightPos[] = {
 		"lightPosition[0]",
@@ -419,9 +445,13 @@ void EntityShader::bindAttribute(GLuint pAttribute, const std::string & pAttribu
 	// Then we increase the number of attributes in the whole class
 }
 
+// Binding all important attributes for the entity
 void EntityShader::bindAllAttributes()
 {
+	// Position vector
 	this->bindAttribute(0, "position");
+	// Normal vector
 	this->bindAttribute(1, "normal");
+	// Texture Corrdiantes
 	this->bindAttribute(2, "texCoord");
 }

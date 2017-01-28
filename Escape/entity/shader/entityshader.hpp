@@ -20,14 +20,13 @@
 // Light class
 #include "../../light/light.hpp"
 
+// Maximum amount of light sources
 #define MAX_LIGHTS 4
-
-using namespace std;
 
 // Defintion of the class Shader
 class EntityShader
 {
-	// All public member of the class 
+// All public member of the class 
 public:
 	// Constructor
 	EntityShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
@@ -52,29 +51,33 @@ public:
 	void setVertexShaderID(int pVertexShaderID);
 	void setFragementShaderID(int pFragementShaderID);
 
-	// load uniform variables
+	// Load Uniform Values
 	void loadFloat(GLuint pLocation, GLfloat pValue);
 	void loadVector(GLuint pLocation, glm::vec3 pVector);
 	void loadBool(GLuint pLocation, GLboolean pValue);
 	void loadModelMatrix(glm::mat4 pMatrix);
 	void loadProjectionMatrix(glm::mat4 pMatrix);
 	void loadViewMatrix(glm::mat4 pMatrix);
-	void loadLights(vector<Light*> pLights);
+	void loadLights(std::vector<Light*> pLights);
 	void loadPlane(glm::vec4 pVector);
 	void loadFogData(GLfloat pDensity, GLfloat pGradient);
 	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
+	void loadMatrix(GLuint location, glm::mat4 pMatrix);
+	void loadVector4f(GLuint pLocation, glm::vec4 pVector);
 
 	// Destructor
 	~EntityShader();
 
-	// All private member of the class
+// All private member of the class
 private:
-	GLuint mProgramID;
+	// Shader IDs
 	GLuint mVertexShaderID;
 	GLuint mFragementShaderID;
-	// All private functions of the class
 
-	//uniform locations
+	// Program ID
+	GLuint mProgramID;
+
+	//Uniform locations
 	GLuint mLocation_modelMatrix;
 	GLuint mLocation_projectionMatrix;
 	GLuint mLocation_viewMatrix;
@@ -86,11 +89,13 @@ private:
 	GLuint mLocation_fogGradient;
 	GLuint mLocation_backgroundColor;
 
+// All private functions of the class
 private:
+	// Compile FragmentShader
 	void compileFragementShader(std::string pFragementShaderFilePath);
+	// Compile VertexShader
 	void compileVertexShader(std::string pFragementShaderFilePath);
+	// Calculate all Uniform Locations
 	void getAllUniformLocations();
-	void loadMatrix(GLuint location, glm::mat4 pMatrix);
-	void loadVector4f(GLuint pLocation, glm::vec4 pVector);
 };
 

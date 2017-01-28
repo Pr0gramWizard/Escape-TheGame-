@@ -1,62 +1,70 @@
+// Inclusion of class declaration
 #include "entity.hpp"
 
-// constructor
+// Constructor
 Entity::Entity(glm::vec3 pPosition, GLfloat pXRotation, GLfloat pYRotation, GLfloat pZRotation, GLfloat pScale, Model* pModel)
 {
+	// Set entity postion
 	setPosition(pPosition);
+	// Set Entity rotation
 	setRotation(pXRotation, pYRotation, pZRotation);
+	// Set Entity scale
 	mScale = pScale;
+	// Set Entity Model
 	mModel = pModel;
+
+	std::clog << "Entity was created successfully!" << std::endl;
 }
 
-// destructor
+// Destructor
 Entity::~Entity()
 {
+	std::clog << "Entity was destroyed successfully!" << std::endl;
 }
 
-// returns position
+// Returns position
 glm::vec3 Entity::getPosition() const
 {
 	return mPosition;
 }
 
-// returns rotation around x-axis
+// Returns rotation around x-axis
 GLfloat Entity::getXRotation() const
 {
 	return mXRotation;
 }
 
-// returns rotation around y-axis
+// Returns rotation around y-axis
 GLfloat Entity::getYRotation() const
 {
 	return mYRotation;
 }
 
-// returns rotation around z-axis
+// Returns rotation around z-axis
 GLfloat Entity::getZRotation() const
 {
 	return mZRotation;
 }
 
-// returns scale
+// Returns scale
 GLfloat Entity::getScale() const
 {
 	return mScale;
 }
 
-// returns model
+// Returns model
 Model * Entity::getModel()
 {
 	return mModel;
 }
 
-// calculates modelmatrix and returns it
+// Calculates modelmatrix and returns it
 glm::mat4 Entity::getModelMatrix()
 {
 	return Math::getTransformationMatrix(mPosition, mXRotation, mYRotation, mZRotation, mScale);
 }
 
-// increases position by the given offset
+// Increases position by the given offset
 void Entity::increasePosition(GLfloat x, GLfloat y, GLfloat z)
 {
 	mPosition.x += x;
@@ -64,7 +72,7 @@ void Entity::increasePosition(GLfloat x, GLfloat y, GLfloat z)
 	mPosition.z += z;
 }
 
-// increases rotation by the given offset
+// Increases rotation by the given offset
 void Entity::increaseRotation(GLfloat x, GLfloat y, GLfloat z, GLfloat pDeltaTime)
 {
 	mXRotation += (x*100) * pDeltaTime;
@@ -72,13 +80,13 @@ void Entity::increaseRotation(GLfloat x, GLfloat y, GLfloat z, GLfloat pDeltaTim
 	mZRotation += (z*100) * pDeltaTime;
 }
 
-// sets position
+// Sets entity postion
 void Entity::setPosition(glm::vec3 pPosition)
 {
 	mPosition = pPosition;
 }
 
-// sets rotation
+// Sets entity rotation
 void Entity::setRotation(GLfloat x, GLfloat y, GLfloat z)
 {
 	mXRotation = x;

@@ -21,7 +21,7 @@ EntityRenderer::~EntityRenderer()
 // Render methods:
 
 // Render Entites with a given list
-void EntityRenderer::render(list<Entity> pEntities)
+void EntityRenderer::render(std::list<Entity> pEntities)
 {
 	// Looping through the list
 	for (Entity &entity : pEntities)
@@ -150,7 +150,7 @@ void EntityRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
 }
 
 // Load list of lights
-void EntityRenderer::loadLights(vector<Light*> pLights)
+void EntityRenderer::loadLights(std::vector<Light*> pLights)
 {
 	mShader->loadLights(pLights);
 }
