@@ -36,7 +36,7 @@ public:
 	// Getter functions
 	int getWorldX() const;
 	int getWorldZ() const;
-	int getOffset() const;
+	float getOffset() const;
 	glm::vec2 getWorldPos() const;
 	const char* getName();
 

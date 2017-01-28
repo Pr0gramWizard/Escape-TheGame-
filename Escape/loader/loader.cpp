@@ -101,7 +101,7 @@ void Loader::bindIndices(std::vector<int> pIndices) {
 	// Add current VertexBufferObject to the list of all VertexBufferObjects
 	mVbos.push_back(vbo);
 	// Save vbo
-	mLastVbos.x = vbo;
+	mLastVbos.x = (float) vbo;
 	// Bind Buffer to VertexBufferObject
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo);
 	// Buffer the data to the graphics card
@@ -118,15 +118,15 @@ void Loader::storeData(GLuint pAttributeLocation, std::vector<float> pData, GLui
 	mVbos.push_back(vbo);
 	if (pAttributeLocation == 0)
 	{
-		mLastVbos.y = vbo;
+		mLastVbos.y = (float) vbo;
 	}
 	else if (pAttributeLocation == 1)
 	{
-		mLastVbos.z = vbo;
+		mLastVbos.z = (float) vbo;
 	}
 	else if (pAttributeLocation == 2)
 	{
-		mLastVbos.w = vbo;
+		mLastVbos.w = (float) vbo;
 	}
 	// Bind Buffer to VertexBufferObject
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);

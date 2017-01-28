@@ -48,7 +48,7 @@ void Math::calculateUV(std::vector<float> pVertices)
 {
 	std::vector<float> UV;
 
-	for (int i = 0; i < pVertices.size() / 3; ++i)
+	for (unsigned int i = 0; i < pVertices.size() / 3; ++i)
 	{
 		i = i * 3;
 		float x = pVertices.at(i);
@@ -64,7 +64,7 @@ void Math::calculateUV(std::vector<float> pVertices)
 		UV.push_back(V);
 	}
 
-	for (int j = 0; j < UV.size()/2; ++j)
+	for (unsigned int j = 0; j < UV.size()/2; ++j)
 	{
 		std::cout << UV.at(j) << "," << UV.at(j + 1) << std::endl;
 	}

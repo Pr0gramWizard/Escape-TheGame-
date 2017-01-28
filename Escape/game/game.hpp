@@ -6,7 +6,6 @@
 // SOIL
 #include <SOIL.h>
 // GLEW
-#define GLEW_STATIC
 #include <glew.h>
 // GLFW
 #include <glfw3.h>

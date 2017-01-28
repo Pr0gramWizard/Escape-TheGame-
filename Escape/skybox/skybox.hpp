@@ -4,8 +4,7 @@
 #include <vector>
 #include <glew.h>
 #include <SOIL.h>
-
-#include "shader/skyboxshader.hpp";
+#include "shader/skyboxshader.hpp"
 
 
 class Skybox

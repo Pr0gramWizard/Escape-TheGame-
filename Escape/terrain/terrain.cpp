@@ -165,7 +165,7 @@ int Terrain::getWorldZ() const
 	return mWorldZ;
 }
 
-int Terrain::getOffset() const
+float Terrain::getOffset() const
 {
 	return mOffset;
 }
@@ -333,8 +333,8 @@ GLfloat Terrain::getHeight(float x, float z) {
 	float xPosRelativeToTerrain = x - mWorldX;
 	float zPosRelativeToTerrain = z - mWorldX;
 
-	int gridX = floor(xPosRelativeToTerrain / mGridSize);
-	int gridZ = floor(zPosRelativeToTerrain / mGridSize);
+	int gridX = (int) floor(xPosRelativeToTerrain / mGridSize);
+	int gridZ = (int) floor(zPosRelativeToTerrain / mGridSize);
 
 	if (gridX < 0 || gridZ < 0 || gridX >= mVertices - 1 || gridZ >= mVertices - 1)
 	{
@@ -367,8 +367,8 @@ glm::vec3 Terrain::getNormalAt(float x, float z) {
 	float xPosRelativeToTerrain = x - mWorldX;
 	float zPosRelativeToTerrain = z - mWorldX;
 
-	int gridX = floor(xPosRelativeToTerrain / mGridSize);
-	int gridZ = floor(zPosRelativeToTerrain / mGridSize);
+	int gridX = (int) floor(xPosRelativeToTerrain / mGridSize);
+	int gridZ = (int) floor(zPosRelativeToTerrain / mGridSize);
 
 	if (gridX < 0 || gridZ < 0 || gridX >= mVertices - 1 || gridZ >= mVertices - 1)
 	{

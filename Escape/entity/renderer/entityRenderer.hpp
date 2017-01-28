@@ -1,7 +1,6 @@
 #pragma once
 
 // GLEW
-#define GLEW_STATIC
 // OpenGLExtensionWrangler
 #include <glew.h>
 // Standard Input/Output Stream

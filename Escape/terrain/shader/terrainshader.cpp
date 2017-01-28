@@ -499,7 +499,7 @@ void TerrainShader::loadViewMatrix(glm::mat4 pMatrix)
 
 void TerrainShader::loadLights(vector<Light*> pLights)
 {
-	for (int i = 0; i < MAX_LIGHTS; ++i) {
+	for (unsigned int i = 0; i < MAX_LIGHTS; ++i) {
 		if (i < pLights.size()) {
 			loadVector(mLocation_lightPosition[i], pLights[i]->getPosition());
 			loadVector(mLocation_lightColor[i], pLights[i]->getColor());

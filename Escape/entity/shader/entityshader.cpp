@@ -344,7 +344,7 @@ void EntityShader::loadViewMatrix(glm::mat4 pMatrix)
 void EntityShader::loadLights(std::vector<Light*> pLights)
 {
 	// Loading each light vector
-	for (int i = 0; i < MAX_LIGHTS; ++i) {
+	for (unsigned int i = 0; i < MAX_LIGHTS; ++i) {
 		if (i < pLights.size()) {
 			loadVector(mLocation_lightPosition[i], pLights[i]->getPosition());
 			loadVector(mLocation_lightColor[i], pLights[i]->getColor());

@@ -14,8 +14,8 @@ Lake::Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices,
 
 	this->initLake(pLoader);
 	this->setModel(&this->generateLake(pLoader));
-	mPosVbo = pLoader->getLastVbos().y;
-	mNormalVbo = pLoader->getLastVbos().z;
+	mPosVbo = (GLuint) pLoader->getLastVbos().y;
+	mNormalVbo = (GLuint) pLoader->getLastVbos().z;
 }
 
 Lake::~Lake()
@@ -98,7 +98,7 @@ GLfloat Lake::getVertexHeight(int pVertexX, int pVertexZ)
 void Lake::initLake(Loader * loader)
 {
 	mVelocity = vector<float>(mVertices * mVertices, 0.0f);
-	mHeights = vector<float>(mVertices * mVertices, this->getWorldY());
+	mHeights = vector<float>(mVertices * mVertices, (float) this->getWorldY());
 	mVaryingPositions = vector<float>(mVertices * mVertices * 3, 0.0f);
 	mVaryingNormals = vector<float>(mVertices * mVertices * 3, 0.0f);
 

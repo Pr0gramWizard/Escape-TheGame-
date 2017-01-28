@@ -1,7 +1,6 @@
 #pragma once
 
 // GLEW
-#define GLEW_STATIC
 #include <glew.h>
 #include <iostream>
 #include <mat4x4.hpp>

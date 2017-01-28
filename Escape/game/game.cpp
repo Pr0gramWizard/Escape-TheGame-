@@ -197,7 +197,7 @@ bool Game::gameLoop()
 		glm::vec3 playerPosition = mPlayer->getPosition();
 		glm::vec3 lakePosition = lake->getWorldPos();
 		float sign = (playerPosition.y + mPlayer->getHeight() < lake->getWorldY()) ? -1.0f : 1.0f;
-		float isPlayerBelowLake = (sign == -1 
+		bool isPlayerBelowLake = (sign == -1 
 			&& playerPosition.x >= lakePosition.x 
 			&& playerPosition.x <= lakePosition.x + lake->LAKE_SIZE
 			&& playerPosition.z >= lakePosition.z
@@ -369,18 +369,21 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 
 	if (Keyboard::isKeyPressed(GLFW_KEY_Q))
 	{
-		game->mRenderer->setDrawMode((bool)abs(game->mRenderer->getDrawMode() - 1));
+		bool DrawMode = !!abs(game->mRenderer->getDrawMode() - 1);
+		game->mRenderer->setDrawMode(DrawMode);
 
 	}
 
 	if (Keyboard::isKeyPressed(GLFW_KEY_F1))
 	{
-		game->mRenderer->setDebugMode((bool)abs(game->mRenderer->getDrawMode() - 1));
+		bool DebugMode = !!abs(game->mRenderer->getDrawMode() - 1);
+		game->mRenderer->setDebugMode(DebugMode);
 	}
 
 	if (Keyboard::isKeyPressed(GLFW_KEY_F2))
 	{
-		game->mRenderer->setNormalMode((bool)abs(game->mRenderer->getNormalMode() - 1));
+		bool NormalMode = !!abs(game->mRenderer->getNormalMode() - 1);
+		game->mRenderer->setNormalMode(NormalMode);
 	}
 
 }

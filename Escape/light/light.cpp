@@ -34,7 +34,7 @@ void Light::setAttenuation(glm::vec3 pAttenuation)
 
 	// Prevent dividing by 0
 	if (pAttenuation.x == 0) {
-		mAttenuation.x = 0.001;
+		mAttenuation.x = 0.001f;
 	}
 }
 
