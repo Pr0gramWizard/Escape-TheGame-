@@ -6,7 +6,7 @@ const GLfloat Player::MOVESPEED = 4;
 const GLfloat Player::GRAVITY = -40;
 const GLfloat Player::JUMPPOWER = 13.0f;
 const GLfloat Player::STRAFE_ANGLE = 90;
-const GLfloat Player::ANGLE_CLIMB = 0.0f;
+const GLfloat Player::ANGLE_CLIMB = 0.7f;
 
 // Default Constructor
 Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWindowHeight, int pWindowWidth)
@@ -137,13 +137,14 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	}
 
 	float ceilingheight = pCeiling->getHeight(mEye->getPosition().x, mEye->getPosition().z);
+	float headPosition = this->getPosition().y + this->getHeight();
+	float distance = ceilingheight - headPosition;
 
-	float distance = ceilingheight - mEye->getPosition().y;
-
-	if (distance < 0.2)
+	if (distance <= 1.0f)
 	{
-		this->setUpSpeed(-2.0f);
+		this->setUpSpeed(-10.0f * pDelta);
 		this->setJumping(false);
+		// mPosition.y = terrainHeight;
 	}
 
 	std::cout << distance << std::endl;
