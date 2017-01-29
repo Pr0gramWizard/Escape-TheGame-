@@ -1,69 +1,90 @@
+// Inclusion of Declaration
 #include "lakeFrameBuffers.hpp"
 
+// Definition of global constants
 const int LakeFrameBuffers::REFLECTION_WIDTH = 320; //1280
 const int LakeFrameBuffers::REFLECTION_HEIGHT = 180; //720
 
 const int LakeFrameBuffers::REFRACTION_WIDTH = 1280;
 const int LakeFrameBuffers::REFRACTION_HEIGHT = 720;
 
+// Constructor
 LakeFrameBuffers::LakeFrameBuffers(GLuint pWindowWidth, GLuint pWindowHeight)
 {
+	// Setting Window Width
 	mWindowWidth = pWindowWidth;
+	// Setting Window Height
 	mWindowHeight = pWindowHeight;
-
+	// Initialize Reflection Buffer
 	initReflectionBuffer();
+	// Initialize Refraction Buffer
 	initRefractionBuffer();
+
+	// Log Message
+	std::clog << "The Lake Frame Buffer was created successfully!" << std::endl;
 }
 
-
+// Destructor
 LakeFrameBuffers::~LakeFrameBuffers()
 {
+	
+	// Cleaning up all the mess
 	this->cleanUp();
+	// Log Message
+	std::clog << "The Lake Frame Buffer was destroyed successfully!" << std::endl;
 }
 
+// Binding Reflection Frame Buffer
 void LakeFrameBuffers::bindReflectionFrameBuffer()
 {
 	this->bindFrameBuffer(mReflectionFrameBuffer, LakeFrameBuffers::REFLECTION_WIDTH, LakeFrameBuffers::REFLECTION_HEIGHT);
 }
 
+// Binding Refraction Frame Buffer
 void LakeFrameBuffers::bindRefractionFrameBuffer()
 {
 	this->bindFrameBuffer(mRefractionFrameBuffer, LakeFrameBuffers::REFRACTION_WIDTH, LakeFrameBuffers::REFRACTION_HEIGHT);
 }
 
+// Unbind Current Frame Buffer
 void LakeFrameBuffers::unbindCurrentFrameBuffer()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, mWindowWidth, mWindowHeight);
 }
 
+// Returns Reflaction Texture
 GLuint LakeFrameBuffers::getReflactionTexture()
 {
 	return mReflectionTexture;
 }
 
+// Returns Refraction Texture
 GLuint LakeFrameBuffers::getRefractionTexture()
 {
 	return mRefractionTexture;
 }
 
+// Returns Refraction Depth Texture
 GLuint LakeFrameBuffers::getRefractionDepthTexture()
 {
 	return mRefractionDepthTexture;
 }
 
+// Clean up function
 void LakeFrameBuffers::cleanUp()
 {
+	// Delete Refelction Frame Buffer
 	glDeleteFramebuffers(1, &mReflectionFrameBuffer);
 	glDeleteTextures(1, &mReflectionTexture);
 	glDeleteRenderbuffers(1, &mReflectionDepthBuffer);
-
+	// Delete Refraction Frame Buffer
 	glDeleteFramebuffers(1, &mRefractionFrameBuffer);
 	glDeleteTextures(1, &mRefractionTexture);
 	glDeleteTextures(1, &mRefractionDepthTexture);
-
 }
 
+// Initialize Refelction Buffer
 void LakeFrameBuffers::initReflectionBuffer()
 {
 	mReflectionFrameBuffer = this->createFrameBuffer();
@@ -72,6 +93,7 @@ void LakeFrameBuffers::initReflectionBuffer()
 	this->unbindCurrentFrameBuffer();
 }
 
+// Initialize Refraction Buffer
 void LakeFrameBuffers::initRefractionBuffer()
 {
 	mRefractionFrameBuffer = this->createFrameBuffer();
@@ -80,6 +102,7 @@ void LakeFrameBuffers::initRefractionBuffer()
 	this->unbindCurrentFrameBuffer();
 }
 
+// Bind Frame Buffer
 void LakeFrameBuffers::bindFrameBuffer(GLuint pBuffer, GLuint pWidth, GLuint pHeight)
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -87,6 +110,7 @@ void LakeFrameBuffers::bindFrameBuffer(GLuint pBuffer, GLuint pWidth, GLuint pHe
 	glViewport(0, 0, pWidth, pHeight);
 }
 
+// Returns the new Frame Buffer
 GLuint LakeFrameBuffers::createFrameBuffer()
 {
 	GLuint fbo;
@@ -96,6 +120,7 @@ GLuint LakeFrameBuffers::createFrameBuffer()
 	return fbo;
 }
 
+// Returns the Texture Attachment
 GLuint LakeFrameBuffers::createTextureAttachment(GLuint pWidth, GLuint pHeight)
 {
 	GLuint texture;
@@ -109,6 +134,7 @@ GLuint LakeFrameBuffers::createTextureAttachment(GLuint pWidth, GLuint pHeight)
 	return texture;
 }
 
+// Returns the Depth Texture Attachment
 GLuint LakeFrameBuffers::createDepthTextureAttachment(GLuint pWidth, GLuint pHeight)
 {
 	GLuint texture;
@@ -122,6 +148,7 @@ GLuint LakeFrameBuffers::createDepthTextureAttachment(GLuint pWidth, GLuint pHei
 	return texture;
 }
 
+// Returns the Depth Buffer Attachment
 GLuint LakeFrameBuffers::createDepthBufferAttachment(GLuint pWidth, GLuint pHeight)
 {
 	GLuint depthBuffer;

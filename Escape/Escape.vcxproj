@@ -85,7 +85,6 @@
     <ClInclude Include="particle\shader\particleshader.hpp" />
     <ClInclude Include="player\player.hpp" />
     <ClInclude Include="renderer\mainrenderer.hpp" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="skybox\renderer\skyboxrenderer.hpp" />
     <ClInclude Include="skybox\shader\skyboxshader.hpp" />
     <ClInclude Include="skybox\skybox.hpp" />
@@ -124,16 +123,12 @@
     <None Include="shaders\triangleShader.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="game\Icon.ico" />
     <Image Include="textures\res\blacktest.png" />
     <Image Include="textures\res\bluetest.png" />
     <Image Include="textures\res\greentest.png" />
     <Image Include="textures\res\heightmap.png" />
     <Image Include="textures\res\redtest.png" />
     <Image Include="textures\res\whitetest.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Escape.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8DE4231C-F8DD-4A3A-ADC9-9BB74012A2FB}</ProjectGuid>
@@ -257,4 +252,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="Escape.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

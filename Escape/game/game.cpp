@@ -70,15 +70,15 @@ bool Game::gameLoop()
 {
 	Loader* loader = new Loader();
 	
-	Terrain terrain(0, 0, 0, 10, "Test", loader, "./terrain/res/BodenSee.png");
-	Terrain terrain2(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
+	Terrain floor(0, 0, 0, 10, "Test", loader, "./terrain/res/BodenSee.png");
+	Terrain ceiling(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
 	std::list<Terrain> terrains;
-	terrains.push_back(terrain);
-	terrains.push_back(terrain2);
+	terrains.push_back(floor);
+	terrains.push_back(ceiling);
 
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
-	mRenderer->addToList(terrain);
-	mRenderer->addToList(terrain2);
+	mRenderer->addToList(floor);
+	mRenderer->addToList(ceiling);
 
 	Object* Torch = new Object("object/res/torch/torch.obj", glm::vec3(0,0,0));
 	ObjectShader ObjectShader("shaders/object.vert", "shaders/object.frag");
@@ -107,7 +107,7 @@ bool Game::gameLoop()
 	Light* sun3 = new Light(glm::vec3(0, 20, 500), glm::vec3(0.0f, 0.0f, 10.0f));
 	Light* sun4 = new Light(glm::vec3(500, 20, 500), glm::vec3(0.0f, 10.0f, 0.0f));
 	//Light* lamp = new Light(mPlayer->getCameraPosition(), glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1, 0.01, 0.002));
-	Light* lamp = new Light(glm::vec3(45.0f, terrain.getHeight(45.0f, 45.0f) + 15, 45.0f), glm::vec3(1.0f,0.0f,0.0f), glm::vec3(1, 0.01, 0.002));
+	Light* lamp = new Light(glm::vec3(45.0f, floor.getHeight(45.0f, 45.0f) + 15, 45.0f), glm::vec3(1.0f,0.0f,0.0f), glm::vec3(1, 0.01, 0.002));
 	vector<Light*> lights;
 	lights.push_back(sun);
 	lights.push_back(sun2);
@@ -182,7 +182,7 @@ bool Game::gameLoop()
 			std::cout << SoundEngine->getSoundVolume() << std::endl;
 		}
 
-		mPlayer->move(&terrain, deltaTime);
+		mPlayer->move(&floor,&ceiling, deltaTime);
 
 		glEnable(GL_CLIP_DISTANCE0);
 		glEnable(GL_TEXTURE_2D);

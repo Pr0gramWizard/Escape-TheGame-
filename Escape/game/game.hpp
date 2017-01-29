@@ -59,7 +59,6 @@
 #include FT_FREETYPE_H
 // Audio class
 #include <irrKlang.h>
-#include "../resource.h"
 
 // Declaration of game class
 class Game

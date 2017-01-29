@@ -22,7 +22,7 @@
 #include "../math/math.hpp"
 // Reference to the terrain class
 #include "../terrain/terrain.hpp"
-
+// Sound Engine
 #include <irrKlang.h>
 
 // Declaration of the player class
@@ -48,20 +48,15 @@ public:
 	~Player();
 
 	// Function to move the player
-	void move(Terrain* pTerrain, float pDelta);
+	void Player::move(Terrain* pFloor, Terrain* pCeiling, float pDelta);
 	// Function to change the players position by a certain vector
 	void incPosition(glm::vec3 pOffset);
 	// Function to increase the player's rotation (around y-axis)
 	void incRotation(GLfloat pOffsetY);
 	// Jump method
 	void jump();
-
+	// Crouch method
 	void crouch();
-
-
-
-
-
 
 	// Setter Functions
 	void setPosition(glm::vec3 pPosition);
@@ -136,10 +131,11 @@ private:
 	int mWindowWidth;
 	// true if player is below lake
 	bool mIsBelowLake;
-
-
+	// Player Sound (Used for walking)
 	irrklang::ISoundEngine* WalkSound;
 
+// All private functions of the class
+private:
 	// Sets Movement Variables
 	void setMoveVariables();
 	void playWalkingSound(int StepNumber);

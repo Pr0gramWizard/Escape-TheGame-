@@ -368,7 +368,6 @@
     <ClInclude Include="bloom\shader\finalbloomshader.hpp">
       <Filter>Bloom\shader</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
@@ -466,9 +465,5 @@
     <Image Include="textures\res\whitetest.png">
       <Filter>Texture\PNG</Filter>
     </Image>
-    <Image Include="game\Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Escape.rc" />
   </ItemGroup>
 </Project>
