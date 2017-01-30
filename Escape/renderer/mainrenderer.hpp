@@ -22,6 +22,10 @@
 #include "../text/TextRenderer.hpp"
 #include "../text/shader/textshader.hpp"
 
+// Object Rendering
+#include "../object/object.hpp"
+#include "../object/renderer/objectrenderer.hpp"
+#include "../object/shader/objectshader.hpp"
 
 // Keyboard
 #include "../input/keyboard.hpp"
@@ -51,6 +55,7 @@ public:
 	void addToList(Terrain &pTerrain);
 	void addToList(Entity &pEntity, RenderMode pMode);
 	void addToList(Skybox* Skybox);
+	void addToList(Object& pObject);
 
 	void setDrawMode(bool pMode);
 	bool getDrawMode() const;
@@ -76,10 +81,13 @@ public:
 	TerrainRenderer* mNormalRenderer;
 	SkyboxRenderer* mSkyboxRenderer;
 	TextRenderer* mTextRenderer;
+	ObjectRenderer* mObjectRenderer;
 
 public:
 	static const char* ENTITY_VERTEX;
 	static const char* ENTITY_FRAGMENT;
+	static const char* OBJECT_VERTEX;
+	static const char* OBJECT_FRAGMENT;
 	static const char* TERRAIN_VERTEX;
 	static const char* TERRAIN_FRAGMENT;
 	static const char* SKYBOX_VERTEX;
@@ -98,6 +106,7 @@ private:
 	list<Entity> mSpecial;
 	list<RenderMode> mRenderMode;
 	list<Terrain> mTerrains;
+	list<Object> mObjects;
 
 	bool drawMode;
 	bool debugMode;

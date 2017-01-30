@@ -11,6 +11,8 @@ const char* MainRenderer::SKYBOX_VERTEX = "shaders/skybox.vert";
 const char* MainRenderer::SKYBOX_FRAGMENT = "shaders/skybox.frag";
 const char* MainRenderer::TEXT_VERTEX = "shaders/text.vert";
 const char* MainRenderer::TEXT_FRAGMENT = "shaders/text.frag";
+const char* MainRenderer::OBJECT_VERTEX = "shaders/object.vert";
+const char* MainRenderer::OBJECT_FRAGMENT = "shaders/object.frag";
 
 MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 {
@@ -27,6 +29,9 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 
 	TextShader* textshader = new TextShader(TEXT_VERTEX, TEXT_FRAGMENT);
 	mTextRenderer = new TextRenderer(textshader);
+
+	ObjectShader* objectshader = new ObjectShader(OBJECT_VERTEX, OBJECT_FRAGMENT);
+	mObjectRenderer = new ObjectRenderer(objectshader,pProjectionMatrix);
 
 	this->setDrawMode(0);
 
@@ -97,6 +102,18 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 		}
 		glEnable(GL_CULL_FACE);
 	}
+
+
+	for (Object &object : mObjects)
+	{
+		mObjectRenderer->startShader();
+		mObjectRenderer->loadModelMatrix(&object);
+		mObjectRenderer->loadViewMatrix(mPlayer->getViewMatrix());
+		mObjectRenderer->render(object);
+		mObjectRenderer->stopShader();
+	}
+
+
 
 
 
@@ -174,6 +191,11 @@ void MainRenderer::renderDebugInformation()
 void MainRenderer::addToList(Entity &pEntity)
 {
 	mEntities.push_back(pEntity);
+}
+
+void MainRenderer::addToList(Object &pObject)
+{
+	mObjects.push_back(pObject);
 }
 
 void MainRenderer::addToList(Entity &pEntity, RenderMode pMode)

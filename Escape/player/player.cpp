@@ -2,7 +2,7 @@
 #include "player.hpp"
 
 // Defintion of the global player constants
-const GLfloat Player::MOVESPEED = 4;
+const GLfloat Player::MOVESPEED = 8;
 const GLfloat Player::GRAVITY = -40;
 const GLfloat Player::JUMPPOWER = 13.0f;
 const GLfloat Player::STRAFE_ANGLE = 90;
@@ -145,10 +145,8 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 		this->setUpSpeed(-10.0f * pDelta);
 		this->setJumping(false);
 		// mPosition.y = terrainHeight;
-	}
+	}	
 
-	std::cout << distance << std::endl;
-	
 	mUpSpeed += Player::GRAVITY * pDelta;
 	this->incPosition(glm::vec3(0, mUpSpeed * pDelta, 0));
 	if (getPosition().y < terrainHeight) {
@@ -156,12 +154,115 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 		this->setJumping(false);
 		mPosition.y = terrainHeight;
 	}
+	else
+	{
+		mPosition.y = mPosition.y;
+	}
 
 
 	// Set camera's new position
 	mEye->setPosition(this->getPosition() + glm::vec3(0, this->getHeight(), 0));
 
 }
+
+// Sets the important moving variables
+void Player::setMoveVariables()
+{
+	/*
+	* 0: no move
+	* 1: moving forward
+	* -1: moving backwards
+	*/
+	int movingMode = 0;
+
+	/*
+	* 1: no crouching
+	* 2: crouching
+	*/
+	int crouchingMode = 1;
+	if (Keyboard::isKeyPressed(GLFW_KEY_LEFT_SHIFT))
+	{
+		this->setSprint(true);
+	}
+	if (this->getCrouching())
+	{
+		crouchingMode = 2;
+	}
+	if (Keyboard::isKeyPressed(GLFW_KEY_W)) {
+		if (this->getSprint())
+		{
+			this->setMovementSpeed(Player::MOVESPEED * 1.5f);
+			movingMode = 1;
+			this->setSprint(false);
+		}
+		else {
+			this->setMovementSpeed(Player::MOVESPEED / crouchingMode);
+			movingMode = 1;
+		}
+
+		// WalkSound->play2D("audio/walk.mp3", GL_FALSE);
+	}
+	else if (Keyboard::isKeyPressed(GLFW_KEY_S)) {
+		movingMode = -1;
+		this->setMovementSpeed(-Player::MOVESPEED / crouchingMode);
+	}
+	else
+	{
+		this->setMovementSpeed(0);
+	}
+
+	// implement strafing
+	if (Keyboard::isKeyPressed(GLFW_KEY_A)) {
+		if (movingMode != 0)
+		{
+			this->setStrafeAngle(movingMode * Player::STRAFE_ANGLE / 2);
+		}
+		else
+		{
+			this->setMovementSpeed(Player::MOVESPEED / crouchingMode);
+			this->setStrafeAngle(Player::STRAFE_ANGLE);
+		}
+	}
+	else if (Keyboard::isKeyPressed(GLFW_KEY_D)) {
+		if (movingMode != 0)
+		{
+			this->setStrafeAngle(-movingMode * Player::STRAFE_ANGLE / 2);
+		}
+		else
+		{
+			this->setMovementSpeed(Player::MOVESPEED / crouchingMode);
+			this->setStrafeAngle(-Player::STRAFE_ANGLE);
+		}
+	}
+	else
+	{
+		this->setStrafeAngle(0);
+	}
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_SPACE))
+	{
+		this->jump();
+	}
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_LEFT_CONTROL))
+	{
+		this->crouch();
+	}
+	else
+	{
+		if (this->getCrouching())
+		{
+			this->setCrouching(false);
+			this->setHeight(this->getHeight() * 2.0f);
+		}
+	}
+
+	if (this->isBelowLake())
+	{
+		this->setMovementSpeed(this->getMovementSpeed() / 2.0f);
+	}
+}
+
 
 // Function to change players position by a given offset vector
 void Player::incPosition(glm::vec3 pOffset)
@@ -406,96 +507,3 @@ void Player::ProcessMouseScroll(GLfloat pYOffset)
 	mEye->ProcessMouseScroll(pYOffset);
 }
 
-// Sets the important moving variables
-void Player::setMoveVariables()
-{
-	/*
-	* 0: no move
-	* 1: moving forward
-	* -1: moving backwards
-	*/
-	int movingMode = 0;
-	
-	/*
-	* 1: no crouching
-	* 2: crouching
-	*/
-	int crouchingMode = 1;
-	if (this->getCrouching())
-	{
-		crouchingMode = 2;
-	}
-	if (Keyboard::isKeyPressed(GLFW_KEY_W)) {
-		if (this->getSprint())
-		{
-			this->setMovementSpeed(Player::MOVESPEED * 1.5f);
-			movingMode = 1;
-			this->setSprint(false);
-		}
-		else {
-			this->setMovementSpeed(Player::MOVESPEED / crouchingMode);
-			movingMode = 1;
-		}
-
-		// WalkSound->play2D("audio/walk.mp3", GL_FALSE);
-	}
-	else if (Keyboard::isKeyPressed(GLFW_KEY_S)) {
-		movingMode = -1;
-		this->setMovementSpeed(-Player::MOVESPEED / crouchingMode);
-	}
-	else
-	{
-		this->setMovementSpeed(0);
-	}
-
-	// implement strafing
-	if (Keyboard::isKeyPressed(GLFW_KEY_A)) {
-		if (movingMode != 0)
-		{
-			this->setStrafeAngle(movingMode * Player::STRAFE_ANGLE / 2);
-		}
-		else
-		{
-			this->setMovementSpeed(Player::MOVESPEED / crouchingMode);
-			this->setStrafeAngle(Player::STRAFE_ANGLE);
-		}
-	}
-	else if (Keyboard::isKeyPressed(GLFW_KEY_D)) {
-		if (movingMode != 0)
-		{
-			this->setStrafeAngle(-movingMode * Player::STRAFE_ANGLE / 2);
-		}
-		else
-		{
-			this->setMovementSpeed(Player::MOVESPEED / crouchingMode);
-			this->setStrafeAngle(-Player::STRAFE_ANGLE);
-		}
-	}
-	else 
-	{
-		this->setStrafeAngle(0);
-	}
-
-	if (Keyboard::isKeyPressed(GLFW_KEY_SPACE)) 
-	{
-		this->jump();
-	}
-
-	if (Keyboard::isKeyPressed(GLFW_KEY_LEFT_CONTROL)) 
-	{
-		this->crouch();
-	}
-	else 
-	{
-		if (this->getCrouching()) 
-		{
-			this->setCrouching(false);
-			this->setHeight(this->getHeight() * 2.0f);
-		}
-	}
-
-	if (this->isBelowLake()) 
-	{
-		this->setMovementSpeed(this->getMovementSpeed() / 2.0f);
-	}
-}

@@ -19,7 +19,7 @@ public:
 	ObjectRenderer(ObjectShader* pShader, glm::mat4 pProjectionMatrix);
 
 	// render methods
-	void render();
+	void render(Object &Object);
 
 	// Add to List
 	void addToList(Object* pObject);
@@ -38,6 +38,5 @@ public:
 	void stopShader();
 
 private:
-	std::list<Object*> mObjects;
 	ObjectShader* mShader;
 };

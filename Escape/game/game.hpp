@@ -108,6 +108,8 @@ private:
 	MainRenderer* mRenderer;
 	// Skybox
 	Skybox* mSkybox;
+	// Sound Engine
+	irrklang::ISoundEngine* SoundEngine;
 
 
 
@@ -116,6 +118,9 @@ private:
 	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 	static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	void do_movement();
+
+	void controlSound();
+
 
 
 

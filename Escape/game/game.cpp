@@ -23,7 +23,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(),NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/,NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -72,6 +72,7 @@ bool Game::gameLoop()
 	
 	Terrain floor(0, 0, 0, 10, "Test", loader, "./terrain/res/BodenSee.png");
 	Terrain ceiling(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
+	Object Suit("object/res/sphere/sphere.obj", glm::vec3(0, 0, 0));
 	std::list<Terrain> terrains;
 	terrains.push_back(floor);
 	terrains.push_back(ceiling);
@@ -79,10 +80,9 @@ bool Game::gameLoop()
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(floor);
 	mRenderer->addToList(ceiling);
+	mRenderer->addToList(Suit);
 
-	Object* Torch = new Object("object/res/torch/torch.obj", glm::vec3(0,0,0));
-	ObjectShader ObjectShader("shaders/object.vert", "shaders/object.frag");
-	ObjectRenderer ObjectRenderer(&ObjectShader, mPlayer->getProjectionMatrix());
+	
 	//**** LAKE STUFF ****
 	LakeFrameBuffers* lfbos = new LakeFrameBuffers(mWidth, mHeight);
 	LakeShader* lakeshader = new LakeShader("shaders/lake.vert", "shaders/lake.frag");
@@ -116,7 +116,7 @@ bool Game::gameLoop()
 	// lights.push_back(sun4);
 	// lights.push_back(lamp);
 
-	irrklang::ISoundEngine* SoundEngine = irrklang::createIrrKlangDevice();
+	SoundEngine = irrklang::createIrrKlangDevice();
 
 	SoundEngine->play2D("audio/MainTheme.mp3", GL_TRUE);
 
@@ -149,38 +149,10 @@ bool Game::gameLoop()
 
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
-		//do_movement();
 
-		if (Keyboard::isKeyPressed(GLFW_KEY_LEFT_SHIFT))
-		{
-			mPlayer->setSprint(true);
-		}
 
-		if (Keyboard::isKeyPressed(GLFW_KEY_KP_SUBTRACT))
-		{
-			if (SoundEngine->getSoundVolume() <= 0.0f)
-			{
-				SoundEngine->setSoundVolume(0.0f);
-			}
-			else
-			{
-				SoundEngine->setSoundVolume(SoundEngine->getSoundVolume() - (0.5f * deltaTime));
-			}
-			std::cout << SoundEngine->getSoundVolume() << std::endl;
-		}
 
-		if (Keyboard::isKeyPressed(GLFW_KEY_KP_ADD))
-		{
-			if (SoundEngine->getSoundVolume() >= 1.0f)
-			{
-				SoundEngine->setSoundVolume(1.0f);
-			}
-			else
-			{
-				SoundEngine->setSoundVolume(SoundEngine->getSoundVolume() + (0.5f * deltaTime));
-			}
-			std::cout << SoundEngine->getSoundVolume() << std::endl;
-		}
+		
 
 		mPlayer->move(&floor,&ceiling, deltaTime);
 
@@ -214,7 +186,6 @@ bool Game::gameLoop()
 		// refraction
 		lfbos->bindRefractionFrameBuffer();
 		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, -sign, 0, sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE);
-
 		// actual rendering
 		glDisable(GL_CLIP_DISTANCE0);
 		lfbos->unbindCurrentFrameBuffer();
@@ -266,15 +237,7 @@ bool Game::gameLoop()
 		finalbloomshader->unuse();
 
 
-		/*
-		ObjectRenderer.startShader();
-		ObjectRenderer.loadModelMatrix(Torch);
-		ObjectRenderer.loadViewMatrix(mPlayer->getViewMatrix());
-		ObjectRenderer.addToList(Torch);
-		Torch->setPosition(mPlayer->getPosition() + glm::vec3(0.0f, 1.0f, -1.0f));
-		ObjectRenderer.render();
-		ObjectRenderer.stopShader();
-		*/
+
 
 		
 		// Swap the buffers
@@ -286,6 +249,35 @@ bool Game::gameLoop()
 	delete loader;
 	glfwTerminate();
 	return 0;
+}
+
+void Game::controlSound()
+{
+	if (Keyboard::isKeyPressed(GLFW_KEY_KP_SUBTRACT))
+	{
+		if (SoundEngine->getSoundVolume() <= 0.0f)
+		{
+			SoundEngine->setSoundVolume(0.0f);
+		}
+		else
+		{
+			SoundEngine->setSoundVolume(SoundEngine->getSoundVolume() - (0.5f * deltaTime));
+		}
+		std::cout << SoundEngine->getSoundVolume() << std::endl;
+	}
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_KP_ADD))
+	{
+		if (SoundEngine->getSoundVolume() >= 1.0f)
+		{
+			SoundEngine->setSoundVolume(1.0f);
+		}
+		else
+		{
+			SoundEngine->setSoundVolume(SoundEngine->getSoundVolume() + (0.5f * deltaTime));
+		}
+		std::cout << SoundEngine->getSoundVolume() << std::endl;
+	}
 }
 
 // RenderQuad() Renders a 1x1 quad in NDC, best used for framebuffer color targets
@@ -318,6 +310,8 @@ void RenderQuad()
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	glBindVertexArray(0);
 }
+
+
 
 Game::~Game()
 {
