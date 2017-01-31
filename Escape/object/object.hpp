@@ -15,6 +15,7 @@ using namespace std;
 #include <Importer.hpp>
 #include <scene.h>
 #include <postprocess.h>
+#include "../player/player.hpp"
 
 #include "../mesh/mesh.hpp"
 #include "../math/math.hpp"
@@ -32,9 +33,10 @@ public:
 	void Draw(ObjectShader* shader);
 
 	// Getter
-	glm::vec3 getPosition() const;
+	glm::vec3 getPosition();
 	GLfloat getScale() const;
-	glm::mat4 getModelMatrix() const;
+	glm::mat4 getModelMatrix();
+	glm::mat4 getModelMatrix(Player* pPlayer);
 	glm::vec3 getRotation() const;
 	GLuint getTexture() const;
 	// Setter

@@ -66,7 +66,7 @@ bool Game::gameLoop()
 	
 	Terrain floor(0, 0, 0, 10, "Test", loader, "./terrain/res/BodenSee.png");
 	Terrain ceiling(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
-	Object Hand("object/res/hand/hand.obj", glm::vec3(78, 0, 61),glm::vec3(1.0f,0.0f,0.0f),0.1f); // (Source, Position, Rotation, Scale)
+	Object Hand("object/res/hand/hand.obj", glm::vec3(78, 0, 61),glm::vec3(1.0f,0.0f,0.0f),0.08f); // (Source, Position, Rotation, Scale)
 
 	Hand.loadTexture("object/res/hand/hand.jpg");
 
@@ -142,8 +142,6 @@ bool Game::gameLoop()
 
 		// Calculating the player movement
 		mPlayer->move(&floor,&ceiling, deltaTime);	
-
-		Hand.setPosition(Hand.getPosition() + glm::vec3(0.0f, -0.5f, 0.0f));
 
 		glEnable(GL_CLIP_DISTANCE0);
 		glEnable(GL_TEXTURE_2D);

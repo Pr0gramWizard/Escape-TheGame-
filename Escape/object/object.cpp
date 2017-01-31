@@ -17,7 +17,7 @@ void Object::Draw(ObjectShader* shader)
 		this->meshes[i].Draw(shader);
 }
 
-glm::vec3 Object::getPosition() const
+glm::vec3 Object::getPosition()
 {
 	return mPosition;
 }
@@ -76,7 +76,7 @@ void Object::loadTexture(std::string pPath)
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-glm::mat4 Object::getModelMatrix() const
+glm::mat4 Object::getModelMatrix(Player* pPlayer)
 {
 	//glm::mat4 translate(1.0f);
 	//translate[0][3] = this->getPosition().x;
@@ -90,6 +90,14 @@ glm::mat4 Object::getModelMatrix() const
 
 	//glm::mat4 rotate(1.0f);
 
+	mPosition = pPlayer->getPosition() + glm::vec3(0.5f, 0.5f, 0.5f);
+
+
+	return Math::getTransformationMatrix(this->getPosition(), this->getRotation().x, this->getRotation().y, this->getRotation().z, this->getScale());
+}
+
+glm::mat4 Object::getModelMatrix()
+{
 	return Math::getTransformationMatrix(this->getPosition(), this->getRotation().x, this->getRotation().y, this->getRotation().z, this->getScale());
 }
 

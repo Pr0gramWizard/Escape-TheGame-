@@ -21,11 +21,9 @@ public:
 	// render methods
 	void render(Object &Object);
 
-	// Clean List
-	void cleanUp();
-
 	// load model matrix for a terrain into the shader
 	void loadModelMatrix(Object* pObject);
+	void loadModelMatrix(Object* pObject, Player* pPlayer);
 	void loadViewMatrix(glm::mat4 pViewMatrix);
 	void loadFogData(GLfloat pDensity, GLfloat pGradient);
 	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);

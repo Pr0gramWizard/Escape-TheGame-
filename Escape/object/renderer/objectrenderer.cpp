@@ -22,6 +22,11 @@ void ObjectRenderer::loadModelMatrix(Object* pObject)
 	mShader->loadModelMatrix(pObject->getModelMatrix());
 }
 
+void ObjectRenderer::loadModelMatrix(Object* pObject, Player* pPlayer)
+{
+	mShader->loadModelMatrix(pObject->getModelMatrix(pPlayer));
+}
+
 void ObjectRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
 {
 	mShader->loadViewMatrix(pViewMatrix);
