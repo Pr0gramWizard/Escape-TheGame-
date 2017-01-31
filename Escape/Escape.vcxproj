@@ -42,9 +42,7 @@
     <ClCompile Include="object\object.cpp" />
     <ClCompile Include="object\renderer\objectrenderer.cpp" />
     <ClCompile Include="object\shader\objectshader.cpp" />
-    <ClCompile Include="particle\particle.cpp" />
-    <ClCompile Include="particle\renderer\particlerenderer.cpp" />
-    <ClCompile Include="particle\shader\particleshader.cpp" />
+    <ClCompile Include="particle\particlegenerator.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="renderer\mainrenderer.cpp" />
     <ClCompile Include="skybox\renderer\skyboxrenderer.cpp" />
@@ -80,9 +78,7 @@
     <ClInclude Include="object\object.hpp" />
     <ClInclude Include="object\renderer\objectrenderer.hpp" />
     <ClInclude Include="object\shader\objectshader.hpp" />
-    <ClInclude Include="particle\particle.hpp" />
-    <ClInclude Include="particle\renderer\particlerenderer.hpp" />
-    <ClInclude Include="particle\shader\particleshader.hpp" />
+    <ClInclude Include="particle\particlegenerator.hpp" />
     <ClInclude Include="player\player.hpp" />
     <ClInclude Include="renderer\mainrenderer.hpp" />
     <ClInclude Include="skybox\renderer\skyboxrenderer.hpp" />

@@ -237,15 +237,6 @@
     <ClCompile Include="text\shader\textshader.cpp">
       <Filter>Text\shader</Filter>
     </ClCompile>
-    <ClCompile Include="particle\particle.cpp">
-      <Filter>Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="particle\shader\particleshader.cpp">
-      <Filter>Particles\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="particle\renderer\particlerenderer.cpp">
-      <Filter>Particles\renderer</Filter>
-    </ClCompile>
     <ClCompile Include="blur\blurBuffer.cpp">
       <Filter>Blur</Filter>
     </ClCompile>
@@ -257,6 +248,9 @@
     </ClCompile>
     <ClCompile Include="bloom\shader\finalbloomshader.cpp">
       <Filter>Bloom\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\particlegenerator.cpp">
+      <Filter>Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -347,15 +341,6 @@
     <ClInclude Include="text\shader\textshader.hpp">
       <Filter>Text\shader</Filter>
     </ClInclude>
-    <ClInclude Include="particle\particle.hpp">
-      <Filter>Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="particle\shader\particleshader.hpp">
-      <Filter>Particles\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="particle\renderer\particlerenderer.hpp">
-      <Filter>Particles\renderer</Filter>
-    </ClInclude>
     <ClInclude Include="blur\blurBuffer.hpp">
       <Filter>Blur</Filter>
     </ClInclude>
@@ -367,6 +352,9 @@
     </ClInclude>
     <ClInclude Include="bloom\shader\finalbloomshader.hpp">
       <Filter>Bloom\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\particlegenerator.hpp">
+      <Filter>Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
