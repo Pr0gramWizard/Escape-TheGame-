@@ -21,9 +21,6 @@ public:
 	// render methods
 	void render(Object &Object);
 
-	// Add to List
-	void addToList(Object* pObject);
-
 	// Clean List
 	void cleanUp();
 

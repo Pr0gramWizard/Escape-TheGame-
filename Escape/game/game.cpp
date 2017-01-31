@@ -55,13 +55,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glm::vec3 Sea(78, 0, 61);
 	glm::vec3 WayToLookOut(63, 0, 23);
 
-	mPlayer = new Player(Sea, 1, "Hans Dieter", this->getHeight(), this->getWidth());
-
-	mSkybox = new Skybox();
-
-
-
-	
+	mPlayer = new Player(Sea, 1, "Hans Dieter", this->getHeight(), this->getWidth());	
 }
 
 
@@ -72,7 +66,10 @@ bool Game::gameLoop()
 	
 	Terrain floor(0, 0, 0, 10, "Test", loader, "./terrain/res/BodenSee.png");
 	Terrain ceiling(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
-	Object Suit("object/res/sphere/sphere.obj", glm::vec3(0, 0, 0));
+	Object Hand("object/res/hand/hand.obj", glm::vec3(78, 0, 61),glm::vec3(1.0f,0.0f,0.0f),0.1f); // (Source, Position, Rotation, Scale)
+
+	Hand.loadTexture("object/res/hand/hand.jpg");
+
 	std::list<Terrain> terrains;
 	terrains.push_back(floor);
 	terrains.push_back(ceiling);
@@ -80,7 +77,9 @@ bool Game::gameLoop()
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(floor);
 	mRenderer->addToList(ceiling);
-	mRenderer->addToList(Suit);
+	mRenderer->addToList(Hand);
+
+	
 
 	
 	//**** LAKE STUFF ****
@@ -123,19 +122,7 @@ bool Game::gameLoop()
 
 	SoundEngine->setSoundVolume(0.1f);
 
-	mSkybox->addTexture("skybox/res/top.jpg");
-	mSkybox->addTexture("skybox/res/bottom.jpg");
-	mSkybox->addTexture("skybox/res/back.jpg");
-	mSkybox->addTexture("skybox/res/front.jpg");
-	mSkybox->addTexture("skybox/res/left.jpg");
-	mSkybox->addTexture("skybox/res/right.jpg");
-
-	mSkybox->setCubeMapTexture(mSkybox->loadTexture());
-
-	mRenderer->addToList(mSkybox);
-
-	
-
+	GLfloat timeElapsed = 0;
 
 	// Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
@@ -150,11 +137,13 @@ bool Game::gameLoop()
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
 
+		// Controlling the sound
+		this->controlSound();
 
+		// Calculating the player movement
+		mPlayer->move(&floor,&ceiling, deltaTime);	
 
-		
-
-		mPlayer->move(&floor,&ceiling, deltaTime);
+		Hand.setPosition(Hand.getPosition() + glm::vec3(0.0f, -0.5f, 0.0f));
 
 		glEnable(GL_CLIP_DISTANCE0);
 		glEnable(GL_TEXTURE_2D);

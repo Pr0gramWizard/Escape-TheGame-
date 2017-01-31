@@ -2,11 +2,14 @@
 
 
 
-Object::Object(GLchar * path, glm::vec3 pPosition)
+Object::Object(GLchar * path, glm::vec3 pPosition,glm::vec3 pRotation,GLfloat pScale)
 {
 	this->setPosition(pPosition);
 	this->loadObject(path);
+	this->setScale(pScale);
+	this->setRotation(pRotation);
 }
+
 
 void Object::Draw(ObjectShader* shader)
 {
@@ -19,14 +22,75 @@ glm::vec3 Object::getPosition() const
 	return mPosition;
 }
 
+GLfloat Object::getScale() const
+{
+	return mScale;
+}
+
+glm::vec3 Object::getRotation() const
+{
+	return mRotation;
+}
+
 void Object::setPosition(glm::vec3 pPosition)
 {
 	mPosition = pPosition;
 }
 
+void Object::setScale(GLfloat pScale)
+{
+	mScale = pScale;
+}
+
+
+void Object::setRotation(glm::vec3 pRotation)
+{
+	mRotation = pRotation;
+}
+
+GLuint Object::getTexture() const
+{
+	return mTexture;
+}
+
+void Object::loadTexture(std::string pPath)
+{
+	glGenTextures(1, &mTexture);
+	glBindTexture(GL_TEXTURE_2D, mTexture); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
+											 // Set our texture parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// Set texture filtering
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	// Load, create texture and generate mipmaps
+	int width, height;
+	unsigned char* grass = SOIL_load_image(pPath.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+	if (grass == 0)
+	{
+		std::cout << "The gras texture could not be found!" << std::endl;
+	}
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, grass);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(grass);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
 glm::mat4 Object::getModelMatrix() const
 {
-	return Math::getTransformationMatrix(this->getPosition(), 0, 0, 0, 1);
+	//glm::mat4 translate(1.0f);
+	//translate[0][3] = this->getPosition().x;
+	//translate[1][3] = this->getPosition().y;
+	//translate[2][3] = this->getPosition().z;
+
+	//glm::mat4 scale(1.0f);
+	//scale[0][0] = this->getScale();
+	//scale[1][1] = this->getScale();
+	//scale[2][2] = this->getScale();
+
+	//glm::mat4 rotate(1.0f);
+
+	return Math::getTransformationMatrix(this->getPosition(), this->getRotation().x, this->getRotation().y, this->getRotation().z, this->getScale());
 }
 
 void Object::loadObject(string path)
@@ -135,31 +199,7 @@ Mesh Object::processMesh(aiMesh * mesh, const aiScene * scene)
 vector<Texture> Object::loadMaterialTextures(aiMaterial * mat, aiTextureType type, string typeName)
 {
 	vector<Texture> textures;
-	for (GLuint i = 0; i < mat->GetTextureCount(type); i++)
-	{
-		aiString str;
-		mat->GetTexture(type, i, &str);
-		// Check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
-		GLboolean skip = false;
-		for (GLuint j = 0; j < textures_loaded.size(); j++)
-		{
-			if (textures_loaded[j].path == str)
-			{
-				textures.push_back(textures_loaded[j]);
-				skip = true; // A texture with the same filepath has already been loaded, continue to next one. (optimization)
-				break;
-			}
-		}
-		if (!skip)
-		{   // If texture hasn't been loaded already, load it
-			Texture texture;
-			texture.id = TextureFromFile(str.C_Str(), this->directory);
-			texture.type = typeName;
-			texture.path = str;
-			textures.push_back(texture);
-			this->textures_loaded.push_back(texture);  // Store it as texture loaded for entire Object, to ensure we won't unnecesery load duplicate textures.
-		}
-	}
+
 	return textures;
 }
 

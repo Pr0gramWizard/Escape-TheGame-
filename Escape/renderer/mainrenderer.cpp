@@ -54,6 +54,17 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 	this->prepare(pRED, pGREEN, pBLUE);
 	glShadeModel(GL_SMOOTH);
 
+	if (this->getDrawMode())
+	{
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+
+
 	// entities
 	mEntityRenderer->startShader();
 	mEntityRenderer->loadViewMatrix(pViewMatrix);
@@ -61,10 +72,19 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 	mEntityRenderer->loadLights(pLights);
 	mEntityRenderer->loadFogData(0.01f, 2.0f);
 	mEntityRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	mEntityRenderer->render(mEntities);
 	mEntityRenderer->render(mSpecial, LINES);
 	mEntityRenderer->stopShader();
+
+	for (Object &object : mObjects)
+	{
+		mObjectRenderer->startShader();
+		mObjectRenderer->loadModelMatrix(&object);
+		mObjectRenderer->loadViewMatrix(mPlayer->getViewMatrix());
+		mObjectRenderer->render(object);
+		mObjectRenderer->stopShader();
+	}
+
 
 	// terrain
 	mTerrainRenderer->startShader();
@@ -80,16 +100,6 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 	mNormalRenderer->loadPlayerBelowLake(pPlayerBelowLake);
 	mNormalRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
 
-	if (this->getDrawMode())
-	{
-		
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	else
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-
 
 	for (Terrain &terrain : mTerrains)
 	{
@@ -104,25 +114,9 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 	}
 
 
-	for (Object &object : mObjects)
-	{
-		mObjectRenderer->startShader();
-		mObjectRenderer->loadModelMatrix(&object);
-		mObjectRenderer->loadViewMatrix(mPlayer->getViewMatrix());
-		mObjectRenderer->render(object);
-		mObjectRenderer->stopShader();
-	}
 
 
 
-
-
-	/*
-	mSkyboxRenderer->startShader();
-	mSkyboxRenderer->loadViewMatrix(pViewMatrix);
-	mSkyboxRenderer->render(mSkybox);
-	mSkyboxRenderer->stopShader();
-	*/
 
 
 }

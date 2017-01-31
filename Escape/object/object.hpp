@@ -19,40 +19,46 @@ using namespace std;
 #include "../mesh/mesh.hpp"
 #include "../math/math.hpp"
 
-GLint TextureFromFile(const char* path, string directory);
+
 
 class Object
 {
 public:
 	/*  Functions   */
 	// Constructor, expects a filepath to a 3D Object.
-	Object(GLchar* path, glm::vec3 pPosition);
+	Object(GLchar* path, glm::vec3 pPosition,glm::vec3 pRotatio,GLfloat pScale);
 
 	// Draws the Object, and thus all its meshes
 	void Draw(ObjectShader* shader);
 
 	// Getter
 	glm::vec3 getPosition() const;
-
+	GLfloat getScale() const;
+	glm::mat4 getModelMatrix() const;
+	glm::vec3 getRotation() const;
+	GLuint getTexture() const;
 	// Setter
 	void setPosition(glm::vec3 pPosition);
+	void setScale(GLfloat pScale);
+	void setRotation(glm::vec3 pRotation);
 
-	glm::mat4 getModelMatrix() const;
+	void loadTexture(std::string pPath);
 
 private:
+
 	/*  Object Data  */
 	glm::vec3 mPosition;
+	GLfloat mScale;
+	glm::vec3 mRotation;
 	vector<Mesh> meshes;
 	string directory;
-	vector<Texture> textures_loaded;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+	vector<Texture> textures_loaded;
+	GLuint mTexture;
 
-										/*  Functions   */
-										// Loads a Object with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
+										
+										
 	void loadObject(string path);
-
-	// Processes a node in a recursive fashion. Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
 	void processNode(aiNode* node, const aiScene* scene);
-
 	Mesh processMesh(aiMesh* mesh, const aiScene* scene);
 
 	// Checks all material textures of a given type and loads the textures if they're not loaded yet.
@@ -60,4 +66,3 @@ private:
 	vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName);
 };
 
-GLint TextureFromFile(const char* path, string directory);
