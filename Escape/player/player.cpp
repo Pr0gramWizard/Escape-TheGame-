@@ -58,6 +58,7 @@ void Player::playWalkingSound(int StepNumber)
 // Function to move the player	
 void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 {
+	
 	// Calculating the new moving variables
 	this->setMoveVariables();
 	// Remember to include the Y Rotation of the player
@@ -127,7 +128,16 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 		glm::vec3 alongWall = glm::normalize(input - intoWall);
 		alongWall = alongWall * glm::vec3(inputLength);
 
+		glm::vec3 OldPosition = this->getPosition();
+
 		this->incPosition(alongWall);
+
+		bool invalidPosition = this->getPosition().x != this->getPosition().x || this->getPosition().y != this->getPosition().y || this->getPosition().z != this->getPosition().z;
+
+		if (invalidPosition)
+		{
+			this->setPosition(OldPosition);
+		}
 
 		terrainHeight = pFloor->getHeight(mPosition.x, mPosition.z);
 		WalkSound->stopAllSounds();
@@ -158,6 +168,8 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	{
 		mPosition.y = mPosition.y;
 	}
+
+	
 
 
 	// Set camera's new position

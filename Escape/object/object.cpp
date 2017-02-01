@@ -78,19 +78,10 @@ void Object::loadTexture(std::string pPath)
 
 glm::mat4 Object::getModelMatrix(Player* pPlayer)
 {
-	//glm::mat4 translate(1.0f);
-	//translate[0][3] = this->getPosition().x;
-	//translate[1][3] = this->getPosition().y;
-	//translate[2][3] = this->getPosition().z;
-
-	//glm::mat4 scale(1.0f);
-	//scale[0][0] = this->getScale();
-	//scale[1][1] = this->getScale();
-	//scale[2][2] = this->getScale();
-
-	//glm::mat4 rotate(1.0f);
 
 	mPosition = pPlayer->getPosition() + glm::vec3(0.5f, 0.5f, 0.5f);
+
+	mRotation = pPlayer->getRotation() + glm::vec3(0.5f, 0.5f, 0.5f);
 
 
 	return Math::getTransformationMatrix(this->getPosition(), this->getRotation().x, this->getRotation().y, this->getRotation().z, this->getScale());

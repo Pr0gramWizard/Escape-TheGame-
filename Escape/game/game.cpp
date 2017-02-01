@@ -108,6 +108,7 @@ bool Game::gameLoop()
 	//Light* lamp = new Light(mPlayer->getCameraPosition(), glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1, 0.01, 0.002));
 	Light* lamp = new Light(glm::vec3(45.0f, floor.getHeight(45.0f, 45.0f) + 15, 45.0f), glm::vec3(1.0f,0.0f,0.0f), glm::vec3(1, 0.01, 0.002));
 	vector<Light*> lights;
+
 	lights.push_back(sun);
 	// lights.push_back(sun2);
 
