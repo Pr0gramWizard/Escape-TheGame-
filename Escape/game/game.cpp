@@ -1,8 +1,8 @@
 #include "game.hpp"
 
-const GLfloat Game::RED = 0.5;
-const GLfloat Game::GREEN = 0.5;
-const GLfloat Game::BLUE = 0.5;
+const GLfloat Game::RED = 0.2f;
+const GLfloat Game::GREEN = 0.3f;
+const GLfloat Game::BLUE = 0.3f;
 
 // Used for post-processing effects
 void RenderQuad();
@@ -66,11 +66,6 @@ bool Game::gameLoop()
 	
 	Terrain floor(0, 0, 0, 10, "Test", loader, "./terrain/res/BodenSee.png");
 	Terrain ceiling(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
-	Object LeftHand("object/res/hand/hand.obj", glm::vec3(78, 0, 61),glm::vec3(1.0f,0.0f,0.0f),0.08f); // (Source, Position, Rotation, Scale)
-	Object RightHand("object/res/hand/hand.obj", glm::vec3(78, 0, 61), glm::vec3(1.0f, 0.0f, 0.0f), 0.08f); // (Source, Position, Rotation, Scale)
-
-	LeftHand.loadTexture("object/res/hand/hand.jpg");
-	RightHand.loadTexture("object/res/hadn/hand.jpg");
 
 	std::list<Terrain> terrains;
 	terrains.push_back(floor);
@@ -79,8 +74,7 @@ bool Game::gameLoop()
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(floor);
 	mRenderer->addToList(ceiling);
-	mRenderer->addToList(LeftHand);
-	mRenderer->addToList(RightHand);
+
 
 	
 
@@ -128,6 +122,8 @@ bool Game::gameLoop()
 
 	GLfloat timeElapsed = 0;
 
+	GLfloat frames = 0;
+
 	// Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
 	{
@@ -138,11 +134,16 @@ bool Game::gameLoop()
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		LeftHand.setPosition(mPlayer->getPosition() + glm::vec3(1.0f,1.0f,4.0f));
-		LeftHand.setRotation(mPlayer->getRotation());
+		timeElapsed += deltaTime * 10;
+		if (timeElapsed > 10.0f)
+		{
 
-		RightHand.setPosition(mPlayer->getPosition()+ glm::vec3(1.0f,1.0f,-4.0f));
-		RightHand.setRotation(mPlayer->getRotation());
+			std::cout << deltaTime << std::endl;
+		}
+
+		
+
+		
 
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
