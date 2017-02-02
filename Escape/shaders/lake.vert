@@ -10,12 +10,21 @@ out vec3 lakeNormal;
 out vec3 fragPos;
 out vec3 viewPos;
 
+//spotlight color
+out vec3 spotColor;
+
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 uniform vec3 lightPosition[4];
 uniform float fogDensity;
 uniform float fogGradient;
+
+//spotlight uniforms
+uniform vec3 lakeSpotLightPosition;
+uniform vec3 lakeSpotLightColor;
+uniform vec3 lakeSpotLightTarget;
+uniform vec3 lakeSpotLightFactor;
 
 const float dudvTiling = 5.0;
 
@@ -33,4 +42,6 @@ void main()
 	textureCoords = texCoords * dudvTiling;
 
     gl_Position = clipSpace;
+
+	spotColor = vec3(0,1,0);
 }

@@ -7,6 +7,9 @@ in vec3 lakeNormal;
 in vec3 fragPos;
 in vec3 viewPos;
 
+//spotlight color
+in vec3 spotColor;
+
 layout (location = 0) out vec4 color;
 layout (location = 1) out vec4 BrightColor;
 
@@ -100,6 +103,4 @@ void main()
     if(brightness > 0.25){
 		BrightColor = vec4(color.rgb, 1.0);
 	}
-
-	//color = vec4(1,0,0, 1);
 }
