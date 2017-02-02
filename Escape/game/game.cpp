@@ -65,13 +65,15 @@ bool Game::gameLoop()
 	Loader* loader = new Loader();
 	// NGLchar * path, glm::vec3 pPosition, glm::vec3 pRotation, GLfloat pScale
 	// Object PlayerModel("object/res/player/player.obj", glm::vec3(82.0f, 0.2f,59.0f), glm::vec3(1.0f, 0.0f, 0.0f), 0.2f);
-	Object Hand("object/res/hand/hand.obj", glm::vec3(82.0f, 0.2f, 59.0f), glm::vec3(2.0f, 1.0f, 0.0f), 0.05f);
+	// Object Hand("object/res/hand/hand.obj", glm::vec3(82.0f, 0.2f, 59.0f), glm::vec3(2.0f, 1.0f, 0.0f), 0.05f);
+	Object Stone("object/res/stone/glowstone.obj", glm::vec3(78.0f, 0.0f, 61.0f), glm::vec3(2.0f, 1.0f, 0.0f), 0.5f);
 	
 	Terrain floor(0, 0, 0, 10, "Test", loader, "./terrain/res/BodenSee.png");
 	Terrain ceiling(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
 
 	// PlayerModel.loadTexture("object/res/player/color.png");
-	Hand.loadTexture("object/res/hand/hand.jpg");
+	// Hand.loadTexture("object/res/hand/hand.jpg");
+	Stone.loadTexture("object/res/stone/texture.png");
 
 	std::list<Terrain> terrains;
 	terrains.push_back(floor);
@@ -80,7 +82,8 @@ bool Game::gameLoop()
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(floor);
 	mRenderer->addToList(ceiling);
-	mRenderer->addToList(Hand);
+	// mRenderer->addToList(Hand);
+	mRenderer->addToList(Stone);
 	// mRenderer->addToList(PlayerModel);
 
 

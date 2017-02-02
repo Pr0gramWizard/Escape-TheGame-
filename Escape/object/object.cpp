@@ -68,7 +68,7 @@ void Object::loadTexture(std::string pPath)
 	unsigned char* grass = SOIL_load_image(pPath.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
 	if (grass == 0)
 	{
-		std::cout << "The gras texture could not be found!" << std::endl;
+		std::cout << "The object texture could not be found!" << std::endl;
 	}
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, grass);
 	glGenerateMipmap(GL_TEXTURE_2D);
