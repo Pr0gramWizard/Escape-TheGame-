@@ -7,7 +7,7 @@ const GLfloat Player::GRAVITY = -40;
 const GLfloat Player::JUMPPOWER = 9.0f;
 const GLfloat Player::JUMP_COOLDOWN = 1.0f;
 const GLfloat Player::STRAFE_ANGLE = 90;
-const GLfloat Player::ANGLE_CLIMB = 0.7f;
+const GLfloat Player::ANGLE_CLIMB = 0.65f;
 
 // Default Constructor
 Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWindowHeight, int pWindowWidth)
@@ -114,8 +114,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	float angle = atan((nextTerrainHeight - mPosition.y)/sqrt(dx * dx + dz * dz));
 	glm::vec3 normal = pFloor->getNormalAt(mPosition.x, mPosition.z);
 	float normalDot = glm::dot(normal, glm::vec3(0, 1, 0));
-	bool allowBlock = angle > 0 || this->isJumping();
-	if (allowBlock && normalDot < Player::ANGLE_CLIMB) {
+	if (angle > 0 && normalDot < Player::ANGLE_CLIMB) {
 		this->incPosition(glm::vec3(-dx, 0, -dz));
 		glm::vec3 input = glm::vec3(dx, 0.0f, dz);
 		// tune this to "fudge" the "push away" from the wall
