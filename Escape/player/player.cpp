@@ -5,6 +5,7 @@
 const GLfloat Player::MOVESPEED = 8;
 const GLfloat Player::GRAVITY = -40;
 const GLfloat Player::JUMPPOWER = 13.0f;
+const GLfloat Player::JUMP_COOLDOWN = 1.0f;
 const GLfloat Player::STRAFE_ANGLE = 90;
 const GLfloat Player::ANGLE_CLIMB = 0.7f;
 
@@ -59,6 +60,12 @@ void Player::playWalkingSound(int StepNumber)
 void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 {
 	
+	// Handle jump cooldown
+	this->mJumpCooldown -= pDelta;
+	if (this->mJumpCooldown < 0.0f) {
+		this->mJumpCooldown = 0.0f;
+	}
+
 	// Calculating the new moving variables
 	this->setMoveVariables();
 	// Remember to include the Y Rotation of the player
@@ -299,8 +306,11 @@ void Player::jump()
 {
 	if (!this->isJumping())
 	{
-		this->setJumping(true);
-		this->setUpSpeed(Player::JUMPPOWER);
+		if (this->mJumpCooldown <= 0.0f) {
+			this->setJumping(true);
+			this->setUpSpeed(Player::JUMPPOWER);
+			this->mJumpCooldown = Player::JUMP_COOLDOWN;
+		}	
 	}
 }
 

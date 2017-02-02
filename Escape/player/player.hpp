@@ -33,6 +33,7 @@ public:
 	static const GLfloat MOVESPEED;
 	static const GLfloat GRAVITY;
 	static const GLfloat JUMPPOWER;
+	static const GLfloat JUMP_COOLDOWN;
 	static const GLfloat STRAFE_ANGLE;
 	static const GLfloat Player::ANGLE_CLIMB;
 		
@@ -133,6 +134,8 @@ private:
 	bool mIsBelowLake;
 	// Player Sound (Used for walking)
 	irrklang::ISoundEngine* WalkSound;
+	// Cooldown for jumping
+	float mJumpCooldown;
 
 // All private functions of the class
 private:
