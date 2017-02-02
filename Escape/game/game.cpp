@@ -54,8 +54,9 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glm::vec3 Origin(0);
 	glm::vec3 Sea(78, 0, 61);
 	glm::vec3 WayToLookOut(63, 0, 23);
+	glm::vec3 Platfrom(111.0f, 3.5f, 31.0f);
 
-	mPlayer = new Player(Sea, 1, "Hans Dieter", this->getHeight(), this->getWidth());	
+	mPlayer = new Player(Platfrom, 1, "Hans Dieter", this->getHeight(), this->getWidth());
 }
 
 
@@ -66,14 +67,22 @@ bool Game::gameLoop()
 	// NGLchar * path, glm::vec3 pPosition, glm::vec3 pRotation, GLfloat pScale
 	// Object PlayerModel("object/res/player/player.obj", glm::vec3(82.0f, 0.2f,59.0f), glm::vec3(1.0f, 0.0f, 0.0f), 0.2f);
 	// Object Hand("object/res/hand/hand.obj", glm::vec3(82.0f, 0.2f, 59.0f), glm::vec3(2.0f, 1.0f, 0.0f), 0.05f);
-	Object Stone("object/res/stone/glowstone.obj", glm::vec3(78.0f, 0.0f, 61.0f), glm::vec3(2.0f, 1.0f, 0.0f), 0.5f);
+	
 	
 	Terrain floor(0, 0, 0, 10, "Test", loader, "./terrain/res/BodenSee.png");
 	Terrain ceiling(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
 
+	Object Stone1("object/res/stone/glowstone.obj", glm::vec3(98.0f, floor.getHeight(98.0f,68.0f), 68.0f), glm::vec3(2.0f, 1.0f, 0.0f), 1.0f);
+	Object Stone2("object/res/stone/glowstone.obj", glm::vec3(108.0f, floor.getHeight(108.0f, 66.0f), 66.0f), glm::vec3(2.0f, 1.0f, 0.0f), 1.4f);
+	Object Stone3("object/res/stone/glowstone.obj", glm::vec3(133.0f, floor.getHeight(133.0f, 58.0f), 58.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.5f);
+	Object Stone4("object/res/stone/glowstone.obj", glm::vec3(114.0f, floor.getHeight(114.0f, 42.0f), 42.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.3f);
+
 	// PlayerModel.loadTexture("object/res/player/color.png");
 	// Hand.loadTexture("object/res/hand/hand.jpg");
-	Stone.loadTexture("object/res/stone/texture.png");
+	Stone1.loadTexture("object/res/stone/stone.jpeg");
+	Stone2.loadTexture("object/res/stone/stone.jpeg");
+	Stone3.loadTexture("object/res/stone/stone.jpeg");
+	Stone4.loadTexture("object/res/stone/stone.jpeg");
 
 	std::list<Terrain> terrains;
 	terrains.push_back(floor);
@@ -83,7 +92,10 @@ bool Game::gameLoop()
 	mRenderer->addToList(floor);
 	mRenderer->addToList(ceiling);
 	// mRenderer->addToList(Hand);
-	mRenderer->addToList(Stone);
+	mRenderer->addToList(Stone1);
+	mRenderer->addToList(Stone2);
+	mRenderer->addToList(Stone3);
+	mRenderer->addToList(Stone4);
 	// mRenderer->addToList(PlayerModel);
 
 
