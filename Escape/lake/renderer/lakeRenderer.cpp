@@ -138,6 +138,26 @@ void LakeRenderer::loadWaterMoveFactor(GLfloat pFactor) {
 	mShader->loadWaterMoveFactor(pFactor);
 }
 
+void LakeRenderer::loadLakeSpotLightPosition(glm::vec3 pPos)
+{
+	this->mShader->loadLakeSpotLightPosition(pPos);
+}
+
+void LakeRenderer::loadLakeSpotLightColor(glm::vec3 pColor)
+{
+	this->mShader->loadLakeSpotLightColor(pColor);
+}
+
+void LakeRenderer::loadLakeSpotLightFactor(GLfloat pFactor)
+{
+	this->mShader->loadLakeSpotLightFactor(pFactor);
+}
+
+void LakeRenderer::loadLakeSpotLightTarget(glm::vec3 pTarget)
+{
+	this->mShader->loadLakeSpotLightTarget(pTarget);
+}
+
 void LakeRenderer::startShader()
 {
 	mShader->use();

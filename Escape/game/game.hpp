@@ -59,6 +59,8 @@
 #include FT_FREETYPE_H
 // Audio class
 #include <irrKlang.h>
+// spotlight
+#include "../light/spotlight.hpp"
 
 // Declaration of game class
 class Game

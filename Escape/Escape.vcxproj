@@ -35,6 +35,7 @@
     <ClCompile Include="lake\renderer\lakeRenderer.cpp" />
     <ClCompile Include="lake\shader\lakeshader.cpp" />
     <ClCompile Include="light\light.cpp" />
+    <ClCompile Include="light\spotlight.cpp" />
     <ClCompile Include="loader\loader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\math.cpp" />
@@ -75,6 +76,7 @@
     <ClInclude Include="lake\renderer\lakeRenderer.hpp" />
     <ClInclude Include="lake\shader\lakeshader.hpp" />
     <ClInclude Include="light\light.hpp" />
+    <ClInclude Include="light\spotlight.hpp" />
     <ClInclude Include="loader\loader.hpp" />
     <ClInclude Include="math\math.hpp" />
     <ClInclude Include="mesh\mesh.hpp" />

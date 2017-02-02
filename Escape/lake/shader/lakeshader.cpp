@@ -370,6 +370,26 @@ void LakeShader::loadNearFar(GLfloat pNear, GLfloat pFar)
 	this->loadFloat(mLocation_far, pFar);
 }
 
+void LakeShader::loadLakeSpotLightPosition(glm::vec3 pPos)
+{
+	this->loadVector(mLocation_lakeSpotLightPosition, pPos);
+}
+
+void LakeShader::loadLakeSpotLightColor(glm::vec3 pColor)
+{
+	this->loadVector(mLocation_lakeSpotLightColor, pColor);
+}
+
+void LakeShader::loadLakeSpotLightFactor(GLfloat pFactor)
+{
+	this->loadFloat(mLocation_lakeSpotLightFactor, pFactor);
+}
+
+void LakeShader::loadLakeSpotLightTarget(glm::vec3 pTarget)
+{
+	this->loadVector(mLocation_lakeSpotLightTarget, pTarget);
+}
+
 void LakeShader::loadWaterMoveFactor(GLfloat pFactor) {
 	this->loadFloat(mLocation_waterMoveFactor, pFactor);
 }
@@ -406,6 +426,10 @@ void LakeShader::getAllUniformLocations()
 	mLocation_dudvMap = glGetUniformLocation(getProgramID(), "dudvMap");
 	mLocation_waterMoveFactor = glGetUniformLocation(getProgramID(), "waterMoveFactor");
 	mLocation_normalMap = glGetUniformLocation(getProgramID(), "normalMap");
+	mLocation_lakeSpotLightPosition = glGetUniformLocation(getProgramID(), "lakeSpotLightPosition");
+	mLocation_lakeSpotLightColor = glGetUniformLocation(getProgramID(), "lakeSpotLightColor");
+	mLocation_lakeSpotLightTarget = glGetUniformLocation(getProgramID(), "lakeSpotLightTarget");;
+	mLocation_lakeSpotLightFactor = glGetUniformLocation(getProgramID(), "lakeSpotLightFactor");;
 	// Light locations
 	const char* lightPos[] = {
 		"lightPosition[0]",

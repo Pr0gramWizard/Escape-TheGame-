@@ -120,6 +120,14 @@ bool Game::gameLoop()
 	// lights.push_back(sun3);
 	// lights.push_back(sun4);
 	// lights.push_back(lamp);
+	SpotLight* spotlight = new SpotLight(glm::vec3(111, 10, 31), glm::vec3(1,1,1), glm::vec3(114,-2,58), 120.0f);
+	lakerenderer->startShader();
+	lakerenderer->loadLakeSpotLightPosition(spotlight->getPosition());
+	lakerenderer->loadLakeSpotLightColor(spotlight->getColor());
+	lakerenderer->loadLakeSpotLightTarget(spotlight->getTarget());
+	lakerenderer->loadLakeSpotLightFactor(spotlight->getFactor());
+	lakerenderer->stopShader();
+	//**** END LIGHT STUFF ****
 
 	SoundEngine = irrklang::createIrrKlangDevice();
 

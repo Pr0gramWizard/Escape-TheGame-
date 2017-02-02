@@ -259,6 +259,9 @@
       <Filter>Bloom\shader</Filter>
     </ClCompile>
     <ClCompile Include="hand\hand.cpp" />
+    <ClCompile Include="light\spotlight.cpp">
+      <Filter>Light</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -370,6 +373,9 @@
       <Filter>Bloom\shader</Filter>
     </ClInclude>
     <ClInclude Include="hand\hand.hpp" />
+    <ClInclude Include="light\spotlight.hpp">
+      <Filter>Light</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
