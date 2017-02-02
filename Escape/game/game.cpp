@@ -71,7 +71,7 @@ bool Game::gameLoop()
 	Terrain ceiling(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
 
 	Object Stone1("object/res/stone/glowstone.obj", glm::vec3(98.0f, floor.getHeight(98.0f,68.0f), 68.0f), glm::vec3(2.0f, 1.0f, 0.0f), 1.0f);
-	Object Stone2("object/res/stone/glowstone.obj", glm::vec3(113.0f, floor.getHeight(113.0f, 59.0f), 59.0f), glm::vec3(2.0f, 1.0f, 0.0f), 3.5f);
+	Object Stone2("object/res/stone/glowstone.obj", glm::vec3(113.0f, floor.getHeight(113.0f, 59.0f), 59.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.4f);
 	Object Stone3("object/res/stone/glowstone.obj", glm::vec3(133.0f, floor.getHeight(133.0f, 58.0f), 58.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.5f);
 
 	// Hand.loadTexture("object/res/hand/hand.jpg");
@@ -121,7 +121,7 @@ bool Game::gameLoop()
 	// Blue
 	Light* stoneA = new Light(glm::vec3(98.0f, floor.getHeight(98.0f, 68.0f), 68.0f), glm::vec3(0.0f, 0.0f, 1.0f),glm::vec3(0.001f, 0.001f, 0.001f));
 	// Green
-	Light* stoneB = new Light(glm::vec3(113.0f, floor.getHeight(113.0f, 59.0f), 59.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.001f, 0.001f, 0.001f));
+	Light* stoneB = new Light(glm::vec3(113.0f, floor.getHeight(113.0f, 59.0f), 59.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.003f, 0.003f, 0.003f));
 	// Red
 	Light* stoneC = new Light(glm::vec3(133.0f, floor.getHeight(133.0f, 58.0f), 58.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.001f, 0.001f, 0.001f));
  
