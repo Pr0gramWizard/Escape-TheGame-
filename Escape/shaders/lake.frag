@@ -94,7 +94,7 @@ void main()
 	float visibility = exp(-pow((distance * fogDensity), fogGradient));
 	visibility = clamp(visibility, 0.0, 1.0);
 
-	color = mix(reflectColor, refractColor, refractiveFactor);
+	color = mix(reflectColor, refractColor, refractiveFactor) + vec4(spotColor,0.0);
 	color =  mix(color, vec4(0,0,1,0), 0.2) + vec4(specularHighlights, 0.0);
 	color = mix(vec4(backgroundColor, 1.0) , color, visibility);
 	color.a = clamp(lakeDepth/8.0, 0.0, 1.0);
@@ -103,4 +103,6 @@ void main()
     if(brightness > 0.25){
 		BrightColor = vec4(color.rgb, 1.0);
 	}
+
+	//color = vec4(spotColor,1.0);
 }

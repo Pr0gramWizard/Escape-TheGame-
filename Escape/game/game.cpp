@@ -120,7 +120,7 @@ bool Game::gameLoop()
 	// lights.push_back(sun3);
 	// lights.push_back(sun4);
 	// lights.push_back(lamp);
-	SpotLight* spotlight = new SpotLight(glm::vec3(136, 10, 63), glm::vec3(1.0,0,0), glm::vec3(111,0,57), 60.0f);
+	SpotLight* spotlight = new SpotLight(glm::vec3(111, 10, 31), glm::vec3(1,1,1), glm::vec3(114,-2,58), 120.0f);
 	lakerenderer->startShader();
 	lakerenderer->loadLakeSpotLightPosition(spotlight->getPosition());
 	lakerenderer->loadLakeSpotLightColor(spotlight->getColor());
