@@ -54,6 +54,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 	this->prepare(pRED, pGREEN, pBLUE);
 	glShadeModel(GL_SMOOTH);
 
+
 	if (this->getDrawMode())
 	{
 
@@ -63,6 +64,16 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
+
+	for (Object &object : mObjects)
+	{
+		mObjectRenderer->startShader();
+		mObjectRenderer->loadModelMatrix(&object, mPlayer);
+		mObjectRenderer->loadViewMatrix(mPlayer->getViewMatrix());
+		mObjectRenderer->render(object);
+		mObjectRenderer->stopShader();
+	}
+
 
 
 	// entities
@@ -76,14 +87,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 	mEntityRenderer->render(mSpecial, LINES);
 	mEntityRenderer->stopShader();
 
-	for (Object &object : mObjects)
-	{
-		mObjectRenderer->startShader();
-		mObjectRenderer->loadModelMatrix(&object,mPlayer);
-		mObjectRenderer->loadViewMatrix(mPlayer->getViewMatrix());
-		mObjectRenderer->render(object);
-		mObjectRenderer->stopShader();
-	}
+
 
 
 	// terrain
@@ -112,13 +116,11 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 		}
 		glEnable(GL_CULL_FACE);
 	}
+}
 
-
-
-
-
-
-
+void MainRenderer::setFPS(int pFPS)
+{
+	mFPS = pFPS;
 }
 
 void MainRenderer::renderDebugInformation()
@@ -137,6 +139,7 @@ void MainRenderer::renderDebugInformation()
 		PlayerPosition = PlayerPosition + std::to_string(XPos) + "," + std::to_string(YPos) + "," + std::to_string(ZPos);
 
 		std::string PlayerName = "Name: " + (std::string)mPlayer->getName();
+		std::string FPS = "FPS: " + std::to_string(this->mFPS);
 		std::string PlayerMovementSpeed = "Movementspeed: " + std::to_string(mPlayer->getMovementSpeed());
 		std::string PlayerCrouch = "Crouching: ";
 		std::string PlayerSprint = "Sprinting: ";
@@ -172,11 +175,12 @@ void MainRenderer::renderDebugInformation()
 	
 
 		mTextRenderer->RenderText(PlayerName.c_str(), 20.0f, 1000.0f, 0.4f, glm::vec3(1, 1, 1));
-		mTextRenderer->RenderText(PlayerPosition.c_str() , 20.0f, 980.0f, 0.4f, glm::vec3(1, 1, 1));
-		mTextRenderer->RenderText(PlayerMovementSpeed.c_str(), 20.0f, 960.0f, 0.4f, glm::vec3(1, 1, 1));
-		mTextRenderer->RenderText(PlayerCrouch.c_str(), 20.0f, 940.0f, 0.4f, glm::vec3(1, 1, 1));
-		mTextRenderer->RenderText(PlayerSprint.c_str(), 20.0f, 920.0f, 0.4f, glm::vec3(1, 1, 1));
-		mTextRenderer->RenderText(PlayerJump.c_str(), 20.0f, 900.0f, 0.4f, glm::vec3(1, 1, 1));
+		mTextRenderer->RenderText(FPS.c_str(), 20.0f, 980.0f, 0.4f, glm::vec3(1, 1, 1));
+		mTextRenderer->RenderText(PlayerPosition.c_str() , 20.0f, 960.0f, 0.4f, glm::vec3(1, 1, 1));
+		mTextRenderer->RenderText(PlayerMovementSpeed.c_str(), 20.0f, 940.0f, 0.4f, glm::vec3(1, 1, 1));
+		mTextRenderer->RenderText(PlayerCrouch.c_str(), 20.0f, 920.0f, 0.4f, glm::vec3(1, 1, 1));
+		mTextRenderer->RenderText(PlayerSprint.c_str(), 20.0f, 900.0f, 0.4f, glm::vec3(1, 1, 1));
+		mTextRenderer->RenderText(PlayerJump.c_str(), 20.0f, 880.0f, 0.4f, glm::vec3(1, 1, 1));
 		
 	}
 	

@@ -32,8 +32,9 @@ Camera::Camera(glm::vec3 pPosition, glm::vec3 pUp, GLfloat pYaw, GLfloat pPitch)
 // Returns the current View Matrix
 glm::mat4 Camera::GetViewMatrix()
 {
-	// Using lookAt function
-	return glm::lookAt(this->getPosition(), this->getPosition() - this->getFront(), this->getUp());
+	glm::mat4 View = glm::lookAt(this->getPosition(), this->getPosition() - this->getFront(), this->getUp());
+
+	return View;
 }
 
 // Returns the current Projection Matrix

@@ -63,9 +63,15 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 bool Game::gameLoop()
 {
 	Loader* loader = new Loader();
+	// NGLchar * path, glm::vec3 pPosition, glm::vec3 pRotation, GLfloat pScale
+	// Object PlayerModel("object/res/player/player.obj", glm::vec3(82.0f, 0.2f,59.0f), glm::vec3(1.0f, 0.0f, 0.0f), 0.2f);
+	Object Hand("object/res/hand/hand.obj", glm::vec3(82.0f, 0.2f, 59.0f), glm::vec3(2.0f, 1.0f, 0.0f), 0.05f);
 	
 	Terrain floor(0, 0, 0, 10, "Test", loader, "./terrain/res/BodenSee.png");
 	Terrain ceiling(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
+
+	// PlayerModel.loadTexture("object/res/player/color.png");
+	Hand.loadTexture("object/res/hand/hand.jpg");
 
 	std::list<Terrain> terrains;
 	terrains.push_back(floor);
@@ -74,6 +80,8 @@ bool Game::gameLoop()
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(floor);
 	mRenderer->addToList(ceiling);
+	mRenderer->addToList(Hand);
+	// mRenderer->addToList(PlayerModel);
 
 
 	
@@ -120,9 +128,9 @@ bool Game::gameLoop()
 
 	SoundEngine->setSoundVolume(0.1f);
 
-	GLfloat timeElapsed = 0;
+	GLfloat lastTime = (GLfloat) glfwGetTime();
 
-	GLfloat frames = 0;
+	int frames = 0;
 
 	// Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
@@ -134,17 +142,17 @@ bool Game::gameLoop()
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		timeElapsed += deltaTime * 10;
-		if (timeElapsed > 10.0f)
+		frames++;
+
+		if (currentFrame - lastTime >= 1.0)
 		{
+			// float fps = 1000.0f / (float)frames;
+			mRenderer->setFPS(frames);
+			frames = 0;
+			lastTime += 1.0f;
 
-			std::cout << deltaTime << std::endl;
 		}
-
 		
-
-		
-
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
 
@@ -185,15 +193,16 @@ bool Game::gameLoop()
 		lfbos->bindRefractionFrameBuffer();
 		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, -sign, 0, sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE);
 		// actual rendering
+	
 		glDisable(GL_CLIP_DISTANCE0);
 		lfbos->unbindCurrentFrameBuffer();
 
 		//render to prebloomfbo
 		prebloomfbo->bind();
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			/*
-			* sign is -1 if player is below the lake
-			*/
+			
+			// sign is -1 if player is below the lake
+			
 			mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE);
 			// Render Debug Information
 			mRenderer->renderDebugInformation();
@@ -233,7 +242,7 @@ bool Game::gameLoop()
 			finalbloomshader->loadExposure(1.0f);
 			RenderQuad();
 		finalbloomshader->unuse();
-
+		
 
 
 

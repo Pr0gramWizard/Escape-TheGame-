@@ -258,6 +258,7 @@
     <ClCompile Include="bloom\shader\finalbloomshader.cpp">
       <Filter>Bloom\shader</Filter>
     </ClCompile>
+    <ClCompile Include="hand\hand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -368,6 +369,7 @@
     <ClInclude Include="bloom\shader\finalbloomshader.hpp">
       <Filter>Bloom\shader</Filter>
     </ClInclude>
+    <ClInclude Include="hand\hand.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">

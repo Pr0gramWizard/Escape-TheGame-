@@ -28,6 +28,7 @@
     <ClCompile Include="entity\renderer\entityRenderer.cpp" />
     <ClCompile Include="entity\shader\entityshader.cpp" />
     <ClCompile Include="game\game.cpp" />
+    <ClCompile Include="hand\hand.cpp" />
     <ClCompile Include="input\keyboard.cpp" />
     <ClCompile Include="lake\fbo\lakeFrameBuffers.cpp" />
     <ClCompile Include="lake\lake.cpp" />
@@ -67,6 +68,7 @@
     <ClInclude Include="entity\renderer\entityRenderer.hpp" />
     <ClInclude Include="entity\shader\entityshader.hpp" />
     <ClInclude Include="game\game.hpp" />
+    <ClInclude Include="hand\hand.hpp" />
     <ClInclude Include="input\keyboard.hpp" />
     <ClInclude Include="lake\fbo\lakeFrameBuffers.hpp" />
     <ClInclude Include="lake\lake.hpp" />

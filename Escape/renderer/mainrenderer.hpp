@@ -73,6 +73,9 @@ public:
 	void renderDebugInformation();
 	void clearLists();
 
+	// Set FPS
+	void setFPS(int pFPS);
+
 	// cleans up when closing the game
 	void cleanUp();
 
@@ -111,5 +114,7 @@ private:
 	bool drawMode;
 	bool debugMode;
 	bool normalMode;
+
+	int mFPS;
 };
 
