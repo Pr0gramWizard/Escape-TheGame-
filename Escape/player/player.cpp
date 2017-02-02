@@ -4,7 +4,7 @@
 // Defintion of the global player constants
 const GLfloat Player::MOVESPEED = 8;
 const GLfloat Player::GRAVITY = -40;
-const GLfloat Player::JUMPPOWER = 13.0f;
+const GLfloat Player::JUMPPOWER = 9.0f;
 const GLfloat Player::JUMP_COOLDOWN = 1.0f;
 const GLfloat Player::STRAFE_ANGLE = 90;
 const GLfloat Player::ANGLE_CLIMB = 0.7f;
@@ -163,7 +163,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	}	
 
 	if (this->isBelowLake()) {
-		mUpSpeed += Player::GRAVITY/1.20f * pDelta;
+		mUpSpeed += Player::GRAVITY/1.50f * pDelta;
 	}
 	else {
 		mUpSpeed += Player::GRAVITY * pDelta;
