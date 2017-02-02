@@ -65,24 +65,19 @@ bool Game::gameLoop()
 {
 	Loader* loader = new Loader();
 	// NGLchar * path, glm::vec3 pPosition, glm::vec3 pRotation, GLfloat pScale
-	// Object PlayerModel("object/res/player/player.obj", glm::vec3(82.0f, 0.2f,59.0f), glm::vec3(1.0f, 0.0f, 0.0f), 0.2f);
 	// Object Hand("object/res/hand/hand.obj", glm::vec3(82.0f, 0.2f, 59.0f), glm::vec3(2.0f, 1.0f, 0.0f), 0.05f);
-	
 	
 	Terrain floor(0, 0, 0, 10, "Test", loader, "./terrain/res/BodenSee.png");
 	Terrain ceiling(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
 
 	Object Stone1("object/res/stone/glowstone.obj", glm::vec3(98.0f, floor.getHeight(98.0f,68.0f), 68.0f), glm::vec3(2.0f, 1.0f, 0.0f), 1.0f);
-	Object Stone2("object/res/stone/glowstone.obj", glm::vec3(108.0f, floor.getHeight(108.0f, 66.0f), 66.0f), glm::vec3(2.0f, 1.0f, 0.0f), 1.4f);
+	Object Stone2("object/res/stone/glowstone.obj", glm::vec3(113.0f, floor.getHeight(113.0f, 59.0f), 59.0f), glm::vec3(2.0f, 1.0f, 0.0f), 3.5f);
 	Object Stone3("object/res/stone/glowstone.obj", glm::vec3(133.0f, floor.getHeight(133.0f, 58.0f), 58.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.5f);
-	Object Stone4("object/res/stone/glowstone.obj", glm::vec3(114.0f, floor.getHeight(114.0f, 42.0f), 42.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.3f);
 
-	// PlayerModel.loadTexture("object/res/player/color.png");
 	// Hand.loadTexture("object/res/hand/hand.jpg");
 	Stone1.loadTexture("object/res/stone/stone.jpeg");
 	Stone2.loadTexture("object/res/stone/stone.jpeg");
 	Stone3.loadTexture("object/res/stone/stone.jpeg");
-	Stone4.loadTexture("object/res/stone/stone.jpeg");
 
 	std::list<Terrain> terrains;
 	terrains.push_back(floor);
@@ -91,12 +86,12 @@ bool Game::gameLoop()
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(floor);
 	mRenderer->addToList(ceiling);
-	// mRenderer->addToList(Hand);
+
 	mRenderer->addToList(Stone1);
 	mRenderer->addToList(Stone2);
 	mRenderer->addToList(Stone3);
-	mRenderer->addToList(Stone4);
-	// mRenderer->addToList(PlayerModel);
+
+	//mRenderer->addToList(Hand);
 
 
 	
@@ -122,19 +117,18 @@ bool Game::gameLoop()
 	//**** LIGHT STUFF ****
 	//Light* sun = new Light(glm::vec3(250, 1, 250), glm::vec3(1, 1, 0), glm::vec3(1, 0.01, 0.002));
 	Light* sun = new Light(glm::vec3(0, 100000, 0), glm::vec3(0.1f, 0.1f, 0.1f));
-	Light* sun2 = new Light(glm::vec3(112, 6, 10), glm::vec3(1.0f, 0.6f, 0.0f));
-	Light* sun3 = new Light(glm::vec3(0, 20, 500), glm::vec3(0.0f, 0.0f, 10.0f));
-	Light* sun4 = new Light(glm::vec3(500, 20, 500), glm::vec3(0.0f, 10.0f, 0.0f));
-	//Light* lamp = new Light(mPlayer->getCameraPosition(), glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1, 0.01, 0.002));
-	Light* lamp = new Light(glm::vec3(45.0f, floor.getHeight(45.0f, 45.0f) + 15, 45.0f), glm::vec3(1.0f,0.0f,0.0f), glm::vec3(1, 0.01, 0.002));
+
+	Light* stoneA = new Light(glm::vec3(98.0f, floor.getHeight(98.0f, 68.0f), 68.0f), glm::vec3(0.0f, 0.0f, 1.0f),glm::vec3(0.001f, 0.001f, 0.001f));
+	Light* stoneB = new Light(glm::vec3(113.0f, floor.getHeight(113.0f, 59.0f), 59.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.001f, 0.001f, 0.001f));
+	Light* stoneC = new Light(glm::vec3(133.0f, floor.getHeight(133.0f, 58.0f), 58.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.001f, 0.001f, 0.001f));
+ 
 	vector<Light*> lights;
 
 	lights.push_back(sun);
-	// lights.push_back(sun2);
+	lights.push_back(stoneA);
+	lights.push_back(stoneB);
+	lights.push_back(stoneC);
 
-	// lights.push_back(sun3);
-	// lights.push_back(sun4);
-	// lights.push_back(lamp);
 	SpotLight* spotlight = new SpotLight(glm::vec3(111, 10, 31), glm::vec3(1,1,1), glm::vec3(114,-2,58), 120.0f);
 	lakerenderer->startShader();
 	lakerenderer->loadLakeSpotLightPosition(spotlight->getPosition());
