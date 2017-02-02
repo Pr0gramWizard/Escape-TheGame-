@@ -93,7 +93,6 @@ TerrainShader::TerrainShader(const std::string& pVertexShaderFilePath, const std
 	}
 	// Shader Program
 	this->mProgramID = glCreateProgram();
-	std::cout << mProgramID << std::endl;
 	glAttachShader(this->getProgramID(), vertex);
 	glAttachShader(this->getProgramID(), fragment);
 	glAttachShader(this->getProgramID(), geometry);
@@ -171,8 +170,6 @@ void TerrainShader::linkShader()
 {
 	// First we create a new Program with the given Program ID
 	setProgramID(glCreateProgram());
-
-	std::cout << mProgramID << std::endl;
 
 	// Then we attach both shader to the program
 	glAttachShader(getProgramID(), getVertexShaderID());

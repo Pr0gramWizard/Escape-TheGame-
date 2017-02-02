@@ -65,8 +65,6 @@ void BlurShader::linkShader()
 	// First we create a new Program with the given Program ID
 	setProgramID(glCreateProgram());
 
-	std::cout << mProgramID << std::endl;
-
 	// Then we attach both shader to the program
 	glAttachShader(getProgramID(), getVertexShaderID());
 	glAttachShader(getProgramID(), getFragementShaderID());
