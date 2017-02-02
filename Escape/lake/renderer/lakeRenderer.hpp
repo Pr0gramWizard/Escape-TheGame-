@@ -57,6 +57,12 @@ public:
 
 	void loadWaterMoveFactor(GLfloat pFactor);
 
+	//load spotlight
+	void loadLakeSpotLightPosition(glm::vec3 pPos);
+	void loadLakeSpotLightColor(glm::vec3 pColor);
+	void loadLakeSpotLightFactor(GLfloat pFactor);
+	void loadLakeSpotLightTarget(glm::vec3 pTarget);
+
 	// use or unuse the shader
 	void startShader();
 	void stopShader();

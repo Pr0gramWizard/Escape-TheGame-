@@ -63,6 +63,12 @@ public:
 	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
 	void loadNearFar(GLfloat pNear, GLfloat pFar);
 
+	//load spotlight
+	void loadLakeSpotLightPosition(glm::vec3 pPos);
+	void loadLakeSpotLightColor(glm::vec3 pColor);
+	void loadLakeSpotLightFactor(GLfloat pFactor);
+	void loadLakeSpotLightTarget(glm::vec3 pTarget);
+
 	void loadWaterMoveFactor(GLfloat pFactor);
 
 	// connect texture units
@@ -96,6 +102,11 @@ private:
 	GLuint mLocation_dudvMap;
 	GLuint mLocation_waterMoveFactor;
 	GLuint mLocation_normalMap;
+
+	GLuint mLocation_lakeSpotLightPosition;
+	GLuint mLocation_lakeSpotLightColor;
+	GLuint mLocation_lakeSpotLightTarget;
+	GLuint mLocation_lakeSpotLightFactor;
 
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);
