@@ -27,6 +27,7 @@ public:
 	void loadViewMatrix(glm::mat4 pViewMatrix);
 	void loadFogData(GLfloat pDensity, GLfloat pGradient);
 	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
+	void loadClipPlane(glm::vec4 pClipPlane);
 
 	// use or unuse the shader
 	void startShader();

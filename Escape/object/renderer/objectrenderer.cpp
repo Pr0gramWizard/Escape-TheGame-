@@ -42,6 +42,11 @@ void ObjectRenderer::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat p
 	mShader->loadBackgroundColor(pRed, pGreen, pBlue);
 }
 
+void ObjectRenderer::loadClipPlane(glm::vec4 pClipPlane)
+{
+	mShader->loadPlane(pClipPlane);
+}
+
 void ObjectRenderer::startShader()
 {
 	mShader->use();
