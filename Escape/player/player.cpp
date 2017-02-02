@@ -158,7 +158,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 
 	if (distance <= 0.01f)
 	{
-		this->setUpSpeed(-10.0f * pDelta);
+		this->setUpSpeed(-10.0f);
 	}	
 
 	if (this->isBelowLake()) {
