@@ -155,7 +155,13 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 		this->setUpSpeed(-10.0f * pDelta);
 	}	
 
-	mUpSpeed += Player::GRAVITY * pDelta;
+	if (this->isBelowLake()) {
+		mUpSpeed += Player::GRAVITY/1.20f * pDelta;
+	}
+	else {
+		mUpSpeed += Player::GRAVITY * pDelta;
+	}
+
 	this->incPosition(glm::vec3(0, mUpSpeed * pDelta, 0));
 	if (getPosition().y < terrainHeight) {
 		this->setUpSpeed(0);
