@@ -49,7 +49,7 @@ void Terrain::loadGrasTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	// Load, create texture and generate mipmaps
 	int width, height;
-	unsigned char* grass = SOIL_load_image("terrain/res/texture/grass.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* grass = SOIL_load_image("terrain/res/texture/new/floor.png", &width, &height, 0, SOIL_LOAD_RGB);
 	if (grass == 0)
 	{
 		std::cout << "The gras texture could not be found!" << std::endl;
@@ -73,7 +73,7 @@ void Terrain::loadStoneTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// Load, create texture and generate mipmaps
 	int width, height;
-	unsigned char* stone = SOIL_load_image("terrain/res/texture/wall.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* stone = SOIL_load_image("terrain/res/texture/new/stone.png", &width, &height, 0, SOIL_LOAD_RGB);
 	if (stone == 0)
 	{
 		std::cout << "The stone texture could not be found!" << std::endl;
@@ -98,7 +98,7 @@ void Terrain::loadFlowerTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	// Load, create texture and generate mipmaps
 	int width, height;
-	unsigned char* grass = SOIL_load_image("terrain/res/texture/flower.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* grass = SOIL_load_image("terrain/res/texture/new/grass.png", &width, &height, 0, SOIL_LOAD_RGB);
 	if (grass == 0)
 	{
 		std::cout << "The flower texture could not be found!" << std::endl;
