@@ -4,9 +4,10 @@
 // Defintion of the global player constants
 const GLfloat Player::MOVESPEED = 8;
 const GLfloat Player::GRAVITY = -40;
-const GLfloat Player::JUMPPOWER = 13.0f;
+const GLfloat Player::JUMPPOWER = 9.0f;
+const GLfloat Player::JUMP_COOLDOWN = 1.0f;
 const GLfloat Player::STRAFE_ANGLE = 90;
-const GLfloat Player::ANGLE_CLIMB = 0.7f;
+const GLfloat Player::ANGLE_CLIMB = 0.65f;
 
 // Default Constructor
 Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWindowHeight, int pWindowWidth)
@@ -59,6 +60,12 @@ void Player::playWalkingSound(int StepNumber)
 void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 {
 	
+	// Handle jump cooldown
+	this->mJumpCooldown -= pDelta;
+	if (this->mJumpCooldown < 0.0f) {
+		this->mJumpCooldown = 0.0f;
+	}
+
 	// Calculating the new moving variables
 	this->setMoveVariables();
 	// Remember to include the Y Rotation of the player
@@ -107,8 +114,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	float angle = atan((nextTerrainHeight - mPosition.y)/sqrt(dx * dx + dz * dz));
 	glm::vec3 normal = pFloor->getNormalAt(mPosition.x, mPosition.z);
 	float normalDot = glm::dot(normal, glm::vec3(0, 1, 0));
-	bool allowBlock = angle > 0 || this->isJumping();
-	if (allowBlock && normalDot < Player::ANGLE_CLIMB) {
+	if (angle > 0 && normalDot < Player::ANGLE_CLIMB) {
 		this->incPosition(glm::vec3(-dx, 0, -dz));
 		glm::vec3 input = glm::vec3(dx, 0.0f, dz);
 		// tune this to "fudge" the "push away" from the wall
@@ -156,7 +162,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	}	
 
 	if (this->isBelowLake()) {
-		mUpSpeed += Player::GRAVITY/1.20f * pDelta;
+		mUpSpeed += Player::GRAVITY/1.50f * pDelta;
 	}
 	else {
 		mUpSpeed += Player::GRAVITY * pDelta;
@@ -299,8 +305,11 @@ void Player::jump()
 {
 	if (!this->isJumping())
 	{
-		this->setJumping(true);
-		this->setUpSpeed(Player::JUMPPOWER);
+		if (this->mJumpCooldown <= 0.0f) {
+			this->setJumping(true);
+			this->setUpSpeed(Player::JUMPPOWER);
+			this->mJumpCooldown = Player::JUMP_COOLDOWN;
+		}	
 	}
 }
 
