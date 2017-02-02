@@ -78,6 +78,6 @@ void main()
 	}
 
 	float brightness = dot(out_Color.rgb, vec3(0.2126, 0.7152, 0.0722));
-    if(brightness > 0.25)
+    if(brightness > 1.0)
         BrightColor = vec4(out_Color.rgb, 1.0);
 }
