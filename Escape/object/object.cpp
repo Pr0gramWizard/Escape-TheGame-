@@ -78,17 +78,13 @@ void Object::loadTexture(std::string pPath)
 
 glm::mat4 Object::getModelMatrix(Player* pPlayer)
 {
-
-	mPosition = pPlayer->getPosition() + glm::vec3(0.5f, 0.5f, 0.5f);
-
-	mRotation = pPlayer->getRotation() + glm::vec3(0.5f, 0.5f, 0.5f);
-
-
+	std::cout << "(" << this->getPosition().x << "," << this->getPosition().y << "," << this->getPosition().z << ")" << std::endl;
 	return Math::getTransformationMatrix(this->getPosition(), this->getRotation().x, this->getRotation().y, this->getRotation().z, this->getScale());
 }
 
 glm::mat4 Object::getModelMatrix()
 {
+	std::cout << "(" << this->getPosition().x << "," << this->getPosition().y << "," << this->getPosition().z << ")" << std::endl;
 	return Math::getTransformationMatrix(this->getPosition(), this->getRotation().x, this->getRotation().y, this->getRotation().z, this->getScale());
 }
 

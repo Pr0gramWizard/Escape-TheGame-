@@ -150,11 +150,9 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	float headPosition = this->getPosition().y + this->getHeight();
 	float distance = ceilingheight - headPosition;
 
-	if (distance <= 1.0f)
+	if (distance <= 0.01f)
 	{
 		this->setUpSpeed(-10.0f * pDelta);
-		this->setJumping(false);
-		// mPosition.y = terrainHeight;
 	}	
 
 	mUpSpeed += Player::GRAVITY * pDelta;

@@ -23,7 +23,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/,NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(),NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -66,9 +66,11 @@ bool Game::gameLoop()
 	
 	Terrain floor(0, 0, 0, 10, "Test", loader, "./terrain/res/BodenSee.png");
 	Terrain ceiling(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
-	Object Hand("object/res/hand/hand.obj", glm::vec3(78, 0, 61),glm::vec3(1.0f,0.0f,0.0f),0.08f); // (Source, Position, Rotation, Scale)
+	Object LeftHand("object/res/hand/hand.obj", glm::vec3(78, 0, 61),glm::vec3(1.0f,0.0f,0.0f),0.08f); // (Source, Position, Rotation, Scale)
+	Object RightHand("object/res/hand/hand.obj", glm::vec3(78, 0, 61), glm::vec3(1.0f, 0.0f, 0.0f), 0.08f); // (Source, Position, Rotation, Scale)
 
-	Hand.loadTexture("object/res/hand/hand.jpg");
+	LeftHand.loadTexture("object/res/hand/hand.jpg");
+	RightHand.loadTexture("object/res/hadn/hand.jpg");
 
 	std::list<Terrain> terrains;
 	terrains.push_back(floor);
@@ -77,7 +79,8 @@ bool Game::gameLoop()
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	mRenderer->addToList(floor);
 	mRenderer->addToList(ceiling);
-	mRenderer->addToList(Hand);
+	mRenderer->addToList(LeftHand);
+	mRenderer->addToList(RightHand);
 
 	
 
@@ -134,6 +137,12 @@ bool Game::gameLoop()
 		GLfloat currentFrame = (GLfloat)glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
+
+		LeftHand.setPosition(mPlayer->getPosition() + glm::vec3(1.0f,1.0f,4.0f));
+		LeftHand.setRotation(mPlayer->getRotation());
+
+		RightHand.setPosition(mPlayer->getPosition()+ glm::vec3(1.0f,1.0f,-4.0f));
+		RightHand.setRotation(mPlayer->getRotation());
 
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
