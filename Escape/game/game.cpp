@@ -56,7 +56,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glm::vec3 WayToLookOut(63, 0, 23);
 	glm::vec3 Platfrom(111.0f, 3.5f, 31.0f);
 
-	mPlayer = new Player(Platfrom, 1, "Hans Dieter", this->getHeight(), this->getWidth());
+	mPlayer = new Player(Origin, 1, "Hans Dieter", this->getHeight(), this->getWidth());
 }
 
 
@@ -74,23 +74,26 @@ bool Game::gameLoop()
 	Object Stone2("object/res/stone/glowstone.obj", glm::vec3(113.0f, floor.getHeight(113.0f, 59.0f), 59.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.4f);
 	Object Stone3("object/res/stone/glowstone.obj", glm::vec3(133.0f, floor.getHeight(133.0f, 58.0f), 58.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.5f);
 
+	Object PolyTerrain("object/res/terrain/polyTerrain.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f),10.0f);
+
 	// Hand.loadTexture("object/res/hand/hand.jpg");
 	Stone1.loadTexture("object/res/stone/stone.jpeg");
 	Stone2.loadTexture("object/res/stone/stone.jpeg");
 	Stone3.loadTexture("object/res/stone/stone.jpeg");
 
+	PolyTerrain.loadTexture("object/res/stone/stone.jpeg");
 	std::list<Terrain> terrains;
 	terrains.push_back(floor);
 	terrains.push_back(ceiling);
 
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
-	mRenderer->addToList(floor);
-	mRenderer->addToList(ceiling);
+	// mRenderer->addToList(floor);
+	// mRenderer->addToList(ceiling);
 
-	mRenderer->addToList(Stone1);
-	mRenderer->addToList(Stone2);
-	mRenderer->addToList(Stone3);
-
+	// mRenderer->addToList(Stone1);
+	// mRenderer->addToList(Stone2);
+	// mRenderer->addToList(Stone3);
+	mRenderer->addToList(PolyTerrain);
 	//mRenderer->addToList(Hand);
 
 
@@ -116,7 +119,7 @@ bool Game::gameLoop()
 
 	//**** LIGHT STUFF ****
 	//Light* sun = new Light(glm::vec3(250, 1, 250), glm::vec3(1, 1, 0), glm::vec3(1, 0.01, 0.002));
-	Light* sun = new Light(glm::vec3(0, 100000, 0), glm::vec3(0.1f, 0.1f, 0.1f));
+	Light* sun = new Light(glm::vec3(0, 100, 0), glm::vec3(1.0f, 0.5f, 0.5f));
 
 	// Blue
 	Light* stoneA = new Light(glm::vec3(98.0f, floor.getHeight(98.0f, 68.0f), 68.0f), glm::vec3(0.0f, 0.0f, 1.0f),glm::vec3(0.001f, 0.001f, 0.001f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
