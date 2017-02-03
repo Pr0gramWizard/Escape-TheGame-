@@ -145,6 +145,9 @@
     <Filter Include="Bloom\shader">
       <UniqueIdentifier>{8a8b8ce3-36e3-4fba-84da-e8453240d7c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Glowstone">
+      <UniqueIdentifier>{69e0894a-28e8-4eff-95ee-fc5db34b9486}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
