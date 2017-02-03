@@ -8,6 +8,7 @@ Light::Light(glm::vec3 pPosition, glm::vec3 pColor)
 	this->setDiscoColor(pColor);
 	this->setDiscoAttenuation(glm::vec3(1, 0, 0));
 	this->mDiscoTime = 0.0f;
+	this->mDiscoFrequency = 1.0f;
 }
 
 Light::Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation)
@@ -18,6 +19,7 @@ Light::Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation)
 	this->setDiscoColor(pColor);
 	this->setDiscoAttenuation(pAttenuation);
 	this->mDiscoTime = 0.0f;
+	this->mDiscoFrequency = 1.0f;
 }
 
 Light::Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm::vec3 pDiscoColor)
@@ -28,9 +30,10 @@ Light::Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm:
 	this->setDiscoColor(pDiscoColor);
 	this->setDiscoAttenuation(pAttenuation);
 	this->mDiscoTime = 0.0f;
+	this->mDiscoFrequency = 1.0f;
 }
 
-Light::Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm::vec3 pDiscoColor, float pDiscoOffset)
+Light::Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm::vec3 pDiscoColor, float pDiscoOffset, float pDiscoFrequency)
 {
 	this->setPosition(pPosition);
 	this->setColor(pColor);
@@ -38,6 +41,7 @@ Light::Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm:
 	this->setDiscoColor(pDiscoColor);
 	this->setDiscoAttenuation(pAttenuation);
 	this->mDiscoTime = pDiscoOffset;
+	this->mDiscoFrequency = pDiscoFrequency;
 }
 
 Light::Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm::vec3 pDiscoColor, glm::vec3 pDiscoAttenuation)
@@ -48,9 +52,10 @@ Light::Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm:
 	this->setDiscoColor(pDiscoColor);
 	this->setDiscoAttenuation(pDiscoAttenuation);
 	this->mDiscoTime = 0.0f;
+	this->mDiscoFrequency = 1.0f;
 }
 
-Light::Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm::vec3 pDiscoColor, glm::vec3 pDiscoAttenuation, float pDiscoOffset)
+Light::Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm::vec3 pDiscoColor, glm::vec3 pDiscoAttenuation, float pDiscoOffset, float pDiscoFrequency)
 {
 	this->setPosition(pPosition);
 	this->setColor(pColor);
@@ -58,6 +63,7 @@ Light::Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm:
 	this->setDiscoColor(pDiscoColor);
 	this->setDiscoAttenuation(pDiscoAttenuation);
 	this->mDiscoTime = pDiscoOffset;
+	this->mDiscoFrequency = pDiscoFrequency;
 }
 
 Light::~Light()
@@ -116,13 +122,13 @@ glm::vec3 Light::getAttenuation() const
 
 void Light::incDiscoTime(float pDelta)
 {
-	this->mDiscoTime += pDelta;
+	this->mDiscoTime += this->mDiscoFrequency * M_PI * pDelta;
 }
 
 glm::vec3 Light::getDiscoColor() const
 {
 	// used for formula sin(x)^2 + cos(x)^2 = 1 to interpolate between the vectors
-	float partDisco = cos(this->mDiscoTime);
+	float partDisco = sin(this->mDiscoTime);
 	partDisco *= partDisco;
 
 	glm::vec3 mix = glm::mix(this->mColor, this->mDiscoColor, partDisco);
@@ -133,7 +139,7 @@ glm::vec3 Light::getDiscoColor() const
 glm::vec3 Light::getDiscoAttenuation() const
 {
 	// used for formula sin(x)^2 + cos(x)^2 = 1 to interpolate between the vectors
-	float partDisco = cos(this->mDiscoTime);
+	float partDisco = sin(this->mDiscoTime);
 	partDisco *= partDisco;
 
 	glm::vec3 mix = glm::mix(this->mAttenuation, this->mDiscoAttenuation, partDisco);

@@ -6,15 +6,17 @@
 
 #include <iostream>
 
+# define M_PI 3.14159265358979323846
+
 class Light {
 
 public:
 	Light(glm::vec3 pPosition, glm::vec3 pColor);
 	Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation);
 	Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm::vec3 pDiscoColor);
-	Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm::vec3 pDiscoColor, float pDiscoOffset);
+	Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm::vec3 pDiscoColor, float pDiscoOffset, float pDiscoFrequency);
 	Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm::vec3 pDiscoColor, glm::vec3 pDiscoAttenuation);
-	Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm::vec3 pDiscoColor, glm::vec3 pDiscoAttenuation, float pDiscoOffset);
+	Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm::vec3 pDiscoColor, glm::vec3 pDiscoAttenuation, float pDiscoOffset, float pDiscoFrequency);
 	~Light();
 
 	// Setters
@@ -54,4 +56,6 @@ private:
 	glm::vec3 mDiscoAttenuation;
 	// Disco time
 	float mDiscoTime;
+	// Disco frequency (rounds per second)
+	float mDiscoFrequency;
 };
