@@ -20,6 +20,23 @@
 // Light class
 #include "../../light/light.hpp"
 
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
+// GLEW Library
+#include <glew.h>
+// Vector class
+#include <vector>
+// vec3
+#include <vec3.hpp>
+// mat4
+#include <mat4x4.hpp>
+// glm::value_prt
+#include <gtc/type_ptr.hpp>
+
+#define MAX_LIGHTS 4
+
 
 // Defintion of the class Shader
 class ObjectShader
@@ -56,7 +73,7 @@ public:
 	void loadModelMatrix(glm::mat4 pMatrix);
 	void loadProjectionMatrix(glm::mat4 pMatrix);
 	void loadViewMatrix(glm::mat4 pMatrix);
-	void loadLight(Light *pLight);
+	void loadLights(std::vector<Light*> pLights);
 	void loadPlane(glm::vec4 pVector);
 	void loadFogData(GLfloat pDensity, GLfloat pGradient);
 	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
@@ -75,9 +92,9 @@ private:
 	GLuint mLocation_modelMatrix;
 	GLuint mLocation_projectionMatrix;
 	GLuint mLocation_viewMatrix;
-	GLuint mLocation_lightPosition;
-	GLuint mLocation_lightColor;
-	GLuint mLocation_lightAttenuation;
+	GLuint mLocation_lightPosition[MAX_LIGHTS];
+	GLuint mLocation_lightColor[MAX_LIGHTS];
+	GLuint mLocation_lightAttenuation[MAX_LIGHTS];
 	GLuint mLocation_plane;
 	GLuint mLocation_fogDensity;
 	GLuint mLocation_fogGradient;

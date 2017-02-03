@@ -47,6 +47,11 @@ void ObjectRenderer::loadClipPlane(glm::vec4 pClipPlane)
 	mShader->loadPlane(pClipPlane);
 }
 
+void ObjectRenderer::loadLights(vector<Light*> pLights)
+{
+	mShader->loadLights(pLights);
+}
+
 void ObjectRenderer::startShader()
 {
 	mShader->use();
