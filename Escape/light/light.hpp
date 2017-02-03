@@ -2,6 +2,9 @@
 
 #include <vec3.hpp>
 #include <math.h>
+#include <glm.hpp>
+
+#include <iostream>
 
 class Light {
 
@@ -9,7 +12,9 @@ public:
 	Light(glm::vec3 pPosition, glm::vec3 pColor);
 	Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation);
 	Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm::vec3 pDiscoColor);
+	Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm::vec3 pDiscoColor, float pDiscoOffset);
 	Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm::vec3 pDiscoColor, glm::vec3 pDiscoAttenuation);
+	Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm::vec3 pDiscoColor, glm::vec3 pDiscoAttenuation, float pDiscoOffset);
 	~Light();
 
 	// Setters
