@@ -28,7 +28,7 @@ public:
 	void loadFogData(GLfloat pDensity, GLfloat pGradient);
 	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
 	void loadClipPlane(glm::vec4 pClipPlane);
-	void loadLights(vector<Light*> pLights);
+	void loadLights(vector<Light*> pLights, bool pDiscoTime);
 
 	// use or unuse the shader
 	void startShader();

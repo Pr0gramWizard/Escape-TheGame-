@@ -185,6 +185,22 @@ bool Game::gameLoop()
 		glEnable(GL_CLIP_DISTANCE0);
 		glEnable(GL_TEXTURE_2D);
 
+		// always use this light
+		lights.push_back(sun);
+
+		// put needed lights in the list
+		lights.push_back(stoneA);
+		lights.push_back(stoneB);
+		lights.push_back(stoneC);
+
+		bool discoTime = this->discoDiscoBoomBoom();
+		if (discoTime) {
+			for (Light* light : lights)
+			{
+				light->incDiscoTime(deltaTime);
+			}
+		}
+
 		// reflection
 		lfbos->bindReflectionFrameBuffer();
 		float distance = 2 * (mPlayer->getCameraPosition().y - lake->getWorldY());
@@ -204,14 +220,14 @@ bool Game::gameLoop()
 		// tell the player if he is under the lake
 		mPlayer->setIsBelowLake(isPlayerBelowLake);
 		// render to buffer
-		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, sign, 0, -sign * lake->getWorldY() - 0.4), Game::RED, Game::GREEN, Game::BLUE);
+		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, sign, 0, -sign * lake->getWorldY() - 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime);
 		// move camera back
 		mPlayer->getCamera()->incYPosition(distance);
 		mPlayer->getCamera()->invertPitch();
 
 		// refraction
 		lfbos->bindRefractionFrameBuffer();
-		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, -sign, 0, sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE);
+		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, -sign, 0, sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime);
 		// actual rendering
 	
 		glDisable(GL_CLIP_DISTANCE0);
@@ -223,12 +239,12 @@ bool Game::gameLoop()
 			
 			// sign is -1 if player is below the lake
 			
-			mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE);
+			mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime);
 			// Render Debug Information
 			mRenderer->renderDebugInformation();
 			// render water
 			lake->updateHeights(deltaTime);
-			lakerenderer->render(deltaTime, mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE);
+			lakerenderer->render(deltaTime, mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE, discoTime);
 		prebloomfbo->unbind();
 
 		// Blur bright fragments w/ two-pass Gaussian Blur
@@ -265,8 +281,9 @@ bool Game::gameLoop()
 		
 
 
+		// Clear lists
+		lights.clear();
 
-		
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
 		
@@ -368,6 +385,17 @@ void Game::do_movement()
 }
 
 
+void Game::toggleDisco()
+{
+	this->mDiscoMode = !!abs(this->mDiscoMode - 1);
+	std::cout << "Disco Mode toggled to: " << this->mDiscoMode << std::endl;
+}
+
+bool Game::discoDiscoBoomBoom()
+{
+	return this->mDiscoMode;
+}
+
 // Is called whenever a key is pressed/released via GLFW
 void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -405,6 +433,11 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 	{
 		bool NormalMode = !!abs(game->mRenderer->getNormalMode() - 1);
 		game->mRenderer->setNormalMode(NormalMode);
+	}
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_F8))
+	{
+		game->toggleDisco();
 	}
 
 }

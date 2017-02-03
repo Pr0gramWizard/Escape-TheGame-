@@ -44,7 +44,7 @@ public:
 	void loadModelMatrix(Terrain pTerrain);
 	void loadModelMatrix(Terrain* pTerrain);
 	void loadViewMatrix(glm::mat4 pViewMatrix);
-	void loadLights(vector<Light*> pLights);
+	void loadLights(vector<Light*> pLights, bool pDiscoTime);
 	void loadClipPlane(glm::vec4 pClipPlane);
 	void loadFogData(GLfloat pDensity, GLfloat pGradient);
 	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);

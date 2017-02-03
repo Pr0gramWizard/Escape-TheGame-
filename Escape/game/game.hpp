@@ -114,6 +114,10 @@ private:
 	// Sound Engine
 	irrklang::ISoundEngine* SoundEngine;
 
+	// Easter Eggs
+	bool mDiscoMode = false;
+	void toggleDisco();
+	bool discoDiscoBoomBoom();
 
 
 	// Functions

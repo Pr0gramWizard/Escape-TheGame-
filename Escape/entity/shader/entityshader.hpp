@@ -58,7 +58,7 @@ public:
 	void loadModelMatrix(glm::mat4 pMatrix);
 	void loadProjectionMatrix(glm::mat4 pMatrix);
 	void loadViewMatrix(glm::mat4 pMatrix);
-	void loadLights(std::vector<Light*> pLights);
+	void loadLights(std::vector<Light*> pLights, bool pDiscoTime);
 	void loadPlane(glm::vec4 pVector);
 	void loadFogData(GLfloat pDensity, GLfloat pGradient);
 	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);

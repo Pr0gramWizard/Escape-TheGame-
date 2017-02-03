@@ -72,7 +72,7 @@ public:
 	// Load View Matrix
 	void loadViewMatrix(glm::mat4 pViewMatrix);
 	// Load lights
-	void loadLights(std::vector<Light*> pLights);
+	void loadLights(std::vector<Light*> pLights, bool pDiscoTime);
 	// Load clipping plane
 	void loadClipPlane(glm::vec4 pClipPlane);
 	// Load fog data with given density and gradient

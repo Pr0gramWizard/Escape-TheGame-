@@ -26,11 +26,11 @@ LakeRenderer::~LakeRenderer()
 }
 
 // renders a single Lake
-void LakeRenderer::render(GLfloat pDeltaTime, glm::mat4 pViewMatrix, Lake &pLake, vector<Light*> pLights, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE)
+void LakeRenderer::render(GLfloat pDeltaTime, glm::mat4 pViewMatrix, Lake &pLake, vector<Light*> pLights, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime)
 {
 	this->startShader();
 	this->loadViewMatrix(pViewMatrix);
-	this->loadLights(pLights);
+	this->loadLights(pLights, pDiscoTime);
 	this->loadFogData(0.01f, 2.0f);
 	this->loadBackgroundColor(pRED, pGREEN, pBLUE);
 	//update lake distortion
@@ -114,9 +114,9 @@ void LakeRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
 	mShader->loadViewMatrix(pViewMatrix);
 }
 
-void LakeRenderer::loadLights(vector<Light*> pLights)
+void LakeRenderer::loadLights(vector<Light*> pLights, bool pDiscoTime)
 {
-	mShader->loadLights(pLights);
+	mShader->loadLights(pLights, pDiscoTime);
 }
 
 void LakeRenderer::loadFogData(GLfloat pDensity, GLfloat pGradient)

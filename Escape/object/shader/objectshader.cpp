@@ -328,18 +328,34 @@ void ObjectShader::loadViewMatrix(glm::mat4 pMatrix)
 	loadMatrix(mLocation_viewMatrix, pMatrix);
 }
 
-void ObjectShader::loadLights(std::vector<Light*> pLights)
+void ObjectShader::loadLights(std::vector<Light*> pLights, bool pDiscoTime)
 {
-	for (unsigned int i = 0; i < MAX_LIGHTS; ++i) {
-		if (i < pLights.size()) {
-			loadVector(mLocation_lightPosition[i], pLights[i]->getPosition());
-			loadVector(mLocation_lightColor[i], pLights[i]->getColor());
-			loadVector(mLocation_lightAttenuation[i], pLights[i]->getAttenuation());
+	if (pDiscoTime) {
+		for (unsigned int i = 0; i < MAX_LIGHTS; ++i) {
+			if (i < pLights.size()) {
+				loadVector(mLocation_lightPosition[i], pLights[i]->getPosition());
+				loadVector(mLocation_lightColor[i], pLights[i]->getDiscoColor());
+				loadVector(mLocation_lightAttenuation[i], pLights[i]->getDiscoAttenuation());
+			}
+			else {
+				loadVector(mLocation_lightPosition[i], glm::vec3(0, 0, 0));
+				loadVector(mLocation_lightColor[i], glm::vec3(0, 0, 0));
+				loadVector(mLocation_lightAttenuation[i], glm::vec3(1, 0, 0));
+			}
 		}
-		else {
-			loadVector(mLocation_lightPosition[i], glm::vec3(0, 0, 0));
-			loadVector(mLocation_lightColor[i], glm::vec3(0, 0, 0));
-			loadVector(mLocation_lightAttenuation[i], glm::vec3(1, 0, 0));
+	}
+	else {
+		for (unsigned int i = 0; i < MAX_LIGHTS; ++i) {
+			if (i < pLights.size()) {
+				loadVector(mLocation_lightPosition[i], pLights[i]->getPosition());
+				loadVector(mLocation_lightColor[i], pLights[i]->getColor());
+				loadVector(mLocation_lightAttenuation[i], pLights[i]->getAttenuation());
+			}
+			else {
+				loadVector(mLocation_lightPosition[i], glm::vec3(0, 0, 0));
+				loadVector(mLocation_lightColor[i], glm::vec3(0, 0, 0));
+				loadVector(mLocation_lightAttenuation[i], glm::vec3(1, 0, 0));
+			}
 		}
 	}
 }

@@ -150,9 +150,9 @@ void EntityRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
 }
 
 // Load list of lights
-void EntityRenderer::loadLights(std::vector<Light*> pLights)
+void EntityRenderer::loadLights(std::vector<Light*> pLights, bool pDiscoTime)
 {
-	mShader->loadLights(pLights);
+	mShader->loadLights(pLights, pDiscoTime);
 }
 
 // Load clipping plane

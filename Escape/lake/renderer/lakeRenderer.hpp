@@ -37,7 +37,7 @@ public:
 	void loadNormalMap(const char* pFile);
 
 	// render methods
-	void render(GLfloat pDeltaTime, glm::mat4 pViewMatrix, Lake &pTerrain, vector<Light*> pLights, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE);
+	void render(GLfloat pDeltaTime, glm::mat4 pViewMatrix, Lake &pTerrain, vector<Light*> pLights, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime);
 
 	// methods that get called before the acutal rendering
 	void prepareLake(Lake pLake);
@@ -50,7 +50,7 @@ public:
 	void loadModelMatrix(Lake pLake);
 	void loadModelMatrix(Lake* pLake);
 	void loadViewMatrix(glm::mat4 pViewMatrix);
-	void loadLights(vector<Light*> pLights);
+	void loadLights(vector<Light*> pLights, bool pDiscoTime);
 	void loadFogData(GLfloat pDensity, GLfloat pGradient);
 	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
 	void loadNearFar(GLfloat pNear, GLfloat pFar);

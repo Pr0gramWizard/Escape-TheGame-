@@ -118,9 +118,9 @@ void TerrainRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
 	mShader->loadViewMatrix(pViewMatrix);
 }
 
-void TerrainRenderer::loadLights(vector<Light*> pLights)
+void TerrainRenderer::loadLights(vector<Light*> pLights, bool pDiscoTime)
 {
-	mShader->loadLights(pLights);
+	mShader->loadLights(pLights, pDiscoTime);
 }
 
 void TerrainRenderer::loadClipPlane(glm::vec4 pClipPlane)
