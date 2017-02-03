@@ -20,8 +20,7 @@ void main()
 	gl_ClipDistance[0] = dot(worldPosition, plane);
     gl_Position = projection * view * worldPosition;
 
-	// use inverted normal because light is inside ? -> not all objects
-	surfaceNormal = mat3(transpose(inverse(model))) * (-normal);
+	surfaceNormal = mat3(transpose(inverse(model))) * normal;
 
 	viewPos = (inverse(view) * vec4(0.0,0.0,0.0,1.0)).xyz;
     fragPos = vec3(worldPosition);
