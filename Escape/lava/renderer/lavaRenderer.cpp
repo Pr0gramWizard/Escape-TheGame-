@@ -1,7 +1,7 @@
 #include "lavaRenderer.hpp"
 
 const char* LavaRenderer::DUDV_MAP = "Lava/res/dudv.png";
-const char* LavaRenderer::LAVA_TEXTURE = "Lava/res/red_poly.png";
+const char* LavaRenderer::LAVA_TEXTURE = "Lava/res/lava256_poly.png";
 const float LavaRenderer::LAVA_WAVE_MOVEMENT_SPEED = 0.03f;
 
 // constructor

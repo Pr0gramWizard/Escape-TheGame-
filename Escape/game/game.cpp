@@ -133,7 +133,7 @@ bool Game::gameLoop()
 	Light* sun = new Light(glm::vec3(0, 100, 0), glm::vec3(1.0f, 1.0f, 1.0f));
 
 	// Blue
-	Light* stoneA = new Light(glm::vec3(98.0f, floor.getHeight(98.0f, 68.0f), 68.0f), glm::vec3(0.0f, 0.0f, 1.0f),glm::vec3(0.001f, 0.001f, 0.001f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
+	Light* stoneA = new Light(glm::vec3(20.0f, -2.0f, 0.0f), glm::vec3(0.8f, 0.2f, 0.0f),glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
 	// Green
 	Light* stoneB = new Light(glm::vec3(113.0f, floor.getHeight(113.0f, 59.0f), 59.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.003f, 0.003f, 0.003f), glm::vec3(0.0f,0.0f,0.5f), 0.5f, 0.3f);
 	// Red
