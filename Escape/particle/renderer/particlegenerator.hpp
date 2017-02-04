@@ -31,7 +31,7 @@ struct Particle {
 class ParticleGenerator
 {
 public:
-	ParticleGenerator(ParticleShader* pShader);
+	ParticleGenerator(ParticleShader* pShader, glm::mat4 pProjectionMatrix, GLuint pAmount);
 	void render(glm::mat4 pViewMatrix);
 	void cleanUp();
 	~ParticleGenerator();

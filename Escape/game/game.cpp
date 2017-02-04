@@ -153,6 +153,11 @@ bool Game::gameLoop()
 
 	SoundEngine->setSoundVolume(0.1f);
 
+	/*TEST*/
+	ParticleShader *particleshader = new ParticleShader("shaders/particle.vert", "shaders/particle.frag");
+	ParticleGenerator *Particles;
+	Particles = new ParticleGenerator(particleshader, mPlayer->getProjectionMatrix(), 25);
+
 	GLfloat lastTime = (GLfloat) glfwGetTime();
 
 	int frames = 0;
@@ -187,6 +192,8 @@ bool Game::gameLoop()
 		// Calculating the player movement
 		mPlayer->move(&floor,&ceiling, deltaTime);	
 
+		Particles->update(deltaTime, glm::vec3(0.0f, 1.0f, 0.0f), 2);
+
 
 		// glEnable(GL_CLIP_DISTANCE0);
 		// glEnable(GL_TEXTURE_2D);
@@ -209,6 +216,7 @@ bool Game::gameLoop()
 		}
 
 		mRenderer->render(mPlayer->getViewMatrix(), false, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime);
+		Particles->render(mPlayer->getViewMatrix());
 
 		/*
 		// reflection

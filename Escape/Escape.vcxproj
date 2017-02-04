@@ -114,6 +114,8 @@
     <None Include="shaders\lake.vert" />
     <None Include="shaders\object.frag" />
     <None Include="shaders\object.vert" />
+    <None Include="shaders\particle.frag" />
+    <None Include="shaders\particle.vert" />
     <None Include="shaders\skybox.frag" />
     <None Include="shaders\skybox.vert" />
     <None Include="shaders\terrain.frag" />
