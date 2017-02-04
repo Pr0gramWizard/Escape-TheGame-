@@ -18,7 +18,9 @@ const float dudvTiling = 5.0;
 
 void main()
 {
-	vec4 worldPosition = model * vec4(position, 1.0f);
+	vec3 newPosition = position;
+	newPosition.y -= 0.5f;
+	vec4 worldPosition = model * vec4(newPosition, 1.0f);
 	fragPos = vec3(worldPosition);
 	viewPos = (inverse(view) * vec4(0.0,0.0,0.0,1.0)).xyz;
 	for(int i = 0; i < 4; i++){

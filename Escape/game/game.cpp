@@ -115,7 +115,7 @@ bool Game::gameLoop()
 	//**** LAVA STUFF ****
 	LavaShader* lavashader = new LavaShader("shaders/lava.vert", "shaders/lava.frag");
 	LavaRenderer* lavarenderer = new LavaRenderer(lavashader, mPlayer->getProjectionMatrix());
-	Lava* lava = new Lava(84, 0, 28, 4, "Lava", loader);
+	Lava* lava = new Lava(11, 0, -13, 4, "Lava", loader);
 	//**** END LAKE STUFF ****
 
 	//**** BLUR STUFF ****
@@ -223,7 +223,6 @@ bool Game::gameLoop()
 				light->incDiscoTime(deltaTime);
 			}
 		}
-
 		mRenderer->render(mPlayer->getViewMatrix(), false, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime);
 		lavarenderer->render(deltaTime, mPlayer->getViewMatrix(), *lava, lights, Game::RED, Game::GREEN, Game::BLUE, discoTime);
 		//Particles->render(mPlayer->getViewMatrix());
