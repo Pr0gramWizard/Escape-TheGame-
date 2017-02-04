@@ -224,7 +224,6 @@ bool Game::gameLoop()
 			}
 		}
 		//Particles->render(mPlayer->getViewMatrix());
-
 		
 		// reflection
 		lfbos->bindReflectionFrameBuffer();
@@ -257,7 +256,9 @@ bool Game::gameLoop()
 	
 		glDisable(GL_CLIP_DISTANCE0);
 		lfbos->unbindCurrentFrameBuffer();
-		mRenderer->render(mPlayer->getViewMatrix(), false, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime);
+		
+		
+		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime);
 		mRenderer->renderDebugInformation();
 		// render water
 		lake->updateHeights(deltaTime);
