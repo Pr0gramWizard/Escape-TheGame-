@@ -105,5 +105,5 @@ void main()
 	}
 
 	//color = vec4(spotColor,1.0);
-	color = texture(reflectionTexture, reflectionTexCoords);
+	color = mix(texture(reflectionTexture, reflectionTexCoords), texture(refractionTexture, refractionTexCoords), 0.5);
 }

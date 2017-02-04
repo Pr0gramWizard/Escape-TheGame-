@@ -204,7 +204,7 @@ bool Game::gameLoop()
 		Particles->update(deltaTime, glm::vec3(0.0f, 1.0f, 0.0f), 2);
 
 
-		// glEnable(GL_CLIP_DISTANCE0);
+		glEnable(GL_CLIP_DISTANCE0);
 		// glEnable(GL_TEXTURE_2D);
 
 		// always use this light
@@ -258,7 +258,7 @@ bool Game::gameLoop()
 		lfbos->unbindCurrentFrameBuffer();
 		
 		
-		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime);
+		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, sign, 0, -sign * lake->getWorldY() - 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime);
 		mRenderer->renderDebugInformation();
 		// render water
 		lake->updateHeights(deltaTime);
