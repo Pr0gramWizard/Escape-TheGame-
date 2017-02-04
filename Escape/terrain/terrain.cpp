@@ -32,6 +32,7 @@ Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const ch
 
 }
 
+
 Terrain::~Terrain()
 {
 	std::cout << "Terrainloader was stopped successfully!" << std::endl;
