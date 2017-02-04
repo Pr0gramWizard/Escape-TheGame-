@@ -62,14 +62,7 @@ public:
 	void loadFogData(GLfloat pDensity, GLfloat pGradient);
 	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
 	void loadNearFar(GLfloat pNear, GLfloat pFar);
-
-	//load spotlight
-	void loadLavaSpotLightPosition(glm::vec3 pPos);
-	void loadLavaSpotLightColor(glm::vec3 pColor);
-	void loadLavaSpotLightFactor(GLfloat pFactor);
-	void loadLavaSpotLightTarget(glm::vec3 pTarget);
-
-	void loadWaterMoveFactor(GLfloat pFactor);
+	void loadLavaMoveFactor(GLfloat pFactor);
 
 	// connect texture units
 	void connectTextureUnits();
@@ -91,22 +84,14 @@ private:
 	GLuint mLocation_lightPosition[MAX_LIGHTS];
 	GLuint mLocation_lightColor[MAX_LIGHTS];
 	GLuint mLocation_lightAttenuation[MAX_LIGHTS];
-	GLuint mLocation_reflectionTexture;
-	GLuint mLocation_refractionTexture;
-	GLuint mLocation_depthMap;
 	GLuint mLocation_fogDensity;
 	GLuint mLocation_fogGradient;
 	GLuint mLocation_backgroundColor;
 	GLuint mLocation_near;
 	GLuint mLocation_far;
 	GLuint mLocation_dudvMap;
-	GLuint mLocation_waterMoveFactor;
-	GLuint mLocation_normalMap;
-
-	GLuint mLocation_LavaSpotLightPosition;
-	GLuint mLocation_LavaSpotLightColor;
-	GLuint mLocation_LavaSpotLightTarget;
-	GLuint mLocation_LavaSpotLightFactor;
+	GLuint mLocation_lavaMoveFactor;
+	GLuint mLocation_lavaTexture;
 
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);

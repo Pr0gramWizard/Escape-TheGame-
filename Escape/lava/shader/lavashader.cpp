@@ -385,37 +385,14 @@ void LavaShader::loadNearFar(GLfloat pNear, GLfloat pFar)
 	this->loadFloat(mLocation_far, pFar);
 }
 
-void LavaShader::loadLavaSpotLightPosition(glm::vec3 pPos)
-{
-	this->loadVector(mLocation_LavaSpotLightPosition, pPos);
-}
-
-void LavaShader::loadLavaSpotLightColor(glm::vec3 pColor)
-{
-	this->loadVector(mLocation_LavaSpotLightColor, pColor);
-}
-
-void LavaShader::loadLavaSpotLightFactor(GLfloat pFactor)
-{
-	this->loadFloat(mLocation_LavaSpotLightFactor, pFactor);
-}
-
-void LavaShader::loadLavaSpotLightTarget(glm::vec3 pTarget)
-{
-	this->loadVector(mLocation_LavaSpotLightTarget, pTarget);
-}
-
-void LavaShader::loadWaterMoveFactor(GLfloat pFactor) {
-	this->loadFloat(mLocation_waterMoveFactor, pFactor);
+void LavaShader::loadLavaMoveFactor(GLfloat pFactor) {
+	this->loadFloat(mLocation_lavaMoveFactor, pFactor);
 }
 
 void LavaShader::connectTextureUnits()
 {
-	this->loadInt(mLocation_reflectionTexture, 0);
-	this->loadInt(mLocation_refractionTexture, 1);
-	this->loadInt(mLocation_depthMap, 2);
-	this->loadInt(mLocation_dudvMap, 3);
-	this->loadInt(mLocation_normalMap, 4);
+	this->loadInt(mLocation_lavaTexture, 0);
+	this->loadInt(mLocation_dudvMap, 1);
 }
 
 // Destructor
@@ -430,21 +407,15 @@ void LavaShader::getAllUniformLocations()
 	mLocation_modelMatrix = glGetUniformLocation(getProgramID(), "model");
 	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projection");
 	mLocation_viewMatrix = glGetUniformLocation(getProgramID(), "view");
-	mLocation_reflectionTexture = glGetUniformLocation(getProgramID(), "reflectionTexture");
-	mLocation_refractionTexture = glGetUniformLocation(getProgramID(), "refractionTexture");
-	mLocation_depthMap = glGetUniformLocation(getProgramID(), "depthMap");
 	mLocation_fogDensity = glGetUniformLocation(getProgramID(), "fogDensity");
 	mLocation_fogGradient = glGetUniformLocation(getProgramID(), "fogGradient");
 	mLocation_backgroundColor = glGetUniformLocation(getProgramID(), "backgroundColor");
 	mLocation_near = glGetUniformLocation(getProgramID(), "near");
     mLocation_far = glGetUniformLocation(getProgramID(), "far");
+	mLocation_lavaTexture = glGetUniformLocation(getProgramID(), "lavaTexture");
 	mLocation_dudvMap = glGetUniformLocation(getProgramID(), "dudvMap");
-	mLocation_waterMoveFactor = glGetUniformLocation(getProgramID(), "waterMoveFactor");
-	mLocation_normalMap = glGetUniformLocation(getProgramID(), "normalMap");
-	mLocation_LavaSpotLightPosition = glGetUniformLocation(getProgramID(), "LavaSpotLightPosition");
-	mLocation_LavaSpotLightColor = glGetUniformLocation(getProgramID(), "LavaSpotLightColor");
-	mLocation_LavaSpotLightTarget = glGetUniformLocation(getProgramID(), "LavaSpotLightTarget");;
-	mLocation_LavaSpotLightFactor = glGetUniformLocation(getProgramID(), "LavaSpotLightFactor");;
+	mLocation_lavaMoveFactor = glGetUniformLocation(getProgramID(), "lavaMoveFactor");
+	
 	// Light locations
 	const char* lightPos[] = {
 		"lightPosition[0]",

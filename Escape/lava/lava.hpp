@@ -27,14 +27,11 @@ public:
 	const char* getName();
 
 	// Setter functions
-	void setAmplitude(int pAmplitude);
 	void setName(const char* pName);
 
 	glm::mat4 getModelMatrix();
 	Model* getModel();
 	void setModel(Model* pModel);
-
-	void updateHeights(GLfloat pDeltaTime);
 public:
 	static const int LAVA_SIZE;
 
@@ -42,25 +39,15 @@ private:
 	int mWorldX;
 	int mWorldY;
 	int mWorldZ;
-	int mAmplitude;
 	// Getters & Setters needed? Maybe static
 	int mVertices;
 	float mGridSize;
 	const char* mName;
 	Model mModel;
-	vector<float> mHeights;
-	vector<float> mVelocity;
-	vector<float> mVaryingPositions;
-	vector<float> mVaryingNormals;
 	GLuint mPosVbo;
 	GLuint mNormalVbo;
 
 private:
 	Model generateLava(Loader* loader);
-	void initLava(Loader* loader);
-	GLfloat getVertexHeight(int pVertexX, int pVertexZ);
-	void updateVelocities();
-	void updateNormals();
-	void updatePositionVBO();
 };
 
