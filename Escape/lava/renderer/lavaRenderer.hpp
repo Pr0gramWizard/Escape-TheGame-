@@ -53,13 +53,8 @@ public:
 	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
 	void loadNearFar(GLfloat pNear, GLfloat pFar);
 
-	void loadWaterMoveFactor(GLfloat pFactor);
+	void loadLavaMoveFactor(GLfloat pFactor);
 
-	//load spotlight
-	void loadLavaSpotLightPosition(glm::vec3 pPos);
-	void loadLavaSpotLightColor(glm::vec3 pColor);
-	void loadLavaSpotLightFactor(GLfloat pFactor);
-	void loadLavaSpotLightTarget(glm::vec3 pTarget);
 
 	// use or unuse the shader
 	void startShader();

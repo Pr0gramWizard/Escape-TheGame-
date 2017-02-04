@@ -37,7 +37,7 @@ void LavaRenderer::render(GLfloat pDeltaTime, glm::mat4 pViewMatrix, Lava &pLava
 	if(mLavaMoveFactor >= 1.0f) {
 		mLavaMoveFactor = 0.0f;
 	}
-	this->loadWaterMoveFactor(mLavaMoveFactor);
+	this->loadLavaMoveFactor(mLavaMoveFactor);
 	prepareLava(&pLava);
 	loadModelMatrix(&pLava);
 	glDisable(GL_CULL_FACE);
@@ -133,28 +133,8 @@ void LavaRenderer::loadNearFar(GLfloat pNear, GLfloat pFar)
 	mShader->loadNearFar(pNear, pFar);
 }
 
-void LavaRenderer::loadWaterMoveFactor(GLfloat pFactor) {
-	mShader->loadWaterMoveFactor(pFactor);
-}
-
-void LavaRenderer::loadLavaSpotLightPosition(glm::vec3 pPos)
-{
-	this->mShader->loadLavaSpotLightPosition(pPos);
-}
-
-void LavaRenderer::loadLavaSpotLightColor(glm::vec3 pColor)
-{
-	this->mShader->loadLavaSpotLightColor(pColor);
-}
-
-void LavaRenderer::loadLavaSpotLightFactor(GLfloat pFactor)
-{
-	this->mShader->loadLavaSpotLightFactor(pFactor);
-}
-
-void LavaRenderer::loadLavaSpotLightTarget(glm::vec3 pTarget)
-{
-	this->mShader->loadLavaSpotLightTarget(pTarget);
+void LavaRenderer::loadLavaMoveFactor(GLfloat pFactor) {
+	mShader->loadLavaMoveFactor(pFactor);
 }
 
 void LavaRenderer::startShader()
