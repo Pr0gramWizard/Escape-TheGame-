@@ -34,6 +34,9 @@
     <ClCompile Include="lake\lake.cpp" />
     <ClCompile Include="lake\renderer\lakeRenderer.cpp" />
     <ClCompile Include="lake\shader\lakeshader.cpp" />
+    <ClCompile Include="lava\lava.cpp" />
+    <ClCompile Include="lava\renderer\lavaRenderer.cpp" />
+    <ClCompile Include="lava\shader\lavashader.cpp" />
     <ClCompile Include="light\light.cpp" />
     <ClCompile Include="light\spotlight.cpp" />
     <ClCompile Include="loader\loader.cpp" />
@@ -76,6 +79,9 @@
     <ClInclude Include="lake\lake.hpp" />
     <ClInclude Include="lake\renderer\lakeRenderer.hpp" />
     <ClInclude Include="lake\shader\lakeshader.hpp" />
+    <ClInclude Include="lava\lava.hpp" />
+    <ClInclude Include="lava\renderer\lavaRenderer.hpp" />
+    <ClInclude Include="lava\shader\lavashader.hpp" />
     <ClInclude Include="light\light.hpp" />
     <ClInclude Include="light\spotlight.hpp" />
     <ClInclude Include="loader\loader.hpp" />

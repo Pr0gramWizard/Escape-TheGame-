@@ -148,6 +148,15 @@
     <Filter Include="Glowstone">
       <UniqueIdentifier>{69e0894a-28e8-4eff-95ee-fc5db34b9486}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lava">
+      <UniqueIdentifier>{1284c8c0-0c45-4ec5-a74f-a0b0b2b0e060}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lava\renderer">
+      <UniqueIdentifier>{52b89344-b799-4e85-a077-dc5d7125702c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lava\shader">
+      <UniqueIdentifier>{d4f3bc75-33f9-497c-8a2d-ea05e84b861d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -268,6 +277,15 @@
     <ClCompile Include="particle\renderer\particlegenerator.cpp">
       <Filter>Particles\renderer</Filter>
     </ClCompile>
+    <ClCompile Include="lava\renderer\lavaRenderer.cpp">
+      <Filter>Lava\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="lava\shader\lavashader.cpp">
+      <Filter>Lava\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="lava\lava.cpp">
+      <Filter>Lava</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -384,6 +402,15 @@
     </ClInclude>
     <ClInclude Include="particle\renderer\particlegenerator.hpp">
       <Filter>Particles\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="lava\renderer\lavaRenderer.hpp">
+      <Filter>Lava\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="lava\shader\lavashader.hpp">
+      <Filter>Lava\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="lava\lava.hpp">
+      <Filter>Lava</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
