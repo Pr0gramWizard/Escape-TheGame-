@@ -109,7 +109,7 @@ bool Game::gameLoop()
 	LakeFrameBuffers* lfbos = new LakeFrameBuffers(mWidth, mHeight);
 	LakeShader* lakeshader = new LakeShader("shaders/lake.vert", "shaders/lake.frag");
 	LakeRenderer* lakerenderer = new LakeRenderer(lakeshader, mPlayer->getProjectionMatrix(), lfbos);
-	Lake* lake = new Lake(84, -2, 28, 50, 100, "Lake", loader);
+	Lake* lake = new Lake(-22, -1, -40, 50, 50, "Lake", loader);
 	//**** END LAKE STUFF ****
 
 	//**** LAVA STUFF ****
@@ -223,11 +223,8 @@ bool Game::gameLoop()
 				light->incDiscoTime(deltaTime);
 			}
 		}
-		mRenderer->render(mPlayer->getViewMatrix(), false, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime);
-		lavarenderer->render(deltaTime, mPlayer->getViewMatrix(), *lava, lights, Game::RED, Game::GREEN, Game::BLUE, discoTime);
 		//Particles->render(mPlayer->getViewMatrix());
-
-		/*
+		
 		// reflection
 		lfbos->bindReflectionFrameBuffer();
 		float distance = 2 * (mPlayer->getCameraPosition().y - lake->getWorldY());
@@ -259,7 +256,17 @@ bool Game::gameLoop()
 	
 		glDisable(GL_CLIP_DISTANCE0);
 		lfbos->unbindCurrentFrameBuffer();
+		
+		
+		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime);
+		mRenderer->renderDebugInformation();
+		// render water
+		lake->updateHeights(deltaTime);
+		lakerenderer->render(deltaTime, mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE, discoTime);
+		// render lava
+		lavarenderer->render(deltaTime, mPlayer->getViewMatrix(), *lava, lights, Game::RED, Game::GREEN, Game::BLUE, discoTime);
 
+		/*
 		//render to prebloomfbo
 		prebloomfbo->bind();
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -305,9 +312,10 @@ bool Game::gameLoop()
 			finalbloomshader->loadExposure(1.0f);
 			RenderQuad();
 		finalbloomshader->unuse();
-		
 
 		*/
+		
+
 		// Clear lists
 		lights.clear();
 

@@ -41,9 +41,9 @@ void LakeRenderer::render(GLfloat pDeltaTime, glm::mat4 pViewMatrix, Lake &pLake
 	this->loadWaterMoveFactor(mLakeMoveFactor);
 	prepareLake(&pLake);
 	loadModelMatrix(&pLake);
-	glDisable(GL_CULL_FACE);
+	//glDisable(GL_CULL_FACE);
 	glDrawElements(GL_TRIANGLES, pLake.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 	unbindLake();
 	this->stopShader();
 }
