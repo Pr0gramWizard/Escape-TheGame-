@@ -115,7 +115,7 @@ bool Game::gameLoop()
 	//**** LAVA STUFF ****
 	LavaShader* lavashader = new LavaShader("shaders/lava.vert", "shaders/lava.frag");
 	LavaRenderer* lavarenderer = new LavaRenderer(lavashader, mPlayer->getProjectionMatrix());
-	Lava* lava = new Lava(11, 0, -13, 4, "Lava", loader);
+	Lava* lava = new Lava(11, 0, -14, 4, "Lava", loader);
 	//**** END LAKE STUFF ****
 
 	//**** BLUR STUFF ****
