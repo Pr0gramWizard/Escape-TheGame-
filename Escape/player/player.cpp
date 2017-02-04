@@ -108,7 +108,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	this->incPosition(glm::vec3(dx, 0, dz));
 
 	// Collision detection
-
+	/*
 	float terrainHeight;
 	float nextTerrainHeight = pFloor->getHeight(mPosition.x, mPosition.z);
 	float angle = atan((nextTerrainHeight - mPosition.y)/sqrt(dx * dx + dz * dz));
@@ -180,7 +180,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	}
 
 	
-
+	*/
 
 	// Set camera's new position
 	mEye->setPosition(this->getPosition() + glm::vec3(0, this->getHeight(), 0));
