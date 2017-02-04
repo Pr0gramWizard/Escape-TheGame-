@@ -75,7 +75,7 @@ bool Game::gameLoop()
 	Object Stone3("object/res/stone/glowstone.obj", glm::vec3(133.0f, floor.getHeight(133.0f, 58.0f), 58.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.5f);
 
 	Object PolyTerrain("object/res/terrain/NoHoles.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f),1.0f);
-	Object PolyFloor("object/res/terrain/TestFloor.obj", glm::vec3(0.0f, 0.6f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 1.0f);
+	Object PolyFloor("object/res/terrain/TestFloor.obj", glm::vec3(0.0f, 0.3f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 1.0f);
 
 	// Hand.loadTexture("object/res/hand/hand.jpg");
 	Stone1.loadTexture("object/res/stone/stone.jpeg");
