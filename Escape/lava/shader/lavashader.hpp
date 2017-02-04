@@ -24,12 +24,12 @@
 
 using namespace std;
 // Defintion of the class Shader
-class LakeShader
+class LavaShader
 {
 	// All public member of the class 
 public:
 	// Constructor
-	LakeShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
+	LavaShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
 	// Compile Shader
 	void createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath);
 	// Bind attribute
@@ -64,10 +64,10 @@ public:
 	void loadNearFar(GLfloat pNear, GLfloat pFar);
 
 	//load spotlight
-	void loadLakeSpotLightPosition(glm::vec3 pPos);
-	void loadLakeSpotLightColor(glm::vec3 pColor);
-	void loadLakeSpotLightFactor(GLfloat pFactor);
-	void loadLakeSpotLightTarget(glm::vec3 pTarget);
+	void loadLavaSpotLightPosition(glm::vec3 pPos);
+	void loadLavaSpotLightColor(glm::vec3 pColor);
+	void loadLavaSpotLightFactor(GLfloat pFactor);
+	void loadLavaSpotLightTarget(glm::vec3 pTarget);
 
 	void loadWaterMoveFactor(GLfloat pFactor);
 
@@ -75,7 +75,7 @@ public:
 	void connectTextureUnits();
 
 	// Destructor
-	~LakeShader();
+	~LavaShader();
 
 	// All private member of the class
 private:
@@ -103,10 +103,10 @@ private:
 	GLuint mLocation_waterMoveFactor;
 	GLuint mLocation_normalMap;
 
-	GLuint mLocation_lakeSpotLightPosition;
-	GLuint mLocation_lakeSpotLightColor;
-	GLuint mLocation_lakeSpotLightTarget;
-	GLuint mLocation_lakeSpotLightFactor;
+	GLuint mLocation_LavaSpotLightPosition;
+	GLuint mLocation_LavaSpotLightColor;
+	GLuint mLocation_LavaSpotLightTarget;
+	GLuint mLocation_LavaSpotLightFactor;
 
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);

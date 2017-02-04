@@ -1,9 +1,8 @@
-#include "lake.hpp"
+#include "lava.hpp"
 
-const int Lake::LAKE_SIZE = 64;
-const GLfloat Lake::LAKE_COEFFICIENT = 7.0f;
+const int Lava::LAVA_SIZE = 64;
 
-Lake::Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices, const char * pName, Loader * pLoader)
+Lava::Lava(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices, const char * pName, Loader * pLoader)
 {
 	mWorldX = pWorldX;
 	mWorldY = pWorldY;
@@ -12,67 +11,67 @@ Lake::Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices,
 	mVertices = pVertices;
 	this->setName(pName);
 
-	this->initLake(pLoader);
-	this->setModel(&this->generateLake(pLoader));
+	this->initLava(pLoader);
+	this->setModel(&this->generateLava(pLoader));
 	mPosVbo = (GLuint) pLoader->getLastVbos().y;
 	mNormalVbo = (GLuint) pLoader->getLastVbos().z;
 }
 
-Lake::~Lake()
+Lava::~Lava()
 {
 }
 
-int Lake::getWorldX() const
+int Lava::getWorldX() const
 {
 	return mWorldX;
 }
 
-int Lake::getWorldY() const
+int Lava::getWorldY() const
 {
 	return mWorldY;
 }
 
-int Lake::getWorldZ() const
+int Lava::getWorldZ() const
 {
 	return mWorldZ;
 }
 
-glm::vec3 Lake::getWorldPos() const
+glm::vec3 Lava::getWorldPos() const
 {
 	return glm::vec3(mWorldX, mWorldY, mWorldZ);
 }
 
-const char * Lake::getName()
+const char * Lava::getName()
 {
 	return mName;
 }
 
-void Lake::setAmplitude(int pAmplitude)
+void Lava::setAmplitude(int pAmplitude)
 {
 	mAmplitude = pAmplitude;
 }
 
-void Lake::setName(const char * pName)
+void Lava::setName(const char * pName)
 {
 	mName = pName;
 }
 
-glm::mat4 Lake::getModelMatrix()
+glm::mat4 Lava::getModelMatrix()
 {
 	return Math::getTransformationMatrix(glm::vec3(mWorldX, 0, mWorldZ), 0, 0, 0, 1);
 }
 
-Model * Lake::getModel()
+Model * Lava::getModel()
 {
 	return &mModel;
 }
 
-void Lake::setModel(Model * pModel)
+void Lava::setModel(Model * pModel)
 {
 	mModel = *pModel;
 }
 
-GLfloat Lake::getVertexHeight(int pVertexX, int pVertexZ)
+GLfloat Lava::getVertexHeight(int pVertexX, int pVertexZ)
 {
 	if (pVertexX < 0)
 	{
@@ -95,7 +94,7 @@ GLfloat Lake::getVertexHeight(int pVertexX, int pVertexZ)
 	return mHeights[pVertexZ * mVertices + pVertexX];
 }
 
-void Lake::initLake(Loader * loader)
+void Lava::initLava(Loader * loader)
 {
 	mVelocity = vector<float>(mVertices * mVertices, 0.0f);
 	mHeights = vector<float>(mVertices * mVertices, (float) this->getWorldY());
@@ -117,19 +116,19 @@ void Lake::initLake(Loader * loader)
 	}*/
 }
 
-Model Lake::generateLake(Loader * loader)
+Model Lava::generateLava(Loader * loader)
 {
 	// set grid size
-	mGridSize = (float)Lake::LAKE_SIZE / (mVertices - 1);
+	mGridSize = (float)Lava::LAVA_SIZE / (mVertices - 1);
 	int count = mVertices * mVertices;
 	std::vector<float> textureCoords(count * 2);
 	std::vector<int> indices(6 * (mVertices - 1)*(mVertices - 1));
 	int vertexPointer = 0;
 	for (int z = 0;z<mVertices;z++) {
 		for (int x = 0;x<mVertices;x++) {
-			mVaryingPositions[vertexPointer * 3] = (float)x / ((float)mVertices - 1) * Lake::LAKE_SIZE;
+			mVaryingPositions[vertexPointer * 3] = (float)x / ((float)mVertices - 1) * Lava::LAVA_SIZE;
 			mVaryingPositions[vertexPointer * 3 + 1] = this->getVertexHeight(x, z);
-			mVaryingPositions[vertexPointer * 3 + 2] = (float)z / ((float)mVertices - 1) * Lake::LAKE_SIZE;
+			mVaryingPositions[vertexPointer * 3 + 2] = (float)z / ((float)mVertices - 1) * Lava::LAVA_SIZE;
 			mVaryingNormals[vertexPointer * 3] = 0;
 			mVaryingNormals[vertexPointer * 3 + 1] = 1;
 			mVaryingNormals[vertexPointer * 3 + 2] = 0;
@@ -157,17 +156,17 @@ Model Lake::generateLake(Loader * loader)
 	return loader->loadDataToVao(mVaryingPositions, textureCoords, mVaryingNormals, indices);
 }
 
-void Lake::updateVelocities()
+void Lava::updateVelocities()
 {
 	for (int z = 1;z < mVertices - 1;z++) {
 		for (int x = 1;x < mVertices - 1;x++) {
-			mVelocity[z * mVertices + x] += LAKE_COEFFICIENT*((this->getVertexHeight(x - 1, z) + this->getVertexHeight(x + 1, z) + this->getVertexHeight(x, z - 1) + this->getVertexHeight(x, z + 1)) / 4 - this->getVertexHeight(x, z));
+			mVelocity[z * mVertices + x] += ((this->getVertexHeight(x - 1, z) + this->getVertexHeight(x + 1, z) + this->getVertexHeight(x, z - 1) + this->getVertexHeight(x, z + 1)) / 4 - this->getVertexHeight(x, z));
 			mVelocity[z * mVertices + x] *= 0.99f;
 		}
 	}
 }
 
-void Lake::updateNormals()
+void Lava::updateNormals()
 {
 	int vertexPointer = 0;
 	// update the normals
@@ -190,7 +189,7 @@ void Lake::updateNormals()
 	}
 }
 
-void Lake::updatePositionVBO()
+void Lava::updatePositionVBO()
 {
 	// update position vbo
 	glBindBuffer(GL_ARRAY_BUFFER, mPosVbo);
@@ -201,7 +200,7 @@ void Lake::updatePositionVBO()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void Lake::updateHeights(GLfloat pDeltaTime)
+void Lava::updateHeights(GLfloat pDeltaTime)
 {
 	this->updateVelocities();
 	int vertexPointer = 0;

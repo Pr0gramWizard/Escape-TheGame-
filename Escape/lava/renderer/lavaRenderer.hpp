@@ -1,14 +1,12 @@
 #pragma once
 
-#include "../shader/lakeshader.hpp"
+#include "../shader/lavashader.hpp"
 // matrix class
 #include <mat4x4.hpp>
 // List
 #include <list>
-// lake class
-#include "../lake.hpp"
-// lake fbo class
-#include "../fbo/lakeFrameBuffers.hpp"
+// Lava class
+#include "../lava.hpp"
 // model class
 #include "../../model/model.hpp"
 // maths
@@ -20,35 +18,35 @@
 
 using namespace std;
 
-class LakeRenderer
+class LavaRenderer
 {
 public:
-	const static char* LakeRenderer::DUDV_MAP;
-	const static char* LakeRenderer::NORMAL_MAP;
-	const static float LakeRenderer::LAKE_WAVE_MOVEMENT_SPEED;
+	const static char* LavaRenderer::DUDV_MAP;
+	const static char* LavaRenderer::NORMAL_MAP;
+	const static float LavaRenderer::LAVA_WAVE_MOVEMENT_SPEED;
 
 public:
 	// constructor
-	LakeRenderer(LakeShader* pShader, glm::mat4 pProjectionMatrix, LakeFrameBuffers* pLakeFbos);
+	LavaRenderer(LavaShader* pShader, glm::mat4 pProjectionMatrix);
 	// destructor
-	~LakeRenderer();
+	~LavaRenderer();
 
 	void loadDuDvMap(const char* pFile);
 	void loadNormalMap(const char* pFile);
 
 	// render methods
-	void render(GLfloat pDeltaTime, glm::mat4 pViewMatrix, Lake &pTerrain, vector<Light*> pLights, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime);
+	void render(GLfloat pDeltaTime, glm::mat4 pViewMatrix, Lava &pTerrain, vector<Light*> pLights, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime);
 
 	// methods that get called before the acutal rendering
-	void prepareLake(Lake pLake);
-	void prepareLake(Lake* pLake);
+	void prepareLava(Lava pLava);
+	void prepareLava(Lava* pLava);
 
 	// unbinding all terrains
-	void unbindLake();
+	void unbindLava();
 
 	// load model matrix for a terrain into the shader
-	void loadModelMatrix(Lake pLake);
-	void loadModelMatrix(Lake* pLake);
+	void loadModelMatrix(Lava pLava);
+	void loadModelMatrix(Lava* pLava);
 	void loadViewMatrix(glm::mat4 pViewMatrix);
 	void loadLights(vector<Light*> pLights, bool pDiscoTime);
 	void loadFogData(GLfloat pDensity, GLfloat pGradient);
@@ -58,10 +56,10 @@ public:
 	void loadWaterMoveFactor(GLfloat pFactor);
 
 	//load spotlight
-	void loadLakeSpotLightPosition(glm::vec3 pPos);
-	void loadLakeSpotLightColor(glm::vec3 pColor);
-	void loadLakeSpotLightFactor(GLfloat pFactor);
-	void loadLakeSpotLightTarget(glm::vec3 pTarget);
+	void loadLavaSpotLightPosition(glm::vec3 pPos);
+	void loadLavaSpotLightColor(glm::vec3 pColor);
+	void loadLavaSpotLightFactor(GLfloat pFactor);
+	void loadLavaSpotLightTarget(glm::vec3 pTarget);
 
 	// use or unuse the shader
 	void startShader();
@@ -69,10 +67,9 @@ public:
 
 
 private:
-	LakeShader* mShader;
-	LakeFrameBuffers* mLakeFbos;
+	LavaShader* mShader;
 	GLuint mDuDvMap;
-	GLfloat mLakeMoveFactor;
+	GLfloat mLavaMoveFactor;
 	GLuint mNormalMap;
 };
 

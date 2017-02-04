@@ -13,11 +13,11 @@
 
 using namespace std;
 
-class Lake
+class Lava
 {
 public:
-	Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader);
-	~Lake();
+	Lava(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader);
+	~Lava();
 
 	// Getter functions
 	int getWorldX() const;
@@ -36,8 +36,7 @@ public:
 
 	void updateHeights(GLfloat pDeltaTime);
 public:
-	static const int LAKE_SIZE;
-	static const GLfloat LAKE_COEFFICIENT;
+	static const int LAVA_SIZE;
 
 private:
 	int mWorldX;
@@ -57,8 +56,8 @@ private:
 	GLuint mNormalVbo;
 
 private:
-	Model generateLake(Loader* loader);
-	void initLake(Loader* loader);
+	Model generateLava(Loader* loader);
+	void initLava(Loader* loader);
 	GLfloat getVertexHeight(int pVertexX, int pVertexZ);
 	void updateVelocities();
 	void updateNormals();

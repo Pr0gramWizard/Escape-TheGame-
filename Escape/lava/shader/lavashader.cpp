@@ -1,9 +1,9 @@
 // Inclusion of definiton of the class
-#include "lakeshader.hpp"
+#include "lavashader.hpp"
 
 
 // Constructor
-LakeShader::LakeShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
+LavaShader::LavaShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
 	this->createShader(pVertexShaderFilePath, pFragementShaderFilePath);
 	this->getAllUniformLocations();
@@ -13,7 +13,7 @@ LakeShader::LakeShader(const std::string& pVertexShaderFilePath, const std::stri
 	std::clog << "Shader class was created successfully!" << std::endl;
 }
 
-void LakeShader::bindAllAttributes()
+void LavaShader::bindAllAttributes()
 {
 	this->bindAttribute(0, "position");
 	this->bindAttribute(1, "normal");
@@ -23,7 +23,7 @@ void LakeShader::bindAllAttributes()
 
 // Compilation of the vertex and fragment shader 
 // Function: complieShader(Filepath, Filepath)
-void LakeShader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
+void LavaShader::createShader(const std::string& pVertexShaderFilePath, const std::string& pFragementShaderFilePath)
 {
 	// First we create a VERTEX SHADER
 	mVertexShaderID = glCreateShader(GL_VERTEX_SHADER);
@@ -61,7 +61,7 @@ void LakeShader::createShader(const std::string& pVertexShaderFilePath, const st
 }
 
 // Linking of vertex and fragment shader
-void LakeShader::linkShader()
+void LavaShader::linkShader()
 {
 	// First we create a new Program with the given Program ID
 	setProgramID(glCreateProgram());
@@ -107,21 +107,21 @@ void LakeShader::linkShader()
 }
 
 // Tell the program to use the shader
-void LakeShader::use()
+void LavaShader::use()
 {
 	// Starting the program with the shader together
 	glUseProgram(getProgramID());
 }
 
 // Tell the program to stop using the shader
-void LakeShader::unuse()
+void LavaShader::unuse()
 {
 	// Destroying refference to program
 	glUseProgram(0);
 }
 
 // Reading fragment shader from file and compiling it
-void LakeShader::compileFragementShader(std::string pFragementShaderFilePath)
+void LavaShader::compileFragementShader(std::string pFragementShaderFilePath)
 {
 	// Opening a file stream with the given file path
 	std::ifstream fragementFile(pFragementShaderFilePath);
@@ -182,7 +182,7 @@ void LakeShader::compileFragementShader(std::string pFragementShaderFilePath)
 
 }
 
-void LakeShader::compileVertexShader(std::string pVertexShaderFilePath)
+void LavaShader::compileVertexShader(std::string pVertexShaderFilePath)
 {
 	// Opening a file stream with the given file path
 	std::ifstream vertexFile(pVertexShaderFilePath);
@@ -243,21 +243,21 @@ void LakeShader::compileVertexShader(std::string pVertexShaderFilePath)
 
 // Getter Functions
 // Returns current Program ID
-GLuint LakeShader::getProgramID() const
+GLuint LavaShader::getProgramID() const
 {
 	return mProgramID;
 }
 // Returns current Vertex Shader ID
-GLuint LakeShader::getVertexShaderID() const
+GLuint LavaShader::getVertexShaderID() const
 {
 	return mVertexShaderID;
 }
 // Returns current Fragement Shader ID
-GLuint LakeShader::getFragementShaderID() const
+GLuint LavaShader::getFragementShaderID() const
 {
 	return mFragementShaderID;
 }
-GLuint LakeShader::getUniformLocation(const char* pUniformName)
+GLuint LavaShader::getUniformLocation(const char* pUniformName)
 {
 	GLuint Location = glGetUniformLocation(this->getProgramID(), pUniformName);
 
@@ -274,32 +274,32 @@ GLuint LakeShader::getUniformLocation(const char* pUniformName)
 
 // Setter Functions
 // Sets current Program ID to a given ID
-void LakeShader::setProgramID(int pProgramID)
+void LavaShader::setProgramID(int pProgramID)
 {
 	mProgramID = pProgramID;
 }
 // Sets current VertexShaderID to a given ID
-void LakeShader::setVertexShaderID(int pVertexShaderID)
+void LavaShader::setVertexShaderID(int pVertexShaderID)
 {
 	mVertexShaderID = pVertexShaderID;
 }
 // Sets current FragementShaderID to a given ID
-void LakeShader::setFragementShaderID(int pFragementShaderID)
+void LavaShader::setFragementShaderID(int pFragementShaderID)
 {
 	mFragementShaderID = pFragementShaderID;
 }
 
-void LakeShader::loadFloat(GLuint pLocation, GLfloat pValue)
+void LavaShader::loadFloat(GLuint pLocation, GLfloat pValue)
 {
 	glUniform1f(pLocation, pValue);
 }
 
-void LakeShader::loadVector(GLuint pLocation, glm::vec3 pVector)
+void LavaShader::loadVector(GLuint pLocation, glm::vec3 pVector)
 {
 	glUniform3f(pLocation, pVector.x, pVector.y, pVector.z);
 }
 
-void LakeShader::loadBool(GLuint pLocation, GLboolean pValue)
+void LavaShader::loadBool(GLuint pLocation, GLboolean pValue)
 {
 	if (pValue == 0)
 	{
@@ -311,32 +311,32 @@ void LakeShader::loadBool(GLuint pLocation, GLboolean pValue)
 	}
 }
 
-void LakeShader::loadInt(GLuint pLocation, GLuint pValue)
+void LavaShader::loadInt(GLuint pLocation, GLuint pValue)
 {
 	glUniform1i(pLocation, pValue);
 }
 
-void LakeShader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
+void LavaShader::loadMatrix(GLuint pLocation, glm::mat4 pMatrix)
 {
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, glm::value_ptr(pMatrix));
 }
 
-void LakeShader::loadModelMatrix(glm::mat4 pMatrix)
+void LavaShader::loadModelMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_modelMatrix, pMatrix);
 }
 
-void LakeShader::loadProjectionMatrix(glm::mat4 pMatrix)
+void LavaShader::loadProjectionMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_projectionMatrix, pMatrix);
 }
 
-void LakeShader::loadViewMatrix(glm::mat4 pMatrix)
+void LavaShader::loadViewMatrix(glm::mat4 pMatrix)
 {
 	loadMatrix(mLocation_viewMatrix, pMatrix);
 }
 
-void LakeShader::loadLights(vector<Light*> pLights, bool pDiscoTime)
+void LavaShader::loadLights(vector<Light*> pLights, bool pDiscoTime)
 {
 	if (pDiscoTime) {
 		for (unsigned int i = 0; i < MAX_LIGHTS; ++i) {
@@ -368,48 +368,48 @@ void LakeShader::loadLights(vector<Light*> pLights, bool pDiscoTime)
 	}
 }
 
-void LakeShader::loadFogData(GLfloat pDensity, GLfloat pGradient)
+void LavaShader::loadFogData(GLfloat pDensity, GLfloat pGradient)
 {
 	this->loadFloat(mLocation_fogDensity, pDensity);
 	this->loadFloat(mLocation_fogGradient, pGradient);
 }
 
-void LakeShader::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue)
+void LavaShader::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue)
 {
 	this->loadVector(mLocation_backgroundColor, glm::vec3(pRed, pGreen, pBlue));
 }
 
-void LakeShader::loadNearFar(GLfloat pNear, GLfloat pFar)
+void LavaShader::loadNearFar(GLfloat pNear, GLfloat pFar)
 {
 	this->loadFloat(mLocation_near, pNear);
 	this->loadFloat(mLocation_far, pFar);
 }
 
-void LakeShader::loadLakeSpotLightPosition(glm::vec3 pPos)
+void LavaShader::loadLavaSpotLightPosition(glm::vec3 pPos)
 {
-	this->loadVector(mLocation_lakeSpotLightPosition, pPos);
+	this->loadVector(mLocation_LavaSpotLightPosition, pPos);
 }
 
-void LakeShader::loadLakeSpotLightColor(glm::vec3 pColor)
+void LavaShader::loadLavaSpotLightColor(glm::vec3 pColor)
 {
-	this->loadVector(mLocation_lakeSpotLightColor, pColor);
+	this->loadVector(mLocation_LavaSpotLightColor, pColor);
 }
 
-void LakeShader::loadLakeSpotLightFactor(GLfloat pFactor)
+void LavaShader::loadLavaSpotLightFactor(GLfloat pFactor)
 {
-	this->loadFloat(mLocation_lakeSpotLightFactor, pFactor);
+	this->loadFloat(mLocation_LavaSpotLightFactor, pFactor);
 }
 
-void LakeShader::loadLakeSpotLightTarget(glm::vec3 pTarget)
+void LavaShader::loadLavaSpotLightTarget(glm::vec3 pTarget)
 {
-	this->loadVector(mLocation_lakeSpotLightTarget, pTarget);
+	this->loadVector(mLocation_LavaSpotLightTarget, pTarget);
 }
 
-void LakeShader::loadWaterMoveFactor(GLfloat pFactor) {
+void LavaShader::loadWaterMoveFactor(GLfloat pFactor) {
 	this->loadFloat(mLocation_waterMoveFactor, pFactor);
 }
 
-void LakeShader::connectTextureUnits()
+void LavaShader::connectTextureUnits()
 {
 	this->loadInt(mLocation_reflectionTexture, 0);
 	this->loadInt(mLocation_refractionTexture, 1);
@@ -419,13 +419,13 @@ void LakeShader::connectTextureUnits()
 }
 
 // Destructor
-LakeShader::~LakeShader()
+LavaShader::~LavaShader()
 {
 	// Log Shader
 	std::clog << "Shader class was destroyed successfully!" << std::endl;
 }
 
-void LakeShader::getAllUniformLocations()
+void LavaShader::getAllUniformLocations()
 {
 	mLocation_modelMatrix = glGetUniformLocation(getProgramID(), "model");
 	mLocation_projectionMatrix = glGetUniformLocation(getProgramID(), "projection");
@@ -441,10 +441,10 @@ void LakeShader::getAllUniformLocations()
 	mLocation_dudvMap = glGetUniformLocation(getProgramID(), "dudvMap");
 	mLocation_waterMoveFactor = glGetUniformLocation(getProgramID(), "waterMoveFactor");
 	mLocation_normalMap = glGetUniformLocation(getProgramID(), "normalMap");
-	mLocation_lakeSpotLightPosition = glGetUniformLocation(getProgramID(), "lakeSpotLightPosition");
-	mLocation_lakeSpotLightColor = glGetUniformLocation(getProgramID(), "lakeSpotLightColor");
-	mLocation_lakeSpotLightTarget = glGetUniformLocation(getProgramID(), "lakeSpotLightTarget");;
-	mLocation_lakeSpotLightFactor = glGetUniformLocation(getProgramID(), "lakeSpotLightFactor");;
+	mLocation_LavaSpotLightPosition = glGetUniformLocation(getProgramID(), "LavaSpotLightPosition");
+	mLocation_LavaSpotLightColor = glGetUniformLocation(getProgramID(), "LavaSpotLightColor");
+	mLocation_LavaSpotLightTarget = glGetUniformLocation(getProgramID(), "LavaSpotLightTarget");;
+	mLocation_LavaSpotLightFactor = glGetUniformLocation(getProgramID(), "LavaSpotLightFactor");;
 	// Light locations
 	const char* lightPos[] = {
 		"lightPosition[0]",
@@ -480,7 +480,7 @@ void LakeShader::getAllUniformLocations()
 }
 
 // Binding an attribtute to the shader
-void LakeShader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
+void LavaShader::bindAttribute(GLuint pAttribute, const std::string & pAttributeName)
 {
 	// We bind the attribute to the given Program ID
 	glBindAttribLocation(getProgramID(), pAttribute, pAttributeName.c_str());

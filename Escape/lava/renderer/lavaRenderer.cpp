@@ -1,17 +1,16 @@
-#include "lakeRenderer.hpp"
+#include "lavaRenderer.hpp"
 
-const char* LakeRenderer::DUDV_MAP = "lake/res/dudv.png";
-const char* LakeRenderer::NORMAL_MAP = "lake/res/normal.png";
-const float LakeRenderer::LAKE_WAVE_MOVEMENT_SPEED = 0.03f;
+const char* LavaRenderer::DUDV_MAP = "Lava/res/dudv.png";
+const char* LavaRenderer::NORMAL_MAP = "Lava/res/normal.png";
+const float LavaRenderer::LAVA_WAVE_MOVEMENT_SPEED = 0.03f;
 
 // constructor
-LakeRenderer::LakeRenderer(LakeShader * pShader, glm::mat4 pProjectionMatrix, LakeFrameBuffers* pLakeFbos)
+LavaRenderer::LavaRenderer(LavaShader * pShader, glm::mat4 pProjectionMatrix)
 {
-	mLakeFbos = pLakeFbos;
 	mShader = pShader;
-	mLakeMoveFactor = 0.0f;
+	mLavaMoveFactor = 0.0f;
 	loadDuDvMap(DUDV_MAP);
-	loadNormalMap(LakeRenderer::NORMAL_MAP);
+	loadNormalMap(LavaRenderer::NORMAL_MAP);
 	mShader->use();
 	mShader->connectTextureUnits();
 	mShader->loadProjectionMatrix(pProjectionMatrix);
@@ -21,38 +20,38 @@ LakeRenderer::LakeRenderer(LakeShader * pShader, glm::mat4 pProjectionMatrix, La
 }
 
 // destructor
-LakeRenderer::~LakeRenderer()
+LavaRenderer::~LavaRenderer()
 {
 }
 
-// renders a single Lake
-void LakeRenderer::render(GLfloat pDeltaTime, glm::mat4 pViewMatrix, Lake &pLake, vector<Light*> pLights, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime)
+// renders a single Lava
+void LavaRenderer::render(GLfloat pDeltaTime, glm::mat4 pViewMatrix, Lava &pLava, vector<Light*> pLights, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime)
 {
 	this->startShader();
 	this->loadViewMatrix(pViewMatrix);
 	this->loadLights(pLights, pDiscoTime);
 	this->loadFogData(0.01f, 2.0f);
 	this->loadBackgroundColor(pRED, pGREEN, pBLUE);
-	//update lake distortion
-	mLakeMoveFactor += LakeRenderer::LAKE_WAVE_MOVEMENT_SPEED * pDeltaTime;
-	if(mLakeMoveFactor >= 1.0f) {
-		mLakeMoveFactor = 0.0f;
+	//update Lava distortion
+	mLavaMoveFactor += LavaRenderer::LAVA_WAVE_MOVEMENT_SPEED * pDeltaTime;
+	if(mLavaMoveFactor >= 1.0f) {
+		mLavaMoveFactor = 0.0f;
 	}
-	this->loadWaterMoveFactor(mLakeMoveFactor);
-	prepareLake(&pLake);
-	loadModelMatrix(&pLake);
+	this->loadWaterMoveFactor(mLavaMoveFactor);
+	prepareLava(&pLava);
+	loadModelMatrix(&pLava);
 	glDisable(GL_CULL_FACE);
-	glDrawElements(GL_TRIANGLES, pLake.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, pLava.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 	glEnable(GL_CULL_FACE);
-	unbindLake();
+	unbindLava();
 	this->stopShader();
 }
 
 
-// binds the vertex array and the needed attributes for the Lake
-void LakeRenderer::prepareLake(Lake pLake)
+// binds the vertex array and the needed attributes for the Lava
+void LavaRenderer::prepareLava(Lava pLava)
 {
-	Model* model = pLake.getModel();
+	Model* model = pLava.getModel();
 	glBindVertexArray(model->getVaoId());
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -62,21 +61,21 @@ void LakeRenderer::prepareLake(Lake pLake)
 	// end texturepart
 }
 
-// binds the vertex array and the needed attributes for the Lake
-void LakeRenderer::prepareLake(Lake* pLake)
+// binds the vertex array and the needed attributes for the Lava
+void LavaRenderer::prepareLava(Lava* pLava)
 {
-	Model* model = pLake->getModel();
+	Model* model = pLava->getModel();
 	glBindVertexArray(model->getVaoId());
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
 	// Texturepart here
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, mLakeFbos->getReflactionTexture());
+	//glBindTexture(GL_TEXTURE_2D, mLavaFbos->getReflactionTexture());
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, mLakeFbos->getRefractionTexture());
+	//glBindTexture(GL_TEXTURE_2D, mLavaFbos->getRefractionTexture());
 	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, mLakeFbos->getRefractionDepthTexture());
+	//glBindTexture(GL_TEXTURE_2D, mLavaFbos->getRefractionDepthTexture());
 	glActiveTexture(GL_TEXTURE3);
 	glBindTexture(GL_TEXTURE_2D, this->mDuDvMap);
 	glActiveTexture(GL_TEXTURE4);
@@ -88,7 +87,7 @@ void LakeRenderer::prepareLake(Lake* pLake)
 }
 
 // disables the vertex array and the used attibutes
-void LakeRenderer::unbindLake()
+void LavaRenderer::unbindLava()
 {
 	glDisable(GL_BLEND);
 	glDisableVertexAttribArray(0);
@@ -97,78 +96,78 @@ void LakeRenderer::unbindLake()
 	glBindVertexArray(0);
 }
 
-// loads the model matrix for a Lake
-void LakeRenderer::loadModelMatrix(Lake pLake)
+// loads the model matrix for a Lava
+void LavaRenderer::loadModelMatrix(Lava pLava)
 {
-	mShader->loadModelMatrix(pLake.getModelMatrix());
+	mShader->loadModelMatrix(pLava.getModelMatrix());
 }
 
-// loads the model matrix for a Lake
-void LakeRenderer::loadModelMatrix(Lake* pLake)
+// loads the model matrix for a Lava
+void LavaRenderer::loadModelMatrix(Lava* pLava)
 {
-	mShader->loadModelMatrix(pLake->getModelMatrix());
+	mShader->loadModelMatrix(pLava->getModelMatrix());
 }
 
-void LakeRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
+void LavaRenderer::loadViewMatrix(glm::mat4 pViewMatrix)
 {
 	mShader->loadViewMatrix(pViewMatrix);
 }
 
-void LakeRenderer::loadLights(vector<Light*> pLights, bool pDiscoTime)
+void LavaRenderer::loadLights(vector<Light*> pLights, bool pDiscoTime)
 {
 	mShader->loadLights(pLights, pDiscoTime);
 }
 
-void LakeRenderer::loadFogData(GLfloat pDensity, GLfloat pGradient)
+void LavaRenderer::loadFogData(GLfloat pDensity, GLfloat pGradient)
 {
 	mShader->loadFogData(pDensity, pGradient);
 }
 
-void LakeRenderer::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue)
+void LavaRenderer::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue)
 {
 	mShader->loadBackgroundColor(pRed, pGreen, pBlue);
 }
 
-void LakeRenderer::loadNearFar(GLfloat pNear, GLfloat pFar)
+void LavaRenderer::loadNearFar(GLfloat pNear, GLfloat pFar)
 {
 	mShader->loadNearFar(pNear, pFar);
 }
 
-void LakeRenderer::loadWaterMoveFactor(GLfloat pFactor) {
+void LavaRenderer::loadWaterMoveFactor(GLfloat pFactor) {
 	mShader->loadWaterMoveFactor(pFactor);
 }
 
-void LakeRenderer::loadLakeSpotLightPosition(glm::vec3 pPos)
+void LavaRenderer::loadLavaSpotLightPosition(glm::vec3 pPos)
 {
-	this->mShader->loadLakeSpotLightPosition(pPos);
+	this->mShader->loadLavaSpotLightPosition(pPos);
 }
 
-void LakeRenderer::loadLakeSpotLightColor(glm::vec3 pColor)
+void LavaRenderer::loadLavaSpotLightColor(glm::vec3 pColor)
 {
-	this->mShader->loadLakeSpotLightColor(pColor);
+	this->mShader->loadLavaSpotLightColor(pColor);
 }
 
-void LakeRenderer::loadLakeSpotLightFactor(GLfloat pFactor)
+void LavaRenderer::loadLavaSpotLightFactor(GLfloat pFactor)
 {
-	this->mShader->loadLakeSpotLightFactor(pFactor);
+	this->mShader->loadLavaSpotLightFactor(pFactor);
 }
 
-void LakeRenderer::loadLakeSpotLightTarget(glm::vec3 pTarget)
+void LavaRenderer::loadLavaSpotLightTarget(glm::vec3 pTarget)
 {
-	this->mShader->loadLakeSpotLightTarget(pTarget);
+	this->mShader->loadLavaSpotLightTarget(pTarget);
 }
 
-void LakeRenderer::startShader()
+void LavaRenderer::startShader()
 {
 	mShader->use();
 }
 
-void LakeRenderer::stopShader()
+void LavaRenderer::stopShader()
 {
 	mShader->unuse();
 }
 
-void LakeRenderer::loadDuDvMap(const char* pFile) {
+void LavaRenderer::loadDuDvMap(const char* pFile) {
 	glGenTextures(1, &mDuDvMap);
 	glBindTexture(GL_TEXTURE_2D, mDuDvMap); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
 											 // Set our texture parameters
@@ -192,7 +191,7 @@ void LakeRenderer::loadDuDvMap(const char* pFile) {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void LakeRenderer::loadNormalMap(const char * pFile)
+void LavaRenderer::loadNormalMap(const char * pFile)
 {
 	glGenTextures(1, &mNormalMap);
 	glBindTexture(GL_TEXTURE_2D, mNormalMap); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
