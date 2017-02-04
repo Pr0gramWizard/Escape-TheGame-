@@ -16,7 +16,7 @@ using namespace std;
 class Lava
 {
 public:
-	Lava(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices, const char* pName, Loader* pLoader);
+	Lava(int pWorldX, int pWorldY, int pWorldZ, int pVertices, const char* pName, Loader* pLoader);
 	~Lava();
 
 	// Getter functions

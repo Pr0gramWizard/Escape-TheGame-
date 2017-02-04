@@ -118,6 +118,8 @@
     <None Include="shaders\finalbloom.vert" />
     <None Include="shaders\lake.frag" />
     <None Include="shaders\lake.vert" />
+    <None Include="shaders\lava.frag" />
+    <None Include="shaders\lava.vert" />
     <None Include="shaders\object.frag" />
     <None Include="shaders\object.vert" />
     <None Include="shaders\particle.frag" />

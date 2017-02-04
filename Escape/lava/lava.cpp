@@ -2,7 +2,7 @@
 
 const int Lava::LAVA_SIZE = 64;
 
-Lava::Lava(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices, const char * pName, Loader * pLoader)
+Lava::Lava(int pWorldX, int pWorldY, int pWorldZ, int pVertices, const char * pName, Loader * pLoader)
 {
 	mWorldX = pWorldX;
 	mWorldY = pWorldY;

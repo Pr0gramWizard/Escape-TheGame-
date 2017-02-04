@@ -61,6 +61,9 @@
 #include <irrKlang.h>
 // spot
 #include "../light/spotlight.hpp"
+// lava
+#include "../lava/shader/lavashader.hpp"
+#include "../lava/renderer/lavaRenderer.hpp"
 
 
 

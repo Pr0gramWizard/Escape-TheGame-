@@ -112,6 +112,12 @@ bool Game::gameLoop()
 	Lake* lake = new Lake(84, -2, 28, 50, 50, "Lake", loader);
 	//**** END LAKE STUFF ****
 
+	//**** LAVA STUFF ****
+	LavaShader* lavashader = new LavaShader("shaders/lava.vert", "shaders/lava.frag");
+	LavaRenderer* lavarenderer = new LavaRenderer(lavashader, mPlayer->getProjectionMatrix());
+	Lava* lava = new Lava(84, 0, 28, 4, "Lava", loader);
+	//**** END LAKE STUFF ****
+
 	//**** BLUR STUFF ****
 	BlurShader *blurshader = new BlurShader("shaders/blur.vert", "shaders/blur.frag");
 	BlurFrameBuffers *blurfbos = new BlurFrameBuffers(blurshader, mWidth, mHeight);
@@ -219,7 +225,7 @@ bool Game::gameLoop()
 		}
 
 		mRenderer->render(mPlayer->getViewMatrix(), false, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime);
-		Particles->render(mPlayer->getViewMatrix());
+		//Particles->render(mPlayer->getViewMatrix());
 
 		/*
 		// reflection
