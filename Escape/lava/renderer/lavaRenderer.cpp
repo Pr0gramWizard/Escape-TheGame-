@@ -1,7 +1,7 @@
 #include "lavaRenderer.hpp"
 
 const char* LavaRenderer::DUDV_MAP = "Lava/res/dudv.png";
-const char* LavaRenderer::NORMAL_MAP = "Lava/res/normal.png";
+const char* LavaRenderer::LAVA_TEXTURE = "Lava/res/lava.png";
 const float LavaRenderer::LAVA_WAVE_MOVEMENT_SPEED = 0.03f;
 
 // constructor
@@ -10,7 +10,7 @@ LavaRenderer::LavaRenderer(LavaShader * pShader, glm::mat4 pProjectionMatrix)
 	mShader = pShader;
 	mLavaMoveFactor = 0.0f;
 	loadDuDvMap(DUDV_MAP);
-	loadNormalMap(LavaRenderer::NORMAL_MAP);
+	loadLavaTexture(LavaRenderer::LAVA_TEXTURE);
 	mShader->use();
 	mShader->connectTextureUnits();
 	mShader->loadProjectionMatrix(pProjectionMatrix);
@@ -71,15 +71,9 @@ void LavaRenderer::prepareLava(Lava* pLava)
 	glEnableVertexAttribArray(2);
 	// Texturepart here
 	glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, mLavaFbos->getReflactionTexture());
+	glBindTexture(GL_TEXTURE_2D, this->mLavaTexture);
 	glActiveTexture(GL_TEXTURE1);
-	//glBindTexture(GL_TEXTURE_2D, mLavaFbos->getRefractionTexture());
-	glActiveTexture(GL_TEXTURE2);
-	//glBindTexture(GL_TEXTURE_2D, mLavaFbos->getRefractionDepthTexture());
-	glActiveTexture(GL_TEXTURE3);
 	glBindTexture(GL_TEXTURE_2D, this->mDuDvMap);
-	glActiveTexture(GL_TEXTURE4);
-	glBindTexture(GL_TEXTURE_2D, this->mNormalMap);
 	
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -171,10 +165,10 @@ void LavaRenderer::loadDuDvMap(const char* pFile) {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void LavaRenderer::loadNormalMap(const char * pFile)
+void LavaRenderer::loadLavaTexture(const char * pFile)
 {
-	glGenTextures(1, &mNormalMap);
-	glBindTexture(GL_TEXTURE_2D, mNormalMap); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
+	glGenTextures(1, &mLavaTexture);
+	glBindTexture(GL_TEXTURE_2D, mLavaTexture); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
 											// Set our texture parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -183,16 +177,16 @@ void LavaRenderer::loadNormalMap(const char * pFile)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	// Load, create texture and generate mipmaps
 	int width, height;
-	unsigned char* normal = SOIL_load_image(pFile, &width, &height, 0, SOIL_LOAD_RGB);
-	if (normal == 0)
+	unsigned char* lava = SOIL_load_image(pFile, &width, &height, 0, SOIL_LOAD_RGB);
+	if (lava == 0)
 	{
-		std::cout << "The normal map texture could not be found!" << std::endl;
+		std::cout << "The lava texture could not be found!" << std::endl;
 	}
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, normal);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, lava);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -0.4f);
-	SOIL_free_image_data(normal);
+	SOIL_free_image_data(lava);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
