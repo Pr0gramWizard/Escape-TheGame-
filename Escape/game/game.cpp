@@ -97,9 +97,11 @@ bool Game::gameLoop()
 	//mRenderer->addToList(Hand);
 
 
-	
+	glDisable(GL_CULL_FACE);
 
 	
+	
+
 	//**** LAKE STUFF ****
 	LakeFrameBuffers* lfbos = new LakeFrameBuffers(mWidth, mHeight);
 	LakeShader* lakeshader = new LakeShader("shaders/lake.vert", "shaders/lake.frag");
@@ -185,8 +187,9 @@ bool Game::gameLoop()
 		// Calculating the player movement
 		mPlayer->move(&floor,&ceiling, deltaTime);	
 
-		glEnable(GL_CLIP_DISTANCE0);
-		glEnable(GL_TEXTURE_2D);
+
+		// glEnable(GL_CLIP_DISTANCE0);
+		// glEnable(GL_TEXTURE_2D);
 
 		// always use this light
 		lights.push_back(sun);
@@ -205,6 +208,9 @@ bool Game::gameLoop()
 			}
 		}
 
+		mRenderer->render(mPlayer->getViewMatrix(), false, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime);
+
+		/*
 		// reflection
 		lfbos->bindReflectionFrameBuffer();
 		float distance = 2 * (mPlayer->getCameraPosition().y - lake->getWorldY());
@@ -284,7 +290,7 @@ bool Game::gameLoop()
 		finalbloomshader->unuse();
 		
 
-
+		*/
 		// Clear lists
 		lights.clear();
 
