@@ -74,8 +74,8 @@ bool Game::gameLoop()
 	Object Stone2("object/res/stone/glowstone.obj", glm::vec3(113.0f, floor.getHeight(113.0f, 59.0f), 59.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.4f);
 	Object Stone3("object/res/stone/glowstone.obj", glm::vec3(133.0f, floor.getHeight(133.0f, 58.0f), 58.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.5f);
 
-	Object PolyTerrain("object/res/terrain/Test.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f),1.0f);
-	Object PolyFloor("object/res/terrain/TestFloor.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 1.0f);
+	Object PolyTerrain("object/res/terrain/NoHoles.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f),1.0f);
+	Object PolyFloor("object/res/terrain/TestFloor.obj", glm::vec3(0.0f, 0.6f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 1.0f);
 
 	// Hand.loadTexture("object/res/hand/hand.jpg");
 	Stone1.loadTexture("object/res/stone/stone.jpeg");
@@ -133,7 +133,7 @@ bool Game::gameLoop()
 	Light* sun = new Light(glm::vec3(0, 1000, 0), glm::vec3(0.2f, 0.2f, 0.2f));
 
 	// Blue
-	Light* stoneA = new Light(glm::vec3(20.0f, -2.0f, 0.0f), glm::vec3(0.8f, 0.2f, 0.0f),glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
+	Light* LavaLight = new Light(glm::vec3(20.0f, -2.0f, 0.0f), glm::vec3(0.8f, 0.2f, 0.0f),glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
 	// Green
 	Light* stoneB = new Light(glm::vec3(113.0f, floor.getHeight(113.0f, 59.0f), 59.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.003f, 0.003f, 0.003f), glm::vec3(0.0f,0.0f,0.5f), 0.5f, 0.3f);
 	// Red
@@ -142,7 +142,7 @@ bool Game::gameLoop()
 	vector<Light*> lights;
 
 	lights.push_back(sun);
-	lights.push_back(stoneA);
+	lights.push_back(LavaLight);
 	lights.push_back(stoneB);
 	lights.push_back(stoneC);
 
@@ -211,7 +211,7 @@ bool Game::gameLoop()
 		lights.push_back(sun);
 
 		// put needed lights in the list
-		lights.push_back(stoneA);
+		lights.push_back(LavaLight);
 		lights.push_back(stoneB);
 		lights.push_back(stoneC);
 
