@@ -225,6 +225,7 @@ bool Game::gameLoop()
 		}
 
 		mRenderer->render(mPlayer->getViewMatrix(), false, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime);
+		lavarenderer->render(deltaTime, mPlayer->getViewMatrix(), *lava, lights, Game::RED, Game::GREEN, Game::BLUE, discoTime);
 		//Particles->render(mPlayer->getViewMatrix());
 
 		/*

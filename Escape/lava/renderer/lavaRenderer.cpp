@@ -40,9 +40,7 @@ void LavaRenderer::render(GLfloat pDeltaTime, glm::mat4 pViewMatrix, Lava &pLava
 	this->loadLavaMoveFactor(mLavaMoveFactor);
 	prepareLava(&pLava);
 	loadModelMatrix(&pLava);
-	glDisable(GL_CULL_FACE);
 	glDrawElements(GL_TRIANGLES, pLava.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-	glEnable(GL_CULL_FACE);
 	unbindLava();
 	this->stopShader();
 }
