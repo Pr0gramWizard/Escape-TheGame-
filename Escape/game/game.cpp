@@ -74,14 +74,16 @@ bool Game::gameLoop()
 	Object Stone2("object/res/stone/glowstone.obj", glm::vec3(113.0f, floor.getHeight(113.0f, 59.0f), 59.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.4f);
 	Object Stone3("object/res/stone/glowstone.obj", glm::vec3(133.0f, floor.getHeight(133.0f, 58.0f), 58.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.5f);
 
-	Object PolyTerrain("object/res/terrain/ExtendedTerrain.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f),1.0f);
+	Object PolyTerrain("object/res/terrain/Terrain.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f),1.0f);
+	Object PolyFloor("object/res/terrain/Floor.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 1.0f);
 
 	// Hand.loadTexture("object/res/hand/hand.jpg");
 	Stone1.loadTexture("object/res/stone/stone.jpeg");
 	Stone2.loadTexture("object/res/stone/stone.jpeg");
 	Stone3.loadTexture("object/res/stone/stone.jpeg");
 
-	PolyTerrain.loadTexture("object/res/stone/stone.jpeg");
+	PolyTerrain.loadTexture("object/res/terrain/blue_poly.png");
+	PolyFloor.loadTexture("object/res/terrain/blue_poly.png");
 	std::list<Terrain> terrains;
 	terrains.push_back(floor);
 	terrains.push_back(ceiling);
@@ -94,6 +96,7 @@ bool Game::gameLoop()
 	// mRenderer->addToList(Stone2);
 	// mRenderer->addToList(Stone3);
 	mRenderer->addToList(PolyTerrain);
+	mRenderer->addToList(PolyFloor);
 	//mRenderer->addToList(Hand);
 
 

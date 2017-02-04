@@ -140,7 +140,7 @@ void ParticleGenerator::update(GLfloat pDelta, glm::vec3 pObjectPos, GLuint newP
 		p.Life -= pDelta; // reduce life
 		if (p.Life > 0.0f)
 		{	// particle is alive, thus update
-			std::cout << p.Life << std::endl;
+			// std::cout << p.Life << std::endl;
 			p.Velocity.y += -10*pDelta;
 			p.Position += p.Velocity;
 			p.Color.a -= pDelta * 2.5;
