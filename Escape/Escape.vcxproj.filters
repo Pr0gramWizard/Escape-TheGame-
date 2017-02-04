@@ -265,6 +265,9 @@
     <ClCompile Include="light\spotlight.cpp">
       <Filter>Light</Filter>
     </ClCompile>
+    <ClCompile Include="particle\renderer\particlegenerator.cpp">
+      <Filter>Particles\renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -379,6 +382,9 @@
     <ClInclude Include="light\spotlight.hpp">
       <Filter>Light</Filter>
     </ClInclude>
+    <ClInclude Include="particle\renderer\particlegenerator.hpp">
+      <Filter>Particles\renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
@@ -455,6 +461,12 @@
     </None>
     <None Include="shaders\finalbloom.frag">
       <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="shaders\particle.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="shaders\particle.vert">
+      <Filter>Shader\Vertex</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

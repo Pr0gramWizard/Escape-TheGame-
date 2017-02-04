@@ -45,6 +45,7 @@
     <ClCompile Include="object\renderer\objectrenderer.cpp" />
     <ClCompile Include="object\shader\objectshader.cpp" />
     <ClCompile Include="particle\particle.cpp" />
+    <ClCompile Include="particle\renderer\particlegenerator.cpp" />
     <ClCompile Include="particle\renderer\particlerenderer.cpp" />
     <ClCompile Include="particle\shader\particleshader.cpp" />
     <ClCompile Include="player\player.cpp" />
@@ -85,6 +86,7 @@
     <ClInclude Include="object\renderer\objectrenderer.hpp" />
     <ClInclude Include="object\shader\objectshader.hpp" />
     <ClInclude Include="particle\particle.hpp" />
+    <ClInclude Include="particle\renderer\particlegenerator.hpp" />
     <ClInclude Include="particle\renderer\particlerenderer.hpp" />
     <ClInclude Include="particle\shader\particleshader.hpp" />
     <ClInclude Include="player\player.hpp" />
@@ -112,6 +114,8 @@
     <None Include="shaders\lake.vert" />
     <None Include="shaders\object.frag" />
     <None Include="shaders\object.vert" />
+    <None Include="shaders\particle.frag" />
+    <None Include="shaders\particle.vert" />
     <None Include="shaders\skybox.frag" />
     <None Include="shaders\skybox.vert" />
     <None Include="shaders\terrain.frag" />
