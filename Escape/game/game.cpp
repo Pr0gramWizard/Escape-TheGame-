@@ -115,7 +115,7 @@ bool Game::gameLoop()
 	//**** LAVA STUFF ****
 	LavaShader* lavashader = new LavaShader("shaders/lava.vert", "shaders/lava.frag");
 	LavaRenderer* lavarenderer = new LavaRenderer(lavashader, mPlayer->getProjectionMatrix());
-	Lava* lava = new Lava(11, 0, -14, 4, "Lava", loader);
+	Lava* lava = new Lava(11, 0, -14, 50, "Lava", loader);
 	//**** END LAKE STUFF ****
 
 	//**** BLUR STUFF ****
@@ -130,7 +130,7 @@ bool Game::gameLoop()
 
 	//**** LIGHT STUFF ****
 	//Light* sun = new Light(glm::vec3(250, 1, 250), glm::vec3(1, 1, 0), glm::vec3(1, 0.01, 0.002));
-	Light* sun = new Light(glm::vec3(0, 100, 0), glm::vec3(1.0f, 1.0f, 1.0f));
+	Light* sun = new Light(glm::vec3(0, 1000, 0), glm::vec3(0.2f, 0.2f, 0.2f));
 
 	// Blue
 	Light* stoneA = new Light(glm::vec3(20.0f, -2.0f, 0.0f), glm::vec3(0.8f, 0.2f, 0.0f),glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
