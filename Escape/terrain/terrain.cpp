@@ -226,6 +226,10 @@ Terrain::Terrain(int pGridX, int pGridZ, float pOffset, const char * pName, Load
 		Position.push_back(Vertex.z);
 	}
 
+	this->loadGrasTexture();
+	this->loadStoneTexture();
+	this->loadBlendMapTexture();
+
 	// Set Model
 	mModel = pLoader->loadDataToVao(Position, TextureCoords, Normals, Indicies);
 }
@@ -247,7 +251,7 @@ void Terrain::loadGrasTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	// Load, create texture and generate mipmaps
 	int width, height;
-	unsigned char* grass = SOIL_load_image("terrain/res/texture/new/floor.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/bPoly.png", &width, &height, 0, SOIL_LOAD_RGB);
 	if (grass == 0)
 	{
 		std::cout << "The gras texture could not be found!" << std::endl;
@@ -271,7 +275,7 @@ void Terrain::loadStoneTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// Load, create texture and generate mipmaps
 	int width, height;
-	unsigned char* stone = SOIL_load_image("terrain/res/texture/wall.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* stone = SOIL_load_image("terrain/res/texture/poly/rPoly.png", &width, &height, 0, SOIL_LOAD_RGB);
 	if (stone == 0)
 	{
 		std::cout << "The stone texture could not be found!" << std::endl;
@@ -342,7 +346,7 @@ void Terrain::loadBlendMapTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	// Load, create texture and generate mipmaps
 	int width, height;
-	unsigned char* grass = SOIL_load_image("terrain/res/texture/blendmap2.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/polyblend.png", &width, &height, 0, SOIL_LOAD_RGB);
 	if (grass == 0)
 	{
 		std::cout << "The blendmap texture could not be found!" << std::endl;
