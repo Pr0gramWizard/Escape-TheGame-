@@ -68,7 +68,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 	for (Object &object : mObjects)
 	{
 		mObjectRenderer->startShader();
-		mObjectRenderer->loadModelMatrix(&object, mPlayer);
+		mObjectRenderer->loadModelMatrix(&object);
 		mObjectRenderer->loadViewMatrix(mPlayer->getViewMatrix());
 		mObjectRenderer->loadClipPlane(pClipPlane);
 		mObjectRenderer->loadLights(pLights, pDiscoTime);

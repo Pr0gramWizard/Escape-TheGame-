@@ -23,7 +23,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(),NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/,NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -67,37 +67,50 @@ bool Game::gameLoop()
 	// NGLchar * path, glm::vec3 pPosition, glm::vec3 pRotation, GLfloat pScale
 	// Object Hand("object/res/hand/hand.obj", glm::vec3(82.0f, 0.2f, 59.0f), glm::vec3(2.0f, 1.0f, 0.0f), 0.05f);
 	
-	Terrain floor(0, 0, 0, 10, "Test", loader, "./terrain/res/BodenSee.png");
-	Terrain ceiling(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
+	// Terrain floor(0, 0, 0, 10, "Test", loader, "./terrain/res/BodenSee.png");
+	// Terrain ceiling(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
 
-	Object Stone1("object/res/stone/glowstone.obj", glm::vec3(98.0f, floor.getHeight(98.0f,68.0f), 68.0f), glm::vec3(2.0f, 1.0f, 0.0f), 1.0f);
-	Object Stone2("object/res/stone/glowstone.obj", glm::vec3(113.0f, floor.getHeight(113.0f, 59.0f), 59.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.4f);
-	Object Stone3("object/res/stone/glowstone.obj", glm::vec3(133.0f, floor.getHeight(133.0f, 58.0f), 58.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.5f);
+	Terrain Decke(0, 0, 0, "TerrainDecke", loader, "./object/res/terrain/NoHoles.obj");
+	Terrain Boden(0, 0, 0, "TerrainBoden", loader, "./object/res/terrain/TestFloor.obj");
 
-	Object PolyTerrain("object/res/terrain/NoHoles.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f),1.0f);
-	Object PolyFloor("object/res/terrain/TestFloor.obj", glm::vec3(0.0f, 0.3f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 1.0f);
+	// Object Stone1("object/res/stone/glowstone.obj", glm::vec3(98.0f, floor.getHeight(98.0f,68.0f), 68.0f), glm::vec3(2.0f, 1.0f, 0.0f), 1.0f);
+	// Object Cube("object/res/terrain/cube.obj", glm::vec3(0.0f,0.0f,0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 1.0f);
+	// Object Stone2("object/res/stone/glowstone.obj", glm::vec3(113.0f, floor.getHeight(113.0f, 59.0f), 59.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.4f);
+	// Object Stone3("object/res/stone/glowstone.obj", glm::vec3(133.0f, floor.getHeight(133.0f, 58.0f), 58.0f), glm::vec3(2.0f, 1.0f, 0.0f), 2.5f);
 
+	// Object PolyTerrain("object/res/terrain/NoHoles.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f),1.0f);
+	// Object PolyFloor("object/res/terrain/TestFloor.obj", glm::vec3(0.0f, 0.3f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 1.0f);
+
+	/*
 	// Hand.loadTexture("object/res/hand/hand.jpg");
 	Stone1.loadTexture("object/res/stone/stone.jpeg");
 	Stone2.loadTexture("object/res/stone/stone.jpeg");
 	Stone3.loadTexture("object/res/stone/stone.jpeg");
+	Cube.loadTexture("object/res/stone/stone.jpeg");
+	*/
 
-	PolyTerrain.loadTexture("object/res/terrain/blue_poly.png");
-	PolyFloor.loadTexture("object/res/terrain/blue_poly.png");
+	// PolyTerrain.loadTexture("object/res/terrain/blue_poly.png");
+	// PolyFloor.loadTexture("object/res/terrain/blue_poly.png");
 	std::list<Terrain> terrains;
-	terrains.push_back(floor);
-	terrains.push_back(ceiling);
+	terrains.push_back(Boden);
+	terrains.push_back(Decke);
+	// terrains.push_back(floor);
+	// /terrains.push_back(ceiling);
 
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	// mRenderer->addToList(floor);
 	// mRenderer->addToList(ceiling);
+	mRenderer->addToList(Boden);
+	mRenderer->addToList(Decke);
 
 	// mRenderer->addToList(Stone1);
 	// mRenderer->addToList(Stone2);
 	// mRenderer->addToList(Stone3);
-	mRenderer->addToList(PolyTerrain);
-	mRenderer->addToList(PolyFloor);
+	// mRenderer->addToList(PolyTerrain);
+	// mRenderer->addToList(PolyFloor);
 	//mRenderer->addToList(Hand);
+
+
 
 
 	glDisable(GL_CULL_FACE);
@@ -135,16 +148,16 @@ bool Game::gameLoop()
 	// Blue
 	Light* LavaLight = new Light(glm::vec3(20.0f, -2.0f, 0.0f), glm::vec3(0.8f, 0.2f, 0.0f),glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
 	// Green
-	Light* stoneB = new Light(glm::vec3(113.0f, floor.getHeight(113.0f, 59.0f), 59.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.003f, 0.003f, 0.003f), glm::vec3(0.0f,0.0f,0.5f), 0.5f, 0.3f);
+	// Light* stoneB = new Light(glm::vec3(113.0f, floor.getHeight(113.0f, 59.0f), 59.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.003f, 0.003f, 0.003f), glm::vec3(0.0f,0.0f,0.5f), 0.5f, 0.3f);
 	// Red
-	Light* stoneC = new Light(glm::vec3(133.0f, floor.getHeight(133.0f, 58.0f), 58.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.001f, 0.001f, 0.001f), glm::vec3(0.0f,0.2f,0.0f), 1.0f, 1.0f);
+	// Light* stoneC = new Light(glm::vec3(133.0f, floor.getHeight(133.0f, 58.0f), 58.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.001f, 0.001f, 0.001f), glm::vec3(0.0f,0.2f,0.0f), 1.0f, 1.0f);
  
 	vector<Light*> lights;
 
 	lights.push_back(sun);
 	lights.push_back(LavaLight);
-	lights.push_back(stoneB);
-	lights.push_back(stoneC);
+	// lights.push_back(stoneB);
+	// lights.push_back(stoneC);
 
 	SpotLight* spotlight = new SpotLight(glm::vec3(-6, 15, -30), glm::vec3(1.5f,1.5f,1.5f), glm::vec3(-7.8f,-1,-21), 120.0f);
 	lakerenderer->startShader();
@@ -199,7 +212,7 @@ bool Game::gameLoop()
 		this->controlSound();
 
 		// Calculating the player movement
-		mPlayer->move(&floor,&ceiling, deltaTime);	
+		mPlayer->move(&Boden,&Decke, deltaTime);	
 
 		Particles->update(deltaTime, glm::vec3(0.0f, 1.0f, 0.0f), 2);
 
@@ -212,8 +225,8 @@ bool Game::gameLoop()
 
 		// put needed lights in the list
 		lights.push_back(LavaLight);
-		lights.push_back(stoneB);
-		lights.push_back(stoneC);
+		// lights.push_back(stoneB);
+		// lights.push_back(stoneC);
 
 		// check for disco
 		bool discoTime = this->discoDiscoBoomBoom();

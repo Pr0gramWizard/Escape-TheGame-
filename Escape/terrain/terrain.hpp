@@ -1,14 +1,24 @@
 #pragma once
+// OpenGLExtensionWrangler
 #include <glew.h>
+// Standard Input/Output Stream
 #include <iostream>
+// 2x1 Vector
 #include <vec2.hpp>
+// Standard Vector
 #include <vector>
-// model class
+// Model class
 #include "../model/model.hpp"
-// loader class
+// Loader class
 #include "../loader/loader.hpp"
-// math class
+// Math class
 #include "../math/math.hpp"
+// Object class
+#include "../object/object.hpp"
+// FileStream
+#include <fstream>
+// Standard String 
+#include <string>
 
 
 
@@ -16,6 +26,7 @@ class Terrain
 {
 public:
 	Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap);
+	Terrain(int pGridX, int pGridZ, float pOffset, const char* pName, Loader* pLoader, const char* PFilePath);
 	~Terrain();
 	
 	// Loading all important textures
@@ -79,6 +90,17 @@ private:
 	// Blend Map
 	GLuint mBlendMapTex;
 
+	// Variables
+
+	// Position
+	std::vector<GLfloat> Position;
+	// TextureCoords
+	std::vector<GLfloat> TextureCoords;
+	// Normals
+	std::vector<GLfloat> Normals;
+	// Indicies
+	std::vector<GLint> Indicies;
+
 
 private:
 	bool isPowerOfTwo(int pX);
@@ -86,6 +108,7 @@ private:
 	void generateHeights(Loader* loader, const char* pHeightmap);
 	glm::vec3 computeNormalAt(int x, int z);
 	GLfloat getVertexHeight(int pVertexX, int pVertexZ);
+	void processVertex(std::vector<std::string> pVertex, std::vector<GLint> pIndicies,std::vector<glm::vec2> pTextureCoordsV, std::vector<glm::vec3> pNormalsV, std::vector<GLfloat> pTextureCoords, std::vector<GLfloat> pNormals);
 
 };
 

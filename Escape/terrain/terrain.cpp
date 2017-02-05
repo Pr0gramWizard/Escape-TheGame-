@@ -32,6 +32,203 @@ Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const ch
 
 }
 
+Terrain::Terrain(int pGridX, int pGridZ, float pOffset, const char * pName, Loader * pLoader, const char* pFilePath)
+{
+	mWorldX = pGridX * Terrain::TERRAIN_SIZE;
+	mWorldZ = pGridZ * Terrain::TERRAIN_SIZE;
+	mOffset = pOffset;
+
+	// Name
+	setName(pName);
+
+	// Position Vector
+	std::vector<glm::vec3> PositionV;
+	// TextureCoords Vector
+	std::vector<glm::vec2> TextureCoordsV;
+	// Normals Vector
+	std::vector<glm::vec3> NormalsV;
+	// Indicies Vector
+	std::vector<GLint> IndiciesV;
+
+
+
+	std::ifstream File(pFilePath);
+	std::string content;
+
+	std::string delimiter = " ";
+	std::string delimiterF = "/";
+	size_t pos1 = 0;
+	size_t pos2 = 0;
+	size_t posT1 = 0;
+	size_t posT2 = 0;
+	size_t posT3 = 0;
+
+	if (File.fail())
+	{
+		std::cout << "The file " << pFilePath << " could not be founded!" << std::endl;
+	}
+	else
+	{
+		while (std::getline(File, content))
+		{
+			if (content.at(0) == '#' || content.at(0) == 'o' || content.at(0) == 's' || content.at(0) == 'l')
+			{
+				continue;
+			}
+
+			if (content.at(0) == 'f')
+			{
+				// Temp Store for the current line
+				std::vector<std::string> faceLine;
+				// Searching for a space character
+				while ((pos2 = content.find(delimiter)) != std::string::npos)
+				{
+					// Add content to vector
+					faceLine.push_back(content.substr(0, pos2));
+					content.erase(0, pos2 + delimiter.length());
+				}
+
+				faceLine.push_back(content);
+
+				std::vector<std::string> vertex1;
+				std::vector<std::string> vertex2;
+				std::vector<std::string> vertex3;
+
+				// Vertex 1
+				while ((posT1 = faceLine.at(1).find(delimiterF)) != std::string::npos)
+				{
+					// Add content to vector
+					vertex1.push_back(faceLine.at(1).substr(0, posT1));
+					faceLine.at(1).erase(0, posT1 + delimiterF.length());
+				}
+
+				vertex1.push_back(faceLine.at(1));
+
+				// Vertex 2
+				while ((posT2 = faceLine.at(2).find(delimiterF)) != std::string::npos)
+				{
+					// Add content to vector
+					vertex2.push_back(faceLine.at(2).substr(0, posT2));
+					faceLine.at(2).erase(0, posT2 + delimiterF.length());
+				}
+
+				vertex2.push_back(faceLine.at(2));
+
+				// Vertex 3
+				while ((posT3 = faceLine.at(3).find(delimiterF)) != std::string::npos)
+				{
+					// Add content to vector
+					vertex3.push_back(faceLine.at(3).substr(0, posT3));
+					faceLine.at(3).erase(0, posT3 + delimiterF.length());
+				}
+
+				vertex3.push_back(faceLine.at(3));
+
+				// Add Data
+				// Vertex 1
+				int currentVertexPointer1 = stoi(vertex1.at(0)) - 1;
+
+				// Add Indicies
+				Indicies.push_back(currentVertexPointer1);
+
+				// Add Texture Coordinates
+				glm::vec2 currentTex1 = TextureCoordsV.at(stoi(vertex1[1]) - 1);
+				TextureCoords.push_back(currentTex1.x);
+				TextureCoords.push_back(currentTex1.y);
+
+				// Add Normal Vectors
+				glm::vec3 currentNorm1 = NormalsV.at(stoi(vertex1[2]) - 1);
+
+				Normals.push_back(currentNorm1.x);
+				Normals.push_back(currentNorm1.y);
+				Normals.push_back(currentNorm1.z);
+
+				// Vertex 2
+				int currentVertexPointer2 = stoi(vertex2.at(0)) - 1;
+
+				// Add Indicies
+				Indicies.push_back(currentVertexPointer2);
+
+				// Add Texture Coordinates
+				glm::vec2 currentTex2 = TextureCoordsV.at(stoi(vertex2[1]) - 1);
+				TextureCoords.push_back(currentTex2.x);
+				TextureCoords.push_back(currentTex2.y);
+
+				// Add Normal Vectors
+				glm::vec3 currentNorm2 = NormalsV.at(stoi(vertex2[2]) - 1);
+
+				Normals.push_back(currentNorm2.x);
+				Normals.push_back(currentNorm2.y);
+				Normals.push_back(currentNorm2.z);
+
+				// Vertex 3
+				int currentVertexPointer3 = stoi(vertex3.at(0)) - 1;
+
+				// Add Indicies
+				Indicies.push_back(currentVertexPointer3);
+
+				// Add Texture Coordinates
+				glm::vec2 currentTex3 = TextureCoordsV.at(stoi(vertex3[1]) - 1);
+				TextureCoords.push_back(currentTex3.x);
+				TextureCoords.push_back(currentTex3.y);
+
+				// Add Normal Vectors
+				glm::vec3 currentNorm3 = NormalsV.at(stoi(vertex3[2]) - 1);
+
+				Normals.push_back(currentNorm3.x);
+				Normals.push_back(currentNorm3.y);
+				Normals.push_back(currentNorm3.z);
+
+			}
+			else
+			{			
+				// Temp Store for the current line
+				std::vector<std::string> currentLine;
+				// Searching for a space character
+				while ((pos1 = content.find(delimiter)) != std::string::npos)
+				{
+					// Add content to vector
+					currentLine.push_back(content.substr(0, pos1));
+					content.erase(0, pos1 + delimiter.length());
+				}
+
+				// Add last content to vector
+				currentLine.push_back(content);
+
+				// Line is vertex
+				if (currentLine.at(0).at(0) == 'v' && currentLine.at(0).size() == 1)
+				{
+					glm::vec3 vertex(stof(currentLine[1]), stof(currentLine[2]), stof(currentLine[3]));
+					PositionV.push_back(vertex);
+
+				}
+				// Line is vertex texture
+				else  if (currentLine.at(0).at(1) == 't')
+				{
+					glm::vec2 texcoord(stof(currentLine[1]), stof(currentLine[2]));
+					TextureCoordsV.push_back(texcoord);
+				}
+				// Line is vertex normal
+				else  if (currentLine.at(0).at(1) == 'n')
+				{
+					glm::vec3 normal(stof(currentLine[1]), stof(currentLine[2]), stof(currentLine[3]));
+					NormalsV.push_back(normal);
+				}
+			}
+			
+		}
+	}
+
+	for (glm::vec3 Vertex : PositionV)
+	{
+		Position.push_back(Vertex.x);
+		Position.push_back(Vertex.y);
+		Position.push_back(Vertex.z);
+	}
+
+	// Set Model
+	mModel = pLoader->loadDataToVao(Position, TextureCoords, Normals, Indicies);
+}
 
 Terrain::~Terrain()
 {

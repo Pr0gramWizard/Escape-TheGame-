@@ -76,11 +76,6 @@ void Object::loadTexture(std::string pPath)
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-glm::mat4 Object::getModelMatrix(Player* pPlayer)
-{
-	return Math::getTransformationMatrix(this->getPosition(), this->getRotation().x, this->getRotation().y, this->getRotation().z, this->getScale());
-}
-
 glm::mat4 Object::getModelMatrix()
 {
 	return Math::getTransformationMatrix(this->getPosition(), this->getRotation().x, this->getRotation().y, this->getRotation().z, this->getScale());
@@ -166,11 +161,7 @@ Mesh Object::processMesh(aiMesh * mesh, const aiScene * scene)
 		for (GLuint j = 0; j < face.mNumIndices; j++)
 			indices.push_back(face.mIndices[j]);
 	}
-
-	std::cout << vertices.size() << std::endl;
-	std::cout << indices.size() << std::endl;
-	std::cout << textures.size() << std::endl;
-
+	
 	// Return a mesh object created from the extracted mesh data
 	return Mesh(vertices, indices, textures);
 }
