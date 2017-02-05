@@ -39,10 +39,6 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 
 }
 
-MainRenderer::~MainRenderer()
-{
-}
-
 void MainRenderer::prepare(GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE)
 {
 	glClearColor(pRED, pGREEN, pBLUE, 1.0f);
@@ -101,13 +97,26 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 	mTerrainRenderer->loadPlayerBelowLake(pPlayerBelowLake);
 	mTerrainRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
 
+	/*
 	mNormalRenderer->startShader();
 	mNormalRenderer->loadViewMatrix(pViewMatrix);
 	mNormalRenderer->loadPlayerBelowLake(pPlayerBelowLake);
 	mNormalRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
-
+	*/
 
 	for (Terrain &terrain : mTerrains)
+	{
+		glDisable(GL_CULL_FACE);
+		mTerrainRenderer->loadTexture(terrain);
+		mTerrainRenderer->render(terrain);
+		if (this->getNormalMode())
+		{
+			mNormalRenderer->render(terrain);
+		}
+		glEnable(GL_CULL_FACE);
+	}
+
+	for (Terrain* terrain : mTerrainsP)
 	{
 		glDisable(GL_CULL_FACE);
 		mTerrainRenderer->loadTexture(terrain);
@@ -244,12 +253,18 @@ void MainRenderer::addToList(Terrain &pTerrain)
 	mTerrains.push_back(pTerrain);
 }
 
+void MainRenderer::addToList(Terrain* pTerrain)
+{
+	mTerrainsP.push_back(pTerrain);
+}
+
 void MainRenderer::clearLists()
 {
 	mEntities.clear();
 	mTerrains.clear();
 	mSpecial.clear();
 	mRenderMode.clear();
+	mTerrainsP.clear();
 }
 
 void MainRenderer::renderSceneForDepthCubeMap(ShadowShader *shadowshader)

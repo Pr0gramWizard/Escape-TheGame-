@@ -56,6 +56,7 @@ public:
 	// adds entities or terrains to render list
 	void addToList(Entity &pEntity);
 	void addToList(Terrain &pTerrain);
+	void addToList(Terrain* pTerrain);
 	void addToList(Entity &pEntity, RenderMode pMode);
 	void addToList(Skybox* Skybox);
 	void addToList(Object& pObject);
@@ -114,6 +115,7 @@ private:
 	list<Entity> mSpecial;
 	list<RenderMode> mRenderMode;
 	list<Terrain> mTerrains;
+	list<Terrain*> mTerrainsP;
 	list<Object> mObjects;
 
 	bool drawMode;

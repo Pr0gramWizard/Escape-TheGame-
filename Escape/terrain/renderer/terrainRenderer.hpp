@@ -27,10 +27,13 @@ public:
 	~TerrainRenderer();
 	
 	void loadTexture(Terrain &pTerrain);
+	void loadTexture(Terrain* pTerrain);
 
 	// render methods
 	void render(list<Terrain> pTerrains);
+	void render(list<Terrain*> pTerrains);
 	void render(Terrain &pTerrain);
+	void render(Terrain* pTerrain);
 	
 	GLuint getProgramID() const;
 

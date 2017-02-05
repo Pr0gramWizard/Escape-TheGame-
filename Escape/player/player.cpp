@@ -108,6 +108,8 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	// Updating the players position
 	this->incPosition(glm::vec3(dx, 0, dz));
 
+	/*
+
 	// Collision detection
 	
 	float terrainHeight;
@@ -179,6 +181,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	{
 		mPosition.y = mPosition.y;
 	}
+	*/
 	
 
 	// Set camera's new position
