@@ -30,7 +30,7 @@ public:
 	// Depth cubemap
 	GLuint getDepthCubemap();
 
-	void setShadowTransforms(glm::vec3 pLightPos);
+	std::vector<glm::mat4> getShadowTransforms(glm::vec3 pLightPos) const;
 
 	// Clean Up function
 	void cleanUp();
@@ -56,8 +56,6 @@ private:
 	GLuint mWindowWidth;
 	// Window Height
 	GLuint mWindowHeight;
-
-	std::vector<glm::mat4> mShadowTransforms;
 
 	glm::mat4 mShadowProjection;
 };

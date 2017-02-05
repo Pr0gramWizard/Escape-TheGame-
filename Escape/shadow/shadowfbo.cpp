@@ -43,8 +43,8 @@ GLuint ShadowFrameBuffer::getDepthCubemap()
 	return mDepthCubeMap;
 }
 
-// Adjust view matrices to new lightsource
-void ShadowFrameBuffer::setShadowTransforms(glm::vec3 pLightPos)
+// Returns view matrices for given lightsource
+std::vector<glm::mat4> ShadowFrameBuffer::getShadowTransforms(glm::vec3 pLightPos) const
 {
 	std::vector<glm::mat4> shadowTransforms;
 
@@ -61,7 +61,7 @@ void ShadowFrameBuffer::setShadowTransforms(glm::vec3 pLightPos)
 	shadowTransforms.push_back(mShadowProjection *
 		glm::lookAt(pLightPos, pLightPos + glm::vec3(0.0, 0.0, -1.0), glm::vec3(0.0, -1.0, 0.0)));
 
-	mShadowTransforms = shadowTransforms;
+	return shadowTransforms;
 }
 
 // Clean up function
