@@ -168,6 +168,12 @@ bool Game::gameLoop()
 	lakerenderer->stopShader();
 	//**** END LIGHT STUFF ****
 
+	//**** SHADOW STUFF ****
+	ShadowShader *shadowshader = new ShadowShader("shaders/shadow.vert", "shaders/shadow.frag", "shaders/shadow.gs");
+	ShadowFrameBuffer *shadowFBO = new ShadowFrameBuffer(mWidth, mHeight);
+
+	//**** END SHADOW STUFF ****
+
 	SoundEngine = irrklang::createIrrKlangDevice();
 
 	SoundEngine->play2D("audio/MainTheme.mp3", GL_TRUE);

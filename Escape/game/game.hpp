@@ -64,6 +64,9 @@
 // lava
 #include "../lava/shader/lavashader.hpp"
 #include "../lava/renderer/lavaRenderer.hpp"
+// shadow
+#include "../shadow/shader/shadowshader.hpp"
+#include "../shadow/shadowfbo.hpp"
 
 
 
