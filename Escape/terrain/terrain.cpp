@@ -227,8 +227,6 @@ Terrain::Terrain(int pGridX, int pGridZ, float pOffset, const char * pName, Load
 		}
 	}
 
-	std::cout << Normals.at(0) << std::endl;
-
 
 	for (glm::vec3 Vertex : PositionV)
 	{
@@ -236,6 +234,9 @@ Terrain::Terrain(int pGridX, int pGridZ, float pOffset, const char * pName, Load
 		Position.push_back(Vertex.y);
 		Position.push_back(Vertex.z);
 	}
+
+	mGridSize = (float)Terrain::TERRAIN_SIZE / ((Position.size() / 3) - 1);
+	mVertices = (Position.size() / 3);
 
 	this->loadGrasTexture();
 	this->loadStoneTexture();

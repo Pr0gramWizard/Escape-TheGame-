@@ -23,7 +23,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(),NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(),glfwGetPrimaryMonitor(),NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -56,7 +56,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glm::vec3 WayToLookOut(63, 0, 23);
 	glm::vec3 Platfrom(111.0f, 3.5f, 31.0f);
 
-	mPlayer = new Player(Origin, 1, "Hans Dieter", this->getHeight(), this->getWidth());
+	mPlayer = new Player(Origin, 0.5f, "Hans Dieter", this->getHeight(), this->getWidth());
 }
 
 
@@ -71,7 +71,7 @@ bool Game::gameLoop()
 	// Terrain ceiling(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
 
 	Terrain Decke(0, 0, 0, "TerrainDecke", loader, "./object/res/terrain/NoHoles.obj",true);
-	Terrain Boden(0, 0, 0, "TerrainBoden", loader, "./object/res/terrain/TestFloor.obj");
+	Terrain Boden(0, 0, -0.5f, "TerrainBoden", loader, "./object/res/terrain/TestFloor.obj");
 
 	// Object Stone1("object/res/stone/glowstone.obj", glm::vec3(98.0f, floor.getHeight(98.0f,68.0f), 68.0f), glm::vec3(2.0f, 1.0f, 0.0f), 1.0f);
 	// Object Cube("object/res/terrain/cube.obj", glm::vec3(0.0f,0.0f,0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 1.0f);
