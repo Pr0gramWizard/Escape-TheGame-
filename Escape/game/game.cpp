@@ -155,7 +155,7 @@ bool Game::gameLoop()
 	vector<Light*> lights;
 
 	lights.push_back(sun);
-	lights.push_back(LavaLight);
+	//lights.push_back(LavaLight);
 	// lights.push_back(stoneB);
 	// lights.push_back(stoneC);
 
@@ -167,6 +167,37 @@ bool Game::gameLoop()
 	lakerenderer->loadLakeSpotLightFactor(spotlight->getFactor());
 	lakerenderer->stopShader();
 	//**** END LIGHT STUFF ****
+
+	//**** SHADOW STUFF ****
+	ShadowShader *shadowshader = new ShadowShader("shaders/shadow.vert", "shaders/shadow.frag", "shaders/shadow.gs");
+	ShadowFrameBuffer *shadowFBO = new ShadowFrameBuffer(mWidth, mHeight);
+
+	Light* LavaLight2 = new Light(glm::vec3(20.0f, 0.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
+	lights.push_back(LavaLight2);
+
+	//test shadow with one light and one terrain
+	shadowFBO->bindShadowFrameBuffer();
+	// need to clear for every light
+	shadowshader->use();
+	// maybe change!
+	shadowshader->loadFarplane(25.0f);
+
+	// load light source
+	shadowshader->loadModelMatrix(Decke.getModelMatrix());
+	shadowshader->loadShadowMatrices(shadowFBO->getShadowTransforms(LavaLight2->getPosition()));
+
+	// render scene to shadow map
+	mRenderer->renderSceneForDepthCubeMap(shadowshader);
+
+	// save depth cubemap in light
+	LavaLight2->setDepthCubemap(shadowFBO->getDepthCubemap());
+	cout << LavaLight2->getDepthCubemap() << " is the id of the DepthCubeMap" << endl;
+	
+
+	shadowshader->unuse();
+	shadowFBO->unbindShadowFrameBuffer();
+
+	//**** END SHADOW STUFF ****
 
 	SoundEngine = irrklang::createIrrKlangDevice();
 
@@ -224,7 +255,9 @@ bool Game::gameLoop()
 		lights.push_back(sun);
 
 		// put needed lights in the list
-		lights.push_back(LavaLight);
+		//lights.push_back(LavaLight);
+		lights.push_back(LavaLight2);
+		
 		// lights.push_back(stoneB);
 		// lights.push_back(stoneC);
 

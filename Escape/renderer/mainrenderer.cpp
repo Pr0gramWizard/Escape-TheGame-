@@ -252,6 +252,35 @@ void MainRenderer::clearLists()
 	mRenderMode.clear();
 }
 
+void MainRenderer::renderSceneForDepthCubeMap(ShadowShader *shadowshader)
+{
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	// shader is the shadow shader -> only needs model matrix
+
+	// only terrains cast shadows yet
+
+	/*for (Object &object : mObjects)
+	{
+		mObjectRenderer->loadModelMatrix(&object);
+		mObjectRenderer->render(object);
+	}
+
+
+
+	// entities
+	mEntityRenderer->startShader();
+	mEntityRenderer->render(mEntities);*/
+
+	// terrain
+
+	for (Terrain &terrain : mTerrains)
+	{
+		shadowshader->loadModelMatrix(terrain.getModelMatrix());
+		glDrawElements(GL_TRIANGLES, terrain.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+	}
+}
+
 void MainRenderer::cleanUp()
 {
 	//mEntityRenderer->cleanUp();

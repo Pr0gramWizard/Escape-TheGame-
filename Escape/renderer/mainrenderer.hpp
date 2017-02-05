@@ -39,6 +39,9 @@
 // matrix
 #include <mat4x4.hpp>
 
+// shadow
+#include "../shadow/shader/shadowshader.hpp"
+
 // list
 #include <list>
 
@@ -72,6 +75,8 @@ public:
 	void render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime);
 	void renderDebugInformation();
 	void clearLists();
+
+	void renderSceneForDepthCubeMap(ShadowShader *shadowshader);
 
 	// Set FPS
 	void setFPS(int pFPS);
