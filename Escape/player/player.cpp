@@ -73,6 +73,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	// The length (in units) the player is moving
 	float dPos = mMovementSpeed * pDelta;
 
+
 	// Plays walking sound if the player ist walking/not jumping/not underwater
 	if (dPos != 0 && !mJumping && !isBelowLake()) {
 		if (!WalkSound->isCurrentlyPlaying("audio/walking/step1.wav") && !WalkSound->isCurrentlyPlaying("audio/walking/step2.wav") && !WalkSound->isCurrentlyPlaying("audio/walking/step3.wav") && !WalkSound->isCurrentlyPlaying("audio/walking/step4.wav")) {
@@ -85,7 +86,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 			std::uniform_int_distribution<> dis(1, 4);
 			int randomX = dis(gen);
 			// Play random walk sound
-			playWalkingSound(randomX);
+			// playWalkingSound(randomX);
 		}
 	}
 	// If the player is underwater we play the underwater sounds
@@ -108,7 +109,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	this->incPosition(glm::vec3(dx, 0, dz));
 
 	// Collision detection
-	/*
+	
 	float terrainHeight;
 	float nextTerrainHeight = pFloor->getHeight(mPosition.x, mPosition.z);
 	float angle = atan((nextTerrainHeight - mPosition.y)/sqrt(dx * dx + dz * dz));
@@ -178,7 +179,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	{
 		mPosition.y = mPosition.y;
 	}
-	*/
+	
 
 	// Set camera's new position
 	mEye->setPosition(this->getPosition() + glm::vec3(0, this->getHeight(), 0));
