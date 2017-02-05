@@ -21,6 +21,45 @@ uniform sampler2D stone;
 uniform sampler2D flower;
 uniform sampler2D mud;
 uniform sampler2D blendMap;
+uniform samplerCube depthCubemap0;
+
+const float far_plane = 25.0f;
+
+// array of offset direction for sampling
+vec3 gridSamplingDisk[20] = vec3[]
+(
+   vec3(1, 1, 1), vec3(1, -1, 1), vec3(-1, -1, 1), vec3(-1, 1, 1), 
+   vec3(1, 1, -1), vec3(1, -1, -1), vec3(-1, -1, -1), vec3(-1, 1, -1),
+   vec3(1, 1, 0), vec3(1, -1, 0), vec3(-1, -1, 0), vec3(-1, 1, 0),
+   vec3(1, 0, 1), vec3(-1, 0, 1), vec3(1, 0, -1), vec3(-1, 0, -1),
+   vec3(0, 1, 1), vec3(0, -1, 1), vec3(0, -1, -1), vec3(0, 1, -1)
+);
+
+float ShadowCalculation(vec3 fragToLight)
+{
+    // Get current linear depth as the length between the fragment and light position
+    float currentDepth = length(fragToLight);
+    // Test for shadows with PCF
+    float shadow = 0.0;
+    float bias = 0.15;
+    int samples = 20;
+    float viewDistance = length(viewPos - fragPos);
+    float diskRadius = (1.0 + (viewDistance / far_plane)) / 25.0;
+    for(int i = 0; i < samples; ++i)
+    {
+        float closestDepth = texture(depthCubemap0, fragToLight + gridSamplingDisk[i] * diskRadius).r;
+        closestDepth *= far_plane;   // Undo mapping [0;1]
+        if(currentDepth - bias > closestDepth)
+            shadow += 1.0;
+    }
+    shadow /= float(samples);
+        
+    // Display closestDepth as debug (to visualize depth cubemap)
+    // FragColor = vec4(vec3(closestDepth / far_plane), 1.0);    
+        
+    // return shadow;
+    return shadow;
+}
 
 void main()
 {
@@ -63,7 +102,7 @@ void main()
 		float distance = length(fragPos - lightPosition[i]);
 		float attenuationFactor = lightAttenuation[i].x + (lightAttenuation[i].y * distance) + (lightAttenuation[i].z * distance * distance);
 		
-		result += (ambient + diffuse + specular)/attenuationFactor;
+		result += (1.0-ShadowCalculation(fragPos - lightPosition[i])) * (ambient + diffuse + specular)/attenuationFactor;
     }
 
 	float distance = length(viewPos - fragPos);
@@ -81,6 +120,7 @@ void main()
 	
 
 	float brightness = dot(out_Color.rgb, vec3(0.2126, 0.7152, 0.0722));
-    if(brightness > 1.0)
-        BrightColor = vec4(out_Color.rgb, 1.0);
+    if(brightness > 1.0){
+		BrightColor = vec4(out_Color.rgb, 1.0);
+	}
 }

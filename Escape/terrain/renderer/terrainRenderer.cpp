@@ -66,7 +66,7 @@ void TerrainRenderer::loadDepthCubemapTexture(vector<Light*> pLights)
 	for (unsigned int i = 0; i < MAX_LIGHTS; ++i) {
 		if (i < pLights.size()) {
 			glActiveTexture(GL_TEXTURE5 + i);
-			glBindTexture(GL_TEXTURE_2D, pLights[i]->getDepthCubemap());
+			glBindTexture(GL_TEXTURE_CUBE_MAP, pLights[i]->getDepthCubemap());
 			glUniform1i(glGetUniformLocation(mShader->getProgramID(), "depthCubemap" + i), 5 + i);
 		}
 	}
