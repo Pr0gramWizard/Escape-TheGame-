@@ -16,7 +16,8 @@ uniform float fogGradient;
 uniform vec3 backgroundColor;
 uniform bool playerBelowLake;
 
-uniform sampler2D texture;
+uniform sampler2D BlueTex;
+uniform samplerCube depthCubemap0;
 
 const float far_plane = 25.0f;
 
@@ -95,7 +96,7 @@ void main()
 
     // out_Color = vec4(result,1.0) * totalColor;
 	// out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
-	out_Color = vec4(result, 1.0) * texture2D(texture, TexCoord);
+	out_Color = vec4(result, 1.0) * texture2D(BlueTex, TexCoord);
 
 	if(playerBelowLake){
 		out_Color = mix(out_Color, vec4(0.0, 0.0, 1.0, 1.0), 0.2);

@@ -77,7 +77,7 @@ void TerrainRenderer::loadTexture(Terrain* pTerrain)
 {
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, pTerrain->getGrasTexture());
-	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "texture"), 0);
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "BlueTex"), 0);
 }
 
 void TerrainRenderer::loadDepthCubemapTexture(vector<Light*> pLights)
