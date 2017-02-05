@@ -1,8 +1,8 @@
 #version 330 core
 in vec4 FragPos;
 
-uniform vec3 lightPos;
-uniform float far_plane;
+uniform vec3 lightPosition;
+uniform float farplane;
 
 void main()
 {

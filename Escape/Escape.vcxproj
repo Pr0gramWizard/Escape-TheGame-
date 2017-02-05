@@ -53,6 +53,7 @@
     <ClCompile Include="particle\shader\particleshader.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="renderer\mainrenderer.cpp" />
+    <ClCompile Include="shadow\shader\shadoshader.cpp" />
     <ClCompile Include="shadow\shadowfbo.cpp" />
     <ClCompile Include="skybox\renderer\skyboxrenderer.cpp" />
     <ClCompile Include="skybox\shader\skyboxshader.cpp" />
@@ -98,6 +99,7 @@
     <ClInclude Include="particle\shader\particleshader.hpp" />
     <ClInclude Include="player\player.hpp" />
     <ClInclude Include="renderer\mainrenderer.hpp" />
+    <ClInclude Include="shadow\shader\shadowshader.hpp" />
     <ClInclude Include="shadow\shadowfbo.hpp" />
     <ClInclude Include="skybox\renderer\skyboxrenderer.hpp" />
     <ClInclude Include="skybox\shader\skyboxshader.hpp" />

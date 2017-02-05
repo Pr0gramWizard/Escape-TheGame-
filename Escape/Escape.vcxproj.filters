@@ -160,6 +160,9 @@
     <Filter Include="Shadow">
       <UniqueIdentifier>{83614ea4-8793-4898-b993-8963f3d926a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shadow\shader">
+      <UniqueIdentifier>{f858da82-c9ae-4f83-9007-7ac00d9140cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -292,6 +295,9 @@
     <ClCompile Include="shadow\shadowfbo.cpp">
       <Filter>Shadow</Filter>
     </ClCompile>
+    <ClCompile Include="shadow\shader\shadoshader.cpp">
+      <Filter>Shadow\shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -420,6 +426,9 @@
     </ClInclude>
     <ClInclude Include="shadow\shadowfbo.hpp">
       <Filter>Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="shadow\shader\shadowshader.hpp">
+      <Filter>Shadow\shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
