@@ -108,7 +108,7 @@ bool Game::gameLoop()
 	//Light* sun = new Light(glm::vec3(250, 1, 250), glm::vec3(1, 1, 0), glm::vec3(1, 0.01, 0.002));
 	Light* sun = new Light(glm::vec3(0, 5, 0), glm::vec3(0.2f, 0.2f, 0.2f));
 
-	Light* torch = new Light(mPlayer->getPosition(), glm::vec3(0.9f, 0.6f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
+	Light* torch = new Light(mPlayer->getPosition(), glm::vec3(0.5f, 0.2f, 0.04f), glm::vec3(0.01f, 0.01f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
 
 	vector<Light*> allLights;
 
@@ -211,13 +211,14 @@ bool Game::gameLoop()
 
 		// Calculating the player movement
 		mPlayer->move(&Boden,&Boden, deltaTime);
+		glm::vec3 playerPos = mPlayer->getCameraPosition();
+		torch->setPosition(playerPos - mPlayer->getCamera()->getRight() - mPlayer->getViewVector());
 
 		//**** light sorting ****
 
 		// always use torch
 		lights.push_back(torch);
-
-		glm::vec3 playerPos = mPlayer->getPosition();
+		
 		float maxDistance = 0.0f;
 		unsigned int maxIndex = 1;
 
