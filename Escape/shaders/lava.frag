@@ -12,8 +12,8 @@ layout (location = 1) out vec4 BrightColor;
 uniform sampler2D lavaTexture;
 uniform sampler2D dudvMap;
 uniform float lavaMoveFactor;
-uniform vec3 lightColor[4];
-uniform vec3 lightAttenuation[4];
+uniform vec3 lightColor[6];
+uniform vec3 lightAttenuation[6];
 uniform float fogDensity;
 uniform float fogGradient;
 uniform vec3 backgroundColor;
@@ -38,7 +38,7 @@ void main()
 	// specular highlights
 	vec3 specularHighlights;
 
-	for(int i = 0; i < 4; i++){
+	for(int i = 0; i < 6; i++){
 		// attenuation
 		float distance = length(fromLightVector[i]);
 		float attenuationFactor = lightAttenuation[i].x + (lightAttenuation[i].y * distance) + (lightAttenuation[i].z * distance * distance);
