@@ -70,7 +70,7 @@ bool Game::gameLoop()
 	// Terrain floor(0, 0, 0, 10, "Test", loader, "./terrain/res/BodenSee.png");
 	// Terrain ceiling(0, 0, 5, 10, "Test2", loader, "./terrain/res/Decke.png");
 
-	Terrain Decke(0, 0, 0, "TerrainDecke", loader, "./object/res/terrain/NoHoles.obj");
+	Terrain Decke(0, 0, 0, "TerrainDecke", loader, "./object/res/terrain/NoHoles.obj",true);
 	Terrain Boden(0, 0, 0, "TerrainBoden", loader, "./object/res/terrain/TestFloor.obj");
 
 	// Object Stone1("object/res/stone/glowstone.obj", glm::vec3(98.0f, floor.getHeight(98.0f,68.0f), 68.0f), glm::vec3(2.0f, 1.0f, 0.0f), 1.0f);

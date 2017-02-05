@@ -32,7 +32,7 @@ Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const ch
 
 }
 
-Terrain::Terrain(int pGridX, int pGridZ, float pOffset, const char * pName, Loader * pLoader, const char* pFilePath)
+Terrain::Terrain(int pGridX, int pGridZ, float pOffset, const char * pName, Loader * pLoader, const char* pFilePath, bool isCeiling)
 {
 	mWorldX = pGridX * Terrain::TERRAIN_SIZE;
 	mWorldZ = pGridZ * Terrain::TERRAIN_SIZE;
@@ -219,6 +219,17 @@ Terrain::Terrain(int pGridX, int pGridZ, float pOffset, const char * pName, Load
 		}
 	}
 
+	if (isCeiling)
+	{
+		for (unsigned int i = 0; i < Normals.size() / 3; ++i)
+		{
+			Normals.at(i) = -1 * Normals.at(i);
+		}
+	}
+
+	std::cout << Normals.at(0) << std::endl;
+
+
 	for (glm::vec3 Vertex : PositionV)
 	{
 		Position.push_back(Vertex.x);
@@ -300,7 +311,7 @@ void Terrain::loadFlowerTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	// Load, create texture and generate mipmaps
 	int width, height;
-	unsigned char* grass = SOIL_load_image("terrain/res/texture/new/grass.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/bPoly.png", &width, &height, 0, SOIL_LOAD_RGB);
 	if (grass == 0)
 	{
 		std::cout << "The flower texture could not be found!" << std::endl;
@@ -323,7 +334,7 @@ void Terrain::loadMudTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	// Load, create texture and generate mipmaps
 	int width, height;
-	unsigned char* grass = SOIL_load_image("terrain/res/texture/mud.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/rPoly.png", &width, &height, 0, SOIL_LOAD_RGB);
 	if (grass == 0)
 	{
 		std::cout << "The mud texture could not be found!" << std::endl;
@@ -346,7 +357,7 @@ void Terrain::loadBlendMapTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	// Load, create texture and generate mipmaps
 	int width, height;
-	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/polyblend.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/temp.png", &width, &height, 0, SOIL_LOAD_RGB);
 	if (grass == 0)
 	{
 		std::cout << "The blendmap texture could not be found!" << std::endl;

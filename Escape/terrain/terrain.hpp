@@ -26,7 +26,7 @@ class Terrain
 {
 public:
 	Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap);
-	Terrain(int pGridX, int pGridZ, float pOffset, const char* pName, Loader* pLoader, const char* PFilePath);
+	Terrain(int pGridX, int pGridZ, float pOffset, const char* pName, Loader* pLoader, const char* PFilePath, bool isCeiling = false);
 	~Terrain();
 	
 	// Loading all important textures
@@ -108,7 +108,6 @@ private:
 	void generateHeights(Loader* loader, const char* pHeightmap);
 	glm::vec3 computeNormalAt(int x, int z);
 	GLfloat getVertexHeight(int pVertexX, int pVertexZ);
-	void processVertex(std::vector<std::string> pVertex, std::vector<GLint> pIndicies,std::vector<glm::vec2> pTextureCoordsV, std::vector<glm::vec3> pNormalsV, std::vector<GLfloat> pTextureCoords, std::vector<GLfloat> pNormals);
 
 };
 
