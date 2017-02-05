@@ -157,6 +157,12 @@
     <Filter Include="Lava\shader">
       <UniqueIdentifier>{d4f3bc75-33f9-497c-8a2d-ea05e84b861d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shadow">
+      <UniqueIdentifier>{83614ea4-8793-4898-b993-8963f3d926a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shadow\shader">
+      <UniqueIdentifier>{f858da82-c9ae-4f83-9007-7ac00d9140cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -286,6 +292,12 @@
     <ClCompile Include="lava\lava.cpp">
       <Filter>Lava</Filter>
     </ClCompile>
+    <ClCompile Include="shadow\shadowfbo.cpp">
+      <Filter>Shadow</Filter>
+    </ClCompile>
+    <ClCompile Include="shadow\shader\shadoshader.cpp">
+      <Filter>Shadow\shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -412,6 +424,12 @@
     <ClInclude Include="lava\lava.hpp">
       <Filter>Lava</Filter>
     </ClInclude>
+    <ClInclude Include="shadow\shadowfbo.hpp">
+      <Filter>Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="shadow\shader\shadowshader.hpp">
+      <Filter>Shadow\shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
@@ -499,6 +517,15 @@
       <Filter>Shader\Fragment</Filter>
     </None>
     <None Include="shaders\lava.vert">
+      <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="shaders\shadow.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="shaders\shadow.gs">
+      <Filter>Shader\Geometry</Filter>
+    </None>
+    <None Include="shaders\shadow.vert">
       <Filter>Shader\Vertex</Filter>
     </None>
   </ItemGroup>

@@ -53,6 +53,8 @@
     <ClCompile Include="particle\shader\particleshader.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="renderer\mainrenderer.cpp" />
+    <ClCompile Include="shadow\shader\shadoshader.cpp" />
+    <ClCompile Include="shadow\shadowfbo.cpp" />
     <ClCompile Include="skybox\renderer\skyboxrenderer.cpp" />
     <ClCompile Include="skybox\shader\skyboxshader.cpp" />
     <ClCompile Include="skybox\skybox.cpp" />
@@ -97,6 +99,8 @@
     <ClInclude Include="particle\shader\particleshader.hpp" />
     <ClInclude Include="player\player.hpp" />
     <ClInclude Include="renderer\mainrenderer.hpp" />
+    <ClInclude Include="shadow\shader\shadowshader.hpp" />
+    <ClInclude Include="shadow\shadowfbo.hpp" />
     <ClInclude Include="skybox\renderer\skyboxrenderer.hpp" />
     <ClInclude Include="skybox\shader\skyboxshader.hpp" />
     <ClInclude Include="skybox\skybox.hpp" />
@@ -124,6 +128,9 @@
     <None Include="shaders\object.vert" />
     <None Include="shaders\particle.frag" />
     <None Include="shaders\particle.vert" />
+    <None Include="shaders\shadow.frag" />
+    <None Include="shaders\shadow.gs" />
+    <None Include="shaders\shadow.vert" />
     <None Include="shaders\skybox.frag" />
     <None Include="shaders\skybox.vert" />
     <None Include="shaders\terrain.frag" />
