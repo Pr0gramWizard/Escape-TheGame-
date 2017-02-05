@@ -2,7 +2,7 @@
 
 in vec4 clipSpace;
 in vec2 textureCoords;
-in vec3 fromLightVector[4];
+in vec3 fromLightVector[6];
 in vec3 lakeNormal;
 in vec3 fragPos;
 in vec3 viewPos;
@@ -19,8 +19,8 @@ uniform sampler2D depthMap;
 uniform sampler2D dudvMap;
 uniform sampler2D normalMap;
 uniform float waterMoveFactor;
-uniform vec3 lightColor[4];
-uniform vec3 lightAttenuation[4];
+uniform vec3 lightColor[6];
+uniform vec3 lightAttenuation[6];
 uniform float fogDensity;
 uniform float fogGradient;
 uniform vec3 backgroundColor;
@@ -77,7 +77,7 @@ void main()
 	// specular highlights
 	vec3 specularHighlights;
 
-	for(int i = 0; i < 4; i++){
+	for(int i = 0; i < 6; i++){
 		// attenuation
 		float distance = length(fromLightVector[i]);
 		float attenuationFactor = lightAttenuation[i].x + (lightAttenuation[i].y * distance) + (lightAttenuation[i].z * distance * distance);
