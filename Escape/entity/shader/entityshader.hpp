@@ -21,7 +21,7 @@
 #include "../../light/light.hpp"
 
 // Maximum amount of light sources
-#define MAX_LIGHTS 4
+#define MAX_LIGHTS 6
 
 // Defintion of the class Shader
 class EntityShader

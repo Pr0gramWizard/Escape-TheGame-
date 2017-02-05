@@ -35,7 +35,7 @@
 // glm::value_prt
 #include <gtc/type_ptr.hpp>
 
-#define MAX_LIGHTS 4
+#define MAX_LIGHTS 6
 
 
 // Defintion of the class Shader

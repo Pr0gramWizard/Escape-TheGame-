@@ -20,7 +20,7 @@
 // Light class
 #include "../../light/light.hpp"
 
-#define MAX_LIGHTS 4
+#define MAX_LIGHTS 6
 
 using namespace std;
 // Defintion of the class Shader
