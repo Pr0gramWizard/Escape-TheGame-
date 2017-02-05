@@ -2,7 +2,7 @@
 
 const char* LavaRenderer::DUDV_MAP = "Lava/res/dudv.png";
 const char* LavaRenderer::LAVA_TEXTURE = "Lava/res/lava256_poly.png";
-const float LavaRenderer::LAVA_WAVE_MOVEMENT_SPEED = 0.03f;
+const float LavaRenderer::LAVA_WAVE_MOVEMENT_SPEED = 0.01f;
 
 // constructor
 LavaRenderer::LavaRenderer(LavaShader * pShader, glm::mat4 pProjectionMatrix)
