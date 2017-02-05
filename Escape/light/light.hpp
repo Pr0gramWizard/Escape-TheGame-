@@ -61,5 +61,5 @@ private:
 	// Disco frequency (rounds per second)
 	float mDiscoFrequency;
 	// depth cubemap
-	GLuint mDepthCubemap;
+	int mDepthCubemap;
 };
