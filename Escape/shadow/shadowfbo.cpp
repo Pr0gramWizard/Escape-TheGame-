@@ -2,11 +2,11 @@
 #include "shadowfbo.hpp"
 
 // Definition of global constants
-const int ShadowFrameBuffers::SHADOW_WIDTH = 1024;
-const int ShadowFrameBuffers::SHADOW_HEIGHT = 1024;
+const int ShadowFrameBuffer::SHADOW_WIDTH = 1024;
+const int ShadowFrameBuffer::SHADOW_HEIGHT = 1024;
 
 // Constructor
-ShadowFrameBuffers::ShadowFrameBuffers(GLuint pWindowWidth, GLuint pWindowHeight)
+ShadowFrameBuffer::ShadowFrameBuffer(GLuint pWindowWidth, GLuint pWindowHeight)
 {
 	// Setting Window Width
 	mWindowWidth = pWindowWidth;
@@ -20,7 +20,7 @@ ShadowFrameBuffers::ShadowFrameBuffers(GLuint pWindowWidth, GLuint pWindowHeight
 }
 
 // Destructor
-ShadowFrameBuffers::~ShadowFrameBuffers()
+ShadowFrameBuffer::~ShadowFrameBuffer()
 {
 
 	// Cleaning up all the mess
@@ -30,7 +30,7 @@ ShadowFrameBuffers::~ShadowFrameBuffers()
 }
 
 // Unbind Current Frame Buffer
-void ShadowFrameBuffers::unbindShadowFrameBuffer()
+void ShadowFrameBuffer::unbindShadowFrameBuffer()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, mWindowWidth, mWindowHeight);
@@ -38,32 +38,82 @@ void ShadowFrameBuffers::unbindShadowFrameBuffer()
 
 
 // Returns Depth Texture
-GLuint ShadowFrameBuffers::getDepthCubemap()
+GLuint ShadowFrameBuffer::getDepthCubemap()
 {
 	return mDepthCubeMap;
 }
 
+// Adjust view matrices to new lightsource
+void ShadowFrameBuffer::setShadowTransforms(glm::vec3 pLightPos)
+{
+	std::vector<glm::mat4> shadowTransforms;
+
+	shadowTransforms.push_back(mShadowProjection *
+		glm::lookAt(pLightPos, pLightPos + glm::vec3(1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0)));
+	shadowTransforms.push_back(mShadowProjection *
+		glm::lookAt(pLightPos, pLightPos + glm::vec3(-1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0)));
+	shadowTransforms.push_back(mShadowProjection *
+		glm::lookAt(pLightPos, pLightPos + glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 1.0)));
+	shadowTransforms.push_back(mShadowProjection *
+		glm::lookAt(pLightPos, pLightPos + glm::vec3(0.0, -1.0, 0.0), glm::vec3(0.0, 0.0, -1.0)));
+	shadowTransforms.push_back(mShadowProjection *
+		glm::lookAt(pLightPos, pLightPos + glm::vec3(0.0, 0.0, 1.0), glm::vec3(0.0, -1.0, 0.0)));
+	shadowTransforms.push_back(mShadowProjection *
+		glm::lookAt(pLightPos, pLightPos + glm::vec3(0.0, 0.0, -1.0), glm::vec3(0.0, -1.0, 0.0)));
+
+	mShadowTransforms = shadowTransforms;
+}
+
 // Clean up function
-void ShadowFrameBuffers::cleanUp()
+void ShadowFrameBuffer::cleanUp()
 {
 	// Delete Refelction Frame Buffer
 	glDeleteFramebuffers(1, &mDepthMapFBO);
 	glDeleteTextures(1, &mDepthCubeMap);
 }
 
-void ShadowFrameBuffers::init()
+void ShadowFrameBuffer::init()
 {
+	// set shadow projection
+	GLfloat aspect = (GLfloat)ShadowFrameBuffer::SHADOW_WIDTH / (GLfloat)ShadowFrameBuffer::SHADOW_HEIGHT;
+	GLfloat near = 1.0f;
+	GLfloat far = 25.0f;
+	mShadowProjection = glm::perspective(glm::radians(90.0f), aspect, near, far);
+
+	// create framebuffer
+	glGenFramebuffers(1, &mDepthMapFBO);
+
+	// create cubemap
+	glGenTextures(1, &mDepthCubeMap);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, mDepthCubeMap);
+	for (GLuint i = 0; i < 6; ++i) {
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT, ShadowFrameBuffer::SHADOW_WIDTH, ShadowFrameBuffer::SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+	}	
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+	// Attach cubemap as depth map FBO's color buffer
+	glBindFramebuffer(GL_FRAMEBUFFER, mDepthMapFBO);
+	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, mDepthCubeMap, 0);
+	glDrawBuffer(GL_NONE);
+	glReadBuffer(GL_NONE);
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		std::cout << "Framebuffer not complete!" << std::endl;
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 // Bind Frame Buffer
-void ShadowFrameBuffers::bindFrameBuffer(GLuint pBuffer, GLuint pWidth, GLuint pHeight)
+void ShadowFrameBuffer::bindFrameBuffer(GLuint pBuffer, GLuint pWidth, GLuint pHeight)
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindFramebuffer(GL_FRAMEBUFFER, pBuffer);
 	glViewport(0, 0, pWidth, pHeight);
 }
 
-void ShadowFrameBuffers::bindShadowFrameBuffer()
+void ShadowFrameBuffer::bindShadowFrameBuffer()
 {
-	this->bindFrameBuffer(mDepthMapFBO, ShadowFrameBuffers::SHADOW_WIDTH, ShadowFrameBuffers::SHADOW_HEIGHT);
+	this->bindFrameBuffer(mDepthMapFBO, ShadowFrameBuffer::SHADOW_WIDTH, ShadowFrameBuffer::SHADOW_HEIGHT);
 }

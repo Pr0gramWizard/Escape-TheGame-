@@ -3,16 +3,22 @@
 #include <glew.h>
 // Standard Input/Output Stream
 #include <iostream>
+// OpenGLMath 
+#include <glm.hpp>
+// Matrix Transformation
+#include <gtc/matrix_transform.hpp>
+// vectors
+#include <vector>
 
 // Declaration of the Lake Frame Buffer class
-class ShadowFrameBuffers
+class ShadowFrameBuffer
 {
 	// All public functions of the class
 public:
 	// Constructor
-	ShadowFrameBuffers(GLuint pWindowWidth, GLuint pWindowHeight);
+	ShadowFrameBuffer(GLuint pWindowWidth, GLuint pWindowHeight);
 	// Destructor
-	~ShadowFrameBuffers();
+	~ShadowFrameBuffer();
 
 	// Binding Buffer
 	// Reflection Buffer
@@ -23,6 +29,8 @@ public:
 	// Getter for Textures
 	// Depth cubemap
 	GLuint getDepthCubemap();
+
+	void setShadowTransforms(glm::vec3 pLightPos);
 
 	// Clean Up function
 	void cleanUp();
@@ -48,4 +56,8 @@ private:
 	GLuint mWindowWidth;
 	// Window Height
 	GLuint mWindowHeight;
+
+	std::vector<glm::mat4> mShadowTransforms;
+
+	glm::mat4 mShadowProjection;
 };
