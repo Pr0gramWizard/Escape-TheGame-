@@ -23,7 +23,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL /*glfwGetPrimaryMonitor()*/,NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), glfwGetPrimaryMonitor(),NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
