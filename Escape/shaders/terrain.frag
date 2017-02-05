@@ -16,10 +16,64 @@ uniform float fogGradient;
 uniform vec3 backgroundColor;
 uniform bool playerBelowLake;
 
-uniform sampler2D texture;
+uniform sampler2D grass;
+uniform sampler2D stone;
+uniform sampler2D flower;
+uniform sampler2D mud;
+uniform sampler2D blendMap;
+uniform samplerCube depthCubemap0;
+
+const float far_plane = 25.0f;
+
+// array of offset direction for sampling
+vec3 gridSamplingDisk[20] = vec3[]
+(
+   vec3(1, 1, 1), vec3(1, -1, 1), vec3(-1, -1, 1), vec3(-1, 1, 1), 
+   vec3(1, 1, -1), vec3(1, -1, -1), vec3(-1, -1, -1), vec3(-1, 1, -1),
+   vec3(1, 1, 0), vec3(1, -1, 0), vec3(-1, -1, 0), vec3(-1, 1, 0),
+   vec3(1, 0, 1), vec3(-1, 0, 1), vec3(1, 0, -1), vec3(-1, 0, -1),
+   vec3(0, 1, 1), vec3(0, -1, 1), vec3(0, -1, -1), vec3(0, 1, -1)
+);
+
+float ShadowCalculation(vec3 fragToLight)
+{
+    // Get current linear depth as the length between the fragment and light position
+    float currentDepth = length(fragToLight);
+    // Test for shadows with PCF
+    float shadow = 0.0;
+    float bias = 0.15;
+    int samples = 20;
+    float viewDistance = length(viewPos - fragPos);
+    float diskRadius = (1.0 + (viewDistance / far_plane)) / 25.0;
+    for(int i = 0; i < samples; ++i)
+    {
+        float closestDepth = texture(depthCubemap0, fragToLight + gridSamplingDisk[i] * diskRadius).r;
+        closestDepth *= far_plane;   // Undo mapping [0;1]
+        if(currentDepth - bias > closestDepth)
+            shadow += 1.0;
+    }
+    shadow /= float(samples);
+        
+    // Display closestDepth as debug (to visualize depth cubemap)
+    // FragColor = vec4(vec3(closestDepth / far_plane), 1.0);    
+        
+    // return shadow;
+    return shadow;
+}
 
 void main()
 {
+
+	// vec4 blendMapColor = texture(blendMap,TexCoord);
+
+	// float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
+	// vec2 tiledCoords = TexCoord * 50;
+	// vec4 backgroundTextureColor = texture(grass, tiledCoords) * backTextureAmount;
+	// vec4 rTextureColor = texture(mud, tiledCoords) * blendMapColor.r;
+	// vec4 gTextureColor = texture(flower, tiledCoords) * blendMapColor.g;
+	// vec4 bTextureColor = texture(stone, tiledCoords) * blendMapColor.b;
+
+	// vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
 		
 	// Ambient
     float ambientStrength = 0.1f;
@@ -48,7 +102,7 @@ void main()
 		float distance = length(fragPos - lightPosition[i]);
 		float attenuationFactor = lightAttenuation[i].x + (lightAttenuation[i].y * distance) + (lightAttenuation[i].z * distance * distance);
 		
-		result += (ambient + diffuse + specular)/attenuationFactor;
+		result += (1.0-ShadowCalculation(fragPos - lightPosition[i])) * (ambient + diffuse + specular)/attenuationFactor;
     }
 
 	float distance = length(viewPos - fragPos);
@@ -57,7 +111,7 @@ void main()
 
     // out_Color = vec4(result,1.0) * totalColor;
 	// out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
-	out_Color = vec4(result, 1.0) * texture2D(texture, TexCoord);
+	out_Color = vec4(result, 1.0) * texture2D(grass, TexCoord);
 
 	if(playerBelowLake){
 		out_Color = mix(out_Color, vec4(0.0, 0.0, 1.0, 1.0), 0.2);
@@ -66,6 +120,7 @@ void main()
 	
 
 	float brightness = dot(out_Color.rgb, vec3(0.2126, 0.7152, 0.0722));
-    if(brightness > 1.0)
-        BrightColor = vec4(out_Color.rgb, 1.0);
+    if(brightness > 1.0){
+		BrightColor = vec4(out_Color.rgb, 1.0);
+	}
 }

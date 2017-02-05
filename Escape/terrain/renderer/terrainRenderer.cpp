@@ -26,27 +26,6 @@ void TerrainRenderer::render(list<Terrain> pTerrains)
 	}
 }
 
-void TerrainRenderer::render(list<Terrain*> pTerrains)
-{
-	for (Terrain* terrain : pTerrains)
-	{
-		prepareTerrain(terrain);
-		loadModelMatrix(terrain);
-		glDrawElements(GL_TRIANGLES, terrain->getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		unbindTerrain();
-	}
-}
-
-void TerrainRenderer::render(Terrain* pTerrains)
-{
-		prepareTerrain(pTerrains);
-		loadModelMatrix(pTerrains);
-		glDrawElements(GL_TRIANGLES, pTerrains->getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
-		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		unbindTerrain();
-}
-
 // renders a single terrain
 void TerrainRenderer::render(Terrain &pTerrain)
 {
@@ -82,11 +61,15 @@ void TerrainRenderer::loadTexture(Terrain &pTerrain)
 	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "blendMap"), 4);
 }
 
-void TerrainRenderer::loadTexture(Terrain* pTerrain)
+void TerrainRenderer::loadDepthCubemapTexture(vector<Light*> pLights)
 {
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, pTerrain->getGrasTexture());
-	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "texture"), 0);
+	for (unsigned int i = 0; i < MAX_LIGHTS; ++i) {
+		if (i < pLights.size()) {
+			glActiveTexture(GL_TEXTURE5 + i);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, pLights[i]->getDepthCubemap());
+			glUniform1i(glGetUniformLocation(mShader->getProgramID(), "depthCubemap" + i), 5 + i);
+		}
+	}
 }
 
 GLuint TerrainRenderer::getProgramID() const
