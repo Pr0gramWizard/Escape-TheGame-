@@ -27,6 +27,7 @@ public:
 	~TerrainRenderer();
 	
 	void loadTexture(Terrain &pTerrain);
+	void loadDepthCubemapTexture(vector<Light*> pLights);
 
 	// render methods
 	void render(list<Terrain> pTerrains);

@@ -154,7 +154,7 @@ bool Game::gameLoop()
  
 	vector<Light*> lights;
 
-	lights.push_back(sun);
+	//lights.push_back(sun);
 	//lights.push_back(LavaLight);
 	// lights.push_back(stoneB);
 	// lights.push_back(stoneC);
@@ -192,7 +192,6 @@ bool Game::gameLoop()
 	// save depth cubemap in light
 	LavaLight2->setDepthCubemap(shadowFBO->getDepthCubemap());
 	cout << LavaLight2->getDepthCubemap() << " is the id of the DepthCubeMap" << endl;
-	
 
 	shadowshader->unuse();
 	shadowFBO->unbindShadowFrameBuffer();
@@ -252,7 +251,7 @@ bool Game::gameLoop()
 		// glEnable(GL_TEXTURE_2D);
 
 		// always use this light
-		lights.push_back(sun);
+		//lights.push_back(sun);
 
 		// put needed lights in the list
 		//lights.push_back(LavaLight);

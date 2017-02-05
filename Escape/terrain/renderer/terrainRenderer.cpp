@@ -61,6 +61,17 @@ void TerrainRenderer::loadTexture(Terrain &pTerrain)
 	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "blendMap"), 4);
 }
 
+void TerrainRenderer::loadDepthCubemapTexture(vector<Light*> pLights)
+{
+	for (unsigned int i = 0; i < MAX_LIGHTS; ++i) {
+		if (i < pLights.size()) {
+			glActiveTexture(GL_TEXTURE5 + i);
+			glBindTexture(GL_TEXTURE_2D, pLights[i]->getDepthCubemap());
+			glUniform1i(glGetUniformLocation(mShader->getProgramID(), "depthCubemap" + i), 5 + i);
+		}
+	}
+}
+
 GLuint TerrainRenderer::getProgramID() const
 {
 	return mShader->getProgramID();
