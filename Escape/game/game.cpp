@@ -66,7 +66,7 @@ bool Game::gameLoop()
 
 	Loader* loader = new Loader();
 
-	Terrain* Boden = new Terrain(0, 0, 0, "Boden", loader, "./object/res/terrain/NewFloor.obj");
+	Terrain* Boden = new Terrain(0, 0, 0, "Boden", loader, "./object/res/terrain/a.obj");
 
 	std::list<Terrain*> allTerrain;
 

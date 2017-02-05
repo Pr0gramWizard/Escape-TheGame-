@@ -1,6 +1,6 @@
 #include "terrain.hpp"
 
-const int Terrain::TERRAIN_SIZE = 256;
+const int Terrain::TERRAIN_SIZE = 512;
 
 Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap)
 {
@@ -231,12 +231,14 @@ Terrain::Terrain(int pGridX, int pGridZ, float pOffset, const char * pName, Load
 	for (glm::vec3 Vertex : PositionV)
 	{
 		// Finish postion vector
-		Position.push_back(Vertex.x);
-		Position.push_back(Vertex.y + mOffset);
 		Position.push_back(Vertex.z);
+		Position.push_back(Vertex.y + mOffset);
+		Position.push_back(Vertex.x);
 		// Create heights
 		mHeights.push_back(Vertex.y + mOffset);
 	}
+
+	std::cout << Position.size() / 3 << std::endl;
 
 	mGridSize = (float)Terrain::TERRAIN_SIZE / ((Position.size() / 3) - 1);
 	mVertices = sqrt((Position.size() / 3));

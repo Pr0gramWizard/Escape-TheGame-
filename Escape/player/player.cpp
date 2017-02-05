@@ -108,6 +108,12 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	// Updating the players position
 	this->incPosition(glm::vec3(dx, 0, dz));
 
+	float terrainHeight = pFloor->getHeight(mPosition.x, mPosition.z);
+
+	mPosition.y = terrainHeight;
+
+
+
 	/*
 
 	// Collision detection
