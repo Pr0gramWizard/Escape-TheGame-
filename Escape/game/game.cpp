@@ -66,9 +66,9 @@ bool Game::gameLoop()
 
 	Loader* loader = new Loader();
 
-	Terrain* Boden = new Terrain(0, 0, 0, "Boden", loader, "./object/res/terrain/b.obj");
+	Terrain Boden(0, 0, 0, 10, "Boden", loader, "./terrain/res/HFinal.png");
 
-	std::list<Terrain*> allTerrain;
+	std::list<Terrain> allTerrain;
 
 	allTerrain.push_back(Boden);
 
@@ -203,7 +203,7 @@ bool Game::gameLoop()
 		this->controlSound();
 
 		// Calculating the player movement
-		mPlayer->move(Boden,Boden, deltaTime);
+		mPlayer->move(&Boden,&Boden, deltaTime);
 
 		glEnable(GL_CLIP_DISTANCE0);
 		// glEnable(GL_TEXTURE_2D);
