@@ -12,7 +12,7 @@ out vec3 viewPos;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
-uniform vec3 lightPosition[4];
+uniform vec3 lightPosition[6];
 
 const float dudvTiling = 5.0;
 

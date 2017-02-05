@@ -1,7 +1,7 @@
 #version 330 core
 
 in vec2 textureCoords;
-in vec3 fromLightVector[4];
+in vec3 fromLightVector[6];
 in vec3 lavaNormal;
 in vec3 fragPos;
 in vec3 viewPos;

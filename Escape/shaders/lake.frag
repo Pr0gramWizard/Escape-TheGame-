@@ -2,7 +2,7 @@
 
 in vec4 clipSpace;
 in vec2 textureCoords;
-in vec3 fromLightVector[4];
+in vec3 fromLightVector[6];
 in vec3 lakeNormal;
 in vec3 fragPos;
 in vec3 viewPos;
