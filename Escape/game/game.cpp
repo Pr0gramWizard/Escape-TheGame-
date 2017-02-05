@@ -108,12 +108,19 @@ bool Game::gameLoop()
 	//Light* sun = new Light(glm::vec3(250, 1, 250), glm::vec3(1, 1, 0), glm::vec3(1, 0.01, 0.002));
 	Light* sun = new Light(glm::vec3(0, 5, 0), glm::vec3(0.2f, 0.2f, 0.2f));
 
+	Light* torch = new Light(mPlayer->getPosition(), glm::vec3(0.9f, 0.6f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
+
+	vector<Light*> allLights;
+
 	// Blue
 	Light* LavaLight = new Light(glm::vec3(20.0f, -2.0f, 0.0f), glm::vec3(0.9f, 0.3f, 0.0f),glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
+	allLights.push_back(LavaLight);
 	// Green
 	Light* stoneB = new Light(glm::vec3(-5.0f,15.0f,-27.0f), glm::vec3(0.6f, 0.3f, 0.4f), glm::vec3(0.003f, 0.003f, 0.003f), glm::vec3(0.0f,0.0f,0.5f), 0.5f, 0.3f);
+	allLights.push_back(stoneB);
 	// Red
 	Light* stoneC = new Light(glm::vec3(-16.0f,13.0f,-33.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.001f, 0.001f, 0.001f), glm::vec3(0.0f,0.2f,0.0f), 1.0f, 1.0f);
+	allLights.push_back(stoneC);
  
 	vector<Light*> lights;
 
@@ -205,18 +212,58 @@ bool Game::gameLoop()
 		// Calculating the player movement
 		mPlayer->move(&Boden,&Boden, deltaTime);
 
-		glEnable(GL_CLIP_DISTANCE0);
-		// glEnable(GL_TEXTURE_2D);
+		//**** light sorting ****
+
+		// always use torch
+		lights.push_back(torch);
+
+		glm::vec3 playerPos = mPlayer->getPosition();
+		float maxDistance = 0.0f;
+		unsigned int maxIndex = 1;
+
+		// push first MAX_LIGHTS - 1 lights to lights list and track the one with most distance
+		for (unsigned int i = 1; i < MAX_LIGHTS && i < allLights.size(); ++i) {
+			float distance = glm::distance(playerPos, allLights[i]->getPosition());
+			if (distance > maxDistance) {
+				maxDistance = distance;
+				maxIndex = i;
+			}
+			lights.push_back(allLights[i]);
+		}
+
+		// check the rest of the lights if one is closer to the player then the furthest already inside lights list
+		for (unsigned int j = MAX_LIGHTS; j < allLights.size(); ++j) {
+			float distance = glm::distance(playerPos, allLights[j]->getPosition());
+			// if found put the light into lights list and search for new max item
+			if (distance < maxDistance) {
+				lights[maxDistance] = allLights[j];
+				maxDistance = 0.0f;
+				maxIndex = 1;
+				// find new max
+				for (unsigned int k = 1; k < lights.size(); ++k) {
+					float distance = glm::distance(playerPos, lights[k]->getPosition());
+					if (distance > maxDistance) {
+						maxDistance = distance;
+						maxIndex = k;
+					}
+				}
+			}
+		}
 
 		// always use this light
-		lights.push_back(sun);
+		//lights.push_back(sun);
 
 		// put needed lights in the list
-		lights.push_back(LavaLight);
+		//lights.push_back(LavaLight);
 		// lights.push_back(LavaLight2);
 		
-		lights.push_back(stoneB);
-		lights.push_back(stoneC);
+		//lights.push_back(stoneB);
+		//lights.push_back(stoneC);
+
+		//**** End light sorting ****
+
+		glEnable(GL_CLIP_DISTANCE0);
+		// glEnable(GL_TEXTURE_2D);
 
 		// check for disco
 		bool discoTime = this->discoDiscoBoomBoom();
