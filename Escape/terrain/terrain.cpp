@@ -1,6 +1,6 @@
 #include "terrain.hpp"
 
-const int Terrain::TERRAIN_SIZE = 256;
+const int Terrain::TERRAIN_SIZE = 80;
 
 Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap)
 {
@@ -232,11 +232,12 @@ Terrain::Terrain(int pGridX, int pGridZ, float pOffset, const char * pName, Load
 	{
 		Position.push_back(Vertex.x);
 		Position.push_back(Vertex.y);
+		mHeights.push_back(Vertex.y);
 		Position.push_back(Vertex.z);
 	}
 
 	mGridSize = (float)Terrain::TERRAIN_SIZE / ((Position.size() / 3) - 1);
-	mVertices = (Position.size() / 3);
+	mVertices = sqrt((Position.size() / 3));
 
 	this->loadGrasTexture();
 	this->loadStoneTexture();
