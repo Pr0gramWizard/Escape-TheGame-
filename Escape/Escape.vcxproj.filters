@@ -157,6 +157,9 @@
     <Filter Include="Lava\shader">
       <UniqueIdentifier>{d4f3bc75-33f9-497c-8a2d-ea05e84b861d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shadow">
+      <UniqueIdentifier>{83614ea4-8793-4898-b993-8963f3d926a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -286,6 +289,9 @@
     <ClCompile Include="lava\lava.cpp">
       <Filter>Lava</Filter>
     </ClCompile>
+    <ClCompile Include="shadow\shadowfbo.cpp">
+      <Filter>Shadow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -411,6 +417,9 @@
     </ClInclude>
     <ClInclude Include="lava\lava.hpp">
       <Filter>Lava</Filter>
+    </ClInclude>
+    <ClInclude Include="shadow\shadowfbo.hpp">
+      <Filter>Shadow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
