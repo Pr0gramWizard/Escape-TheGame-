@@ -126,6 +126,9 @@
     <None Include="shaders\object.vert" />
     <None Include="shaders\particle.frag" />
     <None Include="shaders\particle.vert" />
+    <None Include="shaders\shadow.frag" />
+    <None Include="shaders\shadow.gs" />
+    <None Include="shaders\shadow.vert" />
     <None Include="shaders\skybox.frag" />
     <None Include="shaders\skybox.vert" />
     <None Include="shaders\terrain.frag" />

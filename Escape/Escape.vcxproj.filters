@@ -510,6 +510,15 @@
     <None Include="shaders\lava.vert">
       <Filter>Shader\Vertex</Filter>
     </None>
+    <None Include="shaders\shadow.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="shaders\shadow.gs">
+      <Filter>Shader\Geometry</Filter>
+    </None>
+    <None Include="shaders\shadow.vert">
+      <Filter>Shader\Vertex</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\res\blacktest.png">
