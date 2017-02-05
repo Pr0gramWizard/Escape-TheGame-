@@ -68,6 +68,7 @@ Light::Light(glm::vec3 pPosition, glm::vec3 pColor, glm::vec3 pAttenuation, glm:
 
 Light::~Light()
 {
+	glDeleteTextures(1, &mDepthCubemap);
 }
 
 void Light::setPosition(glm::vec3 pPosition)
@@ -105,7 +106,7 @@ void Light::setDiscoAttenuation(glm::vec3 pAttenuation)
 	}
 }
 
-void Light::setDepthCubemap(int pDepth)
+void Light::setDepthCubemap(GLuint pDepth)
 {
 	this->mDepthCubemap = pDepth;
 }
@@ -152,7 +153,7 @@ glm::vec3 Light::getDiscoAttenuation() const
 	return mix;
 }
 
-int Light::getDepthCubemap() const
+GLuint Light::getDepthCubemap() const
 {
 	return this->mDepthCubemap;
 }
