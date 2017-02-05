@@ -25,6 +25,7 @@ public:
 	void setAttenuation(glm::vec3 pAttenuation);
 	void setDiscoColor(glm::vec3 pColor);
 	void setDiscoAttenuation(glm::vec3 pAttenuation);
+	void setDepthCubemap(int pDepth);
 
 	// Getters
 	glm::vec3 getPosition() const;
@@ -36,6 +37,7 @@ public:
 	// return interpolated vectors
 	glm::vec3 getDiscoColor() const;
 	glm::vec3 getDiscoAttenuation() const;
+	int getDepthCubemap() const;
 
 	// Increases position by an offset
 	void incPosition(float pX, float pY, float pZ);
@@ -58,4 +60,6 @@ private:
 	float mDiscoTime;
 	// Disco frequency (rounds per second)
 	float mDiscoFrequency;
+	// depth cubemap
+	GLuint mDepthCubemap;
 };

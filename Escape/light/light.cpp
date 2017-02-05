@@ -105,6 +105,11 @@ void Light::setDiscoAttenuation(glm::vec3 pAttenuation)
 	}
 }
 
+void Light::setDepthCubemap(int pDepth)
+{
+	this->mDepthCubemap = pDepth;
+}
+
 glm::vec3 Light::getPosition() const
 {
 	return this->mPosition;
@@ -145,6 +150,11 @@ glm::vec3 Light::getDiscoAttenuation() const
 	glm::vec3 mix = glm::mix(this->mAttenuation, this->mDiscoAttenuation, partDisco);
 
 	return mix;
+}
+
+int Light::getDepthCubemap() const
+{
+	return this->mDepthCubemap;
 }
 
 void Light::incPosition(float pX, float pY, float pZ)
