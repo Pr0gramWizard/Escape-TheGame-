@@ -16,12 +16,7 @@ uniform float fogGradient;
 uniform vec3 backgroundColor;
 uniform bool playerBelowLake;
 
-uniform sampler2D grass;
-uniform sampler2D stone;
-uniform sampler2D flower;
-uniform sampler2D mud;
-uniform sampler2D blendMap;
-uniform samplerCube depthCubemap0;
+uniform sampler2D texture;
 
 const float far_plane = 25.0f;
 
@@ -63,17 +58,6 @@ float ShadowCalculation(vec3 fragToLight)
 
 void main()
 {
-
-	// vec4 blendMapColor = texture(blendMap,TexCoord);
-
-	// float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
-	// vec2 tiledCoords = TexCoord * 50;
-	// vec4 backgroundTextureColor = texture(grass, tiledCoords) * backTextureAmount;
-	// vec4 rTextureColor = texture(mud, tiledCoords) * blendMapColor.r;
-	// vec4 gTextureColor = texture(flower, tiledCoords) * blendMapColor.g;
-	// vec4 bTextureColor = texture(stone, tiledCoords) * blendMapColor.b;
-
-	// vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
 		
 	// Ambient
     float ambientStrength = 0.1f;
@@ -111,7 +95,7 @@ void main()
 
     // out_Color = vec4(result,1.0) * totalColor;
 	// out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
-	out_Color = vec4(result, 1.0) * texture2D(grass, TexCoord);
+	out_Color = vec4(result, 1.0) * texture2D(texture, TexCoord);
 
 	if(playerBelowLake){
 		out_Color = mix(out_Color, vec4(0.0, 0.0, 1.0, 1.0), 0.2);

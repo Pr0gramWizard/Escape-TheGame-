@@ -38,6 +38,18 @@ void TerrainRenderer::render(Terrain &pTerrain)
 	unbindTerrain();
 }
 
+// renders a single terrain
+void TerrainRenderer::render(Terrain* pTerrain)
+{
+	prepareTerrain(pTerrain);
+	loadModelMatrix(pTerrain);
+
+	mShader->use();
+	glDrawElements(GL_TRIANGLES, pTerrain->getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+
+	unbindTerrain();
+}
+
 void TerrainRenderer::loadTexture(Terrain &pTerrain)
 {
 	glActiveTexture(GL_TEXTURE0);
@@ -59,6 +71,13 @@ void TerrainRenderer::loadTexture(Terrain &pTerrain)
 	glActiveTexture(GL_TEXTURE4);
 	glBindTexture(GL_TEXTURE_2D, pTerrain.getBlendMapTexture());
 	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "blendMap"), 4);
+}
+
+void TerrainRenderer::loadTexture(Terrain* pTerrain)
+{
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, pTerrain->getGrasTexture());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "texture"), 0);
 }
 
 void TerrainRenderer::loadDepthCubemapTexture(vector<Light*> pLights)
