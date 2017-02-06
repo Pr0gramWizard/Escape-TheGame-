@@ -25,23 +25,23 @@
 class Terrain
 {
 public:
-	Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap, bool isCeiling = false);
-	Terrain(int pGridX, int pGridZ, float pOffset, const char* pName, Loader* pLoader, const char* PFilePath, bool isCeiling = false);
+	Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap, bool isCeiling, std::vector<std::string> pTexturePacks);
+	Terrain(int pGridX, int pGridZ, float pOffset, const char* pName, Loader* pLoader, const char* PFilePath);
 	~Terrain();
 	
 	// Loading all important textures
-	void loadGrasTexture();
-	void loadStoneTexture();
-	void loadFlowerTexture();
-	void loadMudTexture();
-	void loadBlendMapTexture();
-	void loadTransparentMap();
+	void loadBlueTexture(const char* pBlendMapPath);
+	void loadRedTexture(const char* pBlendMapPath);
+	void loadCyanTexture(const char* pBlendMapPath);
+	void loadPurpleTexture(const char* pBlendMapPath);
+	void loadBlendMapTexture(const char* pBlendMapPath);
+	void loadTransparentMap(const char* pBlendMapPath);
 
 	// Getting the texture ID
-	GLuint getGrasTexture();
-	GLuint getStoneTexture();
-	GLuint getFlowerTexture();
-	GLuint getMudTexture();
+	GLuint getBlueTexture();
+	GLuint getRedTexture();
+	GLuint getCyanTexture();
+	GLuint getPurpleTexture();
 	GLuint getBlendMapTexture();
 	GLuint getTransparentTexture();
 
@@ -82,13 +82,13 @@ private:
 	Model mModel;
 	std::vector<float> mHeights;
 	// Grass texture
-	GLuint mGrassTex;
+	GLuint mBlueTexture;
 	// Stone texture
-	GLuint mStoneTex;
+	GLuint mRedTexture;
 	// Flower texture
-	GLuint mFlowerTex;
+	GLuint mCyanTexture;
 	// Mud Texture
-	GLuint mMudTex;
+	GLuint mPurpleTexture;
 	// Blend Map
 	GLuint mBlendMapTex;
 	// Transparent Map

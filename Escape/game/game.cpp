@@ -65,8 +65,24 @@ bool Game::gameLoop()
 
 	Loader* loader = new Loader();
 
-	Terrain Boden(0, 0, 0, 5, "Boden", loader, "./terrain/res/Boden.png");
-	Terrain Decke(0, 0, -2.5f, 15, "Decke", loader, "./terrain/res/Decke.png",true);
+	std::vector<std::string> BodenTexturePack;
+	std::vector<std::string> DeckenTexturePack;
+
+	BodenTexturePack.push_back("./terrain/res/texture/poly/blue.jpg");
+	BodenTexturePack.push_back("./terrain/res/texture/poly/red.jpg");
+	BodenTexturePack.push_back("./terrain/res/texture/poly/cyan.jpg");
+	BodenTexturePack.push_back("./terrain/res/texture/poly/purple.jpg");
+	BodenTexturePack.push_back("./terrain/res/texture/poly/dargreen.jpg");
+
+
+	DeckenTexturePack.push_back("./terrain/res/texture/poly/blue.jpg");
+	DeckenTexturePack.push_back("./terrain/res/texture/poly/red.jpg");
+	DeckenTexturePack.push_back("./terrain/res/texture/poly/cyan.jpg");
+	DeckenTexturePack.push_back("./terrain/res/texture/poly/purple.jpg");
+	DeckenTexturePack.push_back("./terrain/res/texture/poly/blendMapDecke.png");
+
+	Terrain Boden(0, 0, 0, 5, "Boden", loader, "./terrain/res/Boden.png",false, BodenTexturePack);
+	Terrain Decke(0, 0, -2.5f, 15, "Decke", loader, "./terrain/res/Decke.png",true, DeckenTexturePack);
 
 	std::list<Terrain> allTerrain;
 

@@ -53,20 +53,20 @@ void TerrainRenderer::render(Terrain* pTerrain)
 void TerrainRenderer::loadTexture(Terrain &pTerrain)
 {
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, pTerrain.getGrasTexture());
-	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "iceblue"), 0);
+	glBindTexture(GL_TEXTURE_2D, pTerrain.getBlueTexture());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "blue"), 0);
 
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, pTerrain.getStoneTexture());
-	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "darkred"), 1);
+	glBindTexture(GL_TEXTURE_2D, pTerrain.getRedTexture());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "red"), 1);
 
 	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, pTerrain.getFlowerTexture());
-	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "darkgreen"), 2);
+	glBindTexture(GL_TEXTURE_2D, pTerrain.getCyanTexture());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "cyan"), 2);
 
 	glActiveTexture(GL_TEXTURE3);
-	glBindTexture(GL_TEXTURE_2D, pTerrain.getMudTexture());
-	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "whiteblue"), 3);
+	glBindTexture(GL_TEXTURE_2D, pTerrain.getPurpleTexture());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "purple"), 3);
 
 	glActiveTexture(GL_TEXTURE4);
 	glBindTexture(GL_TEXTURE_2D, pTerrain.getBlendMapTexture());
@@ -80,7 +80,7 @@ void TerrainRenderer::loadTexture(Terrain &pTerrain)
 void TerrainRenderer::loadTexture(Terrain* pTerrain)
 {
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, pTerrain->getGrasTexture());
+	glBindTexture(GL_TEXTURE_2D, pTerrain->getBlueTexture());
 	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "grass"), 0);
 }
 
