@@ -338,10 +338,12 @@ bool Game::gameLoop()
 			if (lavaDist < 30.f) {
 				if (lavaDist < 20.0f) {
 					fogDensity = 0.035f;
+					gamma = 0.65f;
 				}
 				else {
 					float alpha = (lavaDist - 20.0f) / 10.0f;
 					fogDensity = alpha * 0.15f + (1 - alpha) * 0.035f;
+					gamma = alpha * 0.5f + (1 - alpha) * 0.65f;
 				}
 			}
 
