@@ -28,8 +28,7 @@ void main()
 {
 
 	vec4 blendMapColor = texture(blendMap,TexCoord);
-	vec4 transparentMapColor = texture(transparentMap, TexCoord);
-
+	
 	float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
 	vec2 tiledCoords = TexCoord * 10;
 	vec4 backgroundTextureColor = texture(iceblue, tiledCoords) * backTextureAmount;
@@ -88,9 +87,4 @@ void main()
 	float brightness = dot(out_Color.rgb, vec3(0.2126, 0.7152, 0.0722));
     if(brightness > 1.0)
         BrightColor = vec4(out_Color.rgb, 1.0);
-
-	if(transparentMapColor.b == 1.0f)
-	{
-		out_Color.a = 0.0f;
-	}
 }
