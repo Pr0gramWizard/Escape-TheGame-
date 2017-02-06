@@ -28,19 +28,16 @@ public:
 	Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap, bool isCeiling = false);
 	Terrain(int pGridX, int pGridZ, float pOffset, const char* pName, Loader* pLoader, const char* PFilePath, bool isCeiling = false);
 	~Terrain();
+
+	// Loading texturepack
+	void loadTexturePack(std::vector<std::string> pFilePaths, std::vector<GLuint> &pTextureID);
 	
-	// Loading all important textures
-	void loadGrasTexture();
-	void loadStoneTexture();
-	void loadFlowerTexture();
-	void loadMudTexture();
-	void loadBlendMapTexture();
 
 	// Getting the texture ID
-	GLuint getGrasTexture();
-	GLuint getStoneTexture();
-	GLuint getFlowerTexture();
-	GLuint getMudTexture();
+	GLuint getIceBlueTexture();
+	GLuint getDarkRedTexture();
+	GLuint getDarkGreenTexture();
+	GLuint getWhiteBlue();
 	GLuint getBlendMapTexture();
 
 
@@ -50,6 +47,8 @@ public:
 	float getOffset() const;
 	glm::vec2 getWorldPos() const;
 	const char* getName();
+
+	GLuint getTextureID(GLuint pIndex);
 
 	// Setter functions
 	void setAmplitude(int pAmplitude);
@@ -80,17 +79,18 @@ private:
 	Model mModel;
 	std::vector<float> mHeights;
 	// Grass texture
-	GLuint mGrassTex;
+	GLuint mIceBlue;
 	// Stone texture
-	GLuint mStoneTex;
+	GLuint mDarkRed;
 	// Flower texture
-	GLuint mFlowerTex;
+	GLuint mDarkGreen;
 	// Mud Texture
-	GLuint mMudTex;
+	GLuint mWhiteBlue;
 	// Blend Map
-	GLuint mBlendMapTex;
+	GLuint mBlendMap;
 
 	// Variables
+	std::vector<GLuint> mTextureID;
 
 	// Position
 	std::vector<GLfloat> Position;

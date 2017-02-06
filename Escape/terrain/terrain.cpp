@@ -21,12 +21,6 @@ Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const ch
 	// Set Model
 	mModel = generateTerrain(pLoader,isCeiling);
 
-	this->loadGrasTexture();
-	this->loadStoneTexture();
-	this->loadFlowerTexture();
-	this->loadMudTexture();
-	this->loadBlendMapTexture();
-
 
 	std::cout << "Terrainloader was started successfully!" << std::endl;
 
@@ -243,10 +237,6 @@ Terrain::Terrain(int pGridX, int pGridZ, float pOffset, const char * pName, Load
 	mGridSize = (float)Terrain::TERRAIN_SIZE / ((Position.size() / 3) - 1);
 	mVertices = sqrt((Position.size() / 3));
 
-	this->loadGrasTexture();
-	this->loadStoneTexture();
-	this->loadBlendMapTexture();
-
 	// Set Model
 	mModel = pLoader->loadDataToVao(Position, TextureCoords, Normals, Indicies);
 }
@@ -256,122 +246,46 @@ Terrain::~Terrain()
 	std::cout << "Terrainloader was stopped successfully!" << std::endl;
 }
 
-void Terrain::loadGrasTexture()
+void Terrain::loadTexturePack(std::vector<std::string> pFilePaths, std::vector<GLuint> &pTextureID)
 {
-	glGenTextures(1, &mGrassTex);
-	glBindTexture(GL_TEXTURE_2D, mGrassTex); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
-											 // Set our texture parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// Set texture filtering
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	// Load, create texture and generate mipmaps
-	int width, height;
-	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/bPoly.png", &width, &height, 0, SOIL_LOAD_RGB);
-	if (grass == 0)
+	for (unsigned int i = 0; i < pFilePaths.size(); ++i)
 	{
-		std::cout << "The gras texture could not be found!" << std::endl;
+		glGenTextures(1, &pTextureID.at(i));
+		glBindTexture(GL_TEXTURE_2D, pTextureID.at(i));
+		switch (i)
+		{
+		case 0:
+			this->mIceBlue = pTextureID.at(i);
+			break;
+		case 1:
+			this->mDarkRed = pTextureID.at(i);
+			break;
+		case 2:
+			this->mDarkGreen = pTextureID.at(i);
+			break;
+		case 3:
+			this->mWhiteBlue = pTextureID.at(i);
+			break;
+		case 4:
+			this->mBlendMap = pTextureID.at(i);
+			break;
+		}
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		int width, height;
+		unsigned char* image = SOIL_load_image(pFilePaths.at(i).c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+		if (image == 0)
+		{
+			std::cout << "The texture " << pFilePaths.at(i) << " could not be found" << std::endl;
+		}
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		SOIL_free_image_data(image);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, grass);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(grass);
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
 
-void Terrain::loadStoneTexture()
-{
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(1, &mStoneTex);
-	glBindTexture(GL_TEXTURE_2D, mStoneTex); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
-											 // Set our texture parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// Set texture filtering
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Load, create texture and generate mipmaps
-	int width, height;
-	unsigned char* stone = SOIL_load_image("terrain/res/texture/poly/rPoly.png", &width, &height, 0, SOIL_LOAD_RGB);
-	if (stone == 0)
-	{
-		std::cout << "The stone texture could not be found!" << std::endl;
-	}
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, stone);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(stone);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-
-}
-
-void Terrain::loadFlowerTexture()
-{
-	glGenTextures(1, &mFlowerTex);
-	glBindTexture(GL_TEXTURE_2D, mFlowerTex); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
-											 // Set our texture parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// Set texture filtering
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	// Load, create texture and generate mipmaps
-	int width, height;
-	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/bPoly.png", &width, &height, 0, SOIL_LOAD_RGB);
-	if (grass == 0)
-	{
-		std::cout << "The flower texture could not be found!" << std::endl;
-	}
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, grass);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(grass);
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-void Terrain::loadMudTexture()
-{
-	glGenTextures(1, &mMudTex);
-	glBindTexture(GL_TEXTURE_2D, mMudTex); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
-											 // Set our texture parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// Set texture filtering
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	// Load, create texture and generate mipmaps
-	int width, height;
-	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/rPoly.png", &width, &height, 0, SOIL_LOAD_RGB);
-	if (grass == 0)
-	{
-		std::cout << "The mud texture could not be found!" << std::endl;
-	}
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, grass);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(grass);
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-void Terrain::loadBlendMapTexture()
-{
-	glGenTextures(1, &mBlendMapTex);
-	glBindTexture(GL_TEXTURE_2D, mBlendMapTex); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
-											 // Set our texture parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// Set texture filtering
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	// Load, create texture and generate mipmaps
-	int width, height;
-	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/temp.png", &width, &height, 0, SOIL_LOAD_RGB);
-	if (grass == 0)
-	{
-		std::cout << "The blendmap texture could not be found!" << std::endl;
-	}
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, grass);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(grass);
-	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 int Terrain::getWorldX() const
@@ -399,6 +313,11 @@ const char * Terrain::getName()
 	return mName;
 }
 
+GLuint Terrain::getTextureID(GLuint pIndex)
+{
+	return mTextureID.at(pIndex);
+}
+
 void Terrain::setAmplitude(int pAmplitude)
 {
 	mAmplitude = pAmplitude;
@@ -414,29 +333,29 @@ void Terrain::setName(const char * pName)
 	mName = pName;
 }
 
-GLuint Terrain::getGrasTexture()
+GLuint Terrain::getIceBlueTexture()
 {
-	return mGrassTex;
+	return mIceBlue;
 }
 
-GLuint Terrain::getStoneTexture()
+GLuint Terrain::getDarkRedTexture()
 {
-	return mStoneTex;
+	return mDarkRed;
 }
 
-GLuint Terrain::getFlowerTexture()
+GLuint Terrain::getDarkGreenTexture()
 {
-	return mFlowerTex;
+	return mDarkGreen;
 }
 
-GLuint Terrain::getMudTexture()
+GLuint Terrain::getWhiteBlue()
 {
-	return mMudTex;
+	return mWhiteBlue;
 }
 
 GLuint Terrain::getBlendMapTexture()
 {
-	return mBlendMapTex;
+	return mBlendMap;
 }
 
 glm::mat4 Terrain::getModelMatrix()
