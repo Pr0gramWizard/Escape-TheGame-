@@ -146,6 +146,11 @@ bool Game::gameLoop()
 	Light* stone1L = new Light(glm::vec3(52, Boden.getHeight(52, 66) + 0.1f, 66), glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
 	allLights.push_back(stone1L);
 	//**** END GLOWSTONES ****
+
+	//**** WATER DROPS ****
+	Object waterdrop("/object/res/rocks/waterdrop.obj", glm::vec3(52, Boden.getHeight(52, 66), 66), glm::vec3(0, 0, 0), 1);
+
+		//**** END WATER DROPS
  
 	vector<Light*> lights;
 
