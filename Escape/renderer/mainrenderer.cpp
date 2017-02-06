@@ -107,26 +107,24 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 
 	for (Terrain &terrain : mTerrains)
 	{
-		glDisable(GL_CULL_FACE);
-		mTerrainRenderer->loadTexture(terrain);
-		mTerrainRenderer->render(terrain);
-		if (this->getNormalMode())
-		{
-			mNormalRenderer->render(terrain);
+		if (terrain.getName() == "Decke") {
+			glCullFace(GL_FRONT);
+			mTerrainRenderer->loadTexture(terrain);
+			mTerrainRenderer->render(terrain);
+			if (this->getNormalMode())
+			{
+				mNormalRenderer->render(terrain);
+			}
+			glCullFace(GL_BACK);
 		}
-		glEnable(GL_CULL_FACE);
-	}
-
-	for (Terrain* terrain : mTerrainsP)
-	{
-		glDisable(GL_CULL_FACE);
-		mTerrainRenderer->loadTexture(terrain);
-		mTerrainRenderer->render(terrain);
-		if (this->getNormalMode())
-		{
-			mNormalRenderer->render(terrain);
+		else {
+			mTerrainRenderer->loadTexture(terrain);
+			mTerrainRenderer->render(terrain);
+			if (this->getNormalMode())
+			{
+				mNormalRenderer->render(terrain);
+			}
 		}
-		glEnable(GL_CULL_FACE);
 	}
 }
 

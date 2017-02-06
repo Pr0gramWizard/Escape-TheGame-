@@ -48,10 +48,9 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glEnable(GL_DEPTH_TEST);
 
 	// Cull back faces
-	/*
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	*/
+	
 
 	glm::vec3 Origin(0);
 	glm::vec3 Sea(78, 0, 61);
@@ -80,9 +79,6 @@ bool Game::gameLoop()
 
 	mRenderer->addToList(Boden);
 	mRenderer->addToList(Decke);
-	
-	glDisable(GL_CULL_FACE);
-
 	
 	
 
