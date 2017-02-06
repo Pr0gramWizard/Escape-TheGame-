@@ -422,7 +422,7 @@ bool Game::gameLoop()
 			glActiveTexture(GL_TEXTURE2);
 			glBindTexture(GL_TEXTURE_2D, lava->getBurningTexture());
 			finalbloomshader->loadIsBurning(mPlayer->isBurning());
-			finalbloomshader->loadBloom(true);
+			finalbloomshader->loadBloom(this->isBlooming());
 			finalbloomshader->loadExposure(1.0f);
 			RenderQuad();
 		finalbloomshader->unuse();
@@ -532,6 +532,17 @@ void Game::do_movement()
 }
 
 
+void Game::toggleBloomEffect()
+{
+	this->mBloomEffect = !!abs(this->mBloomEffect - 1);
+	std::cout << "Bloom effect toggled to: " << this->mBloomEffect << std::endl;
+}
+
+bool Game::isBlooming()
+{
+	return this->mBloomEffect;
+}
+
 void Game::toggleDisco()
 {
 	this->mDiscoMode = !!abs(this->mDiscoMode - 1);
@@ -580,6 +591,11 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 	{
 		bool NormalMode = !!abs(game->mRenderer->getNormalMode() - 1);
 		game->mRenderer->setNormalMode(NormalMode);
+	}
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_F5))
+	{
+		game->toggleBloomEffect();
 	}
 
 	if (Keyboard::isKeyPressed(GLFW_KEY_F8))

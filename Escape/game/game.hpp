@@ -120,6 +120,11 @@ private:
 	// Sound Engine
 	irrklang::ISoundEngine* SoundEngine;
 
+	// Settings
+	bool mBloomEffect = true;
+	void toggleBloomEffect();
+	bool isBlooming();
+
 	// Easter Eggs
 	bool mDiscoMode = false;
 	void toggleDisco();
