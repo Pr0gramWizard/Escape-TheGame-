@@ -2,7 +2,7 @@
 
 const int Lava::LAVA_SIZE = 64;
 
-Lava::Lava(int pWorldX, int pWorldY, int pWorldZ, int pVertices, const char * pName, Loader * pLoader)
+Lava::Lava(float pWorldX, float pWorldY, float pWorldZ, int pVertices, const char * pName, Loader * pLoader)
 {
 	mWorldX = pWorldX;
 	mWorldY = pWorldY;
@@ -19,17 +19,17 @@ Lava::~Lava()
 {
 }
 
-int Lava::getWorldX() const
+float Lava::getWorldX() const
 {
 	return mWorldX;
 }
 
-int Lava::getWorldY() const
+float Lava::getWorldY() const
 {
 	return mWorldY;
 }
 
-int Lava::getWorldZ() const
+float Lava::getWorldZ() const
 {
 	return mWorldZ;
 }

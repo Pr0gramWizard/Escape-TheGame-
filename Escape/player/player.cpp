@@ -86,7 +86,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 			std::uniform_int_distribution<> dis(1, 4);
 			int randomX = dis(gen);
 			// Play random walk sound
-			// playWalkingSound(randomX);
+			playWalkingSound(randomX);
 		}
 	}
 	// If the player is underwater we play the underwater sounds
