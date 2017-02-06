@@ -73,7 +73,7 @@ public:
 	// prepares for rendering
 	void prepare(GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE);
 	// render
-	void render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime);
+	void render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime, float pFogDensity, float pFogGradient);
 	void renderDebugInformation();
 	void clearLists();
 

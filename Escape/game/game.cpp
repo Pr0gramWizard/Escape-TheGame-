@@ -312,14 +312,14 @@ bool Game::gameLoop()
 		// tell the player if he is under the lake
 		mPlayer->setIsBelowLake(isPlayerBelowLake);
 		// render to buffer
-		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, sign, 0, -sign * lake->getWorldY() - 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime);
+		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, sign, 0, -sign * lake->getWorldY() - 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime, 0.2f, 2.0f);
 		// move camera back
 		mPlayer->getCamera()->incYPosition(distance);
 		mPlayer->getCamera()->invertPitch();
 
 		// refraction
 		lfbos->bindRefractionFrameBuffer();
-		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, -sign, 0, sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime);
+		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, -sign, 0, sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime, 0.2f, 2.0f);
 		// actual rendering
 	
 		glDisable(GL_CLIP_DISTANCE0);
@@ -339,7 +339,7 @@ bool Game::gameLoop()
 		prebloomfbo->bind();
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
-			mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime);
+			mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime, 0.2f, 2.0f);
 			// Render Debug Information
 			mRenderer->renderDebugInformation();
 			// render water
