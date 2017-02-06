@@ -16,12 +16,11 @@ uniform float fogGradient;
 uniform vec3 backgroundColor;
 uniform bool playerBelowLake;
 
-uniform sampler2D iceblue;
-uniform sampler2D darkred;
-uniform sampler2D darkgreen;
-uniform sampler2D whiteblue;
+uniform sampler2D blue;
+uniform sampler2D red;
+uniform sampler2D cyan;
+uniform sampler2D purple;
 uniform sampler2D blendMap;
-uniform sampler2D transparentMap;
 
 
 void main()
@@ -30,11 +29,11 @@ void main()
 	vec4 blendMapColor = texture(blendMap,TexCoord);
 	
 	float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
-	vec2 tiledCoords = TexCoord * 10;
-	vec4 backgroundTextureColor = texture(iceblue, tiledCoords) * backTextureAmount;
-	vec4 rTextureColor = texture(darkred, tiledCoords) * blendMapColor.r;
-	vec4 gTextureColor = texture(darkgreen, tiledCoords) * blendMapColor.g;
-	vec4 bTextureColor = texture(whiteblue, tiledCoords) * blendMapColor.b;
+	vec2 tiledCoords = TexCoord * 100;
+	vec4 backgroundTextureColor = texture(blue, tiledCoords) * backTextureAmount;
+	vec4 rTextureColor = texture(red, tiledCoords) * blendMapColor.r;
+	vec4 gTextureColor = texture(cyan, tiledCoords) * blendMapColor.g;
+	vec4 bTextureColor = texture(purple, tiledCoords) * blendMapColor.b;
 
 	vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
 		

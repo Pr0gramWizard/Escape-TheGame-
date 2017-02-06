@@ -68,21 +68,21 @@ bool Game::gameLoop()
 	std::vector<std::string> BodenTexturePack;
 	std::vector<std::string> DeckenTexturePack;
 
-	BodenTexturePack.push_back("./terrain/res/texture/poly/blue.jpg");
-	BodenTexturePack.push_back("./terrain/res/texture/poly/red.jpg");
-	BodenTexturePack.push_back("./terrain/res/texture/poly/cyan.jpg");
-	BodenTexturePack.push_back("./terrain/res/texture/poly/purple.jpg");
-	BodenTexturePack.push_back("./terrain/res/texture/poly/dargreen.jpg");
+	BodenTexturePack.push_back("./terrain/res/texture/normal/stone.jpg");
+	BodenTexturePack.push_back("./terrain/res/texture/normal/gravel.jpg");
+	BodenTexturePack.push_back("./terrain/res/texture/normal/dirt.jpg");
+	BodenTexturePack.push_back("./terrain/res/texture/normal/mossystone.jpg");
+	BodenTexturePack.push_back("./terrain/res/texture/poly/blendBoden.png");
 
 
-	DeckenTexturePack.push_back("./terrain/res/texture/poly/blue.jpg");
+	DeckenTexturePack.push_back("./terrain/res/texture/normal/stone.jpg");
 	DeckenTexturePack.push_back("./terrain/res/texture/poly/red.jpg");
 	DeckenTexturePack.push_back("./terrain/res/texture/poly/cyan.jpg");
 	DeckenTexturePack.push_back("./terrain/res/texture/poly/purple.jpg");
 	DeckenTexturePack.push_back("./terrain/res/texture/poly/blendMapDecke.png");
 
 	Terrain Boden(0, 0, 0, 5, "Boden", loader, "./terrain/res/Boden.png",false, BodenTexturePack);
-	Terrain Decke(0, 0, -2.5f, 15, "Decke", loader, "./terrain/res/Decke.png",true, DeckenTexturePack);
+	Terrain Decke(0, 0, -2.7f, 15, "Decke", loader, "./terrain/res/Decke.png",true, DeckenTexturePack);
 
 	std::list<Terrain> allTerrain;
 
@@ -123,7 +123,7 @@ bool Game::gameLoop()
 	//Light* sun = new Light(glm::vec3(250, 1, 250), glm::vec3(1, 1, 0), glm::vec3(1, 0.01, 0.002));
 	Light* sun = new Light(glm::vec3(0, 5, 0), glm::vec3(0.2f, 0.2f, 0.2f));
 
-	Light* torch = new Light(mPlayer->getPosition(), glm::vec3(0.5f, 0.2f, 0.04f), glm::vec3(0.01f, 0.01f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
+	Light* torch = new Light(mPlayer->getPosition(), glm::vec3(0.1f, 0.1f, 0.04f), glm::vec3(0.01f, 0.01f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
 
 	vector<Light*> allLights;
 
@@ -134,7 +134,7 @@ bool Game::gameLoop()
 	Light* LavaLight2 = new Light(glm::vec3(101.0f,3.0f,70.0f), glm::vec3(0.6f, 0.3f, 0.0f), glm::vec3(0.005f, 0.005f, 0.005f), glm::vec3(0.0f,0.0f,0.5f), 0.5f, 0.3f);
 	allLights.push_back(LavaLight2);
 	// Red
-	Light* WaterLight = new Light(glm::vec3(52.0f,10.0f,33.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.001f, 0.001f, 0.001f), glm::vec3(0.0f,0.2f,0.0f), 1.0f, 1.0f);
+	Light* WaterLight = new Light(glm::vec3(52.0f,10.0f,33.0f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.01f, 0.01f, 0.01f), glm::vec3(0.0f,0.2f,0.0f), 1.0f, 1.0f);
 	allLights.push_back(WaterLight);
  
 	vector<Light*> lights;

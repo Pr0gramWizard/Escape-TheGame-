@@ -72,9 +72,6 @@ void TerrainRenderer::loadTexture(Terrain &pTerrain)
 	glBindTexture(GL_TEXTURE_2D, pTerrain.getBlendMapTexture());
 	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "blendMap"), 4);
 
-	glActiveTexture(GL_TEXTURE5);
-	glBindTexture(GL_TEXTURE_2D, pTerrain.getTransparentTexture());
-	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "transparentMap"), 5);
 }
 
 void TerrainRenderer::loadTexture(Terrain* pTerrain)

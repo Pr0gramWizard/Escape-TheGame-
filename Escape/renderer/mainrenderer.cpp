@@ -98,12 +98,12 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 	mTerrainRenderer->loadPlayerBelowLake(pPlayerBelowLake);
 	mTerrainRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
 
-	/*
+	
 	mNormalRenderer->startShader();
 	mNormalRenderer->loadViewMatrix(pViewMatrix);
 	mNormalRenderer->loadPlayerBelowLake(pPlayerBelowLake);
 	mNormalRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
-	*/
+	
 	for (Terrain &terrain : mTerrains)
 	{
 		if (terrain.getName() == "Decke") {
