@@ -66,15 +66,18 @@ bool Game::gameLoop()
 
 	Loader* loader = new Loader();
 
-	Terrain Boden(0, 0, 0, 5, "Boden", loader, "./terrain/res/HFinal.png");
+	Terrain Boden(0, 0, 0, 5, "Boden", loader, "./terrain/res/Boden.png");
+	Terrain Decke(0, 0, -2.5f, 15, "Decke", loader, "./terrain/res/Decke.png");
 
 	std::list<Terrain> allTerrain;
 
+	allTerrain.push_back(Decke);
 	allTerrain.push_back(Boden);
 
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 
 	mRenderer->addToList(Boden);
+	mRenderer->addToList(Decke);
 	
 	glDisable(GL_CULL_FACE);
 
