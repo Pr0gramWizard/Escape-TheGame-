@@ -59,7 +59,7 @@ void Player::playWalkingSound(int StepNumber)
 }
 
 // Function to move the player	
-void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
+void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta, bool pWallCollision)
 {
 	
 	// Handle jump cooldown
@@ -122,7 +122,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	float headPosition = this->getPosition().y + this->getHeight() + heightOffset;
 	float distance = ceilingheight - headPosition;
 
-	if (false && distance <= 0.01f) {
+	if (pWallCollision && distance <= 0.01f) {
 		this->setUpSpeed(-10.0f);
 		// collision detected
 		this->incPosition(glm::vec3(-dx, 0, -dz));

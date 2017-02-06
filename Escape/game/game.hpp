@@ -129,6 +129,10 @@ private:
 	void toggleUseTorch();
 	bool useTorch();
 
+	bool mWallCollision = true;
+	void toggleWallCollision();
+	bool hasWallCollision();
+
 	// Easter Eggs
 	bool mDiscoMode = false;
 	void toggleDisco();

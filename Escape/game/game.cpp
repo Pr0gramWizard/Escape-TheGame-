@@ -227,7 +227,7 @@ bool Game::gameLoop()
 		this->controlSound();
 
 		// Calculating the player movement
-		mPlayer->move(&Boden,&Decke, deltaTime);
+		mPlayer->move(&Boden,&Decke, deltaTime, this->hasWallCollision());
 		glm::vec3 playerPos = mPlayer->getCameraPosition();
 		torch->setPosition(playerPos - mPlayer->getCamera()->getRight() - mPlayer->getViewVector());
 
@@ -556,10 +556,21 @@ bool Game::useTorch()
 	return this->mUseTorch;
 }
 
+void Game::toggleWallCollision()
+{
+	this->mWallCollision = !!abs(this->mWallCollision - 1);
+	std::cout << "Wall collision toggled to: " << this->mWallCollision << std::endl;
+}
+
+bool Game::hasWallCollision()
+{
+	return this->mWallCollision;
+}
+
 void Game::toggleDisco()
 {
 	this->mDiscoMode = !!abs(this->mDiscoMode - 1);
-	std::cout << "Disco Mode toggled to: " << this->mDiscoMode << std::endl;
+	std::cout << "Disco mode toggled to: " << this->mDiscoMode << std::endl;
 }
 
 bool Game::discoDiscoBoomBoom()
@@ -614,6 +625,11 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 	if (Keyboard::isKeyPressed(GLFW_KEY_F6))
 	{
 		game->toggleUseTorch();
+	}
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_F7))
+	{
+		game->toggleWallCollision();
 	}
 
 	if (Keyboard::isKeyPressed(GLFW_KEY_F8))
