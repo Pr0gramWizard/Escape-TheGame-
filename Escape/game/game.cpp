@@ -310,6 +310,16 @@ bool Game::gameLoop()
 			&& playerPosition.z <= lakePosition.z + lake->LAKE_SIZE
 		);
 
+		glm::vec3 lavaPosition = lava->getWorldPos();
+		// -0.25f because lava gets pushed down by 0.25 in vertex shader
+		bool isPlayerBurning = (playerPosition.y < lava->getWorldY() - 0.25f
+			&& playerPosition.x >= lavaPosition.x
+			&& playerPosition.x <= lavaPosition.x + lava->LAVA_SIZE
+			&& playerPosition.z >= lavaPosition.z
+			&& playerPosition.z <= lavaPosition.z + lava->LAVA_SIZE
+			);
+		mPlayer->setIsBurning(isPlayerBurning);
+
 		float fogDensity = 0.15f;
 
 		//glm::vec4 lakeBounds = glm::vec4(19.0f,6.0f,79.0f,65.0f);
@@ -403,16 +413,22 @@ bool Game::gameLoop()
 		blurfbos->unbind();
 
 		// Now render floating point color buffer to 2D quad and tonemap HDR colors to default framebuffer's (clamped) color range
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		finalbloomshader->use();
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, prebloomfbo->getColorBuffer(0));
 			glActiveTexture(GL_TEXTURE1);
 			glBindTexture(GL_TEXTURE_2D, blurfbos->getLastBluredTexture());
+			glActiveTexture(GL_TEXTURE2);
+			glBindTexture(GL_TEXTURE_2D, lava->getBurningTexture());
+			finalbloomshader->loadIsBurning(mPlayer->isBurning());
 			finalbloomshader->loadBloom(true);
 			finalbloomshader->loadExposure(1.0f);
 			RenderQuad();
 		finalbloomshader->unuse();
+		glDisable(GL_BLEND);
 
 		// Clear lists
 		lights.clear();

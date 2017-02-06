@@ -32,6 +32,8 @@ public:
 	glm::mat4 getModelMatrix();
 	Model* getModel();
 	void setModel(Model* pModel);
+	GLuint getBurningTexture();
+
 public:
 	static const int LAVA_SIZE;
 
@@ -47,7 +49,10 @@ private:
 	GLuint mPosVbo;
 	GLuint mNormalVbo;
 
+	GLuint mBurningTexture;
+
 private:
 	Model generateLava(Loader* loader);
+	void loadTextures();
 };
 

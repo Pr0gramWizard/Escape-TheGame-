@@ -48,6 +48,7 @@ public:
 	// load uniform variables
 	void loadBloom(GLboolean pBloom);
 	void loadExposure(GLfloat pExposure);
+	void loadIsBurning(GLboolean pIsBurning);
 
 	// Destructor
 	~FinalBloomShader();
@@ -64,6 +65,8 @@ private:
 	GLuint mLocation_bloomBlur;
 	GLuint mLocation_bloom;
 	GLuint mLocation_exposure;
+	GLuint mLocation_burning;
+	GLuint mLocation_isBurning;
 
 private:
 	void compileFragementShader(std::string pFragementShaderFilePath);

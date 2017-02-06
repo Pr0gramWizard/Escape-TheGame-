@@ -22,6 +22,8 @@ Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWi
 	this->setCrouching(false);
 	this->setWindowHeight(pWindowHeight);
 	this->setWindowWidth(pWindowWidth);
+	this->setIsBelowLake(false);
+	this->setIsBurning(false);
 	// Creating new instance of the camera class
 	mEye = new Camera();
 	this->setYRotation(mEye->getYaw() - 90.0f);
@@ -379,6 +381,11 @@ bool Player::isBelowLake() const
 	return this->mIsBelowLake;
 }
 
+bool Player::isBurning() const
+{
+	return mIsBurning;
+}
+
 // Sets the sprint bool
 void Player::setSprint(bool pSprint)
 {
@@ -389,6 +396,11 @@ void Player::setSprint(bool pSprint)
 void Player::setIsBelowLake(bool pIsBelowLake)
 {
 	this->mIsBelowLake = pIsBelowLake;
+}
+
+void Player::setIsBurning(bool pIsBurning)
+{
+	mIsBurning = pIsBurning;
 }
 
 // Returns the sprint status

@@ -73,6 +73,7 @@ public:
 	void setCrouching(bool pCrouching);
 	void setSprint(bool pSprint);
 	void setIsBelowLake(bool pIsBelowLake);
+	void setIsBurning(bool pIsBurning);
 
 	// Getter Functions
 	glm::vec3 getPosition() const;
@@ -89,6 +90,7 @@ public:
 	bool getCrouching() const;
 	bool getJumping() const;
 	bool isBelowLake() const;
+	bool isBurning() const;
 	glm::vec3 getCameraPosition() const;
 	Camera* getCamera();
 
@@ -132,6 +134,8 @@ private:
 	int mWindowWidth;
 	// true if player is below lake
 	bool mIsBelowLake;
+	// true if player is burning
+	bool mIsBurning;
 	// Player Sound (Used for walking)
 	irrklang::ISoundEngine* WalkSound;
 	// Cooldown for jumping
