@@ -29,7 +29,7 @@ void main()
 	vec4 blendMapColor = texture(blendMap,TexCoord);
 	
 	float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
-	vec2 tiledCoords = TexCoord * 100;
+	vec2 tiledCoords = TexCoord * 150;
 	vec4 backgroundTextureColor = texture(blue, tiledCoords) * backTextureAmount;
 	vec4 rTextureColor = texture(red, tiledCoords) * blendMapColor.r;
 	vec4 gTextureColor = texture(cyan, tiledCoords) * blendMapColor.g;
