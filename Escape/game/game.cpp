@@ -88,13 +88,13 @@ bool Game::gameLoop()
 	LakeFrameBuffers* lfbos = new LakeFrameBuffers(mWidth, mHeight);
 	LakeShader* lakeshader = new LakeShader("shaders/lake.vert", "shaders/lake.frag");
 	LakeRenderer* lakerenderer = new LakeRenderer(lakeshader, mPlayer->getProjectionMatrix(), lfbos);
-	Lake* lake = new Lake(-22, -1, -40, 50, 50, "Lake", loader);
+	Lake* lake = new Lake(29, 3, 16, 50, 50, "Lake", loader);
 	//**** END LAKE STUFF ****
 
 	//**** LAVA STUFF ****
 	LavaShader* lavashader = new LavaShader("shaders/lava.vert", "shaders/lava.frag");
 	LavaRenderer* lavarenderer = new LavaRenderer(lavashader, mPlayer->getProjectionMatrix());
-	Lava* lava = new Lava(11, 0, -14, 50, "Lava", loader);
+	Lava* lava = new Lava(80, 4.5f, 60, 50, "Lava", loader);
 	//**** END LAKE STUFF ****
 
 	//**** BLUR STUFF ****

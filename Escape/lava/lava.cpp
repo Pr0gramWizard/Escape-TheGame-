@@ -1,6 +1,6 @@
 #include "lava.hpp"
 
-const int Lava::LAVA_SIZE = 23;
+const int Lava::LAVA_SIZE = 64;
 
 Lava::Lava(int pWorldX, int pWorldY, int pWorldZ, int pVertices, const char * pName, Loader * pLoader)
 {
