@@ -110,7 +110,7 @@ bool Game::gameLoop()
 	//**** LAVA STUFF ****
 	LavaShader* lavashader = new LavaShader("shaders/lava.vert", "shaders/lava.frag");
 	LavaRenderer* lavarenderer = new LavaRenderer(lavashader, mPlayer->getProjectionMatrix());
-	Lava* lava = new Lava(80, 4.0f, 60, 50, "Lava", loader);
+	Lava* lava = new Lava(80, 4.0f, 57, 50, "Lava", loader);
 	//**** END LAKE STUFF ****
 
 	//**** BLUR STUFF ****
@@ -125,30 +125,25 @@ bool Game::gameLoop()
 
 	//**** LIGHT STUFF ****
 	//Light* sun = new Light(glm::vec3(250, 1, 250), glm::vec3(1, 1, 0), glm::vec3(1, 0.01, 0.002));
-	Light* sun = new Light(glm::vec3(0, 5, 0), glm::vec3(0.2f, 0.2f, 0.2f));
-
-	Light* torch = new Light(mPlayer->getPosition(), glm::vec3(0.5f, 0.2f, 0.04f), glm::vec3(0.01f, 0.01f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
-
 	vector<Light*> allLights;
 
+	Light* torch = new Light(mPlayer->getPosition(), glm::vec3(0.5f, 0.2f, 0.04f), glm::vec3(0.01f, 0.01f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
+	allLights.push_back(torch);
+
 	// Blue
-	Light* LavaLight = new Light(glm::vec3(91.0f,3.0f,77.0f), glm::vec3(0.9f, 0.3f, 0.0f),glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
+	Light* LavaLight = new Light(glm::vec3(91.0f, 3.0f, 77.0f), glm::vec3(0.9f, 0.3f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
 	allLights.push_back(LavaLight);
 	// Green
-	Light* LavaLight2 = new Light(glm::vec3(101.0f,3.0f,70.0f), glm::vec3(0.6f, 0.3f, 0.0f), glm::vec3(0.005f, 0.005f, 0.005f), glm::vec3(0.0f,0.0f,0.5f), 0.5f, 0.3f);
+	Light* LavaLight2 = new Light(glm::vec3(101.0f, 3.0f, 70.0f), glm::vec3(0.6f, 0.3f, 0.0f), glm::vec3(0.005f, 0.005f, 0.005f), glm::vec3(0.0f, 0.0f, 0.5f), 0.5f, 0.3f);
 	allLights.push_back(LavaLight2);
 	// Red
-	// Light* WaterLight = new Light(glm::vec3(52.0f,10.0f,33.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.001f, 0.001f, 0.001f), glm::vec3(0.0f,0.2f,0.0f), 1.0f, 1.0f);
-	// allLights.push_back(WaterLight);
- 
+	Light* WaterLight = new Light(glm::vec3(52.0f, 10.0f, 33.0f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.05f, 0.001f, 0.001f), glm::vec3(0.0f, 0.2f, 0.0f), 1.0f, 1.0f);
+	allLights.push_back(WaterLight);
+
 	vector<Light*> lights;
 
-	lights.push_back(sun);
-	lights.push_back(LavaLight);
-	lights.push_back(LavaLight2);
-	// lights.push_back(WaterLight);
+	SpotLight* spotlight = new SpotLight(glm::vec3(54, 17, 19), glm::vec3(1.5f, 1.5f, 1.5f), glm::vec3(50, 3, 45), 120.0f);
 
-	SpotLight* spotlight = new SpotLight(glm::vec3(-6, 15, -30), glm::vec3(1.5f,1.5f,1.5f), glm::vec3(-7.8f,-1,-21), 120.0f);
 	lakerenderer->startShader();
 	lakerenderer->loadLakeSpotLightPosition(spotlight->getPosition());
 	lakerenderer->loadLakeSpotLightColor(spotlight->getColor());
