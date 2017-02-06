@@ -16,34 +16,24 @@ uniform float fogGradient;
 uniform vec3 backgroundColor;
 uniform bool playerBelowLake;
 
-// Ice Blue Texture
-uniform sampler2D IceBlue;
-// Dark Red Texture
-uniform sampler2D DarkRed;
-// Dark Green
-uniform sampler2D DarkGreen;
-// White Blue Texture
-uniform sampler2D WhiteBlue;
-// BlendMap
-uniform sampler2D BlendMap;
+uniform sampler2D grass;
 
 void main()
 {
 
+	// vec4 blendMapColor = texture(blendMap,TexCoord);
 
-	vec4 blendMapColor = texture(BlendMap,TexCoord);
+	// float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
+	// vec2 tiledCoords = TexCoord * 50;
+	// vec4 backgroundTextureColor = texture(grass, tiledCoords) * backTextureAmount;
+	// vec4 rTextureColor = texture(mud, tiledCoords) * blendMapColor.r;
+	// vec4 gTextureColor = texture(flower, tiledCoords) * blendMapColor.g;
+	// vec4 bTextureColor = texture(stone, tiledCoords) * blendMapColor.b;
 
-    float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
-	vec2 tiledCoords = TexCoord * 5000;
-	vec4 backgroundTextureColor = texture(IceBlue, tiledCoords) * backTextureAmount;
-	vec4 rTextureColor = texture(DarkRed, tiledCoords) * blendMapColor.r;
-	vec4 gTextureColor = texture(DarkGreen, tiledCoords) * blendMapColor.g;
-	vec4 bTextureColor = texture(WhiteBlue, tiledCoords) * blendMapColor.b;
-
-	vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
+	// vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
 		
 	// Ambient
-    float ambientStrength = 0.5f;
+    float ambientStrength = 0.1f;
 	vec3 result = vec3(0,0,0);
 
 	for(int i = 0; i < 6; i++){
@@ -76,18 +66,17 @@ void main()
 	float visibility = exp(-pow((distance * fogDensity), fogGradient));
 	visibility = clamp(visibility, 0.0, 1.0);
 
-    out_Color = totalColor;
-	out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
+    // out_Color = vec4(result,1.0) * totalColor;
+	// out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
+	out_Color = vec4(result, 1.0) * texture2D(grass, TexCoord);
 
 	if(playerBelowLake){
 		out_Color = mix(out_Color, vec4(0.0, 0.0, 1.0, 1.0), 0.2);
 	}
 
+	
 
-	// float brightness = dot(out_Color.rgb, vec3(0.2126, 0.7152, 0.0722));
-    // if(brightness > 1.0)
-	// {
-	//      BrightColor = vec4(out_Color.rgb, 1.0);
-	// }
-  
+	float brightness = dot(out_Color.rgb, vec3(0.2126, 0.7152, 0.0722));
+    if(brightness > 1.0)
+        BrightColor = vec4(out_Color.rgb, 1.0);
 }
