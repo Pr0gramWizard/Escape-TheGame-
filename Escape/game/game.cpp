@@ -141,14 +141,15 @@ bool Game::gameLoop()
 
 	//**** GLOWSTOWNES ****
 	Object stone1("./object/res/rocks/rockModelA.obj", glm::vec3(52, Boden.getHeight(52,66) + 0.1f ,66), glm::vec3(0,0,0), 1);
-	stone1.loadTexture("./object/res/stone/stone.jpeg");
+	stone1.loadTexture("./object/res/waterdrop/water.png");
 	mRenderer->addToList(stone1);
-	Light* stone1L = new Light(glm::vec3(52, Boden.getHeight(52, 66) + 0.1f, 66), glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
-	allLights.push_back(stone1L);
+	// Light* stone1L = new Light(glm::vec3(52, Boden.getHeight(52, 66) + 0.1f, 66), glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
+	// allLights.push_back(stone1L);
 	//**** END GLOWSTONES ****
 
 	//**** WATER DROPS ****
-	Object waterdrop("/object/res/rocks/waterdrop.obj", glm::vec3(52, Boden.getHeight(52, 66), 66), glm::vec3(0, 0, 0), 1);
+	Object waterdrop("./object/res/waterdrop/raindrop.obj", glm::vec3(52, Boden.getHeight(52, 66) + 2, 66), glm::vec3(0, 0, 0), 1);
+	mRenderer->addToList(waterdrop);
 
 		//**** END WATER DROPS
  
