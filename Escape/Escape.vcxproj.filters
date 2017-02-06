@@ -121,9 +121,6 @@
     <Filter Include="Text\shader">
       <UniqueIdentifier>{68024237-d148-4fcc-8456-9ae5e1dfb306}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Particles">
-      <UniqueIdentifier>{64b16df8-252f-44e3-8483-621e5f71346a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shader\Geometry">
       <UniqueIdentifier>{1e30a9cb-304d-46df-b00c-bc258a1c0850}</UniqueIdentifier>
     </Filter>
@@ -399,9 +396,6 @@
     </ClInclude>
     <ClInclude Include="shadow\shader\shadowshader.hpp">
       <Filter>Shadow\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="particle\particle.hpp">
-      <Filter>Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
