@@ -13,6 +13,8 @@ Lava::Lava(float pWorldX, float pWorldY, float pWorldZ, int pVertices, const cha
 	this->setModel(&this->generateLava(pLoader));
 	mPosVbo = (GLuint) pLoader->getLastVbos().y;
 	mNormalVbo = (GLuint) pLoader->getLastVbos().z;
+
+	this->loadTextures();
 }
 
 Lava::~Lava()
@@ -64,6 +66,11 @@ void Lava::setModel(Model * pModel)
 	mModel = *pModel;
 }
 
+GLuint Lava::getBurningTexture()
+{
+	return this->mBurningTexture;
+}
+
 Model Lava::generateLava(Loader * loader)
 {
 	// set grid size
@@ -104,4 +111,27 @@ Model Lava::generateLava(Loader * loader)
 	}
 
 	return loader->loadDataToVao(vertices, textureCoords, normals, indices);
+}
+
+void Lava::loadTextures()
+{
+	glGenTextures(1, &mBurningTexture);
+	glBindTexture(GL_TEXTURE_2D, mBurningTexture); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
+												// Set our texture parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);	// Set texture wrapping to GL_REPEAT
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+	// Set texture filtering
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	// Load, create texture and generate mipmaps
+	int width, height;
+	unsigned char* image = SOIL_load_image("./lava/res/burning.png", &width, &height, 0, SOIL_LOAD_RGBA);
+	if (image == 0)
+	{
+		std::cout << "The  texture ./lava/res/burning.png could not be found!" << std::endl;
+	}
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }

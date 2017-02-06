@@ -23,7 +23,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(),NULL,NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(),glfwGetPrimaryMonitor(),NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -55,7 +55,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glm::vec3 Spawn(61,4,70);
 	glm::vec3 Lava(103,4,85);
 
-	mPlayer = new Player(glm::vec3(0.0f,0.0f,0.0f), 0.5f, "Player", this->getHeight(), this->getWidth());
+	mPlayer = new Player(Spawn, 0.5f, "Player", this->getHeight(), this->getWidth());
 }
 
 
@@ -65,7 +65,6 @@ bool Game::gameLoop()
 
 	Loader* loader = new Loader();
 
-	
 	std::vector<std::string> BodenTexturePack;
 	std::vector<std::string> DeckenTexturePack;
 
@@ -145,7 +144,7 @@ bool Game::gameLoop()
 	lights.push_back(LavaLight2);
 	lights.push_back(WaterLight);
 
-	SpotLight* spotlight = new SpotLight(glm::vec3(-6, 15, -30), glm::vec3(1.5f,1.5f,1.5f), glm::vec3(-7.8f,-1,-21), 120.0f);
+	SpotLight* spotlight = new SpotLight(glm::vec3(46.0f, 24.0f, 15.0f), glm::vec3(1.5f,1.5f,1.5f), glm::vec3(56,3,42), 120.0f);
 	lakerenderer->startShader();
 	lakerenderer->loadLakeSpotLightPosition(spotlight->getPosition());
 	lakerenderer->loadLakeSpotLightColor(spotlight->getColor());
@@ -228,14 +227,16 @@ bool Game::gameLoop()
 		this->controlSound();
 
 		// Calculating the player movement
-		mPlayer->move(&Boden,&Decke, deltaTime);
+		mPlayer->move(&Boden,&Decke, deltaTime, this->hasWallCollision());
 		glm::vec3 playerPos = mPlayer->getCameraPosition();
 		torch->setPosition(playerPos - mPlayer->getCamera()->getRight() - mPlayer->getViewVector());
 
 		//**** light sorting ****
 
 		// always use torch
-		lights.push_back(torch);
+		if (useTorch()) {
+			lights.push_back(torch);
+		}
 		
 		float maxDistance = 0.0f;
 		unsigned int maxIndex = 1;
@@ -311,48 +312,63 @@ bool Game::gameLoop()
 			&& playerPosition.z <= lakePosition.z + lake->LAKE_SIZE
 		);
 
-		float fogDensity = 0.15f;
+		glm::vec3 lavaPosition = lava->getWorldPos();
+		// -0.25f because lava gets pushed down by 0.25 in vertex shader
+		bool isPlayerBurning = (playerPosition.y < lava->getWorldY() - 0.25f
+			&& playerPosition.x >= lavaPosition.x
+			&& playerPosition.x <= lavaPosition.x + lava->LAVA_SIZE
+			&& playerPosition.z >= lavaPosition.z
+			&& playerPosition.z <= lavaPosition.z + lava->LAVA_SIZE
+			);
+		mPlayer->setIsBurning(isPlayerBurning);
 
-		//glm::vec4 lakeBounds = glm::vec4(19.0f,6.0f,79.0f,65.0f);
-		glm::vec3 lakeMid = glm::vec3(49.0f, 0.0f, 34.5f);
-		//glm::vec4 lavaBounds = glm::vec4(82.0f,60.0f,112.0f,95.0f);
-		glm::vec3 lavaMid = glm::vec3(97.0f, 0.0f, 77.5f);
+		float fogDensity;
+		if (this->hasFog()) {
+			fogDensity = 0.15f;
 
-	
-		float lavaDist = glm::distance(playerPos, lavaMid);
-		float lakeDist = glm::distance(playerPos, lakeMid);
+			//glm::vec4 lakeBounds = glm::vec4(19.0f,6.0f,79.0f,65.0f);
+			glm::vec3 lakeMid = glm::vec3(49.0f, 0.0f, 34.5f);
+			//glm::vec4 lavaBounds = glm::vec4(82.0f,60.0f,112.0f,95.0f);
+			glm::vec3 lavaMid = glm::vec3(97.0f, 0.0f, 77.5f);
 
-		if (lavaDist < 30.f) {
-			if (lavaDist < 20.0f) {
-				fogDensity = 0.035f;
+			float lavaDist = glm::distance(playerPos, lavaMid);
+			float lakeDist = glm::distance(playerPos, lakeMid);
+
+			if (lavaDist < 30.f) {
+				if (lavaDist < 20.0f) {
+					fogDensity = 0.035f;
+				}
+				else {
+					float alpha = (lavaDist - 20.0f) / 10.0f;
+					fogDensity = alpha * 0.15f + (1 - alpha) * 0.035f;
+				}
 			}
-			else {
-				float alpha = (lavaDist - 20.0f) / 10.0f;
-				fogDensity = alpha * 0.15f + (1 - alpha) * 0.035f;
+
+			if (lakeDist < 38.f) {
+				if (lakeDist < 31.0f) {
+					fogDensity = 0.01f;
+				}
+				else {
+					float alpha = (lakeDist - 31.0f) / 7.0f;
+					fogDensity = alpha * 0.15f + (1 - alpha) * 0.01f;
+				}
 			}
 		}
-		
-		if (lakeDist < 38.f) {
-			if (lakeDist < 31.0f) {
-				fogDensity = 0.01f;
-			}
-			else {
-				float alpha = (lakeDist - 31.0f) / 7.0f;
-				fogDensity = alpha * 0.15f + (1 - alpha) * 0.01f;
-			}
+		else {
+			fogDensity = 0.0f;
 		}
 
 		// tell the player if he is under the lake
 		mPlayer->setIsBelowLake(isPlayerBelowLake);
 		// render to buffer
-		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, sign, 0, -sign * lake->getWorldY() - 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime, fogDensity, 2.0f, deltaTime);
+		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, sign, 0, -sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime, fogDensity, 2.0f);
 		// move camera back
 		mPlayer->getCamera()->incYPosition(distance);
 		mPlayer->getCamera()->invertPitch();
 
 		// refraction
 		lfbos->bindRefractionFrameBuffer();
-		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, -sign, 0, sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime, fogDensity, 2.0f, deltaTime);
+		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, -sign, 0, sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime, fogDensity, 2.0f);
 		// actual rendering
 	
 		glDisable(GL_CLIP_DISTANCE0);
@@ -372,7 +388,7 @@ bool Game::gameLoop()
 		prebloomfbo->bind();
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
-			mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime, fogDensity, 2.0f,deltaTime);
+			mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime, fogDensity, 2.0f);
 			// Render Debug Information
 			mRenderer->renderDebugInformation();
 			// render water
@@ -403,16 +419,22 @@ bool Game::gameLoop()
 		blurfbos->unbind();
 
 		// Now render floating point color buffer to 2D quad and tonemap HDR colors to default framebuffer's (clamped) color range
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		finalbloomshader->use();
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, prebloomfbo->getColorBuffer(0));
 			glActiveTexture(GL_TEXTURE1);
 			glBindTexture(GL_TEXTURE_2D, blurfbos->getLastBluredTexture());
-			finalbloomshader->loadBloom(true);
+			glActiveTexture(GL_TEXTURE2);
+			glBindTexture(GL_TEXTURE_2D, lava->getBurningTexture());
+			finalbloomshader->loadIsBurning(mPlayer->isBurning());
+			finalbloomshader->loadBloom(this->isBlooming());
 			finalbloomshader->loadExposure(1.0f);
 			RenderQuad();
 		finalbloomshader->unuse();
+		glDisable(GL_BLEND);
 
 		// Clear lists
 		lights.clear();
@@ -518,10 +540,54 @@ void Game::do_movement()
 }
 
 
+void Game::toggleFog()
+{
+	this->mFog = !!abs(this->mFog - 1);
+	std::cout << "Fog toggled to: " << this->mFog << std::endl;
+}
+
+bool Game::hasFog()
+{
+	return this->mFog;
+}
+
+void Game::toggleBloomEffect()
+{
+	this->mBloomEffect = !!abs(this->mBloomEffect - 1);
+	std::cout << "Bloom effect toggled to: " << this->mBloomEffect << std::endl;
+}
+
+bool Game::isBlooming()
+{
+	return this->mBloomEffect;
+}
+
+void Game::toggleUseTorch()
+{
+	this->mUseTorch = !!abs(this->mUseTorch - 1);
+	std::cout << "Use torch toggled to: " << this->mUseTorch << std::endl;
+}
+
+bool Game::useTorch()
+{
+	return this->mUseTorch;
+}
+
+void Game::toggleWallCollision()
+{
+	this->mWallCollision = !!abs(this->mWallCollision - 1);
+	std::cout << "Wall collision toggled to: " << this->mWallCollision << std::endl;
+}
+
+bool Game::hasWallCollision()
+{
+	return this->mWallCollision;
+}
+
 void Game::toggleDisco()
 {
 	this->mDiscoMode = !!abs(this->mDiscoMode - 1);
-	std::cout << "Disco Mode toggled to: " << this->mDiscoMode << std::endl;
+	std::cout << "Disco mode toggled to: " << this->mDiscoMode << std::endl;
 }
 
 bool Game::discoDiscoBoomBoom()
@@ -566,6 +632,26 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 	{
 		bool NormalMode = !!abs(game->mRenderer->getNormalMode() - 1);
 		game->mRenderer->setNormalMode(NormalMode);
+	}
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_F4))
+	{
+		game->toggleFog();
+	}
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_F5))
+	{
+		game->toggleBloomEffect();
+	}
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_F6))
+	{
+		game->toggleUseTorch();
+	}
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_F7))
+	{
+		game->toggleWallCollision();
 	}
 
 	if (Keyboard::isKeyPressed(GLFW_KEY_F8))

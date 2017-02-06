@@ -22,6 +22,8 @@ Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWi
 	this->setCrouching(false);
 	this->setWindowHeight(pWindowHeight);
 	this->setWindowWidth(pWindowWidth);
+	this->setIsBelowLake(false);
+	this->setIsBurning(false);
 	// Creating new instance of the camera class
 	mEye = new Camera();
 	this->setYRotation(mEye->getYaw() - 90.0f);
@@ -57,7 +59,7 @@ void Player::playWalkingSound(int StepNumber)
 }
 
 // Function to move the player	
-void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
+void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta, bool pWallCollision)
 {
 	
 	// Handle jump cooldown
@@ -120,7 +122,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	float headPosition = this->getPosition().y + this->getHeight() + heightOffset;
 	float distance = ceilingheight - headPosition;
 
-	if (false && distance <= 0.01f) {
+	if (pWallCollision && distance <= 0.01f) {
 		this->setUpSpeed(-10.0f);
 		// collision detected
 		this->incPosition(glm::vec3(-dx, 0, -dz));
@@ -379,6 +381,11 @@ bool Player::isBelowLake() const
 	return this->mIsBelowLake;
 }
 
+bool Player::isBurning() const
+{
+	return mIsBurning;
+}
+
 // Sets the sprint bool
 void Player::setSprint(bool pSprint)
 {
@@ -389,6 +396,11 @@ void Player::setSprint(bool pSprint)
 void Player::setIsBelowLake(bool pIsBelowLake)
 {
 	this->mIsBelowLake = pIsBelowLake;
+}
+
+void Player::setIsBurning(bool pIsBurning)
+{
+	mIsBurning = pIsBurning;
 }
 
 // Returns the sprint status

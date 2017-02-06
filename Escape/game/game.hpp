@@ -120,6 +120,23 @@ private:
 	// Sound Engine
 	irrklang::ISoundEngine* SoundEngine;
 
+	// Settings
+	bool mFog = true;
+	void toggleFog();
+	bool hasFog();
+
+	bool mBloomEffect = true;
+	void toggleBloomEffect();
+	bool isBlooming();
+
+	bool mUseTorch = true;
+	void toggleUseTorch();
+	bool useTorch();
+
+	bool mWallCollision = true;
+	void toggleWallCollision();
+	bool hasWallCollision();
+
 	// Easter Eggs
 	bool mDiscoMode = false;
 	void toggleDisco();
