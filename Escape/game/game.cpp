@@ -23,7 +23,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(),glfwGetPrimaryMonitor(),NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(),NULL,NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -55,7 +55,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glm::vec3 Spawn(61,4,70);
 	glm::vec3 Lava(103,4,85);
 
-	mPlayer = new Player(Spawn, 0.5f, "Player", this->getHeight(), this->getWidth());
+	mPlayer = new Player(glm::vec3(0.0f,0.0f,0.0f), 0.5f, "Player", this->getHeight(), this->getWidth());
 }
 
 
@@ -65,6 +65,7 @@ bool Game::gameLoop()
 
 	Loader* loader = new Loader();
 
+	
 	std::vector<std::string> BodenTexturePack;
 	std::vector<std::string> DeckenTexturePack;
 
@@ -317,8 +318,7 @@ bool Game::gameLoop()
 		//glm::vec4 lavaBounds = glm::vec4(82.0f,60.0f,112.0f,95.0f);
 		glm::vec3 lavaMid = glm::vec3(97.0f, 0.0f, 77.5f);
 
-		cout << "Distance Lava: " << glm::distance(playerPos, lavaMid) << " **** Distance Lake: " << glm::distance(playerPos, lakeMid) << endl;
-
+	
 		float lavaDist = glm::distance(playerPos, lavaMid);
 		float lakeDist = glm::distance(playerPos, lakeMid);
 
@@ -345,14 +345,14 @@ bool Game::gameLoop()
 		// tell the player if he is under the lake
 		mPlayer->setIsBelowLake(isPlayerBelowLake);
 		// render to buffer
-		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, sign, 0, -sign * lake->getWorldY() - 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime, fogDensity, 2.0f);
+		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, sign, 0, -sign * lake->getWorldY() - 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime, fogDensity, 2.0f, deltaTime);
 		// move camera back
 		mPlayer->getCamera()->incYPosition(distance);
 		mPlayer->getCamera()->invertPitch();
 
 		// refraction
 		lfbos->bindRefractionFrameBuffer();
-		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, -sign, 0, sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime, fogDensity, 2.0f);
+		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, -sign, 0, sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime, fogDensity, 2.0f, deltaTime);
 		// actual rendering
 	
 		glDisable(GL_CLIP_DISTANCE0);
@@ -372,7 +372,7 @@ bool Game::gameLoop()
 		prebloomfbo->bind();
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
-			mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime, fogDensity, 2.0f);
+			mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime, fogDensity, 2.0f,deltaTime);
 			// Render Debug Information
 			mRenderer->renderDebugInformation();
 			// render water

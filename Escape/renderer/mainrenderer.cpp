@@ -14,6 +14,7 @@ const char* MainRenderer::TEXT_FRAGMENT = "shaders/text.frag";
 const char* MainRenderer::OBJECT_VERTEX = "shaders/object.vert";
 const char* MainRenderer::OBJECT_FRAGMENT = "shaders/object.frag";
 
+
 MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 {
 	EntityShader* entityshader = new EntityShader(ENTITY_VERTEX, ENTITY_FRAGMENT);
@@ -33,6 +34,21 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 	ObjectShader* objectshader = new ObjectShader(OBJECT_VERTEX, OBJECT_FRAGMENT);
 	mObjectRenderer = new ObjectRenderer(objectshader,pProjectionMatrix);
 
+	mParticle = new ParticleSystem();
+
+	mParticle->initParticleSystem();
+
+	mParticle->setGeneratorProperties(glm::vec3(0.0f, 0.0f, 0.0f), // Where the particles are generated
+		glm::vec3(-5, 0, -5), // Minimal velocity
+		glm::vec3(5, 20, 5), // Maximal velocity
+		glm::vec3(0, -5, 0), // Gravity force applied to particles
+		glm::vec3(0.0f, 0.5f, 1.0f), // Color (light blue)
+		1.5f, // Minimum lifetime in seconds
+		3.0f, // Maximum lifetime in seconds
+		0.75f, // Rendered size
+		0.02f, // Spawn every 0.05 seconds
+		30); // And spawn 30 particles)
+
 	this->setDrawMode(0);
 
 	mPlayer = pPlayer;
@@ -45,10 +61,17 @@ void MainRenderer::prepare(GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime, float pFogDensity, float pFogGradient)
+void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime, float pFogDensity, float pFogGradient,float pDelta)
 {
 	this->prepare(pRED, pGREEN, pBLUE);
 	glShadeModel(GL_SMOOTH);
+
+
+
+	mParticle->setMatrix(mPlayer->getProjectionMatrix(), mPlayer->getCamera()->getPosition(), mPlayer->getCamera()->getFront(), mPlayer->getCamera()->getUp());
+
+	mParticle->updateParticles(pDelta);
+	mParticle->renderParticles();
 
 
 	if (this->getDrawMode())
@@ -125,6 +148,8 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 			}
 		}
 	}
+
+
 }
 
 void MainRenderer::setFPS(int pFPS)

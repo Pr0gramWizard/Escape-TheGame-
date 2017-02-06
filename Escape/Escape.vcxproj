@@ -28,7 +28,6 @@
     <ClCompile Include="entity\renderer\entityRenderer.cpp" />
     <ClCompile Include="entity\shader\entityshader.cpp" />
     <ClCompile Include="game\game.cpp" />
-    <ClCompile Include="hand\hand.cpp" />
     <ClCompile Include="input\keyboard.cpp" />
     <ClCompile Include="lake\fbo\lakeFrameBuffers.cpp" />
     <ClCompile Include="lake\lake.cpp" />
@@ -47,6 +46,9 @@
     <ClCompile Include="object\object.cpp" />
     <ClCompile Include="object\renderer\objectrenderer.cpp" />
     <ClCompile Include="object\shader\objectshader.cpp" />
+    <ClCompile Include="particle\particlesystem.cpp" />
+    <ClCompile Include="particle\pShader.cpp" />
+    <ClCompile Include="particle\shader\particleshader.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="renderer\mainrenderer.cpp" />
     <ClCompile Include="shadow\shader\shadoshader.cpp" />
@@ -71,7 +73,6 @@
     <ClInclude Include="entity\renderer\entityRenderer.hpp" />
     <ClInclude Include="entity\shader\entityshader.hpp" />
     <ClInclude Include="game\game.hpp" />
-    <ClInclude Include="hand\hand.hpp" />
     <ClInclude Include="input\keyboard.hpp" />
     <ClInclude Include="lake\fbo\lakeFrameBuffers.hpp" />
     <ClInclude Include="lake\lake.hpp" />
@@ -89,6 +90,9 @@
     <ClInclude Include="object\object.hpp" />
     <ClInclude Include="object\renderer\objectrenderer.hpp" />
     <ClInclude Include="object\shader\objectshader.hpp" />
+    <ClInclude Include="particle\particlesystem.hpp" />
+    <ClInclude Include="particle\pShader.h" />
+    <ClInclude Include="particle\shader\particleshader.hpp" />
     <ClInclude Include="player\player.hpp" />
     <ClInclude Include="renderer\mainrenderer.hpp" />
     <ClInclude Include="shadow\shader\shadowshader.hpp" />
@@ -120,6 +124,18 @@
     <None Include="shaders\object.vert" />
     <None Include="shaders\particle.frag" />
     <None Include="shaders\particle.vert" />
+    <None Include="shaders\particleRender.frag" />
+    <None Include="shaders\particleRender.gs" />
+    <None Include="shaders\particleRender.vert" />
+    <None Include="shaders\particleUpdate.frag" />
+    <None Include="shaders\particleUpdate.gs" />
+    <None Include="shaders\particleUpdate.vert" />
+    <None Include="shaders\particle\particles_render.frag" />
+    <None Include="shaders\particle\particles_render.geom" />
+    <None Include="shaders\particle\particles_render.vert" />
+    <None Include="shaders\particle\particles_update.frag" />
+    <None Include="shaders\particle\particles_update.geom" />
+    <None Include="shaders\particle\particles_update.vert" />
     <None Include="shaders\shadow.frag" />
     <None Include="shaders\shadow.gs" />
     <None Include="shaders\shadow.vert" />

@@ -27,6 +27,10 @@
 #include "../object/renderer/objectrenderer.hpp"
 #include "../object/shader/objectshader.hpp"
 
+// Particle System
+#include "../particle/particlesystem.hpp"
+#include "../particle/shader/particleshader.hpp"
+
 // Keyboard
 #include "../input/keyboard.hpp"
 
@@ -50,8 +54,6 @@ class MainRenderer
 public:
 	// constructor
 	MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer);
-	// destructor
-	~MainRenderer();
 
 	// adds entities or terrains to render list
 	void addToList(Entity &pEntity);
@@ -73,7 +75,7 @@ public:
 	// prepares for rendering
 	void prepare(GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE);
 	// render
-	void render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime, float pFogDensity, float pFogGradient);
+	void render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime, float pFogDensity, float pFogGradient,float pDelta);
 	void renderDebugInformation();
 	void clearLists();
 
@@ -91,6 +93,7 @@ public:
 	SkyboxRenderer* mSkyboxRenderer;
 	TextRenderer* mTextRenderer;
 	ObjectRenderer* mObjectRenderer;
+	ParticleSystem* mParticle;
 
 public:
 	static const char* ENTITY_VERTEX;

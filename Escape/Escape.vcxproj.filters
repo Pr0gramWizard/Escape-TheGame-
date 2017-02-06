@@ -154,6 +154,15 @@
     <Filter Include="Shadow\shader">
       <UniqueIdentifier>{f858da82-c9ae-4f83-9007-7ac00d9140cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particle">
+      <UniqueIdentifier>{71d8d59d-faa9-4369-8aac-8ad36e040e68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\shader">
+      <UniqueIdentifier>{e45ea6ee-6843-4d73-8640-25084bb0d224}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Particle">
+      <UniqueIdentifier>{ba08f5b9-4321-4c64-8f20-cb9c2020f3c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -258,7 +267,6 @@
     <ClCompile Include="bloom\shader\finalbloomshader.cpp">
       <Filter>Bloom\shader</Filter>
     </ClCompile>
-    <ClCompile Include="hand\hand.cpp" />
     <ClCompile Include="light\spotlight.cpp">
       <Filter>Light</Filter>
     </ClCompile>
@@ -276,6 +284,15 @@
     </ClCompile>
     <ClCompile Include="shadow\shader\shadoshader.cpp">
       <Filter>Shadow\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\particlesystem.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\shader\particleshader.cpp">
+      <Filter>Particle\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\pShader.cpp">
+      <Filter>Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -378,7 +395,6 @@
     <ClInclude Include="bloom\shader\finalbloomshader.hpp">
       <Filter>Bloom\shader</Filter>
     </ClInclude>
-    <ClInclude Include="hand\hand.hpp" />
     <ClInclude Include="light\spotlight.hpp">
       <Filter>Light</Filter>
     </ClInclude>
@@ -396,6 +412,15 @@
     </ClInclude>
     <ClInclude Include="shadow\shader\shadowshader.hpp">
       <Filter>Shadow\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\particlesystem.hpp">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\shader\particleshader.hpp">
+      <Filter>Particle\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\pShader.h">
+      <Filter>Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -494,6 +519,42 @@
     </None>
     <None Include="shaders\shadow.vert">
       <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="shaders\particleRender.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="shaders\particleUpdate.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="shaders\particleRender.gs">
+      <Filter>Shader\Geometry</Filter>
+    </None>
+    <None Include="shaders\particleUpdate.gs">
+      <Filter>Shader\Geometry</Filter>
+    </None>
+    <None Include="shaders\particleRender.vert">
+      <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="shaders\particleUpdate.vert">
+      <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="shaders\particle\particles_render.frag">
+      <Filter>Shader\Particle</Filter>
+    </None>
+    <None Include="shaders\particle\particles_render.geom">
+      <Filter>Shader\Particle</Filter>
+    </None>
+    <None Include="shaders\particle\particles_render.vert">
+      <Filter>Shader\Particle</Filter>
+    </None>
+    <None Include="shaders\particle\particles_update.frag">
+      <Filter>Shader\Particle</Filter>
+    </None>
+    <None Include="shaders\particle\particles_update.geom">
+      <Filter>Shader\Particle</Filter>
+    </None>
+    <None Include="shaders\particle\particles_update.vert">
+      <Filter>Shader\Particle</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
