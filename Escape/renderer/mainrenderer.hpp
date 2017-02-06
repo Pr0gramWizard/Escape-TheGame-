@@ -27,10 +27,6 @@
 #include "../object/renderer/objectrenderer.hpp"
 #include "../object/shader/objectshader.hpp"
 
-// Particle System
-#include "../particle/particlesystem.hpp"
-#include "../particle/shader/particleshader.hpp"
-
 // Keyboard
 #include "../input/keyboard.hpp"
 
@@ -93,7 +89,6 @@ public:
 	SkyboxRenderer* mSkyboxRenderer;
 	TextRenderer* mTextRenderer;
 	ObjectRenderer* mObjectRenderer;
-	ParticleSystem* mParticle;
 
 public:
 	static const char* ENTITY_VERTEX;
