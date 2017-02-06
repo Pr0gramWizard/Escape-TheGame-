@@ -25,7 +25,7 @@
 class Terrain
 {
 public:
-	Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap);
+	Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap, bool isCeiling = false);
 	Terrain(int pGridX, int pGridZ, float pOffset, const char* pName, Loader* pLoader, const char* PFilePath, bool isCeiling = false);
 	~Terrain();
 	
@@ -104,7 +104,7 @@ private:
 
 private:
 	bool isPowerOfTwo(int pX);
-	Model generateTerrain(Loader* loader);
+	Model generateTerrain(Loader* loader, bool isCeiling = false);
 	void generateHeights(Loader* loader, const char* pHeightmap);
 	glm::vec3 computeNormalAt(int x, int z);
 	GLfloat getVertexHeight(int pVertexX, int pVertexZ);

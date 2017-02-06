@@ -2,7 +2,7 @@
 
 const int Terrain::TERRAIN_SIZE = 128;
 
-Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap)
+Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap, bool isCeiling)
 {
 	// Worldspace coordinates
 	mWorldX = pGridX * Terrain::TERRAIN_SIZE;
@@ -19,7 +19,7 @@ Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const ch
 	generateHeights(pLoader, pHeightmap);
 
 	// Set Model
-	mModel = generateTerrain(pLoader);
+	mModel = generateTerrain(pLoader,isCeiling);
 
 	this->loadGrasTexture();
 	this->loadStoneTexture();
@@ -459,7 +459,7 @@ bool Terrain::isPowerOfTwo(int pX)
 	return !(pX == 0) && !(pX & (pX - 1));
 }
 
-Model Terrain::generateTerrain(Loader* loader)
+Model Terrain::generateTerrain(Loader* loader, bool isCeiling)
 {
 	// set grid size
 	mGridSize = (float) Terrain::TERRAIN_SIZE/(mVertices - 1);
@@ -497,6 +497,14 @@ Model Terrain::generateTerrain(Loader* loader)
 			indices[pointer++] = topRight;
 			indices[pointer++] = bottomLeft;
 			indices[pointer++] = bottomRight;
+		}
+	}
+
+	if (isCeiling)
+	{
+		for (unsigned int i = 0; i < normals.size(); ++i)
+		{
+			normals.at(i) = -1 * normals.at(i);
 		}
 	}
 

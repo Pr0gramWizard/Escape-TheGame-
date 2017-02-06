@@ -48,8 +48,10 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glEnable(GL_DEPTH_TEST);
 
 	// Cull back faces
+	/*
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
+	*/
 
 	glm::vec3 Origin(0);
 	glm::vec3 Sea(78, 0, 61);
@@ -67,7 +69,7 @@ bool Game::gameLoop()
 	Loader* loader = new Loader();
 
 	Terrain Boden(0, 0, 0, 5, "Boden", loader, "./terrain/res/Boden.png");
-	Terrain Decke(0, 0, -2.5f, 15, "Decke", loader, "./terrain/res/Decke.png");
+	Terrain Decke(0, 0, -2.5f, 15, "Decke", loader, "./terrain/res/Decke.png",true);
 
 	std::list<Terrain> allTerrain;
 
@@ -141,6 +143,7 @@ bool Game::gameLoop()
 	lakerenderer->stopShader();
 	//**** END LIGHT STUFF ****
 
+	
 	/*
 	//**** SHADOW STUFF ****
 	ShadowShader *shadowshader = new ShadowShader("shaders/shadow.vert", "shaders/shadow.frag", "shaders/shadow.gs");
@@ -366,8 +369,8 @@ bool Game::gameLoop()
 			RenderQuad();
 		finalbloomshader->unuse();
 
-		*/
 		
+		*/
 
 		// Clear lists
 		lights.clear();
