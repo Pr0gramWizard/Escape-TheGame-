@@ -46,9 +46,6 @@
     <ClCompile Include="object\object.cpp" />
     <ClCompile Include="object\renderer\objectrenderer.cpp" />
     <ClCompile Include="object\shader\objectshader.cpp" />
-    <ClCompile Include="particle\particlesystem.cpp" />
-    <ClCompile Include="particle\pShader.cpp" />
-    <ClCompile Include="particle\shader\particleshader.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="renderer\mainrenderer.cpp" />
     <ClCompile Include="shadow\shader\shadoshader.cpp" />
@@ -90,9 +87,6 @@
     <ClInclude Include="object\object.hpp" />
     <ClInclude Include="object\renderer\objectrenderer.hpp" />
     <ClInclude Include="object\shader\objectshader.hpp" />
-    <ClInclude Include="particle\particlesystem.hpp" />
-    <ClInclude Include="particle\pShader.h" />
-    <ClInclude Include="particle\shader\particleshader.hpp" />
     <ClInclude Include="player\player.hpp" />
     <ClInclude Include="renderer\mainrenderer.hpp" />
     <ClInclude Include="shadow\shader\shadowshader.hpp" />

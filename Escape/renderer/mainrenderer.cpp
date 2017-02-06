@@ -68,7 +68,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 
 
 
-	mParticle->setMatrix(mPlayer->getProjectionMatrix(), mPlayer->getCamera()->getPosition(), mPlayer->getCamera()->getFront(), mPlayer->getCamera()->getUp());
+	mParticle->setMatrix(mPlayer->getProjectionMatrix(), mPlayer->getViewMatrix());
 
 	mParticle->updateParticles(pDelta);
 	mParticle->renderParticles();
