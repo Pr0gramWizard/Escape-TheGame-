@@ -35,6 +35,7 @@ public:
 	void loadFlowerTexture();
 	void loadMudTexture();
 	void loadBlendMapTexture();
+	void loadTransparentMap();
 
 	// Getting the texture ID
 	GLuint getGrasTexture();
@@ -42,6 +43,7 @@ public:
 	GLuint getFlowerTexture();
 	GLuint getMudTexture();
 	GLuint getBlendMapTexture();
+	GLuint getTransparentTexture();
 
 
 	// Getter functions
@@ -89,6 +91,8 @@ private:
 	GLuint mMudTex;
 	// Blend Map
 	GLuint mBlendMapTex;
+	// Transparent Map
+	GLuint mTransparentMap;
 
 	// Variables
 

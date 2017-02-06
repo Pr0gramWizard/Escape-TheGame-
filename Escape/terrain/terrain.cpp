@@ -268,7 +268,7 @@ void Terrain::loadGrasTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	// Load, create texture and generate mipmaps
 	int width, height;
-	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/bPoly.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/iceblue.png", &width, &height, 0, SOIL_LOAD_RGB);
 	if (grass == 0)
 	{
 		std::cout << "The gras texture could not be found!" << std::endl;
@@ -292,10 +292,36 @@ void Terrain::loadStoneTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// Load, create texture and generate mipmaps
 	int width, height;
-	unsigned char* stone = SOIL_load_image("terrain/res/texture/poly/rPoly.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* stone = SOIL_load_image("terrain/res/texture/poly/darkred.png", &width, &height, 0, SOIL_LOAD_RGB);
 	if (stone == 0)
 	{
 		std::cout << "The stone texture could not be found!" << std::endl;
+	}
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, stone);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(stone);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+
+}
+
+void Terrain::loadTransparentMap()
+{
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &mTransparentMap);
+	glBindTexture(GL_TEXTURE_2D, mTransparentMap); // All upcoming GL_TEXTURE_2D operations now have effect on our texture object
+											 // Set our texture parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// Set texture filtering
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Load, create texture and generate mipmaps
+	int width, height;
+	unsigned char* stone = SOIL_load_image("terrain/res/texture/poly/transparentMap.png", &width, &height, 0, SOIL_LOAD_RGB);
+	if (stone == 0)
+	{
+		std::cout << "The transparentMap texture could not be found!" << std::endl;
 	}
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, stone);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -317,7 +343,7 @@ void Terrain::loadFlowerTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	// Load, create texture and generate mipmaps
 	int width, height;
-	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/bPoly.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/darkgreen.png", &width, &height, 0, SOIL_LOAD_RGB);
 	if (grass == 0)
 	{
 		std::cout << "The flower texture could not be found!" << std::endl;
@@ -340,7 +366,7 @@ void Terrain::loadMudTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	// Load, create texture and generate mipmaps
 	int width, height;
-	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/rPoly.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/whiteblue.png", &width, &height, 0, SOIL_LOAD_RGB);
 	if (grass == 0)
 	{
 		std::cout << "The mud texture could not be found!" << std::endl;
@@ -363,7 +389,7 @@ void Terrain::loadBlendMapTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	// Load, create texture and generate mipmaps
 	int width, height;
-	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/temp.png", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* grass = SOIL_load_image("terrain/res/texture/poly/blendmap2.png", &width, &height, 0, SOIL_LOAD_RGB);
 	if (grass == 0)
 	{
 		std::cout << "The blendmap texture could not be found!" << std::endl;
@@ -437,6 +463,11 @@ GLuint Terrain::getMudTexture()
 GLuint Terrain::getBlendMapTexture()
 {
 	return mBlendMapTex;
+}
+
+GLuint Terrain::getTransparentTexture()
+{
+	return mTransparentMap;
 }
 
 glm::mat4 Terrain::getModelMatrix()
@@ -529,7 +560,7 @@ void Terrain::generateHeights(Loader * loader, const char* pHeightmap)
 	}
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
 		GL_UNSIGNED_BYTE, image);
-	
+
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -539,6 +570,7 @@ void Terrain::generateHeights(Loader * loader, const char* pHeightmap)
 
 	std::vector<float> texture_data(width * height);
 	glGetTexImage(GL_TEXTURE_2D, 0, GL_RED, GL_FLOAT, &texture_data[0]);
+
 
 	// put height between -mAmplitude and +mAmplitude
 	for (unsigned int i = 0; i < texture_data.size(); ++i)

@@ -87,7 +87,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 
 
 
-
+	
 	// terrain
 	mTerrainRenderer->startShader();
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
@@ -104,7 +104,8 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 	mNormalRenderer->loadPlayerBelowLake(pPlayerBelowLake);
 	mNormalRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
 	*/
-
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	for (Terrain &terrain : mTerrains)
 	{
 		if (terrain.getName() == "Decke") {
@@ -126,6 +127,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 			}
 		}
 	}
+	glDisable(GL_BLEND);
 }
 
 void MainRenderer::setFPS(int pFPS)
