@@ -5,7 +5,7 @@
 const GLfloat Player::MOVESPEED = 8;
 const GLfloat Player::GRAVITY = -40;
 const GLfloat Player::JUMPPOWER = 9.0f;
-const GLfloat Player::JUMP_COOLDOWN = 1.0f;
+const GLfloat Player::JUMP_COOLDOWN = 0.7f;
 const GLfloat Player::STRAFE_ANGLE = 90;
 const GLfloat Player::ANGLE_CLIMB = 0.65f;
 
