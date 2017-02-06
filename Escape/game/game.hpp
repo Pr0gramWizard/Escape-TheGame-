@@ -121,6 +121,10 @@ private:
 	irrklang::ISoundEngine* SoundEngine;
 
 	// Settings
+	bool mFog = true;
+	void toggleFog();
+	bool hasFog();
+
 	bool mBloomEffect = true;
 	void toggleBloomEffect();
 	bool isBlooming();

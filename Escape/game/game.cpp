@@ -322,34 +322,40 @@ bool Game::gameLoop()
 			);
 		mPlayer->setIsBurning(isPlayerBurning);
 
-		float fogDensity = 0.15f;
+		float fogDensity;
+		if (this->hasFog()) {
+			fogDensity = 0.15f;
 
-		//glm::vec4 lakeBounds = glm::vec4(19.0f,6.0f,79.0f,65.0f);
-		glm::vec3 lakeMid = glm::vec3(49.0f, 0.0f, 34.5f);
-		//glm::vec4 lavaBounds = glm::vec4(82.0f,60.0f,112.0f,95.0f);
-		glm::vec3 lavaMid = glm::vec3(97.0f, 0.0f, 77.5f);
+			//glm::vec4 lakeBounds = glm::vec4(19.0f,6.0f,79.0f,65.0f);
+			glm::vec3 lakeMid = glm::vec3(49.0f, 0.0f, 34.5f);
+			//glm::vec4 lavaBounds = glm::vec4(82.0f,60.0f,112.0f,95.0f);
+			glm::vec3 lavaMid = glm::vec3(97.0f, 0.0f, 77.5f);
 
-		float lavaDist = glm::distance(playerPos, lavaMid);
-		float lakeDist = glm::distance(playerPos, lakeMid);
+			float lavaDist = glm::distance(playerPos, lavaMid);
+			float lakeDist = glm::distance(playerPos, lakeMid);
 
-		if (lavaDist < 30.f) {
-			if (lavaDist < 20.0f) {
-				fogDensity = 0.035f;
+			if (lavaDist < 30.f) {
+				if (lavaDist < 20.0f) {
+					fogDensity = 0.035f;
+				}
+				else {
+					float alpha = (lavaDist - 20.0f) / 10.0f;
+					fogDensity = alpha * 0.15f + (1 - alpha) * 0.035f;
+				}
 			}
-			else {
-				float alpha = (lavaDist - 20.0f) / 10.0f;
-				fogDensity = alpha * 0.15f + (1 - alpha) * 0.035f;
+
+			if (lakeDist < 38.f) {
+				if (lakeDist < 31.0f) {
+					fogDensity = 0.01f;
+				}
+				else {
+					float alpha = (lakeDist - 31.0f) / 7.0f;
+					fogDensity = alpha * 0.15f + (1 - alpha) * 0.01f;
+				}
 			}
 		}
-		
-		if (lakeDist < 38.f) {
-			if (lakeDist < 31.0f) {
-				fogDensity = 0.01f;
-			}
-			else {
-				float alpha = (lakeDist - 31.0f) / 7.0f;
-				fogDensity = alpha * 0.15f + (1 - alpha) * 0.01f;
-			}
+		else {
+			fogDensity = 0.0f;
 		}
 
 		// tell the player if he is under the lake
@@ -534,6 +540,17 @@ void Game::do_movement()
 }
 
 
+void Game::toggleFog()
+{
+	this->mFog = !!abs(this->mFog - 1);
+	std::cout << "Fog toggled to: " << this->mFog << std::endl;
+}
+
+bool Game::hasFog()
+{
+	return this->mFog;
+}
+
 void Game::toggleBloomEffect()
 {
 	this->mBloomEffect = !!abs(this->mBloomEffect - 1);
@@ -615,6 +632,11 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 	{
 		bool NormalMode = !!abs(game->mRenderer->getNormalMode() - 1);
 		game->mRenderer->setNormalMode(NormalMode);
+	}
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_F4))
+	{
+		game->toggleFog();
 	}
 
 	if (Keyboard::isKeyPressed(GLFW_KEY_F5))
