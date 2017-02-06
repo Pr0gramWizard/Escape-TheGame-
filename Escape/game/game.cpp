@@ -315,6 +315,14 @@ bool Game::gameLoop()
 		/*float lakeDistance = glm::distance(mPlayer->getPosition(), lake->getWorldPos() + glm::vec3(Lake::LAKE_SIZE / 2.0f, 1, Lake::LAKE_SIZE / 2.0f));
 		float lavaDistance = glm::distance(mPlayer->getPosition(), lava->getWorldPos() + glm::vec3(Lava::LAVA_SIZE / 2.0f, 0, Lava::LAVA_SIZE / 2.0f));*/
 
+		glm::vec4 lakeBounds = glm::vec4(19.0f,6.0f,79.0f,65.0f);
+		glm::vec4 lavaBounds = glm::vec4(82.0f,60.0f,112.0f,95.0f);
+		if (playerPos.x >= lavaBounds.x && playerPos.x <= lavaBounds.z && playerPos.z >= lavaBounds.y && playerPos.z <= lavaBounds.w) {
+			fogDensity = 0.035f;
+		}
+		else if(playerPos.x >= lakeBounds.x && playerPos.x <= lakeBounds.z && playerPos.z >= lakeBounds.y && playerPos.z <= lakeBounds.w){
+			fogDensity = 0.01f;
+		}
 
 		// tell the player if he is under the lake
 		mPlayer->setIsBelowLake(isPlayerBelowLake);
