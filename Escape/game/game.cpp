@@ -313,6 +313,7 @@ bool Game::gameLoop()
 		glDisable(GL_CLIP_DISTANCE0);
 		lfbos->unbindCurrentFrameBuffer();
 		
+		/*
 		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, 1, 0, 100000), Game::RED, Game::GREEN, Game::BLUE, discoTime);
 		mRenderer->renderDebugInformation();
 		// render water
@@ -320,13 +321,11 @@ bool Game::gameLoop()
 		lakerenderer->render(deltaTime, mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE, discoTime);
 		// render lava
 		lavarenderer->render(deltaTime, mPlayer->getViewMatrix(), *lava, lights, Game::RED, Game::GREEN, Game::BLUE, discoTime);
+		*/
 
-		/*
 		//render to prebloomfbo
 		prebloomfbo->bind();
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			
-			// sign is -1 if player is below the lake
 			
 			mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime);
 			// Render Debug Information
@@ -334,6 +333,8 @@ bool Game::gameLoop()
 			// render water
 			lake->updateHeights(deltaTime);
 			lakerenderer->render(deltaTime, mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE, discoTime);
+			// render lava
+			lavarenderer->render(deltaTime, mPlayer->getViewMatrix(), *lava, lights, Game::RED, Game::GREEN, Game::BLUE, discoTime);
 		prebloomfbo->unbind();
 
 		// Blur bright fragments w/ two-pass Gaussian Blur
@@ -367,9 +368,6 @@ bool Game::gameLoop()
 			finalbloomshader->loadExposure(1.0f);
 			RenderQuad();
 		finalbloomshader->unuse();
-
-		
-		*/
 
 		// Clear lists
 		lights.clear();
