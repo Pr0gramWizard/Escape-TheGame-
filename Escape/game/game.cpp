@@ -292,7 +292,7 @@ bool Game::gameLoop()
 			}
 		}
 		//Particles->render(mPlayer->getViewMatrix());
-		
+
 		// reflection
 		lfbos->bindReflectionFrameBuffer();
 		float distance = 2 * (mPlayer->getCameraPosition().y - lake->getWorldY());
@@ -309,17 +309,24 @@ bool Game::gameLoop()
 			&& playerPosition.z >= lakePosition.z
 			&& playerPosition.z <= lakePosition.z + lake->LAKE_SIZE
 		);
+
+		float fogDensity = 0.15f;
+
+		/*float lakeDistance = glm::distance(mPlayer->getPosition(), lake->getWorldPos() + glm::vec3(Lake::LAKE_SIZE / 2.0f, 1, Lake::LAKE_SIZE / 2.0f));
+		float lavaDistance = glm::distance(mPlayer->getPosition(), lava->getWorldPos() + glm::vec3(Lava::LAVA_SIZE / 2.0f, 0, Lava::LAVA_SIZE / 2.0f));*/
+
+
 		// tell the player if he is under the lake
 		mPlayer->setIsBelowLake(isPlayerBelowLake);
 		// render to buffer
-		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, sign, 0, -sign * lake->getWorldY() - 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime, 0.2f, 2.0f);
+		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, sign, 0, -sign * lake->getWorldY() - 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime, fogDensity, 2.0f);
 		// move camera back
 		mPlayer->getCamera()->incYPosition(distance);
 		mPlayer->getCamera()->invertPitch();
 
 		// refraction
 		lfbos->bindRefractionFrameBuffer();
-		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, -sign, 0, sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime, 0.2f, 2.0f);
+		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, -sign, 0, sign * lake->getWorldY() + 0.4), Game::RED, Game::GREEN, Game::BLUE, discoTime, fogDensity, 2.0f);
 		// actual rendering
 	
 		glDisable(GL_CLIP_DISTANCE0);
@@ -339,7 +346,7 @@ bool Game::gameLoop()
 		prebloomfbo->bind();
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
-			mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime, 0.2f, 2.0f);
+			mRenderer->render(mPlayer->getViewMatrix(), isPlayerBelowLake, lights, glm::vec4(0, -1, 0, 10000), Game::RED, Game::GREEN, Game::BLUE, discoTime, fogDensity, 2.0f);
 			// Render Debug Information
 			mRenderer->renderDebugInformation();
 			// render water
