@@ -31,16 +31,16 @@ void main()
 {
 
 
-	// vec4 blendMapColor = texture(BlendMap,TexCoord);
+	vec4 blendMapColor = texture(BlendMap,TexCoord);
 
-    // float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
-	// vec2 tiledCoords = TexCoord * 5000;
-	// vec4 backgroundTextureColor = texture(IceBlue, tiledCoords) * backTextureAmount;
-	// vec4 rTextureColor = texture(DarkRed, tiledCoords) * blendMapColor.r;
-	// vec4 gTextureColor = texture(DarkGreen, tiledCoords) * blendMapColor.g;
-	// vec4 bTextureColor = texture(WhiteBlue, tiledCoords) * blendMapColor.b;
+    float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
+	vec2 tiledCoords = TexCoord * 5000;
+	vec4 backgroundTextureColor = texture(IceBlue, tiledCoords) * backTextureAmount;
+	vec4 rTextureColor = texture(DarkRed, tiledCoords) * blendMapColor.r;
+	vec4 gTextureColor = texture(DarkGreen, tiledCoords) * blendMapColor.g;
+	vec4 bTextureColor = texture(WhiteBlue, tiledCoords) * blendMapColor.b;
 
-	// vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
+	vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
 		
 	// Ambient
     float ambientStrength = 0.5f;
@@ -76,16 +76,18 @@ void main()
 	float visibility = exp(-pow((distance * fogDensity), fogGradient));
 	visibility = clamp(visibility, 0.0, 1.0);
 
-    out_Color = vec4(1.0f,0.0f,0.0f,1.0f);
-	// out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
+    out_Color = totalColor;
+	out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
 
 	if(playerBelowLake){
 		out_Color = mix(out_Color, vec4(0.0, 0.0, 1.0, 1.0), 0.2);
 	}
 
-	
 
-	float brightness = dot(out_Color.rgb, vec3(0.2126, 0.7152, 0.0722));
-    if(brightness > 1.0)
-        BrightColor = vec4(out_Color.rgb, 1.0);
+	// float brightness = dot(out_Color.rgb, vec3(0.2126, 0.7152, 0.0722));
+    // if(brightness > 1.0)
+	// {
+	//      BrightColor = vec4(out_Color.rgb, 1.0);
+	// }
+  
 }

@@ -52,6 +52,7 @@ void TerrainRenderer::render(Terrain* pTerrain)
 
 void TerrainRenderer::loadTexture(Terrain &pTerrain)
 {
+	
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, pTerrain.getIceBlueTexture());
 	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "IceBlue"), 0);
@@ -68,9 +69,10 @@ void TerrainRenderer::loadTexture(Terrain &pTerrain)
 	glBindTexture(GL_TEXTURE_2D, pTerrain.getWhiteBlue());
 	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "WhiteBlue"), 3);
 
-	glActiveTexture(GL_TEXTURE3);
+	glActiveTexture(GL_TEXTURE4);
 	glBindTexture(GL_TEXTURE_2D, pTerrain.getBlendMapTexture());
 	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "BlendMap"), 4);
+	
 }
 
 void TerrainRenderer::loadDepthCubemapTexture(vector<Light*> pLights)
