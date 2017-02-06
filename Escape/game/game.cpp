@@ -234,7 +234,9 @@ bool Game::gameLoop()
 		//**** light sorting ****
 
 		// always use torch
-		lights.push_back(torch);
+		if (useTorch()) {
+			lights.push_back(torch);
+		}
 		
 		float maxDistance = 0.0f;
 		unsigned int maxIndex = 1;
@@ -543,6 +545,17 @@ bool Game::isBlooming()
 	return this->mBloomEffect;
 }
 
+void Game::toggleUseTorch()
+{
+	this->mUseTorch = !!abs(this->mUseTorch - 1);
+	std::cout << "Use torch toggled to: " << this->mUseTorch << std::endl;
+}
+
+bool Game::useTorch()
+{
+	return this->mUseTorch;
+}
+
 void Game::toggleDisco()
 {
 	this->mDiscoMode = !!abs(this->mDiscoMode - 1);
@@ -596,6 +609,11 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 	if (Keyboard::isKeyPressed(GLFW_KEY_F5))
 	{
 		game->toggleBloomEffect();
+	}
+
+	if (Keyboard::isKeyPressed(GLFW_KEY_F6))
+	{
+		game->toggleUseTorch();
 	}
 
 	if (Keyboard::isKeyPressed(GLFW_KEY_F8))

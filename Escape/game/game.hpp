@@ -125,6 +125,10 @@ private:
 	void toggleBloomEffect();
 	bool isBlooming();
 
+	bool mUseTorch = true;
+	void toggleUseTorch();
+	bool useTorch();
+
 	// Easter Eggs
 	bool mDiscoMode = false;
 	void toggleDisco();
