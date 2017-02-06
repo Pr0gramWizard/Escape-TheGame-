@@ -23,7 +23,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(),NULL/*glfwGetPrimaryMonitor()*/,NULL));
+	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(),glfwGetPrimaryMonitor(),NULL));
 	glfwMakeContextCurrent(this->getWindow());
 
 
@@ -213,7 +213,7 @@ bool Game::gameLoop()
 		this->controlSound();
 
 		// Calculating the player movement
-		mPlayer->move(&Boden,&Boden, deltaTime);
+		mPlayer->move(&Boden,&Decke, deltaTime);
 		glm::vec3 playerPos = mPlayer->getCameraPosition();
 		torch->setPosition(playerPos - mPlayer->getCamera()->getRight() - mPlayer->getViewVector());
 

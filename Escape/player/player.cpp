@@ -2,7 +2,7 @@
 #include "player.hpp"
 
 // Defintion of the global player constants
-const GLfloat Player::MOVESPEED = 4;
+const GLfloat Player::MOVESPEED = 8;
 const GLfloat Player::GRAVITY = -40;
 const GLfloat Player::JUMPPOWER = 9.0f;
 const GLfloat Player::JUMP_COOLDOWN = 1.0f;
@@ -108,13 +108,6 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	// Updating the players position
 	this->incPosition(glm::vec3(dx, 0, dz));
 
-	float terrainHeight = pFloor->getHeight(mPosition.x, mPosition.z);
-
-	mPosition.y = terrainHeight;
-
-
-
-	/*
 
 	// Collision detection
 	
@@ -187,7 +180,6 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	{
 		mPosition.y = mPosition.y;
 	}
-	*/
 	
 
 	// Set camera's new position
