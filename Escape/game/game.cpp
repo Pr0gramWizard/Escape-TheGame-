@@ -312,16 +312,34 @@ bool Game::gameLoop()
 
 		float fogDensity = 0.15f;
 
-		/*float lakeDistance = glm::distance(mPlayer->getPosition(), lake->getWorldPos() + glm::vec3(Lake::LAKE_SIZE / 2.0f, 1, Lake::LAKE_SIZE / 2.0f));
-		float lavaDistance = glm::distance(mPlayer->getPosition(), lava->getWorldPos() + glm::vec3(Lava::LAVA_SIZE / 2.0f, 0, Lava::LAVA_SIZE / 2.0f));*/
+		//glm::vec4 lakeBounds = glm::vec4(19.0f,6.0f,79.0f,65.0f);
+		glm::vec3 lakeMid = glm::vec3(49.0f, 0.0f, 34.5f);
+		//glm::vec4 lavaBounds = glm::vec4(82.0f,60.0f,112.0f,95.0f);
+		glm::vec3 lavaMid = glm::vec3(97.0f, 0.0f, 77.5f);
 
-		glm::vec4 lakeBounds = glm::vec4(19.0f,6.0f,79.0f,65.0f);
-		glm::vec4 lavaBounds = glm::vec4(82.0f,60.0f,112.0f,95.0f);
-		if (playerPos.x >= lavaBounds.x && playerPos.x <= lavaBounds.z && playerPos.z >= lavaBounds.y && playerPos.z <= lavaBounds.w) {
-			fogDensity = 0.035f;
+		cout << "Distance Lava: " << glm::distance(playerPos, lavaMid) << " **** Distance Lake: " << glm::distance(playerPos, lakeMid) << endl;
+
+		float lavaDist = glm::distance(playerPos, lavaMid);
+		float lakeDist = glm::distance(playerPos, lakeMid);
+
+		if (lavaDist < 30.f) {
+			if (lavaDist < 20.0f) {
+				fogDensity = 0.035f;
+			}
+			else {
+				float alpha = (lavaDist - 20.0f) / 10.0f;
+				fogDensity = alpha * 0.15f + (1 - alpha) * 0.035f;
+			}
 		}
-		else if(playerPos.x >= lakeBounds.x && playerPos.x <= lakeBounds.z && playerPos.z >= lakeBounds.y && playerPos.z <= lakeBounds.w){
-			fogDensity = 0.01f;
+		
+		if (lakeDist < 38.f) {
+			if (lakeDist < 31.0f) {
+				fogDensity = 0.01f;
+			}
+			else {
+				float alpha = (lakeDist - 31.0f) / 7.0f;
+				fogDensity = alpha * 0.15f + (1 - alpha) * 0.01f;
+			}
 		}
 
 		// tell the player if he is under the lake
