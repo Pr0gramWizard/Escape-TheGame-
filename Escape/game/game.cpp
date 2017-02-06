@@ -327,8 +327,6 @@ bool Game::gameLoop()
 		//glm::vec4 lavaBounds = glm::vec4(82.0f,60.0f,112.0f,95.0f);
 		glm::vec3 lavaMid = glm::vec3(97.0f, 0.0f, 77.5f);
 
-		cout << "Distance Lava: " << glm::distance(playerPos, lavaMid) << " **** Distance Lake: " << glm::distance(playerPos, lakeMid) << endl;
-
 		float lavaDist = glm::distance(playerPos, lavaMid);
 		float lakeDist = glm::distance(playerPos, lakeMid);
 
