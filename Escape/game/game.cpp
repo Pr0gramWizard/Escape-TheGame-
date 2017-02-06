@@ -183,6 +183,7 @@ bool Game::gameLoop()
 
 	SoundEngine->setSoundVolume(0.1f);
 
+
 	/*TEST*/
 	GLfloat lastTime = (GLfloat) glfwGetTime();
 
