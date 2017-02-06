@@ -76,7 +76,7 @@ void main()
 	float visibility = exp(-pow((distance * fogDensity), fogGradient));
 	visibility = clamp(visibility, 0.0, 1.0);
 
-    out_Color = texture2D(IceBlue,TexCoord);
+    out_Color = vec4(1.0f,0.0f,0.0f,1.0f);
 	// out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
 
 	if(playerBelowLake){
