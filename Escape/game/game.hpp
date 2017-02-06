@@ -69,11 +69,6 @@
 #include "../shadow/shadowfbo.hpp"
 
 
-
-#include "../particle/renderer/particlegenerator.hpp"
-#include "../particle/shader/particleshader.hpp"
-
-
 // Declaration of game class
 class Game
 {

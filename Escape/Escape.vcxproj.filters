@@ -124,12 +124,6 @@
     <Filter Include="Particles">
       <UniqueIdentifier>{64b16df8-252f-44e3-8483-621e5f71346a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Particles\shader">
-      <UniqueIdentifier>{562b76c0-bc5c-4ed6-8862-83e99499224a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particles\renderer">
-      <UniqueIdentifier>{9fc847ef-13d5-45b1-801f-12ebcb3816d0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shader\Geometry">
       <UniqueIdentifier>{1e30a9cb-304d-46df-b00c-bc258a1c0850}</UniqueIdentifier>
     </Filter>
@@ -255,15 +249,6 @@
     <ClCompile Include="text\shader\textshader.cpp">
       <Filter>Text\shader</Filter>
     </ClCompile>
-    <ClCompile Include="particle\particle.cpp">
-      <Filter>Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="particle\shader\particleshader.cpp">
-      <Filter>Particles\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="particle\renderer\particlerenderer.cpp">
-      <Filter>Particles\renderer</Filter>
-    </ClCompile>
     <ClCompile Include="blur\blurBuffer.cpp">
       <Filter>Blur</Filter>
     </ClCompile>
@@ -279,9 +264,6 @@
     <ClCompile Include="hand\hand.cpp" />
     <ClCompile Include="light\spotlight.cpp">
       <Filter>Light</Filter>
-    </ClCompile>
-    <ClCompile Include="particle\renderer\particlegenerator.cpp">
-      <Filter>Particles\renderer</Filter>
     </ClCompile>
     <ClCompile Include="lava\renderer\lavaRenderer.cpp">
       <Filter>Lava\renderer</Filter>
@@ -387,15 +369,6 @@
     <ClInclude Include="text\shader\textshader.hpp">
       <Filter>Text\shader</Filter>
     </ClInclude>
-    <ClInclude Include="particle\particle.hpp">
-      <Filter>Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="particle\shader\particleshader.hpp">
-      <Filter>Particles\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="particle\renderer\particlerenderer.hpp">
-      <Filter>Particles\renderer</Filter>
-    </ClInclude>
     <ClInclude Include="blur\blurBuffer.hpp">
       <Filter>Blur</Filter>
     </ClInclude>
@@ -412,9 +385,6 @@
     <ClInclude Include="light\spotlight.hpp">
       <Filter>Light</Filter>
     </ClInclude>
-    <ClInclude Include="particle\renderer\particlegenerator.hpp">
-      <Filter>Particles\renderer</Filter>
-    </ClInclude>
     <ClInclude Include="lava\renderer\lavaRenderer.hpp">
       <Filter>Lava\renderer</Filter>
     </ClInclude>
@@ -429,6 +399,9 @@
     </ClInclude>
     <ClInclude Include="shadow\shader\shadowshader.hpp">
       <Filter>Shadow\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\particle.hpp">
+      <Filter>Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
