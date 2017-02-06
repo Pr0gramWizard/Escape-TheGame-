@@ -242,6 +242,7 @@ bool Game::gameLoop()
 		torch->setPosition(playerPos - mPlayer->getCamera()->getRight() - mPlayer->getViewVector());
 
 		//**** light sorting ****
+		float gamma = 0.5f;
 
 		// always use torch
 		if (useTorch()) {
@@ -279,16 +280,6 @@ bool Game::gameLoop()
 				}
 			}
 		}
-
-		// always use this light
-		//lights.push_back(sun);
-
-		// put needed lights in the list
-		//lights.push_back(LavaLight);
-		// lights.push_back(LavaLight2);
-		
-		//lights.push_back(stoneB);
-		//lights.push_back(stoneC);
 
 		//**** End light sorting ****
 
@@ -357,10 +348,12 @@ bool Game::gameLoop()
 			if (lakeDist < 38.f) {
 				if (lakeDist < 31.0f) {
 					fogDensity = 0.01f;
+					gamma = 1.0f;
 				}
 				else {
 					float alpha = (lakeDist - 31.0f) / 7.0f;
 					fogDensity = alpha * 0.15f + (1 - alpha) * 0.01f;
+					gamma = alpha * 0.5f + (1 - alpha) * 1.0f;
 				}
 			}
 		}
@@ -439,6 +432,7 @@ bool Game::gameLoop()
 			glBindTexture(GL_TEXTURE_2D, blurfbos->getLastBluredTexture());
 			glActiveTexture(GL_TEXTURE2);
 			glBindTexture(GL_TEXTURE_2D, lava->getBurningTexture());
+			finalbloomshader->loadGamma(gamma);
 			finalbloomshader->loadIsBurning(mPlayer->isBurning());
 			finalbloomshader->loadBloom(this->isBlooming());
 			finalbloomshader->loadExposure(1.0f);

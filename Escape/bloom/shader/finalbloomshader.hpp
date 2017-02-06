@@ -49,6 +49,7 @@ public:
 	void loadBloom(GLboolean pBloom);
 	void loadExposure(GLfloat pExposure);
 	void loadIsBurning(GLboolean pIsBurning);
+	void loadGamma(GLfloat pGamma);
 
 	// Destructor
 	~FinalBloomShader();
@@ -61,6 +62,7 @@ private:
 	// All private functions of the class
 
 	//uniform locations
+	GLuint mLocation_gamma;
 	GLuint mLocation_scene;
 	GLuint mLocation_bloomBlur;
 	GLuint mLocation_bloom;

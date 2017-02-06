@@ -339,6 +339,11 @@ void FinalBloomShader::loadIsBurning(GLboolean pIsBurning)
 	this->loadBool(mLocation_isBurning, pIsBurning);
 }
 
+void FinalBloomShader::loadGamma(GLfloat pGamma)
+{
+	this->loadFloat(mLocation_gamma, pGamma);
+}
+
 // Destructor
 FinalBloomShader::~FinalBloomShader()
 {
@@ -354,6 +359,7 @@ void FinalBloomShader::getAllUniformLocations()
 	mLocation_bloom = glGetUniformLocation(getProgramID(), "bloom");
 	mLocation_exposure = glGetUniformLocation(getProgramID(), "exposure");
 	mLocation_isBurning = glGetUniformLocation(getProgramID(), "isBurning");
+	mLocation_gamma = glGetUniformLocation(getProgramID(), "gamma");
 }
 
 // Binding an attribtute to the shader

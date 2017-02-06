@@ -8,10 +8,10 @@ uniform sampler2D burning;
 uniform bool bloom;
 uniform float exposure;
 uniform bool isBurning;
+uniform float gamma;
 
 void main()
 {             
-    const float gamma = 0.5;
     vec3 hdrColor = texture(scene, TexCoords).rgb;      
     vec3 bloomColor = texture(bloomBlur, TexCoords).rgb;
     if(bloom) 
