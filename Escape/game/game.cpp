@@ -52,7 +52,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glCullFace(GL_BACK);
 	
 
-	glm::vec3 Spawn(62,4,64);
+	glm::vec3 Spawn(61,4,70);
 	glm::vec3 Lava(103,4,85);
 
 	mPlayer = new Player(Spawn, 0.5f, "Player", this->getHeight(), this->getWidth());

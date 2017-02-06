@@ -108,19 +108,59 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	// Updating the players position
 	this->incPosition(glm::vec3(dx, 0, dz));
 
+	//**** Collision detection ****
+	glm::vec3 input;
+	glm::vec3 normal;
+	// tune this to "fudge" the "push away" from the wall
+	float bounceFudge = 1.01f;
 
-	// Collision detection
-	
+	// ceiling collision
+	float ceilingheight = pCeiling->getHeight(mEye->getPosition().x, mEye->getPosition().z);
+	float heightOffset = 0.4f;
+	float headPosition = this->getPosition().y + this->getHeight() + heightOffset;
+	float distance = ceilingheight - headPosition;
+
+	if (distance <= 0.01f) {
+		this->setUpSpeed(-10.0f);
+		// collision detected
+		this->incPosition(glm::vec3(-dx, 0, -dz));
+
+		// only user x and z component of normal
+		normal = -pCeiling->getNormalAt(mPosition.x, mPosition.z);
+
+		// prevent sliding up
+		if (normal.y > 0.0f) {
+			normal = glm::normalize(glm::vec3(normal.x, 0.0f, normal.z));
+		}
+		else {
+			normal = glm::normalize(normal);
+		}
+
+		glm::vec3 OldPosition = this->getPosition();
+
+
+		this->incPosition(normal);
+		// update dx and dz
+		dx = normal.x;
+		dz = normal.z;
+
+		bool invalidPosition = this->getPosition().x != this->getPosition().x || this->getPosition().y != this->getPosition().y || this->getPosition().z != this->getPosition().z;
+
+		if (invalidPosition)
+		{
+			this->setPosition(OldPosition);
+		}
+	}
+
+	// floor collision
 	float terrainHeight;
 	float nextTerrainHeight = pFloor->getHeight(mPosition.x, mPosition.z);
 	float angle = atan((nextTerrainHeight - mPosition.y)/sqrt(dx * dx + dz * dz));
-	glm::vec3 normal = pFloor->getNormalAt(mPosition.x, mPosition.z);
+	normal = pFloor->getNormalAt(mPosition.x, mPosition.z);
 	float normalDot = glm::dot(normal, glm::vec3(0, 1, 0));
 	if (angle > 0 && normalDot < Player::ANGLE_CLIMB) {
 		this->incPosition(glm::vec3(-dx, 0, -dz));
-		glm::vec3 input = glm::vec3(dx, 0.0f, dz);
-		// tune this to "fudge" the "push away" from the wall
-		float bounceFudge = 1.01f;
+		input = glm::vec3(dx, 0.0f, dz);
 
 		// normalize input, but keep track of original size
 		float inputLength = glm::length(input);
@@ -154,14 +194,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 		terrainHeight = nextTerrainHeight;
 	}
 
-	float ceilingheight = pCeiling->getHeight(mEye->getPosition().x, mEye->getPosition().z);
-	float headPosition = this->getPosition().y + this->getHeight();
-	float distance = ceilingheight - headPosition;
-
-	if (distance <= 0.01f)
-	{
-		this->setUpSpeed(-10.0f);
-	}	
+	//**** END collision detection ****
 
 	if (this->isBelowLake()) {
 		mUpSpeed += Player::GRAVITY/1.50f * pDelta;
