@@ -45,7 +45,7 @@ void MainRenderer::prepare(GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime)
+void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime, float pFogDensity, float pFogGradient)
 {
 	this->prepare(pRED, pGREEN, pBLUE);
 	glShadeModel(GL_SMOOTH);
@@ -79,7 +79,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 	mEntityRenderer->loadViewMatrix(pViewMatrix);
 	mEntityRenderer->loadClipPlane(pClipPlane);
 	mEntityRenderer->loadLights(pLights, pDiscoTime);
-	mEntityRenderer->loadFogData(0.01f, 2.0f);
+	mEntityRenderer->loadFogData(pFogDensity, pFogGradient);
 	mEntityRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
 	mEntityRenderer->render(mEntities);
 	mEntityRenderer->render(mSpecial, LINES);
@@ -94,7 +94,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 	mTerrainRenderer->loadClipPlane(pClipPlane);
 	mTerrainRenderer->loadLights(pLights, pDiscoTime);
 	mTerrainRenderer->loadDepthCubemapTexture(pLights);
-	mTerrainRenderer->loadFogData(0.01f, 2.0f);
+	mTerrainRenderer->loadFogData(pFogDensity, pFogGradient);
 	mTerrainRenderer->loadPlayerBelowLake(pPlayerBelowLake);
 	mTerrainRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
 
