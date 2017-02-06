@@ -89,7 +89,6 @@
     <ClInclude Include="object\object.hpp" />
     <ClInclude Include="object\renderer\objectrenderer.hpp" />
     <ClInclude Include="object\shader\objectshader.hpp" />
-    <ClInclude Include="particle\particle.hpp" />
     <ClInclude Include="player\player.hpp" />
     <ClInclude Include="renderer\mainrenderer.hpp" />
     <ClInclude Include="shadow\shader\shadowshader.hpp" />
