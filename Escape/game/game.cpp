@@ -143,6 +143,11 @@ bool Game::gameLoop()
 	Object stones1("/object/res/rocks/rockModelA.obj", glm::vec3(52, Boden.getHeight(52,66) ,66), glm::vec3(0,0,0), 1);
 	mRenderer->addToList(stones1);
 	//**** END GLOWSTONES ****
+
+	//**** WATER DROPS ****
+	Object waterdrop("/object/res/rocks/waterdrop.obj", glm::vec3(52, Boden.getHeight(52, 66), 66), glm::vec3(0, 0, 0), 1);
+
+		//**** END WATER DROPS
  
 	vector<Light*> lights;
 

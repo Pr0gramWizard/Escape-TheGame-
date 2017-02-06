@@ -24,7 +24,6 @@
     <ClCompile Include="blur\blurBuffer.cpp" />
     <ClCompile Include="blur\shader\blurShader.cpp" />
     <ClCompile Include="camera\camera.cpp" />
-    <ClCompile Include="effect\waterdrop.cpp" />
     <ClCompile Include="entity\entity.cpp" />
     <ClCompile Include="entity\renderer\entityRenderer.cpp" />
     <ClCompile Include="entity\shader\entityshader.cpp" />
@@ -67,7 +66,6 @@
     <ClInclude Include="blur\blurBuffer.hpp" />
     <ClInclude Include="blur\shader\blurShader.hpp" />
     <ClInclude Include="camera\camera.hpp" />
-    <ClInclude Include="effect\waterdrop.hpp" />
     <ClInclude Include="entity\entity.hpp" />
     <ClInclude Include="entity\renderer\entityRenderer.hpp" />
     <ClInclude Include="entity\shader\entityshader.hpp" />
