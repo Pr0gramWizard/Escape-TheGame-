@@ -14,6 +14,10 @@ uniform vec3 lightPosition[6];
 uniform vec3 lightColor[6];
 uniform vec3 lightAttenuation[6];
 
+uniform float fogDensity;
+uniform float fogGradient;
+uniform vec3 backgroundColor;
+
 
 void main()
 {    
@@ -48,7 +52,13 @@ void main()
 		result += (ambient + diffuse + specular)/(attenuationFactor);
     }
 
+	float distance = length(viewPos - fragPos);
+	float visibility = exp(-pow((distance * fogDensity), fogGradient));
+	visibility = clamp(visibility, 0.0, 1.0);
+
     color = vec4(result, 1.0) * texture2D(texture, TexCoords);
+
+	color = mix(vec4(backgroundColor, 1.0) , color, visibility);
 
 	float brightness = dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));
     if(brightness > 1.0)

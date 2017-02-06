@@ -69,6 +69,8 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 		mObjectRenderer->loadViewMatrix(mPlayer->getViewMatrix());
 		mObjectRenderer->loadClipPlane(pClipPlane);
 		mObjectRenderer->loadLights(pLights, pDiscoTime);
+		mObjectRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
+		mObjectRenderer->loadFogData(pFogDensity, pFogGradient);
 		mObjectRenderer->render(object);
 		mObjectRenderer->stopShader();
 	}
