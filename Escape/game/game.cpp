@@ -144,7 +144,7 @@ bool Game::gameLoop()
 	lights.push_back(LavaLight2);
 	lights.push_back(WaterLight);
 
-	SpotLight* spotlight = new SpotLight(glm::vec3(-6, 15, -30), glm::vec3(1.5f,1.5f,1.5f), glm::vec3(-7.8f,-1,-21), 120.0f);
+	SpotLight* spotlight = new SpotLight(glm::vec3(46.0f, 24.0f, 15.0f), glm::vec3(1.5f,1.5f,1.5f), glm::vec3(56,3,42), 120.0f);
 	lakerenderer->startShader();
 	lakerenderer->loadLakeSpotLightPosition(spotlight->getPosition());
 	lakerenderer->loadLakeSpotLightColor(spotlight->getColor());
