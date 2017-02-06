@@ -157,6 +157,12 @@
     <Filter Include="Shader\Particle">
       <UniqueIdentifier>{ba08f5b9-4321-4c64-8f20-cb9c2020f3c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Effect">
+      <UniqueIdentifier>{37c0e525-bd68-456f-b064-a39add3fe445}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\Water Drop">
+      <UniqueIdentifier>{8a2368b8-df93-418e-bcf3-50ff1995d1f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -279,6 +285,9 @@
     <ClCompile Include="shadow\shader\shadoshader.cpp">
       <Filter>Shadow\shader</Filter>
     </ClCompile>
+    <ClCompile Include="effect\waterdrop.cpp">
+      <Filter>Effect\Water Drop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -397,6 +406,9 @@
     </ClInclude>
     <ClInclude Include="shadow\shader\shadowshader.hpp">
       <Filter>Shadow\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="effect\waterdrop.hpp">
+      <Filter>Effect\Water Drop</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
