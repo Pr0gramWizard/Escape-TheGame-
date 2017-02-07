@@ -570,6 +570,8 @@ bool Game::gameLoop()
 			fogDensity = 0.0f;
 		}
 
+		cout << gamma << endl;
+
 		// tell the player if he is under the lake
 		mPlayer->setIsBelowLake(isPlayerBelowLake);
 		// render to buffer
