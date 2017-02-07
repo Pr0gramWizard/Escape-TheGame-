@@ -418,9 +418,7 @@ bool Game::gameLoop()
 		}
 
 		// check the rest of the lights if one is closer to the player then the furthest already inside lights list
-		cout << allLights.size() << endl;
 		for (unsigned int j = MAX_LIGHTS; j < allLights.size(); ++j) {
-			cout << j << endl;
 			float distance = glm::distance(playerPos, allLights[j]->getPosition());
 			// if found put the light into lights list and search for new max item
 			if (distance < maxDistance) {
@@ -491,8 +489,6 @@ bool Game::gameLoop()
 
 			float lavaDist = glm::distance(playerPos, lavaMid);
 			float lakeDist = glm::distance(playerPos, lakeMid);
-
-			cout << lavaDist << endl;
 
 			if (lavaDist < 30.f) {
 				if (lavaDist < 20.0f) {
