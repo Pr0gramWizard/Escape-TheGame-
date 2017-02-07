@@ -130,11 +130,11 @@ bool Game::gameLoop()
 	allLights.push_back(torch);
 
 	// Blue
-	Light* LavaLight = new Light(glm::vec3(91.0f,3.0f,77.0f), glm::vec3(0.9f, 0.3f, 0.0f),glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
+	Light* LavaLight = new Light(glm::vec3(97.0f,3.0f,77.0f), glm::vec3(0.9f, 0.3f, 0.0f),glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
 	allLights.push_back(LavaLight);
 	// Green
 	Light* LavaLight2 = new Light(glm::vec3(101.0f,3.0f,70.0f), glm::vec3(0.6f, 0.3f, 0.0f), glm::vec3(0.005f, 0.005f, 0.005f), glm::vec3(0.0f,0.0f,0.5f), 0.5f, 0.3f);
-	allLights.push_back(LavaLight2);
+	//allLights.push_back(LavaLight2);
 	// Red
 	Light* WaterLight = new Light(glm::vec3(52.0f,10.0f,33.0f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.01f, 0.01f, 0.01f), glm::vec3(0.0f,0.2f,0.0f), 1.0f, 1.0f);
 	allLights.push_back(WaterLight);
@@ -182,11 +182,11 @@ bool Game::gameLoop()
 	Light* stone7L = new Light(glm::vec3(85, Decke.getHeight(85, 111) - 0.1f, 111), glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
 	allLights.push_back(stone7L);
 
-	Object stone8("./object/res/rocks/rockModelB.obj", glm::vec3(104, Boden.getHeight(104, 98) + 0.1f, 98), glm::vec3(0, 0, 0), 1);
+	/*Object stone8("./object/res/rocks/rockModelB.obj", glm::vec3(104, Boden.getHeight(104, 98) + 0.1f, 98), glm::vec3(0, 0, 0), 1);
 	stone8.loadTexture("./object/res/stone/texture.png");
 	mRenderer->addToList(stone8);
 	Light* stone8L = new Light(glm::vec3(104, Boden.getHeight(104, 98) + 0.1f, 98), glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
-	allLights.push_back(stone8L);
+	allLights.push_back(stone8L);*/
 
 	Object stone9("./object/res/rocks/rockModelC.obj", glm::vec3(87, Boden.getHeight(87, 124) + 0.1f, 124), glm::vec3(0, 0, 0), 1);
 	stone9.loadTexture("./object/res/stone/texture.png");
@@ -455,22 +455,46 @@ bool Game::gameLoop()
 			float lavaDist = glm::distance(playerPos, lavaMid);
 			float lakeDist = glm::distance(playerPos, lakeMid);
 
+			cout << lavaDist << endl;
+
 			if (lavaDist < 30.f) {
 				if (lavaDist < 20.0f) {
 					fogDensity = 0.035f;
 					gamma = 0.65f;
+					if (this->useTorch()) {
+						lights[0] = torch;
+					}
+					else {
+						lights[0] = stone14L;
+					}
+
+					lights[1] = stone10L;
+					lights[2] = stone11L;
+					lights[3] = stone12L;
+					lights[4] = stone13L;
+					lights[5] = LavaLight;
 				}
 				else {
 					float alpha = (lavaDist - 20.0f) / 10.0f;
 					fogDensity = alpha * 0.15f + (1 - alpha) * 0.035f;
 					gamma = alpha * 0.5f + (1 - alpha) * 0.65f;
 				}
-			}
-
-			if (lakeDist < 38.f) {
+			} else  if (lakeDist < 38.f) {
 				if (lakeDist < 31.0f) {
 					fogDensity = 0.01f;
 					gamma = 1.0f;
+					if (this->useTorch()) {
+						lights[0] = torch;
+					}
+					else {
+						lights[0] = stone14L;
+					}
+					
+					lights[1] = stone16L;
+					lights[2] = stone18L;
+					lights[3] = stone19L;
+					lights[4] = stone20L;
+					lights[5] = WaterLight;
 				}
 				else {
 					float alpha = (lakeDist - 31.0f) / 7.0f;
