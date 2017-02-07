@@ -448,7 +448,7 @@ bool Game::gameLoop()
 		}
 
 		// check the rest of the lights if one is closer to the player then the furthest already inside lights list
-		for (unsigned int j = MAX_LIGHTS; j < allLights.size(); ++j) {
+		for (unsigned int j = MAX_LIGHTS - 1; j < allLights.size(); ++j) {
 			float distance = glm::distance(playerPos, allLights[j]->getPosition());
 			// if found put the light into lights list and search for new max item
 			if (distance < maxDistance) {
