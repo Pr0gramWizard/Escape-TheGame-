@@ -450,7 +450,7 @@ bool Game::gameLoop()
 		}
 		
 		float maxDistance = 0.0f;
-		unsigned int maxIndex = 1;
+		unsigned int maxIndex = 5;
 
 		// push first MAX_LIGHTS - 1 lights to lights list and track the one with most distance
 		for (unsigned int i = 0; i < MAX_LIGHTS && i < allLights.size(); ++i) {
@@ -523,10 +523,7 @@ bool Game::gameLoop()
 			);
 		mPlayer->setIsBurning(isPlayerBurning);
 
-		float fogDensity;
-		if (this->hasFog()) {
-			fogDensity = 0.1f;
-
+		float fogDensity = 0.1f;
 			//glm::vec4 lakeBounds = glm::vec4(19.0f,6.0f,79.0f,65.0f);
 			glm::vec3 lakeMid = glm::vec3(49.0f, 0.0f, 34.5f);
 			//glm::vec4 lavaBounds = glm::vec4(82.0f,60.0f,112.0f,95.0f);
@@ -580,12 +577,10 @@ bool Game::gameLoop()
 					gamma = alpha * 0.5f + (1 - alpha) * 0.7f;
 				}
 			}
-		}
-		else {
-			fogDensity = 0.0f;
-		}
 
-		cout << gamma << endl;
+			if (!this->hasFog()) {
+				fogDensity = 0.0f;
+			}
 
 		// tell the player if he is under the lake
 		mPlayer->setIsBelowLake(isPlayerBelowLake);
