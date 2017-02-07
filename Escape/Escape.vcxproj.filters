@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{f1f38a5c-2a5a-4ad2-ba19-a863082b2689}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{349c24e5-ee26-4e3d-b353-d5833529624c}</UniqueIdentifier>
     </Filter>
@@ -21,9 +18,6 @@
     </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{8f853a57-58da-44b7-b97a-006db02e9904}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utility Functions">
-      <UniqueIdentifier>{eb07b2e8-6b1d-464a-94e2-f5d6d16dcd25}</UniqueIdentifier>
     </Filter>
     <Filter Include="Loader">
       <UniqueIdentifier>{b5fd864d-de6a-44e1-a0f4-2fd5b6d71e92}</UniqueIdentifier>
@@ -136,9 +130,6 @@
     <Filter Include="Bloom\shader">
       <UniqueIdentifier>{8a8b8ce3-36e3-4fba-84da-e8453240d7c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Glowstone">
-      <UniqueIdentifier>{69e0894a-28e8-4eff-95ee-fc5db34b9486}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Lava">
       <UniqueIdentifier>{1284c8c0-0c45-4ec5-a74f-a0b0b2b0e060}</UniqueIdentifier>
     </Filter>
@@ -157,9 +148,6 @@
     <Filter Include="Shader\Particle">
       <UniqueIdentifier>{ba08f5b9-4321-4c64-8f20-cb9c2020f3c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Effect">
-      <UniqueIdentifier>{37c0e525-bd68-456f-b064-a39add3fe445}</UniqueIdentifier>
-    </Filter>
     <Filter Include="WaterDrop">
       <UniqueIdentifier>{71c13dfd-d0f3-439d-a791-5d3866c22e7c}</UniqueIdentifier>
     </Filter>
@@ -168,6 +156,15 @@
     </Filter>
     <Filter Include="WaterDrop\shader">
       <UniqueIdentifier>{47749bf2-5c99-4a40-a509-f6fa5dfd85ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Torch">
+      <UniqueIdentifier>{67f30557-2d8c-4ef6-8eb3-a9c9ef2ef2f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Torch\shader">
+      <UniqueIdentifier>{3ee056cc-5f2b-4783-b4d4-583f02fcf039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Torch\renderer">
+      <UniqueIdentifier>{af113f1c-3bbd-4678-a2f4-53e4e095deee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -300,6 +297,15 @@
     <ClCompile Include="waterdrop\shader\waterdropshader.cpp">
       <Filter>WaterDrop\shader</Filter>
     </ClCompile>
+    <ClCompile Include="torch\torch.cpp">
+      <Filter>Torch</Filter>
+    </ClCompile>
+    <ClCompile Include="torch\shader\torchshader.cpp">
+      <Filter>Torch\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="torch\renderer\torchrenderer.cpp">
+      <Filter>Torch\renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -427,6 +433,15 @@
     </ClInclude>
     <ClInclude Include="waterdrop\shader\waterdropshader.hpp">
       <Filter>WaterDrop\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="torch\torch.hpp">
+      <Filter>Torch</Filter>
+    </ClInclude>
+    <ClInclude Include="torch\shader\torchshader.hpp">
+      <Filter>Torch\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="torch\renderer\torchrenderer.hpp">
+      <Filter>Torch\renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

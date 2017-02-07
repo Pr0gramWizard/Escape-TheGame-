@@ -329,6 +329,15 @@ bool Game::gameLoop()
 
 
 		//**** END WATER DROPS
+
+	//**** TORCH STUFF
+
+	Torch* cTorch = new Torch("./torch/res/torch2.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 0.3f);
+	cTorch->loadTexture("./torch/res/wood.png");
+
+	mRenderer->addToList(cTorch);
+
+	//**** END TORCH STUFF
  
 	vector<Light*> lights;
 
@@ -411,6 +420,12 @@ bool Game::gameLoop()
 		}
 		
 		timeElapsed += deltaTime * 10;
+
+		if (timeElapsed > 10.0f)
+		{
+			lake->createDistortion(44.0f, 37.0f);
+			timeElapsed = 0.0f;
+		}
 
 	
 

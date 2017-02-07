@@ -18,6 +18,23 @@ Lake::Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices,
 	mNormalVbo = (GLuint) pLoader->getLastVbos().z;
 }
 
+void Lake::createDistortion(GLfloat pX, GLfloat pZ)
+{
+		float xPosRelativeToTerrain = pX - mWorldX;
+		float zPosRelativeToTerrain = pZ - mWorldX;
+
+		int gridX = (int)floor(xPosRelativeToTerrain / mGridSize);
+		int gridZ = (int)floor(zPosRelativeToTerrain / mGridSize);
+
+		// position within the grid square between 0 and 1
+		float dX = fmod(xPosRelativeToTerrain, mGridSize);
+		float dZ = fmod(zPosRelativeToTerrain, mGridSize);
+
+		int index = dX * mVertices + dZ;
+
+		mVelocity.at(index) -= 5.0f;
+}
+
 Lake::~Lake()
 {
 }

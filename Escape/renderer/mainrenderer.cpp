@@ -37,6 +37,9 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 	WaterdropShader* watershader = new WaterdropShader(OBJECT_VERTEX, OBJECT_FRAGMENT);
 	mWaterRenderer = new WaterdropRenderer(watershader, pProjectionMatrix);
 
+	TorchShader* torchshader = new TorchShader(OBJECT_VERTEX, OBJECT_FRAGMENT);
+	mTorchRenderer = new TorchRenderer(torchshader, pProjectionMatrix);
+
 	this->setDrawMode(0);
 
 	mPlayer = pPlayer;
@@ -99,6 +102,20 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 		mWaterRenderer->render(object);
 		mWaterRenderer->stopShader();
 	}
+
+
+	// Torch Stuff
+	mTorchRenderer->startShader();
+	mTorch->setPosition(mPlayer->getCameraPosition() - mPlayer->getCamera()->getRight() - mPlayer->getViewVector());
+	// mTorch->setRotation(glm::vec3(-40.0f, 0.0f, 0.0f));
+	mTorchRenderer->loadModelMatrix(mTorch);
+	mTorchRenderer->loadViewMatrix(mPlayer->getViewMatrix());
+	mTorchRenderer->loadClipPlane(pClipPlane);
+	mTorchRenderer->loadLights(pLights, pDiscoTime);
+	mTorchRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
+	mTorchRenderer->loadFogData(pFogDensity, pFogGradient);
+	mTorchRenderer->render(mTorch);
+	mTorchRenderer->stopShader();
 
 
 
@@ -250,6 +267,11 @@ void MainRenderer::addToList(Entity &pEntity, RenderMode pMode)
 void MainRenderer::addToList(Skybox* Skybox)
 {
 	mSkybox = Skybox;
+}
+
+void MainRenderer::addToList(Torch* pTorch)
+{
+	mTorch = pTorch;
 }
 
 void MainRenderer::setDrawMode(bool pMode)

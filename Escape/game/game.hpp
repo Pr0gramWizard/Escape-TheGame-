@@ -67,6 +67,8 @@
 // shadow
 #include "../shadow/shader/shadowshader.hpp"
 #include "../shadow/shadowfbo.hpp"
+// Torch
+#include "../torch/torch.hpp"
 
 #include <stdlib.h>
 

@@ -32,6 +32,11 @@
 #include "../waterdrop/renderer/waterdroprenderer.hpp"
 #include "../waterdrop/shader/waterdropshader.hpp"
 
+// Torch Rendering
+#include "../torch/torch.hpp"
+#include "../torch/renderer/torchrenderer.hpp"
+#include "../torch/shader/torchshader.hpp"
+
 // Keyboard
 #include "../input/keyboard.hpp"
 
@@ -64,6 +69,7 @@ public:
 	void addToList(Skybox* Skybox);
 	void addToList(Object& pObject);
 	void addToList(Waterdrop& pWaterdrop);
+	void addToList(Torch* pTorch);
 
 	void setDrawMode(bool pMode);
 	bool getDrawMode() const;
@@ -96,6 +102,7 @@ public:
 	TextRenderer* mTextRenderer;
 	ObjectRenderer* mObjectRenderer;
 	WaterdropRenderer* mWaterRenderer;
+	TorchRenderer* mTorchRenderer;
 
 public:
 	static const char* ENTITY_VERTEX;
@@ -115,6 +122,8 @@ public:
 private:
 	Player* mPlayer;
 	Skybox* mSkybox;
+
+	Torch* mTorch;
 
 	list<Entity> mEntities;
 	list<Entity> mSpecial;

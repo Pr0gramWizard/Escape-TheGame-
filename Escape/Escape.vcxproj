@@ -59,6 +59,9 @@
     <ClCompile Include="textures\texture.cpp" />
     <ClCompile Include="text\shader\textshader.cpp" />
     <ClCompile Include="text\TextRenderer.cpp" />
+    <ClCompile Include="torch\renderer\torchrenderer.cpp" />
+    <ClCompile Include="torch\shader\torchshader.cpp" />
+    <ClCompile Include="torch\torch.cpp" />
     <ClCompile Include="waterdrop\renderer\waterdroprenderer.cpp" />
     <ClCompile Include="waterdrop\shader\waterdropshader.cpp" />
     <ClCompile Include="waterdrop\waterdrop.cpp" />
@@ -103,6 +106,9 @@
     <ClInclude Include="textures\texture.hpp" />
     <ClInclude Include="text\shader\textshader.hpp" />
     <ClInclude Include="text\TextRenderer.hpp" />
+    <ClInclude Include="torch\renderer\torchrenderer.hpp" />
+    <ClInclude Include="torch\shader\torchshader.hpp" />
+    <ClInclude Include="torch\torch.hpp" />
     <ClInclude Include="waterdrop\renderer\waterdroprenderer.hpp" />
     <ClInclude Include="waterdrop\shader\waterdropshader.hpp" />
     <ClInclude Include="waterdrop\waterdrop.hpp" />

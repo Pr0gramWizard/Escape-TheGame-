@@ -12,6 +12,7 @@
 #include <gtc/matrix_transform.hpp>
 
 #include "../object/shader/objectshader.hpp"
+#include "../torch/shader/torchshader.hpp"
 #include "../waterdrop/shader/waterdropshader.hpp"
 
 
@@ -44,7 +45,7 @@ public:
 	// Render the mesh
 	void Draw(ObjectShader* shader);
 	void Draw(WaterdropShader* shader);
-
+	void Draw(TorchShader* shader);
 private:
 	/*  Render data  */
 	GLuint VAO, VBO, EBO;
