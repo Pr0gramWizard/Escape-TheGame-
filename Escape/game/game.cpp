@@ -127,7 +127,7 @@ bool Game::gameLoop()
 	vector<Light*> allLights;
 
 	Light* torch = new Light(mPlayer->getPosition(), glm::vec3(0.1f, 0.1f, 0.04f), glm::vec3(0.01f, 0.01f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
-	allLights.push_back(torch);
+	//allLights.push_back(torch);
 
 	// Blue
 	Light* LavaLight = new Light(glm::vec3(97.0f,3.0f,77.0f), glm::vec3(0.9f, 0.3f, 0.0f),glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
@@ -430,17 +430,15 @@ bool Game::gameLoop()
 		float gamma = 0.5f;
 
 		// always use torch
-		unsigned int i = 0;
 		if (useTorch()) {
 			lights.push_back(torch);
-			i = 1;
 		}
 		
 		float maxDistance = 0.0f;
 		unsigned int maxIndex = 1;
 
 		// push first MAX_LIGHTS - 1 lights to lights list and track the one with most distance
-		for (i; i < MAX_LIGHTS && i < allLights.size(); ++i) {
+		for (unsigned int i = 0; i < MAX_LIGHTS && i < allLights.size(); ++i) {
 			float distance = glm::distance(playerPos, allLights[i]->getPosition());
 			if (distance > maxDistance) {
 				maxDistance = distance;
