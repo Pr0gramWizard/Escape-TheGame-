@@ -102,13 +102,13 @@ void Lake::initLake(Loader * loader)
 	mVaryingPositions = vector<float>(mVertices * mVertices * 3, 0.0f);
 	mVaryingNormals = vector<float>(mVertices * mVertices * 3, 0.0f);
 
-	int half = (int)(mVertices / 2.0f);
+	/*int half = (int)(mVertices / 2.0f);
 
 	mVelocity[half * mVertices + half] = -5;
 	mVelocity[half * mVertices + half - 1] = -2.5f;
 	mVelocity[half * mVertices + half + 1] = -2.5f;
 	mVelocity[(half + 1) * mVertices + half] = -2.5f;
-	mVelocity[(half - 1) * mVertices + half] = -2.5f;
+	mVelocity[(half - 1) * mVertices + half] = -2.5f;*/
 
 	// generates random heights between -mAmplitude and +mAmplitude
 	/*for (int i = 0; i < mHeights.size(); ++i)
