@@ -143,7 +143,7 @@ bool Game::gameLoop()
 	Object stone1("./object/res/rocks/rockModelA.obj", glm::vec3(52, Boden.getHeight(52,66) + 0.1f ,66), glm::vec3(0,0,0), 1);
 	stone1.loadTexture("./object/res/stone/texture.png");
 	mRenderer->addToList(stone1);
-	Light* stone1L = new Light(glm::vec3(52, Boden.getHeight(52, 66) + 0.1f, 66), glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
+	Light* stone1L = new Light(glm::vec3(52, Boden.getHeight(52, 66) + 0.1f, 66), glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
 	allLights.push_back(stone1L);
 	//**** END GLOWSTONES ****
 
@@ -242,6 +242,7 @@ bool Game::gameLoop()
 		torch->setPosition(playerPos - mPlayer->getCamera()->getRight() - mPlayer->getViewVector());
 
 		//**** light sorting ****
+		float gamma = 0.5f;
 
 		// always use torch
 		if (useTorch()) {
@@ -279,16 +280,6 @@ bool Game::gameLoop()
 				}
 			}
 		}
-
-		// always use this light
-		//lights.push_back(sun);
-
-		// put needed lights in the list
-		//lights.push_back(LavaLight);
-		// lights.push_back(LavaLight2);
-		
-		//lights.push_back(stoneB);
-		//lights.push_back(stoneC);
 
 		//**** End light sorting ****
 
@@ -347,20 +338,24 @@ bool Game::gameLoop()
 			if (lavaDist < 30.f) {
 				if (lavaDist < 20.0f) {
 					fogDensity = 0.035f;
+					gamma = 0.65f;
 				}
 				else {
 					float alpha = (lavaDist - 20.0f) / 10.0f;
 					fogDensity = alpha * 0.15f + (1 - alpha) * 0.035f;
+					gamma = alpha * 0.5f + (1 - alpha) * 0.65f;
 				}
 			}
 
 			if (lakeDist < 38.f) {
 				if (lakeDist < 31.0f) {
 					fogDensity = 0.01f;
+					gamma = 1.0f;
 				}
 				else {
 					float alpha = (lakeDist - 31.0f) / 7.0f;
 					fogDensity = alpha * 0.15f + (1 - alpha) * 0.01f;
+					gamma = alpha * 0.5f + (1 - alpha) * 1.0f;
 				}
 			}
 		}
@@ -439,6 +434,7 @@ bool Game::gameLoop()
 			glBindTexture(GL_TEXTURE_2D, blurfbos->getLastBluredTexture());
 			glActiveTexture(GL_TEXTURE2);
 			glBindTexture(GL_TEXTURE_2D, lava->getBurningTexture());
+			finalbloomshader->loadGamma(gamma);
 			finalbloomshader->loadIsBurning(mPlayer->isBurning());
 			finalbloomshader->loadBloom(this->isBlooming());
 			finalbloomshader->loadExposure(1.0f);
