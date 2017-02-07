@@ -106,7 +106,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 
 	// Torch Stuff
 	mTorchRenderer->startShader();
-	mTorch->setPosition(mPlayer->getCameraPosition() - mPlayer->getCamera()->getRight() - mPlayer->getViewVector());
+	mTorch->setPosition(mPlayer->getCameraPosition() - mPlayer->getCamera()->getRight()/2.0f - mPlayer->getViewVector());
 	// mTorch->setRotation(glm::vec3(-40.0f, 0.0f, 0.0f));
 	mTorchRenderer->loadModelMatrix(mTorch);
 	mTorchRenderer->loadViewMatrix(mPlayer->getViewMatrix());

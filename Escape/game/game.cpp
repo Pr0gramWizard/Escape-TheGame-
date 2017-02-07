@@ -441,7 +441,7 @@ bool Game::gameLoop()
 		// Calculating the player movement
 		mPlayer->move(&Boden,&Decke, deltaTime, this->hasWallCollision());
 		glm::vec3 playerPos = mPlayer->getCameraPosition();
-		torch->setPosition(playerPos - mPlayer->getCamera()->getRight() - mPlayer->getViewVector());
+		torch->setPosition(playerPos - mPlayer->getCamera()->getRight()/2.0f - mPlayer->getViewVector());
 
 		//**** light sorting ****
 		float gamma = 0.5f;
