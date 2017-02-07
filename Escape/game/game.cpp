@@ -221,7 +221,7 @@ bool Game::gameLoop()
 	Object stone14("./object/res/rocks/rockModelB.obj", glm::vec3(86, Decke.getHeight(86, 39) - 0.1f, 39), glm::vec3(0, 0, 0), 1);
 	stone14.loadTexture("./object/res/stone/texture.png");
 	mRenderer->addToList(stone14);
-	Light* stone14L = new Light(glm::vec3(86, Decke.getHeight(86, 39) - 0.1f, 39), glm::vec3(0.5f, 0.0f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
+	Light* stone14L = new Light(glm::vec3(86, Decke.getHeight(86, 39) - 0.1f, 39), glm::vec3(0.5f, 0.1f, 0.4f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
 	allLights.push_back(stone14L);
 
 	/*Object stone15("./object/res/rocks/rockModelD.obj", glm::vec3(60, Boden.getHeight(60, 15) + 0.1f, 15), glm::vec3(0, 0, 0), 1);
@@ -242,7 +242,7 @@ bool Game::gameLoop()
 	Light* stone17L = new Light(glm::vec3(21, Boden.getHeight(21, 34) + 0.1f, 34), glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
 	allLights.push_back(stone17L);*/
 
-	Object stone18("./object/res/rocks/rockModelB.obj", glm::vec3(44, Boden.getHeight(44, 49) + 0.1f, 49), glm::vec3(0, 0, 0), 1);
+	Object stone18("./object/res/rocks/rockModelA.obj", glm::vec3(44, Boden.getHeight(44, 49) + 0.1f, 49), glm::vec3(0, 0, 0), 1);
 	stone18.loadTexture("./object/res/stone/texture.png");
 	mRenderer->addToList(stone18);
 	Light* stone18L = new Light(glm::vec3(44, Boden.getHeight(44, 49) + 0.1f, 49), glm::vec3(2.0, 0.0f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
