@@ -197,7 +197,7 @@ bool Game::gameLoop()
 	Object stone10("./object/res/rocks/rockModelA.obj", glm::vec3(106, Boden.getHeight(106, 91) + 0.1f, 91), glm::vec3(0, 0, 0), 1);
 	stone10.loadTexture("./object/res/stone/texture.png");
 	mRenderer->addToList(stone10);
-	Light* stone10L = new Light(glm::vec3(106, Boden.getHeight(106, 91) + 0.1f, 91), glm::vec3(0.5f, 0.1f, 0.1f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
+	Light* stone10L = new Light(glm::vec3(106, Boden.getHeight(106, 91) + 0.1f, 91), glm::vec3(0.6f, 0.0f, 0.1f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
 	allLights.push_back(stone10L);
 
 	Object stone11("./object/res/rocks/rockModelE.obj", glm::vec3(82, Boden.getHeight(82, 75) + 0.1f, 75), glm::vec3(0, 0, 0), 1);
@@ -445,7 +445,7 @@ bool Game::gameLoop()
 
 		float fogDensity;
 		if (this->hasFog()) {
-			fogDensity = 0.15f;
+			fogDensity = 0.1f;
 
 			//glm::vec4 lakeBounds = glm::vec4(19.0f,6.0f,79.0f,65.0f);
 			glm::vec3 lakeMid = glm::vec3(49.0f, 0.0f, 34.5f);
@@ -460,7 +460,7 @@ bool Game::gameLoop()
 			if (lavaDist < 30.f) {
 				if (lavaDist < 20.0f) {
 					fogDensity = 0.035f;
-					gamma = 0.65f;
+					gamma = 0.45f;
 					if (this->useTorch()) {
 						lights[0] = torch;
 					}
@@ -476,8 +476,8 @@ bool Game::gameLoop()
 				}
 				else {
 					float alpha = (lavaDist - 20.0f) / 10.0f;
-					fogDensity = alpha * 0.15f + (1 - alpha) * 0.035f;
-					gamma = alpha * 0.5f + (1 - alpha) * 0.65f;
+					fogDensity = alpha * fogDensity + (1 - alpha) * 0.035f;
+					gamma = alpha * 0.5f + (1 - alpha) * 0.45f;
 				}
 			} else  if (lakeDist < 38.f) {
 				if (lakeDist < 31.0f) {
@@ -498,7 +498,7 @@ bool Game::gameLoop()
 				}
 				else {
 					float alpha = (lakeDist - 31.0f) / 7.0f;
-					fogDensity = alpha * 0.15f + (1 - alpha) * 0.01f;
+					fogDensity = alpha * fogDensity + (1 - alpha) * 0.01f;
 					gamma = alpha * 0.5f + (1 - alpha) * 0.7f;
 				}
 			}
