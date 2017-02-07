@@ -264,18 +264,19 @@ bool Game::gameLoop()
 
 	//**** WATER DROPS ****
 	
-	Waterdrop WaterDrop1("./waterdrop/res/raindrop.obj", glm::vec3(54, Decke.getHeight(54, 34) + 0.09f, 34), glm::vec3(0, 0, 0), 1.0f, 0.0006f);
-	Waterdrop WaterDrop2("./waterdrop/res/raindrop.obj", glm::vec3(55, Decke.getHeight(55, 33) + 0.09f, 33), glm::vec3(0, 0, 0), 1.0f, 0.0001f);
-	Waterdrop WaterDrop3("./waterdrop/res/raindrop.obj", glm::vec3(53, Decke.getHeight(53, 34) + 0.09f, 34), glm::vec3(0, 0, 0), 1.0f, 0.0004f);
-	Waterdrop WaterDrop4("./waterdrop/res/raindrop.obj", glm::vec3(56.5f, Decke.getHeight(56.5f, 54.0f), 54.0f), glm::vec3(0, 0, 0), 1.0f, 0.004f);
-	Waterdrop WaterDrop5("./waterdrop/res/raindrop.obj", glm::vec3(47.0f, Decke.getHeight(47.0f, 32.0f), 32.0f), glm::vec3(0, 0, 0), 1.0f, 0.006f);
-	Waterdrop WaterDrop6("./waterdrop/res/raindrop.obj", glm::vec3(56.0f, Decke.getHeight(56.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), 1.0f, 0.0001f);
-	Waterdrop WaterDrop7("./waterdrop/res/raindrop.obj", glm::vec3(55.0f, Decke.getHeight(55.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), 1.0f, 0.0004f);
-	Waterdrop WaterDrop8("./waterdrop/res/raindrop.obj", glm::vec3(54.0f, Decke.getHeight(54.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), 1.0f, 0.00004f);
-	Waterdrop WaterDrop9("./waterdrop/res/raindrop.obj", glm::vec3(53.0f, Decke.getHeight(53.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), 1.0f, 0.006f);
-	Waterdrop WaterDrop10("./waterdrop/res/raindrop.obj", glm::vec3(44.0f, Decke.getHeight(44.0f, 35.0f), 35.0f), glm::vec3(0, 0, 0), 1.0f, 0.001f);
-	Waterdrop WaterDrop11("./waterdrop/res/raindrop.obj", glm::vec3(44.0f, Decke.getHeight(44.0f, 35.0f), 35.0f), glm::vec3(0, 0, 0), 1.0f, 0.004f);
-	Waterdrop WaterDrop12("./waterdrop/res/raindrop.obj", glm::vec3(44.0f, Decke.getHeight(44.0f, 35.0f), 35.0f), glm::vec3(0, 0, 0), 1.0f, 0.00004f);
+	Waterdrop WaterDrop1("./waterdrop/res/raindrop.obj", glm::vec3(54, Decke.getHeight(54, 34) + 0.09f, 34), glm::vec3(0, 0, 0), 0.4f, 0.008f);
+	Waterdrop WaterDrop2("./waterdrop/res/raindrop.obj", glm::vec3(55, Decke.getHeight(55, 33) + 0.09f, 33), glm::vec3(0, 0, 0), 0.3f, 0.008f);
+	Waterdrop WaterDrop3("./waterdrop/res/raindrop.obj", glm::vec3(53, Decke.getHeight(53, 34) + 0.09f, 34), glm::vec3(0, 0, 0), 0.2f, 0.008f);
+	Waterdrop WaterDrop4("./waterdrop/res/raindrop.obj", glm::vec3(56.5f, Decke.getHeight(56.5f, 54.0f), 54.0f), glm::vec3(0, 0, 0), 0.1f, 0.008f);
+	Waterdrop WaterDrop5("./waterdrop/res/raindrop.obj", glm::vec3(47.0f, Decke.getHeight(47.0f, 32.0f), 32.0f), glm::vec3(0, 0, 0), 0.3f, 0.008f);
+	Waterdrop WaterDrop6("./waterdrop/res/raindrop.obj", glm::vec3(56.0f, Decke.getHeight(56.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), 0.3f, 0.008f);
+	Waterdrop WaterDrop7("./waterdrop/res/raindrop.obj", glm::vec3(55.0f, Decke.getHeight(55.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), 0.4f, 0.008f);
+	Waterdrop WaterDrop8("./waterdrop/res/raindrop.obj", glm::vec3(54.0f, Decke.getHeight(54.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), 0.2f, 0.008f);
+	Waterdrop WaterDrop9("./waterdrop/res/raindrop.obj", glm::vec3(53.0f, Decke.getHeight(53.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), 0.6f, 0.008f);
+	Waterdrop WaterDrop10("./waterdrop/res/raindrop.obj", glm::vec3(40.0f, Decke.getHeight(44.0f, 35.0f), 34.0f), glm::vec3(0, 0, 0), 0.3f, 0.008f);
+	Waterdrop WaterDrop11("./waterdrop/res/raindrop.obj", glm::vec3(41.0f, Decke.getHeight(44.0f, 35.0f), 36.0f), glm::vec3(0, 0, 0), 0.3f, 0.008f);
+	Waterdrop WaterDrop12("./waterdrop/res/raindrop.obj", glm::vec3(44.0f, Decke.getHeight(44.0f, 35.0f), 37.0f), glm::vec3(0, 0, 0), 0.4f, 0.008f);
+
 
 	WaterDrop1.loadTexture("./waterdrop/res/water.png");
 	WaterDrop2.loadTexture("./waterdrop/res/water.png");
@@ -362,6 +363,8 @@ bool Game::gameLoop()
 
 	int frames = 0;
 
+	float timeElapsed = 0.0f;
+
 	// Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
 	{
@@ -381,6 +384,14 @@ bool Game::gameLoop()
 			frames = 0;
 			lastTime += 1.0f;
 
+		}
+
+		timeElapsed += deltaTime * 10;
+
+		if (timeElapsed > 10.0f)
+		{
+			std::cout << WaterDrop1.getPosition().x << "," << WaterDrop1.getPosition().y << "," << WaterDrop1.getPosition().z << std::endl;
+			timeElapsed = 0.0f;
 		}
 		
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
