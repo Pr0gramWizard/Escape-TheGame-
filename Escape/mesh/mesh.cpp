@@ -49,3 +49,11 @@ void Mesh::Draw(ObjectShader* shader)
 		glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 }
+
+void Mesh::Draw(WaterdropShader* shader)
+{
+	// Draw mesh
+	glBindVertexArray(this->VAO);
+	glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+}

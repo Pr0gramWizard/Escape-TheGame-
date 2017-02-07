@@ -12,6 +12,7 @@
 #include <gtc/matrix_transform.hpp>
 
 #include "../object/shader/objectshader.hpp"
+#include "../waterdrop/shader/waterdropshader.hpp"
 
 
 struct Vertex {
@@ -42,6 +43,7 @@ public:
 
 	// Render the mesh
 	void Draw(ObjectShader* shader);
+	void Draw(WaterdropShader* shader);
 
 private:
 	/*  Render data  */

@@ -148,9 +148,47 @@ bool Game::gameLoop()
 	//**** END GLOWSTONES ****
 
 	//**** WATER DROPS ****
-	Object waterdrop("/object/res/rocks/waterdrop.obj", glm::vec3(52, Boden.getHeight(52, 66), 66), glm::vec3(0, 0, 0), 1);
+	
+	Waterdrop WaterDrop1("./waterdrop/res/raindrop.obj", glm::vec3(54, Decke.getHeight(54, 34) + 0.09f, 34), glm::vec3(0, 0, 0), 1.0f, 0.0006f);
+	Waterdrop WaterDrop2("./waterdrop/res/raindrop.obj", glm::vec3(55, Decke.getHeight(55, 33) + 0.09f, 33) , glm::vec3(0, 0, 0), 1.0f,0.0001f);
+	Waterdrop WaterDrop3("./waterdrop/res/raindrop.obj", glm::vec3(53, Decke.getHeight(53, 34) + 0.09f, 34) , glm::vec3(0, 0, 0), 1.0f, 0.0004f);
+	Waterdrop WaterDrop4("./waterdrop/res/raindrop.obj", glm::vec3(56.5f, Decke.getHeight(56.5f, 54.0f), 54.0f), glm::vec3(0, 0, 0), 1.0f, 0.004f);
+	Waterdrop WaterDrop5("./waterdrop/res/raindrop.obj", glm::vec3(47.0f, Decke.getHeight(47.0f, 32.0f), 32.0f), glm::vec3(0, 0, 0), 1.0f, 0.006f);
+	Waterdrop WaterDrop6("./waterdrop/res/raindrop.obj", glm::vec3(56.0f, Decke.getHeight(56.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), 1.0f, 0.0001f);
+	Waterdrop WaterDrop7("./waterdrop/res/raindrop.obj", glm::vec3(55.0f, Decke.getHeight(55.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), 1.0f, 0.0004f);
+	Waterdrop WaterDrop8("./waterdrop/res/raindrop.obj", glm::vec3(54.0f, Decke.getHeight(54.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), 1.0f, 0.00004f);
+	Waterdrop WaterDrop9("./waterdrop/res/raindrop.obj", glm::vec3(53.0f, Decke.getHeight(53.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), 1.0f, 0.006f);
+	Waterdrop WaterDrop10("./waterdrop/res/raindrop.obj", glm::vec3(44.0f, Decke.getHeight(44.0f, 35.0f), 35.0f), glm::vec3(0, 0, 0), 1.0f, 0.001f);
+	Waterdrop WaterDrop11("./waterdrop/res/raindrop.obj", glm::vec3(44.0f, Decke.getHeight(44.0f, 35.0f), 35.0f), glm::vec3(0, 0, 0), 1.0f, 0.004f);
+	Waterdrop WaterDrop12("./waterdrop/res/raindrop.obj", glm::vec3(44.0f, Decke.getHeight(44.0f, 35.0f), 35.0f), glm::vec3(0, 0, 0), 1.0f, 0.00004f);
 
-		//**** END WATER DROPS
+	WaterDrop1.loadTexture("./waterdrop/res/water.png");
+	WaterDrop2.loadTexture("./waterdrop/res/water.png");
+	WaterDrop3.loadTexture("./waterdrop/res/water.png");
+	WaterDrop4.loadTexture("./waterdrop/res/water.png");
+	WaterDrop5.loadTexture("./waterdrop/res/water.png");
+	WaterDrop6.loadTexture("./waterdrop/res/water.png");
+	WaterDrop7.loadTexture("./waterdrop/res/water.png");
+	WaterDrop8.loadTexture("./waterdrop/res/water.png");
+	WaterDrop9.loadTexture("./waterdrop/res/water.png");
+	WaterDrop10.loadTexture("./waterdrop/res/water.png");
+	WaterDrop11.loadTexture("./waterdrop/res/water.png");
+	WaterDrop12.loadTexture("./waterdrop/res/water.png");
+
+	mRenderer->addToList(WaterDrop1);
+	mRenderer->addToList(WaterDrop2);
+	mRenderer->addToList(WaterDrop3);
+	mRenderer->addToList(WaterDrop4);
+	mRenderer->addToList(WaterDrop5);
+	mRenderer->addToList(WaterDrop6);
+	mRenderer->addToList(WaterDrop7);
+	mRenderer->addToList(WaterDrop8);
+	mRenderer->addToList(WaterDrop9);
+	mRenderer->addToList(WaterDrop10);
+	mRenderer->addToList(WaterDrop11);
+	mRenderer->addToList(WaterDrop12);
+	
+	//**** END WATER DROPS
  
 	vector<Light*> lights;
 
@@ -209,6 +247,8 @@ bool Game::gameLoop()
 
 	int frames = 0;
 
+	float timeElapsed = 0.0f;
+
 	// Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
 	{
@@ -229,6 +269,15 @@ bool Game::gameLoop()
 			lastTime += 1.0f;
 
 		}
+
+		
+		
+		timeElapsed += deltaTime;
+
+
+
+	
+
 		
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();

@@ -160,6 +160,15 @@
     <Filter Include="Effect">
       <UniqueIdentifier>{37c0e525-bd68-456f-b064-a39add3fe445}</UniqueIdentifier>
     </Filter>
+    <Filter Include="WaterDrop">
+      <UniqueIdentifier>{71c13dfd-d0f3-439d-a791-5d3866c22e7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WaterDrop\renderer">
+      <UniqueIdentifier>{3ab8ba57-7ea4-4eb9-adcf-e1b64da31af0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WaterDrop\shader">
+      <UniqueIdentifier>{47749bf2-5c99-4a40-a509-f6fa5dfd85ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -282,6 +291,15 @@
     <ClCompile Include="shadow\shader\shadoshader.cpp">
       <Filter>Shadow\shader</Filter>
     </ClCompile>
+    <ClCompile Include="waterdrop\waterdrop.cpp">
+      <Filter>WaterDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="waterdrop\renderer\waterdroprenderer.cpp">
+      <Filter>WaterDrop\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="waterdrop\shader\waterdropshader.cpp">
+      <Filter>WaterDrop\shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -400,6 +418,15 @@
     </ClInclude>
     <ClInclude Include="shadow\shader\shadowshader.hpp">
       <Filter>Shadow\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="waterdrop\waterdrop.hpp">
+      <Filter>WaterDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="waterdrop\renderer\waterdroprenderer.hpp">
+      <Filter>WaterDrop\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="waterdrop\shader\waterdropshader.hpp">
+      <Filter>WaterDrop\shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
