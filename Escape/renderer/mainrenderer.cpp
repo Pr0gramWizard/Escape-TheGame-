@@ -34,6 +34,9 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 	ObjectShader* objectshader = new ObjectShader(OBJECT_VERTEX, OBJECT_FRAGMENT);
 	mObjectRenderer = new ObjectRenderer(objectshader,pProjectionMatrix);
 
+	WaterdropShader* watershader = new WaterdropShader(OBJECT_VERTEX, OBJECT_FRAGMENT);
+	mWaterRenderer = new WaterdropRenderer(watershader, pProjectionMatrix);
+
 	this->setDrawMode(0);
 
 	mPlayer = pPlayer;
@@ -74,6 +77,20 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 		mObjectRenderer->render(object);
 		mObjectRenderer->stopShader();
 	}
+
+	for (Waterdrop &object : mWaterDrop)
+	{
+		mWaterRenderer->startShader();
+		mWaterRenderer->loadModelMatrix(&object);
+		mWaterRenderer->loadViewMatrix(mPlayer->getViewMatrix());
+		mWaterRenderer->loadClipPlane(pClipPlane);
+		mWaterRenderer->loadLights(pLights, pDiscoTime);
+		mWaterRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
+		mWaterRenderer->loadFogData(pFogDensity, pFogGradient);
+		mWaterRenderer->render(object);
+		mWaterRenderer->stopShader();
+	}
+
 
 
 
@@ -203,6 +220,11 @@ void MainRenderer::renderDebugInformation()
 void MainRenderer::addToList(Entity &pEntity)
 {
 	mEntities.push_back(pEntity);
+}
+
+void MainRenderer::addToList(Waterdrop &pWaterDrop)
+{
+	mWaterDrop.push_back(pWaterDrop);
 }
 
 void MainRenderer::addToList(Object &pObject)

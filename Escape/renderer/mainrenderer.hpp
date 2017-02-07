@@ -27,6 +27,11 @@
 #include "../object/renderer/objectrenderer.hpp"
 #include "../object/shader/objectshader.hpp"
 
+// Waterdrop Rendering
+#include "../waterdrop/waterdrop.hpp"
+#include "../waterdrop/renderer/waterdroprenderer.hpp"
+#include "../waterdrop/shader/waterdropshader.hpp"
+
 // Keyboard
 #include "../input/keyboard.hpp"
 
@@ -58,6 +63,7 @@ public:
 	void addToList(Entity &pEntity, RenderMode pMode);
 	void addToList(Skybox* Skybox);
 	void addToList(Object& pObject);
+	void addToList(Waterdrop& pWaterdrop);
 
 	void setDrawMode(bool pMode);
 	bool getDrawMode() const;
@@ -89,6 +95,7 @@ public:
 	SkyboxRenderer* mSkyboxRenderer;
 	TextRenderer* mTextRenderer;
 	ObjectRenderer* mObjectRenderer;
+	WaterdropRenderer* mWaterRenderer;
 
 public:
 	static const char* ENTITY_VERTEX;
@@ -115,6 +122,7 @@ private:
 	list<Terrain> mTerrains;
 	list<Terrain*> mTerrainsP;
 	list<Object> mObjects;
+	list<Waterdrop> mWaterDrop;
 
 	bool drawMode;
 	bool debugMode;

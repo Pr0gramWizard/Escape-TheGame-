@@ -68,6 +68,8 @@
 #include "../shadow/shader/shadowshader.hpp"
 #include "../shadow/shadowfbo.hpp"
 
+#include <stdlib.h>
+
 
 // Declaration of game class
 class Game
