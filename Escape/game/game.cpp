@@ -538,13 +538,8 @@ bool Game::gameLoop()
 				if (lavaDist < 20.0f) {
 					fogDensity = 0.035f;
 					gamma = 0.45f;
-					if (this->useTorch()) {
-						lights[0] = torch;
-					}
-					else {
-						lights[0] = stone14L;
-					}
-
+						
+					lights[0] = stone14L;
 					lights[1] = stone10L;
 					lights[2] = stone11L;
 					lights[3] = stone12L;
@@ -560,13 +555,8 @@ bool Game::gameLoop()
 				if (lakeDist < 31.0f) {
 					fogDensity = 0.01f;
 					gamma = 0.7f;
-					if (this->useTorch()) {
-						lights[0] = torch;
-					}
-					else {
-						lights[0] = stone13L;
-					}
-					
+						
+					lights[0] = stone13L;
 					lights[1] = stone16L;
 					lights[2] = stone18L;
 					lights[3] = stone19L;
@@ -584,6 +574,10 @@ bool Game::gameLoop()
 				fogDensity = 0.0f;
 			}
 
+			if (this->useTorch()) {
+				lights[0] = torch;
+			}
+			
 		// tell the player if he is under the lake
 		mPlayer->setIsBelowLake(isPlayerBelowLake);
 		// render to buffer
