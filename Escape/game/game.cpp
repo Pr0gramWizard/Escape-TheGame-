@@ -263,19 +263,28 @@ bool Game::gameLoop()
 	//**** END GLOWSTONES ****
 
 	//**** WATER DROPS ****
+
+	std::vector<GLfloat> WaterDropSize;
+
+	WaterDropSize.reserve(13);
+
+	for (unsigned int i = 0; i < 13; ++i)
+	{
+		WaterDropSize.push_back(0.5f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1.0f - 0.5f))));
+	}
 	
-	Waterdrop WaterDrop1("./waterdrop/res/raindrop.obj", glm::vec3(54, Decke.getHeight(54, 34) + 0.09f, 34), glm::vec3(0, 0, 0), 0.4f, 0.008f);
-	Waterdrop WaterDrop2("./waterdrop/res/raindrop.obj", glm::vec3(55, Decke.getHeight(55, 33) + 0.09f, 33), glm::vec3(0, 0, 0), 0.3f, 0.008f);
-	Waterdrop WaterDrop3("./waterdrop/res/raindrop.obj", glm::vec3(53, Decke.getHeight(53, 34) + 0.09f, 34), glm::vec3(0, 0, 0), 0.2f, 0.008f);
-	Waterdrop WaterDrop4("./waterdrop/res/raindrop.obj", glm::vec3(56.5f, Decke.getHeight(56.5f, 54.0f), 54.0f), glm::vec3(0, 0, 0), 0.1f, 0.008f);
-	Waterdrop WaterDrop5("./waterdrop/res/raindrop.obj", glm::vec3(47.0f, Decke.getHeight(47.0f, 32.0f), 32.0f), glm::vec3(0, 0, 0), 0.3f, 0.008f);
-	Waterdrop WaterDrop6("./waterdrop/res/raindrop.obj", glm::vec3(56.0f, Decke.getHeight(56.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), 0.3f, 0.008f);
-	Waterdrop WaterDrop7("./waterdrop/res/raindrop.obj", glm::vec3(55.0f, Decke.getHeight(55.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), 0.4f, 0.008f);
-	Waterdrop WaterDrop8("./waterdrop/res/raindrop.obj", glm::vec3(54.0f, Decke.getHeight(54.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), 0.2f, 0.008f);
-	Waterdrop WaterDrop9("./waterdrop/res/raindrop.obj", glm::vec3(53.0f, Decke.getHeight(53.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), 0.6f, 0.008f);
-	Waterdrop WaterDrop10("./waterdrop/res/raindrop.obj", glm::vec3(40.0f, Decke.getHeight(44.0f, 35.0f), 34.0f), glm::vec3(0, 0, 0), 0.3f, 0.008f);
-	Waterdrop WaterDrop11("./waterdrop/res/raindrop.obj", glm::vec3(41.0f, Decke.getHeight(44.0f, 35.0f), 36.0f), glm::vec3(0, 0, 0), 0.3f, 0.008f);
-	Waterdrop WaterDrop12("./waterdrop/res/raindrop.obj", glm::vec3(44.0f, Decke.getHeight(44.0f, 35.0f), 37.0f), glm::vec3(0, 0, 0), 0.4f, 0.008f);
+	Waterdrop WaterDrop1("./waterdrop/res/raindrop.obj", glm::vec3(54, Decke.getHeight(54, 34) + 0.09f, 34), glm::vec3(0, 0, 0), WaterDropSize.at(0), 0.07f);
+	Waterdrop WaterDrop2("./waterdrop/res/raindrop.obj", glm::vec3(55, Decke.getHeight(55, 33) + 0.09f, 33), glm::vec3(0, 0, 0), WaterDropSize.at(1), 0.07f);
+	Waterdrop WaterDrop3("./waterdrop/res/raindrop.obj", glm::vec3(53, Decke.getHeight(53, 34) + 0.09f, 34), glm::vec3(0, 0, 0), WaterDropSize.at(2), 0.07f);
+	Waterdrop WaterDrop4("./waterdrop/res/raindrop.obj", glm::vec3(56.5f, Decke.getHeight(56.5f, 54.0f), 54.0f), glm::vec3(0, 0, 0), WaterDropSize.at(3), 0.07f);
+	Waterdrop WaterDrop5("./waterdrop/res/raindrop.obj", glm::vec3(47.0f, Decke.getHeight(47.0f, 32.0f), 32.0f), glm::vec3(0, 0, 0), WaterDropSize.at(4), 0.07f);
+	Waterdrop WaterDrop6("./waterdrop/res/raindrop.obj", glm::vec3(56.0f, Decke.getHeight(56.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), WaterDropSize.at(5), 0.07f);
+	Waterdrop WaterDrop7("./waterdrop/res/raindrop.obj", glm::vec3(55.0f, Decke.getHeight(55.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), WaterDropSize.at(6), 0.07f);
+	Waterdrop WaterDrop8("./waterdrop/res/raindrop.obj", glm::vec3(54.0f, Decke.getHeight(54.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), WaterDropSize.at(7), 0.07f);
+	Waterdrop WaterDrop9("./waterdrop/res/raindrop.obj", glm::vec3(53.0f, Decke.getHeight(53.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), WaterDropSize.at(8), 0.07f);
+	Waterdrop WaterDrop10("./waterdrop/res/raindrop.obj", glm::vec3(40.0f, Decke.getHeight(44.0f, 35.0f), 34.0f), glm::vec3(0, 0, 0), WaterDropSize.at(9), 0.07f);
+	Waterdrop WaterDrop11("./waterdrop/res/raindrop.obj", glm::vec3(41.0f, Decke.getHeight(44.0f, 35.0f), 36.0f), glm::vec3(0, 0, 0), WaterDropSize.at(10), 0.07f);
+	Waterdrop WaterDrop12("./waterdrop/res/raindrop.obj", glm::vec3(44.0f, Decke.getHeight(44.0f, 37.0f), 37.0f), glm::vec3(0, 0, 0), WaterDropSize.at(11), 0.07f);
 
 
 	WaterDrop1.loadTexture("./waterdrop/res/water.png");
@@ -303,6 +312,8 @@ bool Game::gameLoop()
 	mRenderer->addToList(WaterDrop10);
 	mRenderer->addToList(WaterDrop11);
 	mRenderer->addToList(WaterDrop12);
+
+
 
 		//**** END WATER DROPS
  
@@ -385,14 +396,11 @@ bool Game::gameLoop()
 			lastTime += 1.0f;
 
 		}
-
+		
 		timeElapsed += deltaTime * 10;
 
-		if (timeElapsed > 10.0f)
-		{
-			std::cout << WaterDrop1.getPosition().x << "," << WaterDrop1.getPosition().y << "," << WaterDrop1.getPosition().z << std::endl;
-			timeElapsed = 0.0f;
-		}
+	
+
 		
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
@@ -566,7 +574,10 @@ bool Game::gameLoop()
 	
 		glDisable(GL_CLIP_DISTANCE0);
 		lfbos->unbindCurrentFrameBuffer();
-		
+
+
+
+
 		/*
 		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, 1, 0, 100000), Game::RED, Game::GREEN, Game::BLUE, discoTime);
 		mRenderer->renderDebugInformation();
@@ -632,6 +643,9 @@ bool Game::gameLoop()
 
 		// Clear lists
 		lights.clear();
+
+
+
 
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());

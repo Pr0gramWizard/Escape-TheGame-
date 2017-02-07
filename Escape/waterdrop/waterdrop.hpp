@@ -34,6 +34,8 @@ public:
 
 	void respawn();
 
+	void updatePosition();
+
 	void setAlive(bool pStatus);
 
 	// Getter
@@ -49,6 +51,9 @@ public:
 
 	void loadTexture(std::string pPath);
 
+
+	bool mStatus;
+
 private:
 
 	/*  Waterdrop Data  */
@@ -61,9 +66,10 @@ private:
 	vector<Texture> textures_loaded;
 	GLuint mTexture;
 
+	glm::vec3 mOutVector;
+
 	glm::vec3 initialPosition;
 
-	bool mStatus;
 
 	void loadWaterdrop(string path);
 	void processNode(aiNode* node, const aiScene* scene);

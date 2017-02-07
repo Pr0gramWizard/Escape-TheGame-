@@ -78,9 +78,18 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 		mObjectRenderer->stopShader();
 	}
 
+	// Water Drops
 	for (Waterdrop &object : mWaterDrop)
 	{
 		mWaterRenderer->startShader();
+		if (object.getPosition().y <= 3.0f)
+		{
+			object.mStatus = true;
+		}
+		else
+		{
+			object.mStatus = false;
+		}
 		mWaterRenderer->loadModelMatrix(&object);
 		mWaterRenderer->loadViewMatrix(mPlayer->getViewMatrix());
 		mWaterRenderer->loadClipPlane(pClipPlane);

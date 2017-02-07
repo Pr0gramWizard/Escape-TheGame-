@@ -85,10 +85,17 @@ glm::mat4 Waterdrop::getModelMatrix()
 {
 	if (mStatus)
 	{
-		respawn();
+		mPosition.y = this->initialPosition.y;
 	}
 	mPosition.y -= this->mSpeed;
 	return Math::getTransformationMatrix(this->getPosition(), this->getRotation().x, this->getRotation().y, this->getRotation().z, this->getScale());
+}
+
+void Waterdrop::updatePosition()
+{
+	mOutVector.x = mPosition.x;
+	mOutVector.y = mPosition.y;
+	mOutVector.z = mPosition.z;
 }
 
 void Waterdrop::respawn()
