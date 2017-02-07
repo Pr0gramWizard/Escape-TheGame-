@@ -423,9 +423,11 @@ bool Game::gameLoop()
 
 		if (timeElapsed > 10.0f)
 		{
-			lake->createDistortion(44.0f, 37.0f);
+			lake->createDistortion(54.0f, 33.0f);
+			lake->createDistortion(40.0f, 38.0f);
 			timeElapsed = 0.0f;
 		}
+		
 
 	
 

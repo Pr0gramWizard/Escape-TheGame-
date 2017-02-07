@@ -20,19 +20,20 @@ Lake::Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices,
 
 void Lake::createDistortion(GLfloat pX, GLfloat pZ)
 {
-		float xPosRelativeToTerrain = pX - mWorldX;
-		float zPosRelativeToTerrain = pZ - mWorldX;
+		float xPosRelativeToLake = pX - mWorldX;
+		float zPosRelativeToLake = pZ - mWorldX;
 
-		int gridX = (int)floor(xPosRelativeToTerrain / mGridSize);
-		int gridZ = (int)floor(zPosRelativeToTerrain / mGridSize);
+		int gridX = (int)floor(xPosRelativeToLake / mGridSize);
+		int gridZ = (int)floor(zPosRelativeToLake / mGridSize);
 
-		// position within the grid square between 0 and 1
-		float dX = fmod(xPosRelativeToTerrain, mGridSize);
-		float dZ = fmod(zPosRelativeToTerrain, mGridSize);
+		if (gridX < 0 || gridZ < 0 || gridX >= mVertices - 1 || gridZ >= mVertices - 1)
+		{
+			return;
+		}
 
-		int index = dX * mVertices + dZ;
+		int index = gridX * mVertices + gridZ;
 
-		mVelocity.at(index) -= 5.0f;
+		mVelocity.at(index) -= 20.0f;
 }
 
 Lake::~Lake()
