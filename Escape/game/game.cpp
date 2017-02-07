@@ -265,26 +265,39 @@ bool Game::gameLoop()
 	//**** WATER DROPS ****
 
 	std::vector<GLfloat> WaterDropSize;
+	std::vector<GLfloat> WaterDropSpeed;
 
 	WaterDropSize.reserve(13);
+	WaterDropSpeed.reserve(13);
+
+	GLfloat minSize = 0.06f;
+	GLfloat maxSize = 0.3f;
+
+	GLfloat minSpeed = 0.03f;
+	GLfloat maxSpeed = 0.06f;
 
 	for (unsigned int i = 0; i < 13; ++i)
 	{
-		WaterDropSize.push_back(0.5f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (1.0f - 0.5f))));
+		WaterDropSize.push_back(minSize + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (maxSize - minSize))));
+	}
+
+	for (unsigned int i = 0; i < 13; ++i)
+	{
+		WaterDropSpeed.push_back(minSpeed + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (maxSpeed - minSpeed))));
 	}
 	
-	Waterdrop WaterDrop1("./waterdrop/res/raindrop.obj", glm::vec3(54, Decke.getHeight(54, 34) + 0.09f, 34), glm::vec3(0, 0, 0), WaterDropSize.at(0), 0.07f);
-	Waterdrop WaterDrop2("./waterdrop/res/raindrop.obj", glm::vec3(55, Decke.getHeight(55, 33) + 0.09f, 33), glm::vec3(0, 0, 0), WaterDropSize.at(1), 0.07f);
-	Waterdrop WaterDrop3("./waterdrop/res/raindrop.obj", glm::vec3(53, Decke.getHeight(53, 34) + 0.09f, 34), glm::vec3(0, 0, 0), WaterDropSize.at(2), 0.07f);
-	Waterdrop WaterDrop4("./waterdrop/res/raindrop.obj", glm::vec3(56.5f, Decke.getHeight(56.5f, 54.0f), 54.0f), glm::vec3(0, 0, 0), WaterDropSize.at(3), 0.07f);
-	Waterdrop WaterDrop5("./waterdrop/res/raindrop.obj", glm::vec3(47.0f, Decke.getHeight(47.0f, 32.0f), 32.0f), glm::vec3(0, 0, 0), WaterDropSize.at(4), 0.07f);
-	Waterdrop WaterDrop6("./waterdrop/res/raindrop.obj", glm::vec3(56.0f, Decke.getHeight(56.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), WaterDropSize.at(5), 0.07f);
-	Waterdrop WaterDrop7("./waterdrop/res/raindrop.obj", glm::vec3(55.0f, Decke.getHeight(55.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), WaterDropSize.at(6), 0.07f);
-	Waterdrop WaterDrop8("./waterdrop/res/raindrop.obj", glm::vec3(54.0f, Decke.getHeight(54.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), WaterDropSize.at(7), 0.07f);
-	Waterdrop WaterDrop9("./waterdrop/res/raindrop.obj", glm::vec3(53.0f, Decke.getHeight(53.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), WaterDropSize.at(8), 0.07f);
-	Waterdrop WaterDrop10("./waterdrop/res/raindrop.obj", glm::vec3(40.0f, Decke.getHeight(44.0f, 35.0f), 34.0f), glm::vec3(0, 0, 0), WaterDropSize.at(9), 0.07f);
-	Waterdrop WaterDrop11("./waterdrop/res/raindrop.obj", glm::vec3(41.0f, Decke.getHeight(44.0f, 35.0f), 36.0f), glm::vec3(0, 0, 0), WaterDropSize.at(10), 0.07f);
-	Waterdrop WaterDrop12("./waterdrop/res/raindrop.obj", glm::vec3(44.0f, Decke.getHeight(44.0f, 37.0f), 37.0f), glm::vec3(0, 0, 0), WaterDropSize.at(11), 0.07f);
+	Waterdrop WaterDrop1("./waterdrop/res/raindrop.obj", glm::vec3(54, Decke.getHeight(54, 34) + 0.09f, 34), glm::vec3(0, 0, 0), WaterDropSize.at(0), WaterDropSpeed.at(0));
+	Waterdrop WaterDrop2("./waterdrop/res/raindrop.obj", glm::vec3(55, Decke.getHeight(55, 33) + 0.09f, 33), glm::vec3(0, 0, 0), WaterDropSize.at(1), WaterDropSpeed.at(1));
+	Waterdrop WaterDrop3("./waterdrop/res/raindrop.obj", glm::vec3(53, Decke.getHeight(53, 34) + 0.09f, 34), glm::vec3(0, 0, 0), WaterDropSize.at(2), WaterDropSpeed.at(2));
+	Waterdrop WaterDrop4("./waterdrop/res/raindrop.obj", glm::vec3(56.5f, Decke.getHeight(56.5f, 54.0f), 54.0f), glm::vec3(0, 0, 0), WaterDropSize.at(3), WaterDropSpeed.at(3));
+	Waterdrop WaterDrop5("./waterdrop/res/raindrop.obj", glm::vec3(47.0f, Decke.getHeight(47.0f, 32.0f), 32.0f), glm::vec3(0, 0, 0), WaterDropSize.at(4), WaterDropSpeed.at(4));
+	Waterdrop WaterDrop6("./waterdrop/res/raindrop.obj", glm::vec3(56.0f, Decke.getHeight(56.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), WaterDropSize.at(5), WaterDropSpeed.at(5));
+	Waterdrop WaterDrop7("./waterdrop/res/raindrop.obj", glm::vec3(55.0f, Decke.getHeight(55.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), WaterDropSize.at(6), WaterDropSpeed.at(6));
+	Waterdrop WaterDrop8("./waterdrop/res/raindrop.obj", glm::vec3(54.0f, Decke.getHeight(54.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), WaterDropSize.at(7), WaterDropSpeed.at(7));
+	Waterdrop WaterDrop9("./waterdrop/res/raindrop.obj", glm::vec3(53.0f, Decke.getHeight(53.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), WaterDropSize.at(8), WaterDropSpeed.at(8));
+	Waterdrop WaterDrop10("./waterdrop/res/raindrop.obj", glm::vec3(40.0f, Decke.getHeight(44.0f, 35.0f), 34.0f), glm::vec3(0, 0, 0), WaterDropSize.at(9), WaterDropSpeed.at(9));
+	Waterdrop WaterDrop11("./waterdrop/res/raindrop.obj", glm::vec3(41.0f, Decke.getHeight(44.0f, 35.0f), 36.0f), glm::vec3(0, 0, 0), WaterDropSize.at(10), WaterDropSpeed.at(10));
+	Waterdrop WaterDrop12("./waterdrop/res/raindrop.obj", glm::vec3(44.0f, Decke.getHeight(44.0f, 37.0f), 37.0f), glm::vec3(0, 0, 0), WaterDropSize.at(11), WaterDropSpeed.at(11));
 
 
 	WaterDrop1.loadTexture("./waterdrop/res/water.png");
