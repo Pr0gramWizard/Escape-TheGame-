@@ -203,7 +203,7 @@ bool Game::gameLoop()
 	Object stone11("./object/res/rocks/rockModelE.obj", glm::vec3(82, Boden.getHeight(82, 75) + 0.1f, 75), glm::vec3(0, 0, 0), 1);
 	stone11.loadTexture("./object/res/stone/texture.png");
 	mRenderer->addToList(stone11);
-	Light* stone11L = new Light(glm::vec3(82, Boden.getHeight(82, 75) + 0.1f, 75), glm::vec3(0.1f, 0.2f, 0.4f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
+	Light* stone11L = new Light(glm::vec3(82, Boden.getHeight(82, 75) + 0.1f, 75), glm::vec3(0.7f, 0.3f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
 	allLights.push_back(stone11L);
 
 	Object stone12("./object/res/rocks/rockModelA.obj", glm::vec3(91, Boden.getHeight(91, 59) + 0.1f, 59), glm::vec3(0, 0, 0), 1);
@@ -215,7 +215,7 @@ bool Game::gameLoop()
 	Object stone13("./object/res/rocks/rockModelC.obj", glm::vec3(103, Boden.getHeight(103, 64) + 0.1f, 64), glm::vec3(0, 0, 0), 1);
 	stone13.loadTexture("./object/res/stone/texture.png");
 	mRenderer->addToList(stone13);
-	Light* stone13L = new Light(glm::vec3(103, Boden.getHeight(103, 64) + 0.1f, 64), glm::vec3(0.5f, 0.25f, 0.3f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
+	Light* stone13L = new Light(glm::vec3(103, Boden.getHeight(103, 64) + 0.1f, 64), glm::vec3(0.5f, 0.0f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
 	allLights.push_back(stone13L);
 
 	Object stone14("./object/res/rocks/rockModelB.obj", glm::vec3(86, Decke.getHeight(86, 39) - 0.1f, 39), glm::vec3(0, 0, 0), 1);
@@ -429,9 +429,7 @@ bool Game::gameLoop()
 		}
 
 		// check the rest of the lights if one is closer to the player then the furthest already inside lights list
-		cout << allLights.size() << endl;
 		for (unsigned int j = MAX_LIGHTS; j < allLights.size(); ++j) {
-			cout << j << endl;
 			float distance = glm::distance(playerPos, allLights[j]->getPosition());
 			// if found put the light into lights list and search for new max item
 			if (distance < maxDistance) {
@@ -502,8 +500,6 @@ bool Game::gameLoop()
 
 			float lavaDist = glm::distance(playerPos, lavaMid);
 			float lakeDist = glm::distance(playerPos, lakeMid);
-
-			cout << lavaDist << endl;
 
 			if (lavaDist < 30.f) {
 				if (lavaDist < 20.0f) {
