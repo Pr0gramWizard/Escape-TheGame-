@@ -38,27 +38,58 @@ void TerrainRenderer::render(Terrain &pTerrain)
 	unbindTerrain();
 }
 
+// renders a single terrain
+void TerrainRenderer::render(Terrain* pTerrain)
+{
+	prepareTerrain(pTerrain);
+	loadModelMatrix(pTerrain);
+
+	mShader->use();
+	glDrawElements(GL_TRIANGLES, pTerrain->getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+
+	unbindTerrain();
+}
+
 void TerrainRenderer::loadTexture(Terrain &pTerrain)
 {
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, pTerrain.getGrasTexture());
-	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "grass"), 0);
+	glBindTexture(GL_TEXTURE_2D, pTerrain.getBlueTexture());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "blue"), 0);
 
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, pTerrain.getStoneTexture());
-	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "stone"), 1);
+	glBindTexture(GL_TEXTURE_2D, pTerrain.getRedTexture());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "red"), 1);
 
 	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, pTerrain.getFlowerTexture());
-	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "flower"), 2);
+	glBindTexture(GL_TEXTURE_2D, pTerrain.getCyanTexture());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "cyan"), 2);
 
 	glActiveTexture(GL_TEXTURE3);
-	glBindTexture(GL_TEXTURE_2D, pTerrain.getMudTexture());
-	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "mud"), 3);
+	glBindTexture(GL_TEXTURE_2D, pTerrain.getPurpleTexture());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "purple"), 3);
 
 	glActiveTexture(GL_TEXTURE4);
 	glBindTexture(GL_TEXTURE_2D, pTerrain.getBlendMapTexture());
 	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "blendMap"), 4);
+
+}
+
+void TerrainRenderer::loadTexture(Terrain* pTerrain)
+{
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, pTerrain->getBlueTexture());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "grass"), 0);
+}
+
+void TerrainRenderer::loadDepthCubemapTexture(vector<Light*> pLights)
+{
+	for (unsigned int i = 0; i < MAX_LIGHTS; ++i) {
+		if (i < pLights.size()) {
+			glActiveTexture(GL_TEXTURE5 + i);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, pLights[i]->getDepthCubemap());
+			glUniform1i(glGetUniformLocation(mShader->getProgramID(), "depthCubemap" + i), 5 + i);
+		}
+	}
 }
 
 GLuint TerrainRenderer::getProgramID() const

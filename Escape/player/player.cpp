@@ -2,10 +2,10 @@
 #include "player.hpp"
 
 // Defintion of the global player constants
-const GLfloat Player::MOVESPEED = 4;
+const GLfloat Player::MOVESPEED = 8;
 const GLfloat Player::GRAVITY = -40;
 const GLfloat Player::JUMPPOWER = 9.0f;
-const GLfloat Player::JUMP_COOLDOWN = 1.0f;
+const GLfloat Player::JUMP_COOLDOWN = 0.7f;
 const GLfloat Player::STRAFE_ANGLE = 90;
 const GLfloat Player::ANGLE_CLIMB = 0.65f;
 
@@ -22,6 +22,8 @@ Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWi
 	this->setCrouching(false);
 	this->setWindowHeight(pWindowHeight);
 	this->setWindowWidth(pWindowWidth);
+	this->setIsBelowLake(false);
+	this->setIsBurning(false);
 	// Creating new instance of the camera class
 	mEye = new Camera();
 	this->setYRotation(mEye->getYaw() - 90.0f);
@@ -57,7 +59,7 @@ void Player::playWalkingSound(int StepNumber)
 }
 
 // Function to move the player	
-void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
+void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta, bool pWallCollision)
 {
 	
 	// Handle jump cooldown
@@ -72,6 +74,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	float yRotation = this->getYRotation();
 	// The length (in units) the player is moving
 	float dPos = mMovementSpeed * pDelta;
+
 
 	// Plays walking sound if the player ist walking/not jumping/not underwater
 	if (dPos != 0 && !mJumping && !isBelowLake()) {
@@ -107,18 +110,59 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	// Updating the players position
 	this->incPosition(glm::vec3(dx, 0, dz));
 
-	// Collision detection
-	/*
+	//**** Collision detection ****
+	glm::vec3 input;
+	glm::vec3 normal;
+	// tune this to "fudge" the "push away" from the wall
+	float bounceFudge = 1.01f;
+
+	// ceiling collision
+	float ceilingheight = pCeiling->getHeight(mEye->getPosition().x, mEye->getPosition().z);
+	float heightOffset = 0.4f;
+	float headPosition = this->getPosition().y + this->getHeight() + heightOffset;
+	float distance = ceilingheight - headPosition;
+
+	if (pWallCollision && distance <= 0.01f) {
+		this->setUpSpeed(-10.0f);
+		// collision detected
+		this->incPosition(glm::vec3(-dx, 0, -dz));
+
+		// only user x and z component of normal
+		normal = -pCeiling->getNormalAt(mPosition.x, mPosition.z);
+
+		// prevent sliding up
+		if (normal.y > 0.0f) {
+			normal = glm::normalize(glm::vec3(normal.x, 0.0f, normal.z));
+		}
+		else {
+			normal = glm::normalize(normal);
+		}
+
+		glm::vec3 OldPosition = this->getPosition();
+
+
+		this->incPosition(normal);
+		// update dx and dz
+		dx = normal.x;
+		dz = normal.z;
+
+		bool invalidPosition = this->getPosition().x != this->getPosition().x || this->getPosition().y != this->getPosition().y || this->getPosition().z != this->getPosition().z;
+
+		if (invalidPosition)
+		{
+			this->setPosition(OldPosition);
+		}
+	}
+
+	// floor collision
 	float terrainHeight;
 	float nextTerrainHeight = pFloor->getHeight(mPosition.x, mPosition.z);
 	float angle = atan((nextTerrainHeight - mPosition.y)/sqrt(dx * dx + dz * dz));
-	glm::vec3 normal = pFloor->getNormalAt(mPosition.x, mPosition.z);
+	normal = pFloor->getNormalAt(mPosition.x, mPosition.z);
 	float normalDot = glm::dot(normal, glm::vec3(0, 1, 0));
 	if (angle > 0 && normalDot < Player::ANGLE_CLIMB) {
 		this->incPosition(glm::vec3(-dx, 0, -dz));
-		glm::vec3 input = glm::vec3(dx, 0.0f, dz);
-		// tune this to "fudge" the "push away" from the wall
-		float bounceFudge = 1.01f;
+		input = glm::vec3(dx, 0.0f, dz);
 
 		// normalize input, but keep track of original size
 		float inputLength = glm::length(input);
@@ -152,14 +196,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 		terrainHeight = nextTerrainHeight;
 	}
 
-	float ceilingheight = pCeiling->getHeight(mEye->getPosition().x, mEye->getPosition().z);
-	float headPosition = this->getPosition().y + this->getHeight();
-	float distance = ceilingheight - headPosition;
-
-	if (distance <= 0.01f)
-	{
-		this->setUpSpeed(-10.0f);
-	}	
+	//**** END collision detection ****
 
 	if (this->isBelowLake()) {
 		mUpSpeed += Player::GRAVITY/1.50f * pDelta;
@@ -178,7 +215,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta)
 	{
 		mPosition.y = mPosition.y;
 	}
-	*/
+	
 
 	// Set camera's new position
 	mEye->setPosition(this->getPosition() + glm::vec3(0, this->getHeight(), 0));
@@ -344,6 +381,11 @@ bool Player::isBelowLake() const
 	return this->mIsBelowLake;
 }
 
+bool Player::isBurning() const
+{
+	return mIsBurning;
+}
+
 // Sets the sprint bool
 void Player::setSprint(bool pSprint)
 {
@@ -354,6 +396,11 @@ void Player::setSprint(bool pSprint)
 void Player::setIsBelowLake(bool pIsBelowLake)
 {
 	this->mIsBelowLake = pIsBelowLake;
+}
+
+void Player::setIsBurning(bool pIsBurning)
+{
+	mIsBurning = pIsBurning;
 }
 
 // Returns the sprint status

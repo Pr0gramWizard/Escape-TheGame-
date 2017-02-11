@@ -49,7 +49,7 @@ public:
 	~Player();
 
 	// Function to move the player
-	void Player::move(Terrain* pFloor, Terrain* pCeiling, float pDelta);
+	void Player::move(Terrain* pFloor, Terrain* pCeiling, float pDelta, bool pWallCollision);
 	// Function to change the players position by a certain vector
 	void incPosition(glm::vec3 pOffset);
 	// Function to increase the player's rotation (around y-axis)
@@ -73,6 +73,7 @@ public:
 	void setCrouching(bool pCrouching);
 	void setSprint(bool pSprint);
 	void setIsBelowLake(bool pIsBelowLake);
+	void setIsBurning(bool pIsBurning);
 
 	// Getter Functions
 	glm::vec3 getPosition() const;
@@ -89,6 +90,7 @@ public:
 	bool getCrouching() const;
 	bool getJumping() const;
 	bool isBelowLake() const;
+	bool isBurning() const;
 	glm::vec3 getCameraPosition() const;
 	Camera* getCamera();
 
@@ -132,6 +134,8 @@ private:
 	int mWindowWidth;
 	// true if player is below lake
 	bool mIsBelowLake;
+	// true if player is burning
+	bool mIsBurning;
 	// Player Sound (Used for walking)
 	irrklang::ISoundEngine* WalkSound;
 	// Cooldown for jumping

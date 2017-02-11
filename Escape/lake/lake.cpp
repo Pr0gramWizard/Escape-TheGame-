@@ -1,6 +1,6 @@
 #include "lake.hpp"
 
-const int Lake::LAKE_SIZE = 30;
+const int Lake::LAKE_SIZE = 50;
 const GLfloat Lake::LAKE_COEFFICIENT = 7.0f;
 
 Lake::Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices, const char * pName, Loader * pLoader)
@@ -16,6 +16,24 @@ Lake::Lake(int pWorldX, int pWorldY, int pWorldZ, int pAmplitude, int pVertices,
 	this->setModel(&this->generateLake(pLoader));
 	mPosVbo = (GLuint) pLoader->getLastVbos().y;
 	mNormalVbo = (GLuint) pLoader->getLastVbos().z;
+}
+
+void Lake::createDistortion(GLfloat pX, GLfloat pZ)
+{
+		float xPosRelativeToLake = pX - mWorldX;
+		float zPosRelativeToLake = pZ - mWorldX;
+
+		int gridX = (int)floor(xPosRelativeToLake / mGridSize);
+		int gridZ = (int)floor(zPosRelativeToLake / mGridSize);
+
+		if (gridX < 0 || gridZ < 0 || gridX >= mVertices - 1 || gridZ >= mVertices - 1)
+		{
+			return;
+		}
+
+		int index = gridX * mVertices + gridZ;
+
+		mVelocity.at(index) -= 20.0f;
 }
 
 Lake::~Lake()
@@ -102,13 +120,13 @@ void Lake::initLake(Loader * loader)
 	mVaryingPositions = vector<float>(mVertices * mVertices * 3, 0.0f);
 	mVaryingNormals = vector<float>(mVertices * mVertices * 3, 0.0f);
 
-	int half = (int)(mVertices / 2.0f);
+	/*int half = (int)(mVertices / 2.0f);
 
 	mVelocity[half * mVertices + half] = -5;
 	mVelocity[half * mVertices + half - 1] = -2.5f;
 	mVelocity[half * mVertices + half + 1] = -2.5f;
 	mVelocity[(half + 1) * mVertices + half] = -2.5f;
-	mVelocity[(half - 1) * mVertices + half] = -2.5f;
+	mVelocity[(half - 1) * mVertices + half] = -2.5f;*/
 
 	// generates random heights between -mAmplitude and +mAmplitude
 	/*for (int i = 0; i < mHeights.size(); ++i)

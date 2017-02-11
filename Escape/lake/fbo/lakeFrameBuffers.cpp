@@ -2,8 +2,8 @@
 #include "lakeFrameBuffers.hpp"
 
 // Definition of global constants
-const int LakeFrameBuffers::REFLECTION_WIDTH = 320; //1280
-const int LakeFrameBuffers::REFLECTION_HEIGHT = 180; //720
+const int LakeFrameBuffers::REFLECTION_WIDTH = 1280; //320
+const int LakeFrameBuffers::REFLECTION_HEIGHT = 720; //180
 
 const int LakeFrameBuffers::REFRACTION_WIDTH = 1280;
 const int LakeFrameBuffers::REFRACTION_HEIGHT = 720;

@@ -321,6 +321,7 @@ void FinalBloomShader::bindTextures()
 {
 	this->loadInt(mLocation_scene, 0);
 	this->loadInt(mLocation_bloomBlur, 1);
+	this->loadInt(mLocation_burning, 2);
 }
 
 void FinalBloomShader::loadBloom(GLboolean pBloom)
@@ -331,6 +332,16 @@ void FinalBloomShader::loadBloom(GLboolean pBloom)
 void FinalBloomShader::loadExposure(GLfloat pExposure)
 {
 	this->loadFloat(mLocation_exposure, pExposure);
+}
+
+void FinalBloomShader::loadIsBurning(GLboolean pIsBurning)
+{
+	this->loadBool(mLocation_isBurning, pIsBurning);
+}
+
+void FinalBloomShader::loadGamma(GLfloat pGamma)
+{
+	this->loadFloat(mLocation_gamma, pGamma);
 }
 
 // Destructor
@@ -344,8 +355,11 @@ void FinalBloomShader::getAllUniformLocations()
 {
 	mLocation_scene = glGetUniformLocation(getProgramID(), "scene");
 	mLocation_bloomBlur = glGetUniformLocation(getProgramID(), "bloomBlur");
+	mLocation_burning = glGetUniformLocation(getProgramID(), "burning");
 	mLocation_bloom = glGetUniformLocation(getProgramID(), "bloom");
 	mLocation_exposure = glGetUniformLocation(getProgramID(), "exposure");
+	mLocation_isBurning = glGetUniformLocation(getProgramID(), "isBurning");
+	mLocation_gamma = glGetUniformLocation(getProgramID(), "gamma");
 }
 
 // Binding an attribtute to the shader

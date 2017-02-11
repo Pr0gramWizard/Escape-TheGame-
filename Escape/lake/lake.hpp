@@ -35,6 +35,8 @@ public:
 	void setModel(Model* pModel);
 
 	void updateHeights(GLfloat pDeltaTime);
+
+	void createDistortion(GLfloat pX, GLfloat pZ);
 public:
 	static const int LAKE_SIZE;
 	static const GLfloat LAKE_COEFFICIENT;

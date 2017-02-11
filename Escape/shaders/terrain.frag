@@ -8,39 +8,40 @@ in vec2 TexCoord;
 layout (location = 0) out vec4 out_Color;
 layout (location = 1) out vec4 BrightColor;
   
-uniform vec3 lightPosition[4]; 
-uniform vec3 lightColor[4];
-uniform vec3 lightAttenuation[4];
+uniform vec3 lightPosition[6]; 
+uniform vec3 lightColor[6];
+uniform vec3 lightAttenuation[6];
 uniform float fogDensity;
 uniform float fogGradient;
 uniform vec3 backgroundColor;
 uniform bool playerBelowLake;
 
-uniform sampler2D grass;
-uniform sampler2D stone;
-uniform sampler2D flower;
-uniform sampler2D mud;
+uniform sampler2D blue;
+uniform sampler2D red;
+uniform sampler2D cyan;
+uniform sampler2D purple;
 uniform sampler2D blendMap;
+
 
 void main()
 {
 
-	// vec4 blendMapColor = texture(blendMap,TexCoord);
+	vec4 blendMapColor = texture(blendMap,TexCoord);
+	
+	float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
+	vec2 tiledCoords = TexCoord * 150;
+	vec4 backgroundTextureColor = texture(blue, tiledCoords) * backTextureAmount;
+	vec4 rTextureColor = texture(red, tiledCoords) * blendMapColor.r;
+	vec4 gTextureColor = texture(cyan, tiledCoords) * blendMapColor.g;
+	vec4 bTextureColor = texture(purple, tiledCoords) * blendMapColor.b;
 
-	// float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
-	// vec2 tiledCoords = TexCoord * 50;
-	// vec4 backgroundTextureColor = texture(grass, tiledCoords) * backTextureAmount;
-	// vec4 rTextureColor = texture(mud, tiledCoords) * blendMapColor.r;
-	// vec4 gTextureColor = texture(flower, tiledCoords) * blendMapColor.g;
-	// vec4 bTextureColor = texture(stone, tiledCoords) * blendMapColor.b;
-
-	// vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
+	vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
 		
 	// Ambient
     float ambientStrength = 0.1f;
 	vec3 result = vec3(0,0,0);
 
-	for(int i = 0; i < 4; i++){
+	for(int i = 0; i < 6; i++){
 		if(lightPosition[i].x == 0 && lightPosition[i].y == 0 && lightPosition[i].z == 0)
 		{
 			continue;
@@ -70,9 +71,11 @@ void main()
 	float visibility = exp(-pow((distance * fogDensity), fogGradient));
 	visibility = clamp(visibility, 0.0, 1.0);
 
-    // out_Color = vec4(result,1.0) * totalColor;
-	// out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
-	out_Color = vec4(result, 1.0) * texture2D(grass, TexCoord);
+    out_Color = vec4(result,1.0) * totalColor;
+
+	
+	out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
+
 
 	if(playerBelowLake){
 		out_Color = mix(out_Color, vec4(0.0, 0.0, 1.0, 1.0), 0.2);

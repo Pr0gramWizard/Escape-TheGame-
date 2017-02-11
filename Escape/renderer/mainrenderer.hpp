@@ -13,11 +13,6 @@
 #include "../lake/lake.hpp"
 #include "../lake/renderer/lakeRenderer.hpp"
 
-// skybox
-#include "../skybox/skybox.hpp"
-#include "../skybox/renderer/skyboxrenderer.hpp"
-#include "../skybox/shader/skyboxshader.hpp"
-
 // Text Rendering
 #include "../text/TextRenderer.hpp"
 #include "../text/shader/textshader.hpp"
@@ -26,6 +21,16 @@
 #include "../object/object.hpp"
 #include "../object/renderer/objectrenderer.hpp"
 #include "../object/shader/objectshader.hpp"
+
+// Waterdrop Rendering
+#include "../waterdrop/waterdrop.hpp"
+#include "../waterdrop/renderer/waterdroprenderer.hpp"
+#include "../waterdrop/shader/waterdropshader.hpp"
+
+// Torch Rendering
+#include "../torch/torch.hpp"
+#include "../torch/renderer/torchrenderer.hpp"
+#include "../torch/shader/torchshader.hpp"
 
 // Keyboard
 #include "../input/keyboard.hpp"
@@ -47,15 +52,13 @@ class MainRenderer
 public:
 	// constructor
 	MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer);
-	// destructor
-	~MainRenderer();
 
 	// adds entities or terrains to render list
 	void addToList(Entity &pEntity);
 	void addToList(Terrain &pTerrain);
 	void addToList(Entity &pEntity, RenderMode pMode);
-	void addToList(Skybox* Skybox);
 	void addToList(Object& pObject);
+	void addToList(Waterdrop& pWaterdrop);
 
 	void setDrawMode(bool pMode);
 	bool getDrawMode() const;
@@ -69,22 +72,14 @@ public:
 	// prepares for rendering
 	void prepare(GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE);
 	// render
-	void render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime);
+	void render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime, float pFogDensity, float pFogGradient,float pDelta);
 	void renderDebugInformation();
 	void clearLists();
 
 	// Set FPS
 	void setFPS(int pFPS);
 
-	// cleans up when closing the game
-	void cleanUp();
 
-	EntityRenderer* mEntityRenderer;
-	TerrainRenderer* mTerrainRenderer;
-	TerrainRenderer* mNormalRenderer;
-	SkyboxRenderer* mSkyboxRenderer;
-	TextRenderer* mTextRenderer;
-	ObjectRenderer* mObjectRenderer;
 
 public:
 	static const char* ENTITY_VERTEX;
@@ -102,19 +97,45 @@ public:
 	static const char* TERRAIN_NORMAL_GEOMETRY;
 
 private:
+	// Renderer
+	// Entity
+	EntityRenderer* mEntityRenderer;
+	// Terrain
+	TerrainRenderer* mTerrainRenderer;
+	// Terrain + Normal Vector
+	TerrainRenderer* mNormalRenderer;
+	// Text 
+	TextRenderer* mTextRenderer;
+	// Object 
+	ObjectRenderer* mObjectRenderer;
+	// Waterdrop
+	WaterdropRenderer* mWaterRenderer;
+	// Torch
+	TorchRenderer* mTorchRenderer;
+
+
+	// Pointer to Player
 	Player* mPlayer;
-	Skybox* mSkybox;
 
+	// List of all important stuff
+	// Entity
 	list<Entity> mEntities;
+	// Spectial Entity
 	list<Entity> mSpecial;
+	// Rendermodes
 	list<RenderMode> mRenderMode;
+	// Terrain
 	list<Terrain> mTerrains;
+	// Objects
 	list<Object> mObjects;
+	// Waterdrops
+	list<Waterdrop> mWaterDrop;
 
+	// Debug Modes
 	bool drawMode;
 	bool debugMode;
 	bool normalMode;
-
+	// FPS
 	int mFPS;
 };
 

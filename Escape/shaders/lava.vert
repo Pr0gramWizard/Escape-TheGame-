@@ -4,7 +4,7 @@ layout (location = 1) in vec3 normal;
 layout (location = 2) in vec2 texCoords;
 
 out vec2 textureCoords;
-out vec3 fromLightVector[4];
+out vec3 fromLightVector[6];
 out vec3 lavaNormal;
 out vec3 fragPos;
 out vec3 viewPos;
@@ -12,7 +12,7 @@ out vec3 viewPos;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
-uniform vec3 lightPosition[4];
+uniform vec3 lightPosition[6];
 
 const float dudvTiling = 5.0;
 
@@ -23,7 +23,7 @@ void main()
 	vec4 worldPosition = model * vec4(newPosition, 1.0f);
 	fragPos = vec3(worldPosition);
 	viewPos = (inverse(view) * vec4(0.0,0.0,0.0,1.0)).xyz;
-	for(int i = 0; i < 4; i++){
+	for(int i = 0; i < 6; i++){
 		fromLightVector[i] =  worldPosition.xyz - lightPosition[i];
 	}
 	lavaNormal = mat3(transpose(inverse(model))) * normal;

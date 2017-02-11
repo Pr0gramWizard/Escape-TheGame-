@@ -16,13 +16,13 @@ using namespace std;
 class Lava
 {
 public:
-	Lava(int pWorldX, int pWorldY, int pWorldZ, int pVertices, const char* pName, Loader* pLoader);
+	Lava(float pWorldX, float pWorldY, float pWorldZ, int pVertices, const char* pName, Loader* pLoader);
 	~Lava();
 
 	// Getter functions
-	int getWorldX() const;
-	int getWorldY() const;
-	int getWorldZ() const;
+	float getWorldX() const;
+	float getWorldY() const;
+	float getWorldZ() const;
 	glm::vec3 getWorldPos() const;
 	const char* getName();
 
@@ -32,13 +32,15 @@ public:
 	glm::mat4 getModelMatrix();
 	Model* getModel();
 	void setModel(Model* pModel);
+	GLuint getBurningTexture();
+
 public:
 	static const int LAVA_SIZE;
 
 private:
-	int mWorldX;
-	int mWorldY;
-	int mWorldZ;
+	float mWorldX;
+	float mWorldY;
+	float mWorldZ;
 	// Getters & Setters needed? Maybe static
 	int mVertices;
 	float mGridSize;
@@ -47,7 +49,10 @@ private:
 	GLuint mPosVbo;
 	GLuint mNormalVbo;
 
+	GLuint mBurningTexture;
+
 private:
 	Model generateLava(Loader* loader);
+	void loadTextures();
 };
 

@@ -19,63 +19,133 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="camera.cpp" />
-    <ClCompile Include="entity.cpp" />
-    <ClCompile Include="entityshader.cpp" />
-    <ClCompile Include="game.cpp" />
-    <ClCompile Include="loader.cpp" />
+    <ClCompile Include="bloom\preBloomFBO.cpp" />
+    <ClCompile Include="bloom\shader\finalbloomshader.cpp" />
+    <ClCompile Include="blur\blurBuffer.cpp" />
+    <ClCompile Include="blur\shader\blurShader.cpp" />
+    <ClCompile Include="camera\camera.cpp" />
+    <ClCompile Include="entity\entity.cpp" />
+    <ClCompile Include="entity\renderer\entityRenderer.cpp" />
+    <ClCompile Include="entity\shader\entityshader.cpp" />
+    <ClCompile Include="game\game.cpp" />
+    <ClCompile Include="input\keyboard.cpp" />
+    <ClCompile Include="lake\fbo\lakeFrameBuffers.cpp" />
+    <ClCompile Include="lake\lake.cpp" />
+    <ClCompile Include="lake\renderer\lakeRenderer.cpp" />
+    <ClCompile Include="lake\shader\lakeshader.cpp" />
+    <ClCompile Include="lava\lava.cpp" />
+    <ClCompile Include="lava\renderer\lavaRenderer.cpp" />
+    <ClCompile Include="lava\shader\lavashader.cpp" />
+    <ClCompile Include="light\light.cpp" />
+    <ClCompile Include="light\spotlight.cpp" />
+    <ClCompile Include="loader\loader.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="math.cpp" />
-    <ClCompile Include="matrix4D.cpp" />
-    <ClCompile Include="model.cpp" />
-    <ClCompile Include="objectLoader.cpp" />
-    <ClCompile Include="player.cpp" />
-    <ClCompile Include="entityRenderer.cpp" />
-    <ClCompile Include="mainrenderer.cpp" />
-    <ClCompile Include="terrain.cpp" />
-    <ClCompile Include="terrainRenderer.cpp" />
-    <ClCompile Include="terrainshader.cpp" />
-    <ClCompile Include="vector2D.cpp" />
-    <ClCompile Include="vector3D.cpp" />
-    <ClCompile Include="vector4D.cpp" />
+    <ClCompile Include="math\math.cpp" />
+    <ClCompile Include="mesh\mesh.cpp" />
+    <ClCompile Include="model\model.cpp" />
+    <ClCompile Include="object\object.cpp" />
+    <ClCompile Include="object\renderer\objectrenderer.cpp" />
+    <ClCompile Include="object\shader\objectshader.cpp" />
+    <ClCompile Include="player\player.cpp" />
+    <ClCompile Include="renderer\mainrenderer.cpp" />
+    <ClCompile Include="terrain\renderer\terrainRenderer.cpp" />
+    <ClCompile Include="terrain\shader\terrainshader.cpp" />
+    <ClCompile Include="terrain\terrain.cpp" />
+    <ClCompile Include="text\shader\textshader.cpp" />
+    <ClCompile Include="text\TextRenderer.cpp" />
+    <ClCompile Include="torch\renderer\torchrenderer.cpp" />
+    <ClCompile Include="torch\shader\torchshader.cpp" />
+    <ClCompile Include="torch\torch.cpp" />
+    <ClCompile Include="waterdrop\renderer\waterdroprenderer.cpp" />
+    <ClCompile Include="waterdrop\shader\waterdropshader.cpp" />
+    <ClCompile Include="waterdrop\waterdrop.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="camera.hpp" />
-    <ClInclude Include="entity.hpp" />
-    <ClInclude Include="entityshader.hpp" />
-    <ClInclude Include="game.hpp" />
-    <ClInclude Include="loader.hpp" />
-    <ClInclude Include="math.hpp" />
-    <ClInclude Include="matrix4D.hpp" />
-    <ClInclude Include="model.hpp" />
-    <ClInclude Include="objectLoader.h" />
-    <ClInclude Include="player.hpp" />
-    <ClInclude Include="entityRenderer.hpp" />
-    <ClInclude Include="mainrenderer.hpp" />
-    <ClInclude Include="terrain.hpp" />
-    <ClInclude Include="terrainRenderer.hpp" />
-    <ClInclude Include="terrainshader.hpp" />
-    <ClInclude Include="textureloader.hpp" />
-    <ClInclude Include="utility.hpp" />
-    <ClInclude Include="vector2D.hpp" />
-    <ClInclude Include="vector3D.hpp" />
-    <ClInclude Include="vector4D.hpp" />
+    <ClInclude Include="bloom\preBloomFBO.hpp" />
+    <ClInclude Include="bloom\shader\finalbloomshader.hpp" />
+    <ClInclude Include="blur\blurBuffer.hpp" />
+    <ClInclude Include="blur\shader\blurShader.hpp" />
+    <ClInclude Include="camera\camera.hpp" />
+    <ClInclude Include="entity\entity.hpp" />
+    <ClInclude Include="entity\renderer\entityRenderer.hpp" />
+    <ClInclude Include="entity\shader\entityshader.hpp" />
+    <ClInclude Include="game\game.hpp" />
+    <ClInclude Include="input\keyboard.hpp" />
+    <ClInclude Include="lake\fbo\lakeFrameBuffers.hpp" />
+    <ClInclude Include="lake\lake.hpp" />
+    <ClInclude Include="lake\renderer\lakeRenderer.hpp" />
+    <ClInclude Include="lake\shader\lakeshader.hpp" />
+    <ClInclude Include="lava\lava.hpp" />
+    <ClInclude Include="lava\renderer\lavaRenderer.hpp" />
+    <ClInclude Include="lava\shader\lavashader.hpp" />
+    <ClInclude Include="light\light.hpp" />
+    <ClInclude Include="light\spotlight.hpp" />
+    <ClInclude Include="loader\loader.hpp" />
+    <ClInclude Include="math\math.hpp" />
+    <ClInclude Include="mesh\mesh.hpp" />
+    <ClInclude Include="model\model.hpp" />
+    <ClInclude Include="object\object.hpp" />
+    <ClInclude Include="object\renderer\objectrenderer.hpp" />
+    <ClInclude Include="object\shader\objectshader.hpp" />
+    <ClInclude Include="player\player.hpp" />
+    <ClInclude Include="renderer\mainrenderer.hpp" />
+    <ClInclude Include="terrain\renderer\terrainRenderer.hpp" />
+    <ClInclude Include="terrain\shader\terrainshader.hpp" />
+    <ClInclude Include="terrain\terrain.hpp" />
+    <ClInclude Include="text\shader\textshader.hpp" />
+    <ClInclude Include="text\TextRenderer.hpp" />
+    <ClInclude Include="torch\renderer\torchrenderer.hpp" />
+    <ClInclude Include="torch\shader\torchshader.hpp" />
+    <ClInclude Include="torch\torch.hpp" />
+    <ClInclude Include="waterdrop\renderer\waterdroprenderer.hpp" />
+    <ClInclude Include="waterdrop\shader\waterdropshader.hpp" />
+    <ClInclude Include="waterdrop\waterdrop.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll" />
     <None Include="SDL2.dll" />
     <None Include="shaders\a.frag" />
     <None Include="shaders\b.vert" />
+    <None Include="shaders\blur.frag" />
+    <None Include="shaders\blur.vert" />
+    <None Include="shaders\finalbloom.frag" />
+    <None Include="shaders\finalbloom.vert" />
+    <None Include="shaders\lake.frag" />
+    <None Include="shaders\lake.vert" />
+    <None Include="shaders\lava.frag" />
+    <None Include="shaders\lava.vert" />
+    <None Include="shaders\object.frag" />
+    <None Include="shaders\object.vert" />
+    <None Include="shaders\particle.frag" />
+    <None Include="shaders\particle.vert" />
+    <None Include="shaders\particleRender.frag" />
+    <None Include="shaders\particleRender.gs" />
+    <None Include="shaders\particleRender.vert" />
+    <None Include="shaders\particleUpdate.frag" />
+    <None Include="shaders\particleUpdate.gs" />
+    <None Include="shaders\particleUpdate.vert" />
+    <None Include="shaders\particle\particles_render.frag" />
+    <None Include="shaders\particle\particles_render.geom" />
+    <None Include="shaders\particle\particles_render.vert" />
+    <None Include="shaders\particle\particles_update.frag" />
+    <None Include="shaders\particle\particles_update.geom" />
+    <None Include="shaders\particle\particles_update.vert" />
+    <None Include="shaders\shadow.frag" />
+    <None Include="shaders\shadow.gs" />
+    <None Include="shaders\shadow.vert" />
+    <None Include="shaders\skybox.frag" />
+    <None Include="shaders\skybox.vert" />
     <None Include="shaders\terrain.frag" />
+    <None Include="shaders\terrain_normal.gs" />
     <None Include="shaders\terrain.vert" />
+    <None Include="shaders\terrain_normal.frag" />
+    <None Include="shaders\terrain_normal.vert" />
+    <None Include="shaders\text.frag" />
+    <None Include="shaders\text.vert" />
     <None Include="shaders\worldShader.frag" />
     <None Include="shaders\worldShader.vert" />
     <None Include="shaders\triangleShader.frag" />
     <None Include="shaders\triangleShader.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="textures\fireblast.png" />
-    <Image Include="textures\wall.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8DE4231C-F8DD-4A3A-ADC9-9BB74012A2FB}</ProjectGuid>
@@ -128,23 +198,33 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Escape\ExternalDependencies\soil\include;$(SolutionDir)Escape\ExternalDependencies\freeglut\include\GL;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\include\GL;$(SolutionDir)Escape\ExternalDependencies\glm\;$(SolutionDir)Escape\ExternalDependencies\glfw\include\GLFW;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Escape\ExternalDependencies\freeglut\lib;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\lib\Release\Win32;$(SolutionDir)Escape\ExternalDependencies\glfw\lib-vc2015;$(SolutionDir)Escape\ExternalDependencies\soil\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Escape\ExternalDependencies\freetype;$(SolutionDir)Escape\ExternalDependencies\freetype\freetype;$(SolutionDir)Escape\ExternalDependencies\assimp\include;$(SolutionDir)Escape\ExternalDependencies\soil\include;$(SolutionDir)Escape\ExternalDependencies\freeglut\include\GL;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\include\GL;$(SolutionDir)Escape\ExternalDependencies\glm\;$(SolutionDir)Escape\ExternalDependencies\glfw\include\GLFW;$(SolutionDir)Escape\ExternalDependencies\irrklang\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Escape\ExternalDependencies\freetype\lib;$(SolutionDir)Escape\ExternalDependencies\irrklang\lib;$(SolutionDir)Escape\ExternalDependencies\assimp\lib;$(SolutionDir)Escape\ExternalDependencies\freeglut\lib;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\lib\Release\Win32;$(SolutionDir)Escape\ExternalDependencies\glfw\lib-vc2015;$(SolutionDir)Escape\ExternalDependencies\soil\lib;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)Escape\ExternalDependencies\soil\include;$(SolutionDir)Escape\ExternalDependencies\freeglut\include\GL;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\include\GL;$(SolutionDir)Escape\ExternalDependencies\glm\;$(SolutionDir)Escape\ExternalDependencies\glfw\include\GLFW;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Escape\ExternalDependencies\freeglut\lib;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\lib\Release\Win32;$(SolutionDir)Escape\ExternalDependencies\glfw\lib-vc2015;$(SolutionDir)Escape\ExternalDependencies\soil\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Escape\ExternalDependencies\freetype;$(SolutionDir)Escape\ExternalDependencies\freetype\freetype;$(SolutionDir)Escape\ExternalDependencies\assimp\include;$(SolutionDir)Escape\ExternalDependencies\soil\include;$(SolutionDir)Escape\ExternalDependencies\freeglut\include\GL;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\include\GL;$(SolutionDir)Escape\ExternalDependencies\glm\;$(SolutionDir)Escape\ExternalDependencies\glfw\include\GLFW;$(SolutionDir)Escape\ExternalDependencies\irrklang\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Escape\ExternalDependencies\freetype\lib;$(SolutionDir)Escape\ExternalDependencies\irrklang\lib;$(SolutionDir)Escape\ExternalDependencies\assimp\lib;$(SolutionDir)Escape\ExternalDependencies\freeglut\lib;$(SolutionDir)Escape\ExternalDependencies\glew-2.0.0\lib\Release\Win32;$(SolutionDir)Escape\ExternalDependencies\glfw\lib-vc2015;$(SolutionDir)Escape\ExternalDependencies\soil\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <BrowseInformation>true</BrowseInformation>
+      <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;freeglut.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;freeglut.lib;SOIL.lib;assimp.lib;irrKlang.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+    <ResourceCompile>
+      <SuppressStartupBanner>false</SuppressStartupBanner>
+      <ShowProgress>true</ShowProgress>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -160,13 +240,18 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;freeglut.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;freeglut.lib;SOIL.lib;assimp.lib;irrKlang.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
+    <ResourceCompile>
+      <SuppressStartupBanner>false</SuppressStartupBanner>
+      <ShowProgress>true</ShowProgress>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -184,4 +269,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="Escape.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

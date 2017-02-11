@@ -1,5 +1,6 @@
 #include "mainrenderer.hpp"
 
+// Shader locations
 const char* MainRenderer::ENTITY_VERTEX = "shaders/b.vert";
 const char* MainRenderer::ENTITY_FRAGMENT = "shaders/a.frag";
 const char* MainRenderer::TERRAIN_VERTEX = "shaders/terrain.vert";
@@ -14,57 +15,75 @@ const char* MainRenderer::TEXT_FRAGMENT = "shaders/text.frag";
 const char* MainRenderer::OBJECT_VERTEX = "shaders/object.vert";
 const char* MainRenderer::OBJECT_FRAGMENT = "shaders/object.frag";
 
+
 MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 {
+	// Creating Entity Shader
 	EntityShader* entityshader = new EntityShader(ENTITY_VERTEX, ENTITY_FRAGMENT);
+	// Creating Entity Renderer
 	mEntityRenderer = new EntityRenderer(entityshader,pProjectionMatrix);
 
+	// Creating terrain Shader
 	TerrainShader* terrainshader = new TerrainShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
+	// Creating Geometry Shader for the normal vectors (not used)
 	TerrainShader* normalshader = new TerrainShader(TERRAIN_NORMAL_VERTEX, TERRAIN_NORMAL_FRAGMENT, TERRAIN_NORMAL_GEOMETRY);
+	// Creating terrain renderer
 	mTerrainRenderer = new TerrainRenderer(terrainshader, pProjectionMatrix);
+	// Creating normal renderer
 	mNormalRenderer = new TerrainRenderer(normalshader, pProjectionMatrix);
 
-	SkyboxShader* skyboxshader = new SkyboxShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
-	mSkyboxRenderer = new SkyboxRenderer(skyboxshader, pProjectionMatrix);
-
+	// Creating Text Shader
 	TextShader* textshader = new TextShader(TEXT_VERTEX, TEXT_FRAGMENT);
+	// Creating Text Renderer
 	mTextRenderer = new TextRenderer(textshader);
 
+	// Creating Object Shader (used for Stones)
 	ObjectShader* objectshader = new ObjectShader(OBJECT_VERTEX, OBJECT_FRAGMENT);
+	// Creating Object Renderer
 	mObjectRenderer = new ObjectRenderer(objectshader,pProjectionMatrix);
 
+	// Creating waterdrop shader
+	WaterdropShader* watershader = new WaterdropShader(OBJECT_VERTEX, OBJECT_FRAGMENT);
+	// Creating waterdrop renderer
+	mWaterRenderer = new WaterdropRenderer(watershader, pProjectionMatrix);
+
+	// Creating torch shader
+	TorchShader* torchshader = new TorchShader(OBJECT_VERTEX, OBJECT_FRAGMENT);
+	// Creating torch renderer
+	mTorchRenderer = new TorchRenderer(torchshader, pProjectionMatrix);
+
+	// Setting draw mode to normal
 	this->setDrawMode(0);
 
+	// Setting player instance
 	mPlayer = pPlayer;
 
 }
 
-MainRenderer::~MainRenderer()
-{
-}
-
+// Clearing whole screen with given color
 void MainRenderer::prepare(GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE)
 {
 	glClearColor(pRED, pGREEN, pBLUE, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime)
+void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime, float pFogDensity, float pFogGradient,float pDelta)
 {
+	// Preparing the scree
 	this->prepare(pRED, pGREEN, pBLUE);
-	glShadeModel(GL_SMOOTH);
 
-
+	// Polygon Mode
 	if (this->getDrawMode())
 	{
-
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
+	// Normal Mode
 	else
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
+	// Render all objects
 	for (Object &object : mObjects)
 	{
 		mObjectRenderer->startShader();
@@ -72,59 +91,79 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 		mObjectRenderer->loadViewMatrix(mPlayer->getViewMatrix());
 		mObjectRenderer->loadClipPlane(pClipPlane);
 		mObjectRenderer->loadLights(pLights, pDiscoTime);
+		mObjectRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
+		mObjectRenderer->loadFogData(pFogDensity, pFogGradient);
 		mObjectRenderer->render(object);
 		mObjectRenderer->stopShader();
 	}
 
+	// Render all Waterdrops
+	for (Waterdrop &object : mWaterDrop)
+	{
+		mWaterRenderer->startShader();
+		if (object.getPosition().y <= 3.0f)
+		{
+			object.mStatus = true;
+		}
+		else
+		{
+			object.mStatus = false;
+		}
+		mWaterRenderer->loadModelMatrix(&object);
+		mWaterRenderer->loadViewMatrix(mPlayer->getViewMatrix());
+		mWaterRenderer->loadClipPlane(pClipPlane);
+		mWaterRenderer->loadLights(pLights, pDiscoTime);
+		mWaterRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
+		mWaterRenderer->loadFogData(pFogDensity, pFogGradient);
+		mWaterRenderer->render(object);
+		mWaterRenderer->stopShader();
+	}
 
 
-	// entities
-	mEntityRenderer->startShader();
-	mEntityRenderer->loadViewMatrix(pViewMatrix);
-	mEntityRenderer->loadClipPlane(pClipPlane);
-	mEntityRenderer->loadLights(pLights, pDiscoTime);
-	mEntityRenderer->loadFogData(0.01f, 2.0f);
-	mEntityRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
-	mEntityRenderer->render(mEntities);
-	mEntityRenderer->render(mSpecial, LINES);
-	mEntityRenderer->stopShader();
-
-
-
-
-	// terrain
+	// Prepare terrain
 	mTerrainRenderer->startShader();
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
 	mTerrainRenderer->loadClipPlane(pClipPlane);
 	mTerrainRenderer->loadLights(pLights, pDiscoTime);
-	mTerrainRenderer->loadFogData(0.01f, 2.0f);
+	mTerrainRenderer->loadDepthCubemapTexture(pLights);
+	mTerrainRenderer->loadFogData(pFogDensity, pFogGradient);
 	mTerrainRenderer->loadPlayerBelowLake(pPlayerBelowLake);
 	mTerrainRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
 
-	mNormalRenderer->startShader();
-	mNormalRenderer->loadViewMatrix(pViewMatrix);
-	mNormalRenderer->loadPlayerBelowLake(pPlayerBelowLake);
-	mNormalRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
-
-
+	
+	// Render Terrain
 	for (Terrain &terrain : mTerrains)
 	{
-		glDisable(GL_CULL_FACE);
-		mTerrainRenderer->loadTexture(terrain);
-		mTerrainRenderer->render(terrain);
-		if (this->getNormalMode())
-		{
-			mNormalRenderer->render(terrain);
+		if (terrain.getName() == "Decke") {
+			glCullFace(GL_FRONT);
+			mTerrainRenderer->loadTexture(terrain);
+			mTerrainRenderer->render(terrain);
+			if (this->getNormalMode())
+			{
+				mNormalRenderer->render(terrain);
+			}
+			glCullFace(GL_BACK);
 		}
-		glEnable(GL_CULL_FACE);
+		else {
+			mTerrainRenderer->loadTexture(terrain);
+			mTerrainRenderer->render(terrain);
+			if (this->getNormalMode())
+			{
+				mNormalRenderer->render(terrain);
+			}
+		}
 	}
+
+
 }
 
+// Set FPS Counter
 void MainRenderer::setFPS(int pFPS)
 {
 	mFPS = pFPS;
 }
 
+// Render Debug information
 void MainRenderer::renderDebugInformation()
 {
 	if (this->getDebugMode())
@@ -188,72 +227,77 @@ void MainRenderer::renderDebugInformation()
 	
 }
 
+// Adding things to the render list
+
+// Entity
 void MainRenderer::addToList(Entity &pEntity)
 {
 	mEntities.push_back(pEntity);
 }
-
+// Waterdrop
+void MainRenderer::addToList(Waterdrop &pWaterDrop)
+{
+	mWaterDrop.push_back(pWaterDrop);
+}
+// Objects
 void MainRenderer::addToList(Object &pObject)
 {
 	mObjects.push_back(pObject);
 }
-
+// Entity with given Rendermode
 void MainRenderer::addToList(Entity &pEntity, RenderMode pMode)
 {
 	mSpecial.push_back(pEntity);
 	mRenderMode.push_back(pMode);
 }
 
-void MainRenderer::addToList(Skybox* Skybox)
-{
-	mSkybox = Skybox;
-}
-
-void MainRenderer::setDrawMode(bool pMode)
-{
-	drawMode = pMode;
-}
-
-bool MainRenderer::getDrawMode() const
-{
-	return drawMode;
-}
-
-void MainRenderer::setNormalMode(bool pMode)
-{
-	normalMode = pMode;
-}
-
-bool MainRenderer::getNormalMode() const
-{
-	return normalMode;
-}
-
-void MainRenderer::setDebugMode(bool pMode)
-{
-	debugMode = pMode;
-}
-
-bool MainRenderer::getDebugMode() const
-{
-	return debugMode;
-}
-
+// Terrain
 void MainRenderer::addToList(Terrain &pTerrain)
 {
 	mTerrains.push_back(pTerrain);
 }
 
+// Setting Draw Mode 
+void MainRenderer::setDrawMode(bool pMode)
+{
+	drawMode = pMode;
+}
+// Returns the Draw Mode
+bool MainRenderer::getDrawMode() const
+{
+	return drawMode;
+}
+
+// Setting the Normal Mode
+void MainRenderer::setNormalMode(bool pMode)
+{
+	normalMode = pMode;
+}
+
+// Returns the Normal  Mode
+bool MainRenderer::getNormalMode() const
+{
+	return normalMode;
+}
+
+// Setting the Debug Mode
+void MainRenderer::setDebugMode(bool pMode)
+{
+	debugMode = pMode;
+}
+
+// Returns the Debug Mode
+bool MainRenderer::getDebugMode() const
+{
+	return debugMode;
+}
+
+
+// Clears the whole list
 void MainRenderer::clearLists()
 {
 	mEntities.clear();
 	mTerrains.clear();
 	mSpecial.clear();
 	mRenderMode.clear();
-}
-
-void MainRenderer::cleanUp()
-{
-	//mEntityRenderer->cleanUp();
-	//mTerrainRenderer->cleanUp();
 }

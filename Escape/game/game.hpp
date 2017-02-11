@@ -28,8 +28,6 @@
 #include "../player/player.hpp"
 // Loader class
 #include "../loader/loader.hpp"
-// Texture class
-#include "../textures/texture.hpp"
 // Renderer classes
 #include "../entity/renderer/entityRenderer.hpp"
 #include "../terrain/renderer/terrainRenderer.hpp"
@@ -44,8 +42,6 @@
 #include "../lake/lake.hpp"
 // Lake fbos
 #include "../lake/fbo/lakeFrameBuffers.hpp"
-// Skybox classw
-#include "../skybox/skybox.hpp"
 // blur fbo
 #include "../blur/blurBuffer.hpp"
 // blur shader
@@ -65,10 +61,7 @@
 #include "../lava/shader/lavashader.hpp"
 #include "../lava/renderer/lavaRenderer.hpp"
 
-
-
-#include "../particle/renderer/particlegenerator.hpp"
-#include "../particle/shader/particleshader.hpp"
+#include <stdlib.h>
 
 
 // Declaration of game class
@@ -117,10 +110,25 @@ private:
 	Player* mPlayer;
 	// Main Renderer
 	MainRenderer* mRenderer;
-	// Skybox
-	Skybox* mSkybox;
 	// Sound Engine
 	irrklang::ISoundEngine* SoundEngine;
+
+	// Settings
+	bool mFog = true;
+	void toggleFog();
+	bool hasFog();
+
+	bool mBloomEffect = true;
+	void toggleBloomEffect();
+	bool isBlooming();
+
+	bool mUseTorch = true;
+	void toggleUseTorch();
+	bool useTorch();
+
+	bool mWallCollision = true;
+	void toggleWallCollision();
+	bool hasWallCollision();
 
 	// Easter Eggs
 	bool mDiscoMode = false;
