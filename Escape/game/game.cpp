@@ -396,6 +396,15 @@ bool Game::gameLoop()
 			lastTime += 1.0f;
 		}
 
+		timeElapsed += deltaTime * 10;
+
+		if (timeElapsed > 10.0f)
+		{
+			lake->createDistortion(54.0f, 33.0f);
+			lake->createDistortion(40.0f, 38.0f);
+			timeElapsed = 0.0f;
+		}
+
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
 
