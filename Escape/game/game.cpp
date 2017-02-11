@@ -1,5 +1,7 @@
+// Inclusion of game declaration
 #include "game.hpp"
 
+// Setting up background color of the scene
 const GLfloat Game::RED = 0.2f;
 const GLfloat Game::GREEN = 0.3f;
 const GLfloat Game::BLUE = 0.3f;
@@ -7,11 +9,17 @@ const GLfloat Game::BLUE = 0.3f;
 // Used for post-processing effects
 void RenderQuad();
 
+// Default Constructor 
+// (Window Width, Window Height, Window Title)
 Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 {
+	// Setting window height
 	setHeight(pHeight);
+	// Setting window width
 	setWidth(pWidth);
+	// Setting window title
 	setTitle(pWindowTitle);
+
 	// Init GLFW
 	glfwInit();
 	// Set all the required options for GLFW
@@ -20,19 +28,28 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 
+	// Create a GLFWwindow object (Fullscreen Mode)
 	
-
-	// Create a GLFWwindow object that we can use for GLFW's functions
 	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(),glfwGetPrimaryMonitor(),NULL));
+
+
+	//	DEBUG MODE
+	// setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL, NULL));
+
+	// Mark context
 	glfwMakeContextCurrent(this->getWindow());
 
 
 	// Set the required callback functions
+	// Create callback to the game
 	glfwSetWindowUserPointer(this->getWindow(), this);
+	// Create callback to keyboard
 	glfwSetKeyCallback(this->getWindow(), key_callback);
+	// Create callback to cursor 
 	glfwSetCursorPosCallback(this->getWindow(), mouse_callback);
+	// Create callback to scroll
 	glfwSetScrollCallback(this->getWindow(), scroll_callback);
-	//Remove Null + remove comment to get fullscreen
+	// Remove cursor
 	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
@@ -42,60 +59,73 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 
 	// Define the viewport dimensions
 	int width, height;
+	// Retrieving window height/width
 	glfwGetFramebufferSize(this->getWindow(), &width, &height);
 	glViewport(0, 0, width, height);
 
+	// Enable 3D
 	glEnable(GL_DEPTH_TEST);
 
 	// Cull back faces
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	
 
+	/*
+		Several predefined spawn locations
+		Mainly used for Debugging purpose
+	*/
+
+	// Spawn Location
 	glm::vec3 Spawn(61,4,70);
+	// Lava Room
 	glm::vec3 Lava(103,4,85);
 
+	// Create player and set his position
 	mPlayer = new Player(Spawn, 0.5f, "Player", this->getHeight(), this->getWidth());
 }
 
 
-
+// Main Game Loop
 bool Game::gameLoop()
 {
-
+	// Create an instance of a new loader
 	Loader* loader = new Loader();
 
-	std::vector<std::string> BodenTexturePack;
-	std::vector<std::string> DeckenTexturePack;
+	// Create texturepacks:
 
+	// Floor texturepack
+	std::vector<std::string> BodenTexturePack;
 	BodenTexturePack.push_back("./terrain/res/texture/normal/stone.jpg");
 	BodenTexturePack.push_back("./terrain/res/texture/normal/gravel.jpg");
 	BodenTexturePack.push_back("./terrain/res/texture/normal/dirt.jpg");
 	BodenTexturePack.push_back("./terrain/res/texture/normal/mossystone.jpg");
 	BodenTexturePack.push_back("./terrain/res/texture/poly/blendBoden.png");
 
-
+	// Ceiling texturepack
+	std::vector<std::string> DeckenTexturePack;
 	DeckenTexturePack.push_back("./terrain/res/texture/normal/stone.jpg");
 	DeckenTexturePack.push_back("./terrain/res/texture/poly/red.jpg");
 	DeckenTexturePack.push_back("./terrain/res/texture/poly/cyan.jpg");
 	DeckenTexturePack.push_back("./terrain/res/texture/poly/purple.jpg");
 	DeckenTexturePack.push_back("./terrain/res/texture/poly/blendMapDecke.png");
 
+	// Create Floor terrain
 	Terrain Boden(0, 0, 0, 5, "Boden", loader, "./terrain/res/Boden.png",false, BodenTexturePack);
+	// Create Ceiling terrain
 	Terrain Decke(0, 0, -2.7f, 15, "Decke", loader, "./terrain/res/Decke.png",true, DeckenTexturePack);
 
+	// List of all terrains
 	std::list<Terrain> allTerrain;
-
+	// Insert all current terrains
 	allTerrain.push_back(Decke);
 	allTerrain.push_back(Boden);
 
+	// Create new instance of renderer
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
-
+	// Add terrain to render list
 	mRenderer->addToList(Boden);
 	mRenderer->addToList(Decke);
 	
-	
-
 	//**** LAKE STUFF ****
 	LakeFrameBuffers* lfbos = new LakeFrameBuffers(mWidth, mHeight);
 	LakeShader* lakeshader = new LakeShader("shaders/lake.vert", "shaders/lake.frag");
@@ -120,221 +150,207 @@ bool Game::gameLoop()
 	//**** END BLOOM STUFF ****
 
 	//**** LIGHT STUFF ****
-	//Light* sun = new Light(glm::vec3(250, 1, 250), glm::vec3(1, 1, 0), glm::vec3(1, 0.01, 0.002));
+	// Create new light sources
+
+	// Global Sun Light
 	Light* sun = new Light(glm::vec3(0, 5, 0), glm::vec3(0.2f, 0.2f, 0.2f));
-
-
-	vector<Light*> allLights;
-
+	// Torch light
 	Light* torch = new Light(mPlayer->getPosition(), glm::vec3(0.1f, 0.1f, 0.04f), glm::vec3(0.01f, 0.01f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
-	//allLights.push_back(torch);
+	// Light inside lava room
+	Light* LavaLight = new Light(glm::vec3(97.0f, 3.0f, 77.0f), glm::vec3(0.9f, 0.3f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
+	// Another light inside the lava room
+	Light* LavaLight2 = new Light(glm::vec3(101.0f, 3.0f, 70.0f), glm::vec3(0.6f, 0.3f, 0.0f), glm::vec3(0.005f, 0.005f, 0.005f), glm::vec3(0.0f, 0.0f, 0.5f), 0.5f, 0.3f);
+	// Light inside water room
+	Light* WaterLight = new Light(glm::vec3(52.0f, 10.0f, 33.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.01f, 0.01f, 0.01f), glm::vec3(0.5f, 0.1f, 0.4f), 1.0f, 1.0f);
 
-	// Blue
-	Light* LavaLight = new Light(glm::vec3(97.0f,3.0f,77.0f), glm::vec3(0.9f, 0.3f, 0.0f),glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
+	// Vector of all lights
+	vector<Light*> allLights;
+	// Add lights to the list of lights
 	allLights.push_back(LavaLight);
-	// Green
-	Light* LavaLight2 = new Light(glm::vec3(101.0f,3.0f,70.0f), glm::vec3(0.6f, 0.3f, 0.0f), glm::vec3(0.005f, 0.005f, 0.005f), glm::vec3(0.0f,0.0f,0.5f), 0.5f, 0.3f);
-	//allLights.push_back(LavaLight2);
-	// Red
-	Light* WaterLight = new Light(glm::vec3(52.0f,10.0f,33.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.01f, 0.01f, 0.01f), glm::vec3(0.5f, 0.1f, 0.4f), 1.0f, 1.0f);
+	allLights.push_back(LavaLight2);
 	allLights.push_back(WaterLight);
+	allLights.push_back(torch);
 
 	//**** GLOWSTOWNES ****
-	Object stone1("./object/res/rocks/rockModelA.obj", glm::vec3(52, Boden.getHeight(52,66) + 0.1f ,66), glm::vec3(0,0,0), 1);
-	stone1.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone1);
+
+	// All different glow stone models
+	std::vector<GLchar*> GlowStoneModels;
+	GlowStoneModels.push_back("./object/res/rocks/rockModelA.obj");
+	GlowStoneModels.push_back("./object/res/rocks/rockModelB.obj");
+	GlowStoneModels.push_back("./object/res/rocks/rockModelC.obj");
+	GlowStoneModels.push_back("./object/res/rocks/rockModelD.obj");
+	GlowStoneModels.push_back("./object/res/rocks/rockModelE.obj");
+
+	const char* textureRock = "./object/res/stone/texture.png";
+
+
+	// Saving all Glowstone Positions
+	std::vector<glm::vec3> GlowStonePosition;
+	GlowStonePosition.push_back(glm::vec3(52.0f, Boden.getHeight(52.0f, 66.0f) + 0.1f ,66.0f));
+	GlowStonePosition.push_back(glm::vec3(75.0f, Boden.getHeight(75.0f, 93.0f) + 0.1f, 93.0f));
+	GlowStonePosition.push_back(glm::vec3(58.0f, Boden.getHeight(58.0f, 88.0f) + 0.1f, 88.0f));
+	GlowStonePosition.push_back(glm::vec3(54.0f, Decke.getHeight(54.0f, 102.0f) - 0.1f, 102.0f));
+	GlowStonePosition.push_back(glm::vec3(61.0f, Boden.getHeight(61.0f, 120.0f) + 0.1f, 120.0f));
+	GlowStonePosition.push_back(glm::vec3(70.0f, Boden.getHeight(70.0f, 100.0f) + 0.1f, 100.0f));
+	GlowStonePosition.push_back(glm::vec3(85.0f, Decke.getHeight(85.0f, 111.0f) - 0.1f, 111.0f));
+	GlowStonePosition.push_back(glm::vec3(87.0f, Boden.getHeight(87.0f, 124.0f) + 0.1f, 124.0f));
+	GlowStonePosition.push_back(glm::vec3(106.0f, Boden.getHeight(106.0f, 91.0f) + 0.1f, 91.0f));
+	GlowStonePosition.push_back(glm::vec3(82.0f, Boden.getHeight(82.0f, 75.0f) + 0.1f, 75.0f));
+	GlowStonePosition.push_back(glm::vec3(91.0f, Boden.getHeight(91.0f, 59.0f) + 0.1f, 59.0f));
+	GlowStonePosition.push_back(glm::vec3(103.0f, Boden.getHeight(103.0f, 64.0f) + 0.1f, 64.0f));
+	GlowStonePosition.push_back(glm::vec3(86.0f, Decke.getHeight(86.0f, 39.0f) - 0.1f, 39.0f));
+	GlowStonePosition.push_back(glm::vec3(51.0f, Boden.getHeight(51.0f, 17.0f) + 0.1f, 17.0f));
+	GlowStonePosition.push_back(glm::vec3(44.0f, Boden.getHeight(44.0f, 49.0f) + 0.1f, 49.0f));
+	GlowStonePosition.push_back(glm::vec3(46.0f, Boden.getHeight(46.0f, 27.0f) + 0.1f, 27.0f));
+
+	// Random generating Glowstone Sizes
+	std::vector<GLfloat> GlowStoneSize;
+
+	// Allocate the memory in the vector
+	GlowStoneSize.reserve(13);
+
+	// Minimum size
+	GLfloat minStoneSize = 0.5f;
+	// Maximum size
+	GLfloat maxStoneSize = 1.0f;
+
+	for (unsigned int i = 0; i < GlowStonePosition.size(); ++i)
+	{
+		GlowStoneSize.push_back(minStoneSize + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (maxStoneSize - minStoneSize))));
+	}
+
+	// Generating all glowstones
+	std::vector<Object> GlowStones;
+
+	// Creating the glowstones
+	for (unsigned int i = 0; i < GlowStonePosition.size(); ++i)
+	{
+		int randomNumber = 0 + (rand() % (int)(4));
+		GlowStones.push_back(Object(GlowStoneModels.at(randomNumber), GlowStonePosition.at(i), glm::vec3(0.0f, 0.0f, 0.0f),GlowStoneSize.at(i)));
+	}
+
+	// Loading the textures
+	for (unsigned int j = 0; j < GlowStones.size(); ++j)
+	{
+		GlowStones.at(j).loadTexture(textureRock);
+	}
+
+	// Create lights inside the cube
 	Light* stone1L = new Light(glm::vec3(52, Boden.getHeight(52, 66) + 0.1f, 66), glm::vec3(0.4f, 0.4f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.3f, 0.5f);
-	allLights.push_back(stone1L);
-
-	Object stone2("./object/res/rocks/rockModelC.obj", glm::vec3(75, Boden.getHeight(75, 93) + 0.1f, 93), glm::vec3(0, 0, 0), 1);
-	stone2.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone2);
 	Light* stone2L = new Light(glm::vec3(75, Boden.getHeight(75, 93) + 0.1f, 93), glm::vec3(0.5f, 0.1f, 0.4f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.2f, 0.5f, 0.0f), 0.15f, 0.4f);
-	allLights.push_back(stone2L);
-
-	Object stone3("./object/res/rocks/rockModelE.obj", glm::vec3(58, Boden.getHeight(58, 88) + 0.1f, 88), glm::vec3(0, 0, 0), 1);
-	stone3.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone3);
 	Light* stone3L = new Light(glm::vec3(58, Boden.getHeight(58, 88) + 0.1f, 88), glm::vec3(0.0f, 0.0f, 0.6f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.0f, 0.2f, 0.5f), 0.31f, 0.5f);
-	allLights.push_back(stone3L);
-
-	Object stone4("./object/res/rocks/rockModelA.obj", glm::vec3(54, Decke.getHeight(54, 102) - 0.1f, 102), glm::vec3(0, 0, 0), 1);
-	stone4.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone4);
 	Light* stone4L = new Light(glm::vec3(54, Decke.getHeight(54, 102) - 0.1f, 102), glm::vec3(0.5f, 0.25f, 0.3f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.0f, 0.4f, 0.2f), 0.2f, 0.6f);
-	allLights.push_back(stone4L);
-
-	Object stone5("./object/res/rocks/rockModelA.obj", glm::vec3(61, Boden.getHeight(61, 120) + 0.1f, 120), glm::vec3(0, 0, 0), 1);
-	stone5.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone5);
 	Light* stone5L = new Light(glm::vec3(61, Boden.getHeight(61, 120) + 0.1f, 120), glm::vec3(0.6f, 0.0f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.6f, 0.4f, 0.1f), 0.5f, 0.6f);
-	allLights.push_back(stone5L);
-
-	Object stone6("./object/res/rocks/rockModelB.obj", glm::vec3(70, Boden.getHeight(70, 100) + 0.1f, 100), glm::vec3(0, 0, 0), 1);
-	stone6.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone6);
 	Light* stone6L = new Light(glm::vec3(70, Boden.getHeight(70, 100) + 0.1f, 100), glm::vec3(0.3f, 0.5f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.3f, 0.0f, 0.5f), 0.4f, 0.6f);
-	allLights.push_back(stone6L);
-
-	Object stone7("./object/res/rocks/rockModelD.obj", glm::vec3(85, Decke.getHeight(85, 111) - 0.1f, 111), glm::vec3(0, 0, 0), 1);
-	stone7.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone7);
 	Light* stone7L = new Light(glm::vec3(85, Decke.getHeight(85, 111) - 0.1f, 111), glm::vec3(0.5f, 0.25f, 0.1f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.0f, 0.4f, 0.4f), 0.1f, 0.55f);
-	allLights.push_back(stone7L);
-
-	/*Object stone8("./object/res/rocks/rockModelB.obj", glm::vec3(104, Boden.getHeight(104, 98) + 0.1f, 98), glm::vec3(0, 0, 0), 1);
-	stone8.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone8);
-	Light* stone8L = new Light(glm::vec3(104, Boden.getHeight(104, 98) + 0.1f, 98), glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
-	allLights.push_back(stone8L);*/
-
-	Object stone9("./object/res/rocks/rockModelC.obj", glm::vec3(87, Boden.getHeight(87, 124) + 0.1f, 124), glm::vec3(0, 0, 0), 1);
-	stone9.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone9);
 	Light* stone9L = new Light(glm::vec3(87, Boden.getHeight(87, 124) + 0.1f, 124), glm::vec3(0.5f, 0.25f, 0.3f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.0f, 0.4f), 0.52f, 0.5f);
-	allLights.push_back(stone9L);
-
-	Object stone10("./object/res/rocks/rockModelA.obj", glm::vec3(106, Boden.getHeight(106, 91) + 0.1f, 91), glm::vec3(0, 0, 0), 1);
-	stone10.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone10);
 	Light* stone10L = new Light(glm::vec3(106, Boden.getHeight(106, 91) + 0.1f, 91), glm::vec3(0.6f, 0.0f, 0.1f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.13f, 0.4f);
-	allLights.push_back(stone10L);
-
-	Object stone11("./object/res/rocks/rockModelE.obj", glm::vec3(82, Boden.getHeight(82, 75) + 0.1f, 75), glm::vec3(0, 0, 0), 1);
-	stone11.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone11);
 	Light* stone11L = new Light(glm::vec3(82, Boden.getHeight(82, 75) + 0.1f, 75), glm::vec3(0.7f, 0.3f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.0f, 0.2f, 0.5f), 0.41f, 0.2f);
-	allLights.push_back(stone11L);
-
-	Object stone12("./object/res/rocks/rockModelA.obj", glm::vec3(91, Boden.getHeight(91, 59) + 0.1f, 59), glm::vec3(0, 0, 0), 1);
-	stone12.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone12);
 	Light* stone12L = new Light(glm::vec3(91, Boden.getHeight(91, 59) + 0.1f, 59), glm::vec3(0.0f, 0.3f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.2f, 0.5f, 0.0f), 0.2f, 0.8f);
-	allLights.push_back(stone12L);
-
-	Object stone13("./object/res/rocks/rockModelC.obj", glm::vec3(103, Boden.getHeight(103, 64) + 0.1f, 64), glm::vec3(0, 0, 0), 1);
-	stone13.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone13);
 	Light* stone13L = new Light(glm::vec3(103, Boden.getHeight(103, 64) + 0.1f, 64), glm::vec3(0.5f, 0.0f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.1f, 0.4f), 0.4f, 0.5f);
-	allLights.push_back(stone13L);
-
-	Object stone14("./object/res/rocks/rockModelB.obj", glm::vec3(86, Decke.getHeight(86, 39) - 0.1f, 39), glm::vec3(0, 0, 0), 1);
-	stone14.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone14);
 	Light* stone14L = new Light(glm::vec3(86, Decke.getHeight(86, 39) - 0.1f, 39), glm::vec3(0.5f, 0.1f, 0.4f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.5f, 0.1f), 0.15f, 0.65f);
-	allLights.push_back(stone14L);
-
-	/*Object stone15("./object/res/rocks/rockModelD.obj", glm::vec3(60, Boden.getHeight(60, 15) + 0.1f, 15), glm::vec3(0, 0, 0), 1);
-	stone15.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone15);
-	Light* stone15L = new Light(glm::vec3(60, Boden.getHeight(60, 15) + 0.1f, 15), glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
-	allLights.push_back(stone15L);*/
-
-	Object stone16("./object/res/rocks/rockModelA.obj", glm::vec3(51, Boden.getHeight(51, 17) + 0.1f, 17), glm::vec3(0, 0, 0), 1);
-	stone16.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone16);
 	Light* stone16L = new Light(glm::vec3(51, Boden.getHeight(51, 17) + 0.1f, 17), glm::vec3(0.3f, 0.3f, 0.1f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.5f, 0.0f), 0.56f, 0.6f);
-	allLights.push_back(stone16L);
-
-	/*Object stone17("./object/res/rocks/rockModelE.obj", glm::vec3(21, Boden.getHeight(21, 34) + 0.1f, 34), glm::vec3(0, 0, 0), 1);
-	stone17.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone17);
-	Light* stone17L = new Light(glm::vec3(21, Boden.getHeight(21, 34) + 0.1f, 34), glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
-	allLights.push_back(stone17L);*/
-
-	Object stone18("./object/res/rocks/rockModelA.obj", glm::vec3(44, Boden.getHeight(44, 49) + 0.1f, 49), glm::vec3(0, 0, 0), 1);
-	stone18.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone18);
 	Light* stone18L = new Light(glm::vec3(44, Boden.getHeight(44, 49) + 0.1f, 49), glm::vec3(2.0, 0.0f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.0f, 3.0f, 0.0f), 0.6f, 0.4f);
-	allLights.push_back(stone18L);
-
-	Object stone19("./object/res/rocks/rockModelA.obj", glm::vec3(46, Boden.getHeight(46, 27) + 0.1f, 27), glm::vec3(0, 0, 0), 1);
-	stone19.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone19);
 	Light* stone19L = new Light(glm::vec3(46, Boden.getHeight(46, 27) + 0.1f, 27), glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(2.5f, 0.0f, 0.0f), 0.3f, 0.5f);
-	allLights.push_back(stone19L);
 
-	/*Object stone20("./object/res/rocks/rockModelC.obj", glm::vec3(50, Boden.getHeight(50, 37) + 0.1f, 37), glm::vec3(0, 0, 0), 1);
-	stone20.loadTexture("./object/res/stone/texture.png");
-	mRenderer->addToList(stone20);
-	Light* stone20L = new Light(glm::vec3(50, Boden.getHeight(50, 37) + 0.1f, 37), glm::vec3(2.0f, 2.0f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.5f, 0.2f, 0.0f), 0.1f, 0.5f);
-	allLights.push_back(stone20L);*/
+	// Add Stone to render list
+	for (unsigned int h = 0; h < GlowStones.size(); ++h)
+	{
+		mRenderer->addToList(GlowStones.at(h));
+	}
+
+	// Add Lights to light list
+	allLights.push_back(stone1L);
+	allLights.push_back(stone2L);
+	allLights.push_back(stone3L);
+	allLights.push_back(stone4L);
+	allLights.push_back(stone5L);
+	allLights.push_back(stone6L);
+	allLights.push_back(stone7L);
+	allLights.push_back(stone9L);
+	allLights.push_back(stone10L);
+	allLights.push_back(stone11L);
+	allLights.push_back(stone12L);
+	allLights.push_back(stone13L);
+	allLights.push_back(stone14L);
+	allLights.push_back(stone16L);
+	allLights.push_back(stone18L);
+	allLights.push_back(stone19L);
 
 	//**** END GLOWSTONES ****
 
 	//**** WATER DROPS ****
 
+	// Random generating Waterdrop Size and Speed
 	std::vector<GLfloat> WaterDropSize;
 	std::vector<GLfloat> WaterDropSpeed;
 
+	// Allocate the memory in the vector
 	WaterDropSize.reserve(13);
 	WaterDropSpeed.reserve(13);
 
-	GLfloat minSize = 0.06f;
-	GLfloat maxSize = 0.3f;
+	// Minimum size
+	GLfloat minWaterdropSize = 0.06f;
+	// Maximum size
+	GLfloat maxWaterdropSize = 0.3f;
+	// Minimum speed
+	GLfloat minWaterdropSpeed = 0.03f;
+	// Maximum speed
+	GLfloat maxWaterdropSpeed = 0.06f;
 
-	GLfloat minSpeed = 0.03f;
-	GLfloat maxSpeed = 0.06f;
-
+	// Creating the 
 	for (unsigned int i = 0; i < 13; ++i)
 	{
-		WaterDropSize.push_back(minSize + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (maxSize - minSize))));
+		WaterDropSize.push_back(minWaterdropSize + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (maxWaterdropSize - minWaterdropSize))));
 	}
 
 	for (unsigned int i = 0; i < 13; ++i)
 	{
-		WaterDropSpeed.push_back(minSpeed + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (maxSpeed - minSpeed))));
+		WaterDropSpeed.push_back(minWaterdropSpeed + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (maxWaterdropSpeed - minWaterdropSpeed))));
 	}
-	
-	Waterdrop WaterDrop1("./waterdrop/res/raindrop.obj", glm::vec3(54, Decke.getHeight(54, 34) + 0.09f, 34), glm::vec3(0, 0, 0), WaterDropSize.at(0), WaterDropSpeed.at(0));
-	Waterdrop WaterDrop2("./waterdrop/res/raindrop.obj", glm::vec3(55, Decke.getHeight(55, 33) + 0.09f, 33), glm::vec3(0, 0, 0), WaterDropSize.at(1), WaterDropSpeed.at(1));
-	Waterdrop WaterDrop3("./waterdrop/res/raindrop.obj", glm::vec3(53, Decke.getHeight(53, 34) + 0.09f, 34), glm::vec3(0, 0, 0), WaterDropSize.at(2), WaterDropSpeed.at(2));
-	Waterdrop WaterDrop4("./waterdrop/res/raindrop.obj", glm::vec3(56.5f, Decke.getHeight(56.5f, 54.0f), 54.0f), glm::vec3(0, 0, 0), WaterDropSize.at(3), WaterDropSpeed.at(3));
-	Waterdrop WaterDrop5("./waterdrop/res/raindrop.obj", glm::vec3(47.0f, Decke.getHeight(47.0f, 32.0f), 32.0f), glm::vec3(0, 0, 0), WaterDropSize.at(4), WaterDropSpeed.at(4));
-	Waterdrop WaterDrop6("./waterdrop/res/raindrop.obj", glm::vec3(56.0f, Decke.getHeight(56.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), WaterDropSize.at(5), WaterDropSpeed.at(5));
-	Waterdrop WaterDrop7("./waterdrop/res/raindrop.obj", glm::vec3(55.0f, Decke.getHeight(55.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), WaterDropSize.at(6), WaterDropSpeed.at(6));
-	Waterdrop WaterDrop8("./waterdrop/res/raindrop.obj", glm::vec3(54.0f, Decke.getHeight(54.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), WaterDropSize.at(7), WaterDropSpeed.at(7));
-	Waterdrop WaterDrop9("./waterdrop/res/raindrop.obj", glm::vec3(53.0f, Decke.getHeight(53.0f, 33.0f), 33.0f), glm::vec3(0, 0, 0), WaterDropSize.at(8), WaterDropSpeed.at(8));
-	Waterdrop WaterDrop10("./waterdrop/res/raindrop.obj", glm::vec3(40.0f, Decke.getHeight(44.0f, 35.0f), 34.0f), glm::vec3(0, 0, 0), WaterDropSize.at(9), WaterDropSpeed.at(9));
-	Waterdrop WaterDrop11("./waterdrop/res/raindrop.obj", glm::vec3(41.0f, Decke.getHeight(44.0f, 35.0f), 36.0f), glm::vec3(0, 0, 0), WaterDropSize.at(10), WaterDropSpeed.at(10));
-	Waterdrop WaterDrop12("./waterdrop/res/raindrop.obj", glm::vec3(44.0f, Decke.getHeight(44.0f, 37.0f), 37.0f), glm::vec3(0, 0, 0), WaterDropSize.at(11), WaterDropSpeed.at(11));
 
+	std::vector<Waterdrop> ListOfAllWaterdrops;
 
-	WaterDrop1.loadTexture("./waterdrop/res/water.png");
-	WaterDrop2.loadTexture("./waterdrop/res/water.png");
-	WaterDrop3.loadTexture("./waterdrop/res/water.png");
-	WaterDrop4.loadTexture("./waterdrop/res/water.png");
-	WaterDrop5.loadTexture("./waterdrop/res/water.png");
-	WaterDrop6.loadTexture("./waterdrop/res/water.png");
-	WaterDrop7.loadTexture("./waterdrop/res/water.png");
-	WaterDrop8.loadTexture("./waterdrop/res/water.png");
-	WaterDrop9.loadTexture("./waterdrop/res/water.png");
-	WaterDrop10.loadTexture("./waterdrop/res/water.png");
-	WaterDrop11.loadTexture("./waterdrop/res/water.png");
-	WaterDrop12.loadTexture("./waterdrop/res/water.png");
+	GLchar* filePath = "./waterdrop/res/raindrop.obj";
+	const char* texturePath = "./waterdrop/res/water.png";
 
-	mRenderer->addToList(WaterDrop1);
-	mRenderer->addToList(WaterDrop2);
-	mRenderer->addToList(WaterDrop3);
-	mRenderer->addToList(WaterDrop4);
-	mRenderer->addToList(WaterDrop5);
-	mRenderer->addToList(WaterDrop6);
-	mRenderer->addToList(WaterDrop7);
-	mRenderer->addToList(WaterDrop8);
-	mRenderer->addToList(WaterDrop9);
-	mRenderer->addToList(WaterDrop10);
-	mRenderer->addToList(WaterDrop11);
-	mRenderer->addToList(WaterDrop12);
+	std::vector<glm::vec3> ListOfWaterDropPosition;
 
+	ListOfWaterDropPosition.push_back(glm::vec3(54.0f, Decke.getHeight(54.0f, 34.0f) + 0.09f, 34.0f));
+	ListOfWaterDropPosition.push_back(glm::vec3(55.0f, Decke.getHeight(55.0f, 33.0f) + 0.09f, 33.0f));
+	ListOfWaterDropPosition.push_back(glm::vec3(53.0f, Decke.getHeight(53.0f, 34.0f) + 0.09f, 34.0f));
+	ListOfWaterDropPosition.push_back(glm::vec3(56.5f, Decke.getHeight(56.5f, 54.0f), 54.0f));
+	ListOfWaterDropPosition.push_back(glm::vec3(47.0f, Decke.getHeight(47.0f, 32.0f), 32.0f));
+	ListOfWaterDropPosition.push_back(glm::vec3(56.0f, Decke.getHeight(56.0f, 33.0f), 33.0f));
+	ListOfWaterDropPosition.push_back(glm::vec3(55.0f, Decke.getHeight(55.0f, 33.0f), 33.0f));
+	ListOfWaterDropPosition.push_back(glm::vec3(54.0f, Decke.getHeight(54.0f, 33.0f), 33.0f));
+	ListOfWaterDropPosition.push_back(glm::vec3(53.0f, Decke.getHeight(53.0f, 33.0f), 33.0f));
+	ListOfWaterDropPosition.push_back(glm::vec3(40.0f, Decke.getHeight(44.0f, 35.0f), 34.0f));
+	ListOfWaterDropPosition.push_back(glm::vec3(41.0f, Decke.getHeight(44.0f, 35.0f), 36.0f));
+	ListOfWaterDropPosition.push_back(glm::vec3(44.0f, Decke.getHeight(44.0f, 37.0f), 37.0f));
 
+	// Create Waterdrop objects
+	for (unsigned int counter = 0; counter < ListOfWaterDropPosition.size(); ++counter)
+	{
+		ListOfAllWaterdrops.push_back(Waterdrop(filePath, ListOfWaterDropPosition.at(counter), glm::vec3(0.0f, 0.0f, 0.0f), WaterDropSize.at(counter), WaterDropSpeed.at(counter)));
+	}
 
-		//**** END WATER DROPS
+	// Load textures
+	for (unsigned int i = 0; i < ListOfWaterDropPosition.size(); ++i)
+	{
+		ListOfAllWaterdrops.at(i).loadTexture(texturePath);
+	}
+
+	// Add to render list
+	for (unsigned int j = 0; j < ListOfWaterDropPosition.size(); ++j)
+	{
+		mRenderer->addToList(ListOfAllWaterdrops.at(j));
+	}
+	//**** END WATER DROPS
 
 	//**** TORCH STUFF
-
-	Torch* cTorch = new Torch("./torch/res/torch2.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 0.3f);
+	Torch* cTorch = new Torch("./torch/res/torch3.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 0.3f);
 	cTorch->loadTexture("./torch/res/wood.png");
-
 	mRenderer->addToList(cTorch);
 
 	//**** END TORCH STUFF
@@ -350,48 +366,12 @@ bool Game::gameLoop()
 	lakerenderer->stopShader();
 	//**** END LIGHT STUFF ****
 
-	
-	/*
-	//**** SHADOW STUFF ****
-	ShadowShader *shadowshader = new ShadowShader("shaders/shadow.vert", "shaders/shadow.frag", "shaders/shadow.gs");
-	ShadowFrameBuffer *shadowFBO = new ShadowFrameBuffer(mWidth, mHeight);
-
-	Light* LavaLight2 = new Light(glm::vec3(20.0f, 0.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.0f), glm::vec3(0.001f, 0.001f, 0.01f), glm::vec3(0.1f, 0.4f, 0.0f), 0.1f, 0.5f);
-	lights.push_back(LavaLight2);
-
-	//test shadow with one light and one terrain
-	shadowFBO->bindShadowFrameBuffer();
-	// need to clear for every light
-	shadowshader->use();
-	// maybe change!
-	shadowshader->loadFarplane(25.0f);
-
-	// load light source
-	shadowshader->loadModelMatrix(Decke.getModelMatrix());
-	shadowshader->loadShadowMatrices(shadowFBO->getShadowTransforms(LavaLight2->getPosition()));
-
-	// render scene to shadow map
-	mRenderer->renderSceneForDepthCubeMap(shadowshader);
-
-	// save depth cubemap in light
-	LavaLight2->setDepthCubemap(shadowFBO->getDepthCubemap());
-	cout << LavaLight2->getDepthCubemap() << " is the id of the DepthCubeMap" << endl;
-	
-
-	shadowshader->unuse();
-	shadowFBO->unbindShadowFrameBuffer();
-
-	//**** END SHADOW STUFF ****
-	*/
+	//**** GAME MUSIC
 	SoundEngine = irrklang::createIrrKlangDevice();
-
 	SoundEngine->play2D("audio/MainTheme.mp3", GL_TRUE);
-
-
 	SoundEngine->setSoundVolume(0.1f);
+	//**** END MUSIC
 
-
-	/*TEST*/
 	GLfloat lastTime = (GLfloat) glfwGetTime();
 
 	int frames = 0;
@@ -401,8 +381,6 @@ bool Game::gameLoop()
 	// Game loop
 	while (!glfwWindowShouldClose(this->getWindow()))
 	{
-	
-		
 		// Calculate deltatime of current frame
 		GLfloat currentFrame = (GLfloat)glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
@@ -410,28 +388,14 @@ bool Game::gameLoop()
 
 		frames++;
 
+		// FPS Counter
 		if (currentFrame - lastTime >= 1.0)
 		{
-			// float fps = 1000.0f / (float)frames;
 			mRenderer->setFPS(frames);
 			frames = 0;
 			lastTime += 1.0f;
-
 		}
-		
-		timeElapsed += deltaTime * 10;
 
-		if (timeElapsed > 10.0f)
-		{
-			lake->createDistortion(54.0f, 33.0f);
-			lake->createDistortion(40.0f, 38.0f);
-			timeElapsed = 0.0f;
-		}
-		
-
-	
-
-		
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
 
