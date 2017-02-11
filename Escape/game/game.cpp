@@ -347,13 +347,6 @@ bool Game::gameLoop()
 		mRenderer->addToList(ListOfAllWaterdrops.at(j));
 	}
 	//**** END WATER DROPS
-
-	//**** TORCH STUFF
-	Torch* cTorch = new Torch("./torch/res/torch3.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 0.3f);
-	cTorch->loadTexture("./torch/res/wood.png");
-	mRenderer->addToList(cTorch);
-
-	//**** END TORCH STUFF
  
 	vector<Light*> lights;
 
@@ -566,19 +559,6 @@ bool Game::gameLoop()
 	
 		glDisable(GL_CLIP_DISTANCE0);
 		lfbos->unbindCurrentFrameBuffer();
-
-
-
-
-		/*
-		mRenderer->render(mPlayer->getViewMatrix(), 0.0f, lights, glm::vec4(0, 1, 0, 100000), Game::RED, Game::GREEN, Game::BLUE, discoTime);
-		mRenderer->renderDebugInformation();
-		// render water
-		lake->updateHeights(deltaTime);
-		lakerenderer->render(deltaTime, mPlayer->getViewMatrix(), *lake, lights, Game::RED, Game::GREEN, Game::BLUE, discoTime);
-		// render lava
-		lavarenderer->render(deltaTime, mPlayer->getViewMatrix(), *lava, lights, Game::RED, Game::GREEN, Game::BLUE, discoTime);
-		*/
 
 		//render to prebloomfbo
 		prebloomfbo->bind();

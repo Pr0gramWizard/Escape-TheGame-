@@ -40,9 +40,6 @@
     <Filter Include="Renderer\Main">
       <UniqueIdentifier>{6ba03f15-5dfc-4db2-b87c-0e12f33542d6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Model\Old">
-      <UniqueIdentifier>{dd3a3703-6523-47f0-8c2e-b79053239360}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Model\New">
       <UniqueIdentifier>{443ee3fa-3b4a-4c0b-ba61-c3657beb3286}</UniqueIdentifier>
     </Filter>
@@ -73,12 +70,6 @@
     <Filter Include="Player">
       <UniqueIdentifier>{0fdf705e-97bb-4f86-ab38-e9ea85e650ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Texture">
-      <UniqueIdentifier>{f1b4f8e2-f374-41af-819c-3950a0c139f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Texture\PNG">
-      <UniqueIdentifier>{75d50616-7f34-4aec-8dba-723c3ed9154e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shader\Fragment">
       <UniqueIdentifier>{96570648-0421-429d-a13f-a53e00ba1d9e}</UniqueIdentifier>
     </Filter>
@@ -99,15 +90,6 @@
     </Filter>
     <Filter Include="Object\renderer">
       <UniqueIdentifier>{17cb4392-a8c1-472e-8565-079d7ae9e735}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Skybox">
-      <UniqueIdentifier>{8cd8864c-eb99-45e0-afee-bc15dd6fcfec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Skybox\shader">
-      <UniqueIdentifier>{bb04ac1d-9e78-441c-bf5b-e5ca771c1f68}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Skybox\renderer">
-      <UniqueIdentifier>{8766d80f-4b8c-49e4-af01-fa113074b1ec}</UniqueIdentifier>
     </Filter>
     <Filter Include="Text">
       <UniqueIdentifier>{c17aae93-2475-4d14-a814-937d6cec84b5}</UniqueIdentifier>
@@ -138,12 +120,6 @@
     </Filter>
     <Filter Include="Lava\shader">
       <UniqueIdentifier>{d4f3bc75-33f9-497c-8a2d-ea05e84b861d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shadow">
-      <UniqueIdentifier>{83614ea4-8793-4898-b993-8963f3d926a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shadow\shader">
-      <UniqueIdentifier>{f858da82-c9ae-4f83-9007-7ac00d9140cd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Shader\Particle">
       <UniqueIdentifier>{ba08f5b9-4321-4c64-8f20-cb9c2020f3c8}</UniqueIdentifier>
@@ -225,9 +201,6 @@
     <ClCompile Include="player\player.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="textures\texture.cpp">
-      <Filter>Texture</Filter>
-    </ClCompile>
     <ClCompile Include="lake\fbo\lakeFrameBuffers.cpp">
       <Filter>Lake\fbo</Filter>
     </ClCompile>
@@ -242,15 +215,6 @@
     </ClCompile>
     <ClCompile Include="object\renderer\objectrenderer.cpp">
       <Filter>Object\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="skybox\skybox.cpp">
-      <Filter>Skybox</Filter>
-    </ClCompile>
-    <ClCompile Include="skybox\shader\skyboxshader.cpp">
-      <Filter>Skybox\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="skybox\renderer\skyboxrenderer.cpp">
-      <Filter>Skybox\renderer</Filter>
     </ClCompile>
     <ClCompile Include="text\TextRenderer.cpp">
       <Filter>Text</Filter>
@@ -281,12 +245,6 @@
     </ClCompile>
     <ClCompile Include="lava\lava.cpp">
       <Filter>Lava</Filter>
-    </ClCompile>
-    <ClCompile Include="shadow\shadowfbo.cpp">
-      <Filter>Shadow</Filter>
-    </ClCompile>
-    <ClCompile Include="shadow\shader\shadoshader.cpp">
-      <Filter>Shadow\shader</Filter>
     </ClCompile>
     <ClCompile Include="waterdrop\waterdrop.cpp">
       <Filter>WaterDrop</Filter>
@@ -362,9 +320,6 @@
     <ClInclude Include="player\player.hpp">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="textures\texture.hpp">
-      <Filter>Texture</Filter>
-    </ClInclude>
     <ClInclude Include="lake\fbo\lakeFrameBuffers.hpp">
       <Filter>Lake\fbo</Filter>
     </ClInclude>
@@ -379,15 +334,6 @@
     </ClInclude>
     <ClInclude Include="object\renderer\objectrenderer.hpp">
       <Filter>Object\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="skybox\skybox.hpp">
-      <Filter>Skybox</Filter>
-    </ClInclude>
-    <ClInclude Include="skybox\shader\skyboxshader.hpp">
-      <Filter>Skybox\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="skybox\renderer\skyboxrenderer.hpp">
-      <Filter>Skybox\renderer</Filter>
     </ClInclude>
     <ClInclude Include="text\TextRenderer.hpp">
       <Filter>Text</Filter>
@@ -418,12 +364,6 @@
     </ClInclude>
     <ClInclude Include="lava\lava.hpp">
       <Filter>Lava</Filter>
-    </ClInclude>
-    <ClInclude Include="shadow\shadowfbo.hpp">
-      <Filter>Shadow</Filter>
-    </ClInclude>
-    <ClInclude Include="shadow\shader\shadowshader.hpp">
-      <Filter>Shadow\shader</Filter>
     </ClInclude>
     <ClInclude Include="waterdrop\waterdrop.hpp">
       <Filter>WaterDrop</Filter>
@@ -577,25 +517,5 @@
     <None Include="shaders\particle\particles_update.vert">
       <Filter>Shader\Particle</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="textures\res\blacktest.png">
-      <Filter>Texture\PNG</Filter>
-    </Image>
-    <Image Include="textures\res\bluetest.png">
-      <Filter>Texture\PNG</Filter>
-    </Image>
-    <Image Include="textures\res\greentest.png">
-      <Filter>Texture\PNG</Filter>
-    </Image>
-    <Image Include="textures\res\heightmap.png">
-      <Filter>Texture\PNG</Filter>
-    </Image>
-    <Image Include="textures\res\redtest.png">
-      <Filter>Texture\PNG</Filter>
-    </Image>
-    <Image Include="textures\res\whitetest.png">
-      <Filter>Texture\PNG</Filter>
-    </Image>
   </ItemGroup>
 </Project>

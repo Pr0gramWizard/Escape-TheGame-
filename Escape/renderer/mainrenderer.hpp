@@ -13,11 +13,6 @@
 #include "../lake/lake.hpp"
 #include "../lake/renderer/lakeRenderer.hpp"
 
-// skybox
-#include "../skybox/skybox.hpp"
-#include "../skybox/renderer/skyboxrenderer.hpp"
-#include "../skybox/shader/skyboxshader.hpp"
-
 // Text Rendering
 #include "../text/TextRenderer.hpp"
 #include "../text/shader/textshader.hpp"
@@ -49,9 +44,6 @@
 // matrix
 #include <mat4x4.hpp>
 
-// shadow
-#include "../shadow/shader/shadowshader.hpp"
-
 // list
 #include <list>
 
@@ -64,12 +56,9 @@ public:
 	// adds entities or terrains to render list
 	void addToList(Entity &pEntity);
 	void addToList(Terrain &pTerrain);
-	void addToList(Terrain* pTerrain);
 	void addToList(Entity &pEntity, RenderMode pMode);
-	void addToList(Skybox* Skybox);
 	void addToList(Object& pObject);
 	void addToList(Waterdrop& pWaterdrop);
-	void addToList(Torch* pTorch);
 
 	void setDrawMode(bool pMode);
 	bool getDrawMode() const;
@@ -87,22 +76,10 @@ public:
 	void renderDebugInformation();
 	void clearLists();
 
-	void renderSceneForDepthCubeMap(ShadowShader *shadowshader);
-
 	// Set FPS
 	void setFPS(int pFPS);
 
-	// cleans up when closing the game
-	void cleanUp();
 
-	EntityRenderer* mEntityRenderer;
-	TerrainRenderer* mTerrainRenderer;
-	TerrainRenderer* mNormalRenderer;
-	SkyboxRenderer* mSkyboxRenderer;
-	TextRenderer* mTextRenderer;
-	ObjectRenderer* mObjectRenderer;
-	WaterdropRenderer* mWaterRenderer;
-	TorchRenderer* mTorchRenderer;
 
 public:
 	static const char* ENTITY_VERTEX;
@@ -120,23 +97,45 @@ public:
 	static const char* TERRAIN_NORMAL_GEOMETRY;
 
 private:
+	// Renderer
+	// Entity
+	EntityRenderer* mEntityRenderer;
+	// Terrain
+	TerrainRenderer* mTerrainRenderer;
+	// Terrain + Normal Vector
+	TerrainRenderer* mNormalRenderer;
+	// Text 
+	TextRenderer* mTextRenderer;
+	// Object 
+	ObjectRenderer* mObjectRenderer;
+	// Waterdrop
+	WaterdropRenderer* mWaterRenderer;
+	// Torch
+	TorchRenderer* mTorchRenderer;
+
+
+	// Pointer to Player
 	Player* mPlayer;
-	Skybox* mSkybox;
 
-	Torch* mTorch;
-
+	// List of all important stuff
+	// Entity
 	list<Entity> mEntities;
+	// Spectial Entity
 	list<Entity> mSpecial;
+	// Rendermodes
 	list<RenderMode> mRenderMode;
+	// Terrain
 	list<Terrain> mTerrains;
-	list<Terrain*> mTerrainsP;
+	// Objects
 	list<Object> mObjects;
+	// Waterdrops
 	list<Waterdrop> mWaterDrop;
 
+	// Debug Modes
 	bool drawMode;
 	bool debugMode;
 	bool normalMode;
-
+	// FPS
 	int mFPS;
 };
 

@@ -48,15 +48,9 @@
     <ClCompile Include="object\shader\objectshader.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="renderer\mainrenderer.cpp" />
-    <ClCompile Include="shadow\shader\shadoshader.cpp" />
-    <ClCompile Include="shadow\shadowfbo.cpp" />
-    <ClCompile Include="skybox\renderer\skyboxrenderer.cpp" />
-    <ClCompile Include="skybox\shader\skyboxshader.cpp" />
-    <ClCompile Include="skybox\skybox.cpp" />
     <ClCompile Include="terrain\renderer\terrainRenderer.cpp" />
     <ClCompile Include="terrain\shader\terrainshader.cpp" />
     <ClCompile Include="terrain\terrain.cpp" />
-    <ClCompile Include="textures\texture.cpp" />
     <ClCompile Include="text\shader\textshader.cpp" />
     <ClCompile Include="text\TextRenderer.cpp" />
     <ClCompile Include="torch\renderer\torchrenderer.cpp" />
@@ -95,15 +89,9 @@
     <ClInclude Include="object\shader\objectshader.hpp" />
     <ClInclude Include="player\player.hpp" />
     <ClInclude Include="renderer\mainrenderer.hpp" />
-    <ClInclude Include="shadow\shader\shadowshader.hpp" />
-    <ClInclude Include="shadow\shadowfbo.hpp" />
-    <ClInclude Include="skybox\renderer\skyboxrenderer.hpp" />
-    <ClInclude Include="skybox\shader\skyboxshader.hpp" />
-    <ClInclude Include="skybox\skybox.hpp" />
     <ClInclude Include="terrain\renderer\terrainRenderer.hpp" />
     <ClInclude Include="terrain\shader\terrainshader.hpp" />
     <ClInclude Include="terrain\terrain.hpp" />
-    <ClInclude Include="textures\texture.hpp" />
     <ClInclude Include="text\shader\textshader.hpp" />
     <ClInclude Include="text\TextRenderer.hpp" />
     <ClInclude Include="torch\renderer\torchrenderer.hpp" />
@@ -158,14 +146,6 @@
     <None Include="shaders\worldShader.vert" />
     <None Include="shaders\triangleShader.frag" />
     <None Include="shaders\triangleShader.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="textures\res\blacktest.png" />
-    <Image Include="textures\res\bluetest.png" />
-    <Image Include="textures\res\greentest.png" />
-    <Image Include="textures\res\heightmap.png" />
-    <Image Include="textures\res\redtest.png" />
-    <Image Include="textures\res\whitetest.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8DE4231C-F8DD-4A3A-ADC9-9BB74012A2FB}</ProjectGuid>
