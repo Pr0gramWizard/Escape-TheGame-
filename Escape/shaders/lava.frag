@@ -29,8 +29,8 @@ void main()
 {
 	vec3 toCameraVector = viewPos - fragPos;
 
-	vec2 distortedTexCoords = texture(dudvMap, vec2(textureCoords.x + lavaMoveFactor, textureCoords.y)).rg*0.1;
-	distortedTexCoords = textureCoords + vec2(distortedTexCoords.x, distortedTexCoords.y + lavaMoveFactor);
+	vec2 distortedTexCoords = texture(dudvMap, vec2(textureCoords.x + lavaMoveFactor + 0.5, textureCoords.y)).rg*0.1;
+	distortedTexCoords = textureCoords + vec2(distortedTexCoords.x, distortedTexCoords.y + lavaMoveFactor - 0.5);
 	vec2 totalDistortion = (texture(dudvMap, distortedTexCoords).rg * 2.0 - 1.0) * waveStrength;
 
 	vec3 viewVector = normalize(toCameraVector);

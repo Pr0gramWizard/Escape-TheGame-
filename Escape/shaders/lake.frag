@@ -50,8 +50,8 @@ void main()
 	float lakeDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
 	float lakeDepth = floorDistance - lakeDistance;
 
-	vec2 distortedTexCoords = texture(dudvMap, vec2(textureCoords.x + waterMoveFactor, textureCoords.y)).rg*0.1;
-	distortedTexCoords = textureCoords + vec2(distortedTexCoords.x, distortedTexCoords.y + waterMoveFactor);
+	vec2 distortedTexCoords = texture(dudvMap, vec2(textureCoords.x + waterMoveFactor + 0.1, textureCoords.y)).rg*0.1;
+	distortedTexCoords = textureCoords + vec2(distortedTexCoords.x, distortedTexCoords.y + waterMoveFactor - 0.1);
 	vec2 totalDistortion = (texture(dudvMap, distortedTexCoords).rg * 2.0 - 1.0) * waveStrength * clamp(lakeDepth/8.0, 0.0, 1.0);
 
 	reflectionTexCoords += totalDistortion;
