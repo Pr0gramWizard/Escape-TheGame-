@@ -31,10 +31,9 @@ class Player {
 // Some static player settings
 public:
 	static const GLfloat MOVESPEED;
-	static const GLfloat GRAVITY;
 	static const GLfloat JUMPPOWER;
-	static const GLfloat JUMP_COOLDOWN;
-	static const GLfloat STRAFE_ANGLE;
+	static const GLfloat JUMPCOOLDOWN;
+	static const GLfloat STRAFEANGLE;
 	static const GLfloat Player::ANGLE_CLIMB;
 		
 // All public functions
@@ -74,6 +73,7 @@ public:
 	void setSprint(bool pSprint);
 	void setIsBelowLake(bool pIsBelowLake);
 	void setIsBurning(bool pIsBurning);
+	void setIsFlying(bool pIsFlying);
 
 	// Getter Functions
 	glm::vec3 getPosition() const;
@@ -91,8 +91,18 @@ public:
 	bool getJumping() const;
 	bool isBelowLake() const;
 	bool isBurning() const;
+	bool isFlying() const;
 	glm::vec3 getCameraPosition() const;
 	Camera* getCamera();
+
+	GLfloat getGravity() const;
+	GLfloat getJumpPower() const;
+	GLfloat getJumpCooldown() const;
+	GLfloat getClimbAngle() const;
+	void setGravity(GLfloat pGravity);
+	void setJumpPower(GLfloat pJumpPower);
+	void setJumpCooldown(GLfloat pJumpCooldown);
+	void setClimbAngle(GLfloat pClimbAngle);
 
 	// Important World Settings
 	glm::mat4 getViewMatrix() const;
@@ -138,8 +148,14 @@ private:
 	bool mIsBurning;
 	// Player Sound (Used for walking)
 	irrklang::ISoundEngine* WalkSound;
-	// Cooldown for jumping
-	float mJumpCooldown;
+	// Player flying
+	bool mIsFlying;
+
+	// Defintion of the global player constants
+	GLfloat mGravity;
+	GLfloat mJumpPower;
+	GLfloat mJumpCooldown;
+	GLfloat mClimbAngle;
 
 // All private functions of the class
 private:

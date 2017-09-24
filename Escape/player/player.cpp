@@ -1,13 +1,10 @@
 // Inclusion of the declaration of the class
 #include "player.hpp"
 
-// Defintion of the global player constants
-const GLfloat Player::MOVESPEED = 8;
-const GLfloat Player::GRAVITY = -40;
-const GLfloat Player::JUMPPOWER = 9.0f;
-const GLfloat Player::JUMP_COOLDOWN = 0.7f;
-const GLfloat Player::STRAFE_ANGLE = 90;
-const GLfloat Player::ANGLE_CLIMB = 0.65f;
+
+const GLfloat Player::MOVESPEED = 5.0f;
+const GLfloat Player::STRAFEANGLE = 45.0f;
+const GLfloat Player::JUMPCOOLDOWN = 0.5f;
 
 // Default Constructor
 Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWindowHeight, int pWindowWidth)
@@ -24,6 +21,13 @@ Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWi
 	this->setWindowWidth(pWindowWidth);
 	this->setIsBelowLake(false);
 	this->setIsBurning(false);
+	this->setGravity(-30.0f);
+	this->setJumpPower(6.0f);
+	this->setJumpCooldown(0.4f);
+	this->setStrafeAngle(45.0f);
+	this->setClimbAngle(0.65f);
+	this->setIsFlying(false);
+
 	// Creating new instance of the camera class
 	mEye = new Camera();
 	this->setYRotation(mEye->getYaw() - 90.0f);
@@ -61,6 +65,7 @@ void Player::playWalkingSound(int StepNumber)
 // Function to move the player	
 void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta, bool pWallCollision)
 {
+
 	
 	// Handle jump cooldown
 	this->mJumpCooldown -= pDelta;
@@ -75,34 +80,6 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta, bool pWallColl
 	// The length (in units) the player is moving
 	float dPos = mMovementSpeed * pDelta;
 
-
-	// Plays walking sound if the player ist walking/not jumping/not underwater
-	if (dPos != 0 && !mJumping && !isBelowLake()) {
-		if (!WalkSound->isCurrentlyPlaying("audio/walking/step1.wav") && !WalkSound->isCurrentlyPlaying("audio/walking/step2.wav") && !WalkSound->isCurrentlyPlaying("audio/walking/step3.wav") && !WalkSound->isCurrentlyPlaying("audio/walking/step4.wav")) {
-			// Random seed
-			std::random_device rd;
-			// Initialize Mersenne Twister pseudo-random number generator
-			std::mt19937 gen(rd());
-			// Generate pseudo-random numbers
-			// uniformly distributed in range (1, 4)
-			std::uniform_int_distribution<> dis(1, 4);
-			int randomX = dis(gen);
-			// Play random walk sound
-			playWalkingSound(randomX);
-		}
-	}
-	// If the player is underwater we play the underwater sounds
-	else if(isBelowLake()) {
-		if (!WalkSound->isCurrentlyPlaying("audio/underwater.mp3")) {
-			WalkSound->play2D("audio/underwater.mp3", GL_FALSE);
-		}
-	}
-	// If the player stands still we stop all sounds
-	else
-	{
-		WalkSound->stopAllSounds();
-	}
-
 	// The Length the player is going in X direction
 	float dx = dPos * sin(Math::toRadians(yRotation + this->getStrafeAngle()));
 	// The Length the player is going in Z direction
@@ -116,43 +93,6 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta, bool pWallColl
 	// tune this to "fudge" the "push away" from the wall
 	float bounceFudge = 1.01f;
 
-	// ceiling collision
-	float ceilingheight = pCeiling->getHeight(mEye->getPosition().x, mEye->getPosition().z);
-	float heightOffset = 0.4f;
-	float headPosition = this->getPosition().y + this->getHeight() + heightOffset;
-	float distance = ceilingheight - headPosition;
-
-	if (pWallCollision && distance <= 0.01f) {
-		this->setUpSpeed(-10.0f);
-		// collision detected
-		this->incPosition(glm::vec3(-dx, 0, -dz));
-
-		// only user x and z component of normal
-		normal = -pCeiling->getNormalAt(mPosition.x, mPosition.z);
-
-		// prevent sliding up
-		if (normal.y > 0.0f) {
-			normal = glm::normalize(glm::vec3(normal.x, 0.0f, normal.z));
-		}
-		else {
-			normal = glm::normalize(normal);
-		}
-
-		glm::vec3 OldPosition = this->getPosition();
-
-
-		this->incPosition(normal);
-		// update dx and dz
-		dx = normal.x;
-		dz = normal.z;
-
-		bool invalidPosition = this->getPosition().x != this->getPosition().x || this->getPosition().y != this->getPosition().y || this->getPosition().z != this->getPosition().z;
-
-		if (invalidPosition)
-		{
-			this->setPosition(OldPosition);
-		}
-	}
 
 	// floor collision
 	float terrainHeight;
@@ -160,7 +100,7 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta, bool pWallColl
 	float angle = atan((nextTerrainHeight - mPosition.y)/sqrt(dx * dx + dz * dz));
 	normal = pFloor->getNormalAt(mPosition.x, mPosition.z);
 	float normalDot = glm::dot(normal, glm::vec3(0, 1, 0));
-	if (angle > 0 && normalDot < Player::ANGLE_CLIMB) {
+	if (angle > 0 && normalDot < this->getClimbAngle()) {
 		this->incPosition(glm::vec3(-dx, 0, -dz));
 		input = glm::vec3(dx, 0.0f, dz);
 
@@ -199,10 +139,10 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta, bool pWallColl
 	//**** END collision detection ****
 
 	if (this->isBelowLake()) {
-		mUpSpeed += Player::GRAVITY/1.50f * pDelta;
+		mUpSpeed += this->getGravity()/1.50f * pDelta;
 	}
 	else {
-		mUpSpeed += Player::GRAVITY * pDelta;
+		mUpSpeed += this->getGravity() * pDelta;
 	}
 
 	this->incPosition(glm::vec3(0, mUpSpeed * pDelta, 0));
@@ -229,6 +169,7 @@ void Player::setMoveVariables()
 	* 0: no move
 	* 1: moving forward
 	* -1: moving backwards
+	* 2: flying
 	*/
 	int movingMode = 0;
 
@@ -241,15 +182,22 @@ void Player::setMoveVariables()
 	{
 		this->setSprint(true);
 	}
+
 	if (this->getCrouching())
 	{
 		crouchingMode = 2;
 	}
+
 	if (Keyboard::isKeyPressed(GLFW_KEY_W)) {
 		if (this->getSprint())
 		{
 			this->setMovementSpeed(Player::MOVESPEED * 1.5f);
 			movingMode = 1;
+			this->setSprint(false);
+		}
+		else if (this->isFlying()) {
+			this->setMovementSpeed(Player::MOVESPEED * 2.0f);
+			movingMode = 2;
 			this->setSprint(false);
 		}
 		else {
@@ -272,23 +220,23 @@ void Player::setMoveVariables()
 	if (Keyboard::isKeyPressed(GLFW_KEY_A)) {
 		if (movingMode != 0)
 		{
-			this->setStrafeAngle(movingMode * Player::STRAFE_ANGLE / 2);
+			this->setStrafeAngle(movingMode * Player::STRAFEANGLE / 2);
 		}
 		else
 		{
 			this->setMovementSpeed(Player::MOVESPEED / crouchingMode);
-			this->setStrafeAngle(Player::STRAFE_ANGLE);
+			this->setStrafeAngle(Player::STRAFEANGLE);
 		}
 	}
 	else if (Keyboard::isKeyPressed(GLFW_KEY_D)) {
 		if (movingMode != 0)
 		{
-			this->setStrafeAngle(-movingMode * Player::STRAFE_ANGLE / 2);
+			this->setStrafeAngle(-movingMode * Player::STRAFEANGLE / 2);
 		}
 		else
 		{
 			this->setMovementSpeed(Player::MOVESPEED / crouchingMode);
-			this->setStrafeAngle(-Player::STRAFE_ANGLE);
+			this->setStrafeAngle(-Player::STRAFEANGLE);
 		}
 	}
 	else
@@ -342,8 +290,8 @@ void Player::jump()
 	{
 		if (this->mJumpCooldown <= 0.0f) {
 			this->setJumping(true);
-			this->setUpSpeed(Player::JUMPPOWER);
-			this->mJumpCooldown = Player::JUMP_COOLDOWN;
+			this->setUpSpeed(this->getJumpPower());
+			this->mJumpCooldown = Player::JUMPCOOLDOWN;
 		}	
 	}
 }
@@ -384,6 +332,17 @@ bool Player::isBelowLake() const
 bool Player::isBurning() const
 {
 	return mIsBurning;
+}
+
+bool Player::isFlying() const
+{
+	return mIsFlying;
+}
+
+// Sets the sprint bool
+void Player::setIsFlying(bool pFlying)
+{
+	mIsFlying = pFlying;
 }
 
 // Sets the sprint bool
@@ -545,6 +504,46 @@ glm::vec3 Player::getCameraPosition() const
 Camera* Player::getCamera()
 {
 	return mEye;
+}
+
+GLfloat Player::getGravity() const
+{
+	return mGravity;
+}
+
+GLfloat Player::getJumpPower() const
+{
+	return mJumpPower;
+}
+
+GLfloat Player::getJumpCooldown() const
+{
+	return mJumpCooldown;
+}
+
+GLfloat Player::getClimbAngle() const
+{
+	return mClimbAngle;
+}
+
+void Player::setGravity(GLfloat pGravity)
+{
+	mGravity = pGravity;
+}
+
+void Player::setJumpPower(GLfloat pJumpPower)
+{
+	mJumpPower = pJumpPower;
+}
+
+void Player::setJumpCooldown(GLfloat pJumpCooldown)
+{
+	mJumpCooldown = pJumpCooldown;
+}
+
+void Player::setClimbAngle(GLfloat pClimbAngle)
+{
+	mClimbAngle = pClimbAngle;
 }
 
 // Returns the current ViewMatrix

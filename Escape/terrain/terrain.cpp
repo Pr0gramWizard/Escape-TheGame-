@@ -1,6 +1,6 @@
 #include "terrain.hpp"
 
-const int Terrain::TERRAIN_SIZE = 128;
+const int Terrain::TERRAIN_SIZE = 512;
 
 Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap, bool isCeiling, std::vector<std::string> pTexturePacks)
 {

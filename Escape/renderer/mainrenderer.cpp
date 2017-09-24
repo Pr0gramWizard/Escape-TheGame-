@@ -8,8 +8,6 @@ const char* MainRenderer::TERRAIN_FRAGMENT = "shaders/terrain.frag";
 const char* MainRenderer::TERRAIN_NORMAL_VERTEX = "shaders/terrain_normal.vert";
 const char* MainRenderer::TERRAIN_NORMAL_FRAGMENT = "shaders/terrain_normal.frag";
 const char* MainRenderer::TERRAIN_NORMAL_GEOMETRY = "shaders/terrain_normal.gs";
-const char* MainRenderer::SKYBOX_VERTEX = "shaders/skybox.vert";
-const char* MainRenderer::SKYBOX_FRAGMENT = "shaders/skybox.frag";
 const char* MainRenderer::TEXT_VERTEX = "shaders/text.vert";
 const char* MainRenderer::TEXT_FRAGMENT = "shaders/text.frag";
 const char* MainRenderer::OBJECT_VERTEX = "shaders/object.vert";
@@ -42,16 +40,6 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 	// Creating Object Renderer
 	mObjectRenderer = new ObjectRenderer(objectshader,pProjectionMatrix);
 
-	// Creating waterdrop shader
-	WaterdropShader* watershader = new WaterdropShader(OBJECT_VERTEX, OBJECT_FRAGMENT);
-	// Creating waterdrop renderer
-	mWaterRenderer = new WaterdropRenderer(watershader, pProjectionMatrix);
-
-	// Creating torch shader
-	TorchShader* torchshader = new TorchShader(OBJECT_VERTEX, OBJECT_FRAGMENT);
-	// Creating torch renderer
-	mTorchRenderer = new TorchRenderer(torchshader, pProjectionMatrix);
-
 	// Setting draw mode to normal
 	this->setDrawMode(0);
 
@@ -67,7 +55,7 @@ void MainRenderer::prepare(GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<Light*> pLights, glm::vec4 pClipPlane, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, bool pDiscoTime, float pFogDensity, float pFogGradient,float pDelta)
+void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, float pDelta)
 {
 	// Preparing the scree
 	this->prepare(pRED, pGREEN, pBLUE);
@@ -83,51 +71,13 @@ void MainRenderer::render(glm::mat4 pViewMatrix, float pPlayerBelowLake, vector<
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
-	// Render all objects
-	for (Object &object : mObjects)
-	{
-		mObjectRenderer->startShader();
-		mObjectRenderer->loadModelMatrix(&object);
-		mObjectRenderer->loadViewMatrix(mPlayer->getViewMatrix());
-		mObjectRenderer->loadClipPlane(pClipPlane);
-		mObjectRenderer->loadLights(pLights, pDiscoTime);
-		mObjectRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
-		mObjectRenderer->loadFogData(pFogDensity, pFogGradient);
-		mObjectRenderer->render(object);
-		mObjectRenderer->stopShader();
-	}
-
-	// Render all Waterdrops
-	for (Waterdrop &object : mWaterDrop)
-	{
-		mWaterRenderer->startShader();
-		if (object.getPosition().y <= 3.0f)
-		{
-			object.mStatus = true;
-		}
-		else
-		{
-			object.mStatus = false;
-		}
-		mWaterRenderer->loadModelMatrix(&object);
-		mWaterRenderer->loadViewMatrix(mPlayer->getViewMatrix());
-		mWaterRenderer->loadClipPlane(pClipPlane);
-		mWaterRenderer->loadLights(pLights, pDiscoTime);
-		mWaterRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
-		mWaterRenderer->loadFogData(pFogDensity, pFogGradient);
-		mWaterRenderer->render(object);
-		mWaterRenderer->stopShader();
-	}
-
-
+	
 	// Prepare terrain
 	mTerrainRenderer->startShader();
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
-	mTerrainRenderer->loadClipPlane(pClipPlane);
-	mTerrainRenderer->loadLights(pLights, pDiscoTime);
+	mTerrainRenderer->loadLights(pLights, false);
 	mTerrainRenderer->loadDepthCubemapTexture(pLights);
-	mTerrainRenderer->loadFogData(pFogDensity, pFogGradient);
-	mTerrainRenderer->loadPlayerBelowLake(pPlayerBelowLake);
+	mTerrainRenderer->loadPlayerBelowLake(false);
 	mTerrainRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
 
 	

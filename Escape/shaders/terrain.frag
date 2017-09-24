@@ -6,15 +6,11 @@ in vec3 fragPos;
 in vec2 TexCoord;
 
 layout (location = 0) out vec4 out_Color;
-layout (location = 1) out vec4 BrightColor;
   
 uniform vec3 lightPosition[6]; 
 uniform vec3 lightColor[6];
 uniform vec3 lightAttenuation[6];
-uniform float fogDensity;
-uniform float fogGradient;
 uniform vec3 backgroundColor;
-uniform bool playerBelowLake;
 
 uniform sampler2D blue;
 uniform sampler2D red;
@@ -68,22 +64,8 @@ void main()
     }
 
 	float distance = length(viewPos - fragPos);
-	float visibility = exp(-pow((distance * fogDensity), fogGradient));
-	visibility = clamp(visibility, 0.0, 1.0);
 
     out_Color = vec4(result,1.0) * totalColor;
 
-	
-	out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, visibility);
-
-
-	if(playerBelowLake){
-		out_Color = mix(out_Color, vec4(0.0, 0.0, 1.0, 1.0), 0.2);
-	}
-
-	
-
-	float brightness = dot(out_Color.rgb, vec3(0.2126, 0.7152, 0.0722));
-    if(brightness > 1.0)
-        BrightColor = vec4(out_Color.rgb, 1.0);
+	out_Color = mix(vec4(backgroundColor, 1.0) , out_Color, 1.0);
 }
