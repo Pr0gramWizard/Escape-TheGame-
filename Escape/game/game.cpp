@@ -350,14 +350,14 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 
 	if (Keyboard::isKeyPressed(GLFW_KEY_Q))
 	{
-		bool DrawMode = !!abs(game->mRenderer->getDrawMode() - 1);
+		bool DrawMode = !!abs((double)game->mRenderer->getDrawMode() - 1);
 		game->mRenderer->setDrawMode(DrawMode);
 
 	}
 
 	if (Keyboard::isKeyPressed(GLFW_KEY_F1))
 	{
-		bool DebugMode = !!abs(game->mRenderer->getDrawMode() - 1);
+		bool DebugMode = !!abs((double)game->mRenderer->getDrawMode() - 1);
 		game->mRenderer->setDebugMode(DebugMode);
 	}
 
