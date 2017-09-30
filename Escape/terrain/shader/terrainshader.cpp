@@ -95,7 +95,6 @@ TerrainShader::TerrainShader(const std::string& pVertexShaderFilePath, const std
 	this->mProgramID = glCreateProgram();
 	glAttachShader(this->getProgramID(), vertex);
 	glAttachShader(this->getProgramID(), fragment);
-	glAttachShader(this->getProgramID(), geometry);
 	glLinkProgram(this->getProgramID());
 	// Print linking errors if any
 	glGetProgramiv(this->getProgramID(), GL_LINK_STATUS, &success);

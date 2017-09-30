@@ -13,19 +13,19 @@
 #include "../loader/loader.hpp"
 // Math class
 #include "../math/math.hpp"
-// Object class
-#include "../object/object.hpp"
 // FileStream
 #include <fstream>
 // Standard String 
 #include <string>
+// Random 
+#include <random>
 
 
 
 class Terrain
 {
 public:
-	Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap, bool isCeiling, std::vector<std::string> pTexturePacks);
+	Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap, bool isCeiling, unsigned int chunkSize, unsigned int pTerrainSize);
 	Terrain(int pGridX, int pGridZ, float pOffset, const char* pName, Loader* pLoader, const char* PFilePath);
 	~Terrain();
 	
@@ -50,21 +50,21 @@ public:
 	int getWorldX() const;
 	int getWorldZ() const;
 	float getOffset() const;
-	glm::vec2 getWorldPos() const;
 	const char* getName();
+	glm::vec2 getWorldPos() const;
+	glm::vec3 getNormalAt(float x, float z);
+	glm::mat4 getModelMatrix();
+	Model* getModel();
+	GLfloat getHeight(float x, float z);
+	unsigned int getChunkSize() const;
+
 
 	// Setter functions
 	void setAmplitude(int pAmplitude);
 	void setVertices(int pVertices);
 	void setName(const char* pName);
-
-
-	glm::mat4 getModelMatrix();
-	Model* getModel();
 	void setModel(Model* pModel);
-	GLfloat getHeight(float x, float z);
-
-	glm::vec3 getNormalAt(float x, float z);
+	void setChunkSize(unsigned int pChunkSize);
 		
 public:
 	static const int TERRAIN_SIZE;
@@ -79,6 +79,7 @@ private:
 	int mVertices;
 	float mGridSize;
 	const char* mName;
+	unsigned int mChunkSize;
 	Model mModel;
 	std::vector<float> mHeights;
 	// Grass texture
@@ -104,6 +105,8 @@ private:
 	std::vector<GLfloat> Normals;
 	// Indicies
 	std::vector<GLint> Indicies;
+	// Chunk Coordinates
+	std::vector<std::vector<std::vector<int> > > mChunks;
 
 
 private:
@@ -112,6 +115,7 @@ private:
 	void generateHeights(Loader* loader, const char* pHeightmap);
 	glm::vec3 computeNormalAt(int x, int z);
 	GLfloat getVertexHeight(int pVertexX, int pVertexZ);
-
+	void generateRandomHeights(Loader* pLoader, unsigned int size);
+	void generateChunks(unsigned int pChunksize);
 };
 

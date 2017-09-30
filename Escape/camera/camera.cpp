@@ -32,9 +32,13 @@ Camera::Camera(glm::vec3 pPosition, glm::vec3 pUp, GLfloat pYaw, GLfloat pPitch)
 // Returns the current View Matrix
 glm::mat4 Camera::GetViewMatrix()
 {
-	glm::mat4 View = glm::lookAt(this->getPosition(), this->getPosition() - this->getFront(), this->getUp());
+	mViewMatrix = glm::lookAt(this->getPosition(), this->getPosition() - this->getFront(), this->getUp());
 
-	return View;
+	return mViewMatrix;
+}
+
+void Camera::setViewMatrix(glm::mat4 pMatrix) {
+	mViewMatrix = pMatrix;
 }
 
 // Returns the current Projection Matrix
@@ -117,6 +121,7 @@ float Camera::toRadians(float pAngle)
 		float PI = 3.14159265358979323846f;
 		return pAngle * (PI / 180.0f);
 }
+
 
 // Returns the current position of the camera
 glm::vec3 Camera::getPosition() const

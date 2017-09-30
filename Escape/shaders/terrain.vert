@@ -21,7 +21,7 @@ uniform vec4 plane;
 void main()
 {
 	vec4 worldPosition = model * vec4(position,1.0);
-	gl_ClipDistance[0] = dot(worldPosition, plane);
+	// gl_ClipDistance[0] = dot(worldPosition, plane);
 
 	
 	surfaceNormal = mat3(transpose(inverse(model))) * normal;

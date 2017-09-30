@@ -48,7 +48,7 @@ public:
 	~Player();
 
 	// Function to move the player
-	void Player::move(Terrain* pFloor, Terrain* pCeiling, float pDelta, bool pWallCollision);
+	void Player::move(Terrain* pFloor,float pDelta, bool pWallCollision);
 	// Function to change the players position by a certain vector
 	void incPosition(glm::vec3 pOffset);
 	// Function to increase the player's rotation (around y-axis)
@@ -113,6 +113,8 @@ public:
 	void ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime);
 	void ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset,GLfloat deltaTime);
 	void ProcessMouseScroll(GLfloat pYOffset);
+
+	void changePerspective();
 
 // All private member of the class
 private:

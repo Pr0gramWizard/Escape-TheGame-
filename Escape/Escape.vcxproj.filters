@@ -22,9 +22,6 @@
     <Filter Include="Loader">
       <UniqueIdentifier>{b5fd864d-de6a-44e1-a0f4-2fd5b6d71e92}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Model">
-      <UniqueIdentifier>{1f35b6a2-494b-4125-8f05-5fa754676bee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Renderer">
       <UniqueIdentifier>{e701581f-adae-4875-8928-500e1b01ef85}</UniqueIdentifier>
     </Filter>
@@ -37,26 +34,11 @@
     <Filter Include="User Input">
       <UniqueIdentifier>{513d89b0-f877-4e4b-858d-0f66b1c58c42}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Renderer\Main">
-      <UniqueIdentifier>{6ba03f15-5dfc-4db2-b87c-0e12f33542d6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Model\New">
-      <UniqueIdentifier>{443ee3fa-3b4a-4c0b-ba61-c3657beb3286}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Lake\shader">
       <UniqueIdentifier>{3f589645-95dc-4207-82d9-dc865f3d2893}</UniqueIdentifier>
     </Filter>
     <Filter Include="Lake\renderer">
       <UniqueIdentifier>{9f5c783e-d879-4be7-ba4c-8b82424280a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Entity">
-      <UniqueIdentifier>{7fb5a13c-5ded-4cc5-acc3-7ce68a582115}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Entity\shader">
-      <UniqueIdentifier>{f588418a-2e5a-4d4b-aa05-36d43844412e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Entity\renderer">
-      <UniqueIdentifier>{99a1a590-6334-4b3b-906b-dc3b0c86d905}</UniqueIdentifier>
     </Filter>
     <Filter Include="Terrain">
       <UniqueIdentifier>{cbbcbcdf-09d4-4d54-9137-a52a37f7e49d}</UniqueIdentifier>
@@ -79,18 +61,6 @@
     <Filter Include="Lake\fbo">
       <UniqueIdentifier>{855704c1-c0e4-48ad-83d4-e8d15738020c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Mesh">
-      <UniqueIdentifier>{0c70c59b-b2cd-445d-be99-e702db7bd253}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object">
-      <UniqueIdentifier>{9af25994-5233-4ede-9caf-cdc9a48b1b8a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\shader">
-      <UniqueIdentifier>{1bcb0ec5-675c-416b-b41f-1b9ea5b71da5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\renderer">
-      <UniqueIdentifier>{17cb4392-a8c1-472e-8565-079d7ae9e735}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Text">
       <UniqueIdentifier>{c17aae93-2475-4d14-a814-937d6cec84b5}</UniqueIdentifier>
     </Filter>
@@ -100,47 +70,29 @@
     <Filter Include="Shader\Geometry">
       <UniqueIdentifier>{1e30a9cb-304d-46df-b00c-bc258a1c0850}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Blur">
-      <UniqueIdentifier>{7e5f119a-3aa3-4dcc-b7c3-98d4c4e15440}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Blur\shader">
-      <UniqueIdentifier>{26318689-c28e-4fee-b001-8f5a56e08e10}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Bloom">
-      <UniqueIdentifier>{64cc291e-bb21-404a-b1db-a9a1dd6ef3e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Bloom\shader">
-      <UniqueIdentifier>{8a8b8ce3-36e3-4fba-84da-e8453240d7c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Lava">
-      <UniqueIdentifier>{1284c8c0-0c45-4ec5-a74f-a0b0b2b0e060}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Lava\renderer">
-      <UniqueIdentifier>{52b89344-b799-4e85-a077-dc5d7125702c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Lava\shader">
-      <UniqueIdentifier>{d4f3bc75-33f9-497c-8a2d-ea05e84b861d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shader\Particle">
       <UniqueIdentifier>{ba08f5b9-4321-4c64-8f20-cb9c2020f3c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WaterDrop">
-      <UniqueIdentifier>{71c13dfd-d0f3-439d-a791-5d3866c22e7c}</UniqueIdentifier>
+    <Filter Include="Model">
+      <UniqueIdentifier>{57190125-f28c-4b68-8ac7-6de7769dbc04}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WaterDrop\renderer">
-      <UniqueIdentifier>{3ab8ba57-7ea4-4eb9-adcf-e1b64da31af0}</UniqueIdentifier>
+    <Filter Include="Skybox">
+      <UniqueIdentifier>{118ea41c-81e0-4b49-ba8c-3ee94a6f7770}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WaterDrop\shader">
-      <UniqueIdentifier>{47749bf2-5c99-4a40-a509-f6fa5dfd85ef}</UniqueIdentifier>
+    <Filter Include="Skybox\shader">
+      <UniqueIdentifier>{450f7e77-672d-4b8b-b965-707b8229875c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Torch">
-      <UniqueIdentifier>{67f30557-2d8c-4ef6-8eb3-a9c9ef2ef2f6}</UniqueIdentifier>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{0d8497a7-c4d5-4a28-b08f-3bfc16b2e6c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Torch\shader">
-      <UniqueIdentifier>{3ee056cc-5f2b-4783-b4d4-583f02fcf039}</UniqueIdentifier>
+    <Filter Include="GUI\texture">
+      <UniqueIdentifier>{b741944c-71b3-4ab5-808e-77d94eed9dc3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Torch\renderer">
-      <UniqueIdentifier>{af113f1c-3bbd-4678-a2f4-53e4e095deee}</UniqueIdentifier>
+    <Filter Include="GUI\renderer">
+      <UniqueIdentifier>{6d1ee12c-d008-4745-be0f-d3a1eb8673ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\shader">
+      <UniqueIdentifier>{868f2202-771e-439f-8993-8742331a12b3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -168,15 +120,6 @@
     <ClCompile Include="loader\loader.cpp">
       <Filter>Loader</Filter>
     </ClCompile>
-    <ClCompile Include="entity\entity.cpp">
-      <Filter>Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="entity\shader\entityshader.cpp">
-      <Filter>Entity\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="entity\renderer\entityRenderer.cpp">
-      <Filter>Entity\renderer</Filter>
-    </ClCompile>
     <ClCompile Include="input\keyboard.cpp">
       <Filter>User Input</Filter>
     </ClCompile>
@@ -189,12 +132,6 @@
     <ClCompile Include="terrain\renderer\terrainRenderer.cpp">
       <Filter>Terrain\renderer</Filter>
     </ClCompile>
-    <ClCompile Include="renderer\mainrenderer.cpp">
-      <Filter>Renderer\Main</Filter>
-    </ClCompile>
-    <ClCompile Include="model\model.cpp">
-      <Filter>Model\New</Filter>
-    </ClCompile>
     <ClCompile Include="math\math.cpp">
       <Filter>Math</Filter>
     </ClCompile>
@@ -204,65 +141,35 @@
     <ClCompile Include="lake\fbo\lakeFrameBuffers.cpp">
       <Filter>Lake\fbo</Filter>
     </ClCompile>
-    <ClCompile Include="mesh\mesh.cpp">
-      <Filter>Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="object\object.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="object\shader\objectshader.cpp">
-      <Filter>Object\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="object\renderer\objectrenderer.cpp">
-      <Filter>Object\renderer</Filter>
-    </ClCompile>
     <ClCompile Include="text\TextRenderer.cpp">
       <Filter>Text</Filter>
     </ClCompile>
     <ClCompile Include="text\shader\textshader.cpp">
       <Filter>Text\shader</Filter>
     </ClCompile>
-    <ClCompile Include="blur\blurBuffer.cpp">
-      <Filter>Blur</Filter>
-    </ClCompile>
-    <ClCompile Include="blur\shader\blurShader.cpp">
-      <Filter>Blur\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="bloom\preBloomFBO.cpp">
-      <Filter>Bloom</Filter>
-    </ClCompile>
-    <ClCompile Include="bloom\shader\finalbloomshader.cpp">
-      <Filter>Bloom\shader</Filter>
-    </ClCompile>
     <ClCompile Include="light\spotlight.cpp">
       <Filter>Light</Filter>
     </ClCompile>
-    <ClCompile Include="lava\renderer\lavaRenderer.cpp">
-      <Filter>Lava\renderer</Filter>
+    <ClCompile Include="model\model.cpp">
+      <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="lava\shader\lavashader.cpp">
-      <Filter>Lava\shader</Filter>
+    <ClCompile Include="renderer\mainrenderer.cpp">
+      <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="lava\lava.cpp">
-      <Filter>Lava</Filter>
+    <ClCompile Include="skybox\Skybox.cpp">
+      <Filter>Skybox</Filter>
     </ClCompile>
-    <ClCompile Include="waterdrop\waterdrop.cpp">
-      <Filter>WaterDrop</Filter>
+    <ClCompile Include="skybox\shader\SkyboxShader.cpp">
+      <Filter>Skybox\shader</Filter>
     </ClCompile>
-    <ClCompile Include="waterdrop\renderer\waterdroprenderer.cpp">
-      <Filter>WaterDrop\renderer</Filter>
+    <ClCompile Include="gui\GuiTexture.cpp">
+      <Filter>GUI\texture</Filter>
     </ClCompile>
-    <ClCompile Include="waterdrop\shader\waterdropshader.cpp">
-      <Filter>WaterDrop\shader</Filter>
+    <ClCompile Include="gui\renderer\GuiRenderer.cpp">
+      <Filter>GUI\renderer</Filter>
     </ClCompile>
-    <ClCompile Include="torch\torch.cpp">
-      <Filter>Torch</Filter>
-    </ClCompile>
-    <ClCompile Include="torch\shader\torchshader.cpp">
-      <Filter>Torch\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="torch\renderer\torchrenderer.cpp">
-      <Filter>Torch\renderer</Filter>
+    <ClCompile Include="gui\shader\GuiShader.cpp">
+      <Filter>GUI\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -284,15 +191,6 @@
     <ClInclude Include="loader\loader.hpp">
       <Filter>Loader</Filter>
     </ClInclude>
-    <ClInclude Include="entity\entity.hpp">
-      <Filter>Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="entity\shader\entityshader.hpp">
-      <Filter>Entity\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="entity\renderer\entityRenderer.hpp">
-      <Filter>Entity\renderer</Filter>
-    </ClInclude>
     <ClInclude Include="input\keyboard.hpp">
       <Filter>User Input</Filter>
     </ClInclude>
@@ -304,12 +202,6 @@
     </ClInclude>
     <ClInclude Include="terrain\renderer\terrainRenderer.hpp">
       <Filter>Terrain\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="renderer\mainrenderer.hpp">
-      <Filter>Renderer\Main</Filter>
-    </ClInclude>
-    <ClInclude Include="model\model.hpp">
-      <Filter>Model\New</Filter>
     </ClInclude>
     <ClInclude Include="math\math.hpp">
       <Filter>Math</Filter>
@@ -323,65 +215,38 @@
     <ClInclude Include="lake\fbo\lakeFrameBuffers.hpp">
       <Filter>Lake\fbo</Filter>
     </ClInclude>
-    <ClInclude Include="mesh\mesh.hpp">
-      <Filter>Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="object\object.hpp">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="object\shader\objectshader.hpp">
-      <Filter>Object\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="object\renderer\objectrenderer.hpp">
-      <Filter>Object\renderer</Filter>
-    </ClInclude>
     <ClInclude Include="text\TextRenderer.hpp">
       <Filter>Text</Filter>
     </ClInclude>
     <ClInclude Include="text\shader\textshader.hpp">
       <Filter>Text\shader</Filter>
     </ClInclude>
-    <ClInclude Include="blur\blurBuffer.hpp">
-      <Filter>Blur</Filter>
-    </ClInclude>
-    <ClInclude Include="blur\shader\blurShader.hpp">
-      <Filter>Blur\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="bloom\preBloomFBO.hpp">
-      <Filter>Bloom</Filter>
-    </ClInclude>
-    <ClInclude Include="bloom\shader\finalbloomshader.hpp">
-      <Filter>Bloom\shader</Filter>
-    </ClInclude>
     <ClInclude Include="light\spotlight.hpp">
       <Filter>Light</Filter>
     </ClInclude>
-    <ClInclude Include="lava\renderer\lavaRenderer.hpp">
-      <Filter>Lava\renderer</Filter>
+    <ClInclude Include="PerlinNoise.hpp">
+      <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="lava\shader\lavashader.hpp">
-      <Filter>Lava\shader</Filter>
+    <ClInclude Include="model\model.hpp">
+      <Filter>Model</Filter>
     </ClInclude>
-    <ClInclude Include="lava\lava.hpp">
-      <Filter>Lava</Filter>
+    <ClInclude Include="renderer\mainrenderer.hpp">
+      <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="waterdrop\waterdrop.hpp">
-      <Filter>WaterDrop</Filter>
+    <ClInclude Include="skybox\Skybox.hpp">
+      <Filter>Skybox</Filter>
     </ClInclude>
-    <ClInclude Include="waterdrop\renderer\waterdroprenderer.hpp">
-      <Filter>WaterDrop\renderer</Filter>
+    <ClInclude Include="skybox\shader\SkyboxShader.hpp">
+      <Filter>Skybox\shader</Filter>
     </ClInclude>
-    <ClInclude Include="waterdrop\shader\waterdropshader.hpp">
-      <Filter>WaterDrop\shader</Filter>
+    <ClInclude Include="gui\GuiTexture.hpp">
+      <Filter>GUI\texture</Filter>
     </ClInclude>
-    <ClInclude Include="torch\torch.hpp">
-      <Filter>Torch</Filter>
+    <ClInclude Include="gui\renderer\GuiRenderer.hpp">
+      <Filter>GUI\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="torch\shader\torchshader.hpp">
-      <Filter>Torch\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="torch\renderer\torchrenderer.hpp">
-      <Filter>Torch\renderer</Filter>
+    <ClInclude Include="gui\shader\GuiShader.hpp">
+      <Filter>GUI\shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -516,6 +381,12 @@
     </None>
     <None Include="shaders\particle\particles_update.vert">
       <Filter>Shader\Particle</Filter>
+    </None>
+    <None Include="shaders\gui.frag">
+      <Filter>Shader\Fragment</Filter>
+    </None>
+    <None Include="shaders\gui.vert">
+      <Filter>Shader\Vertex</Filter>
     </None>
   </ItemGroup>
 </Project>

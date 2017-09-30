@@ -83,9 +83,9 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	*/
 
 	// Spawn Location
-	SpawnLocation.x = 61;
-	SpawnLocation.y = 4;
-	SpawnLocation.z = 70;
+	SpawnLocation.x = 256;
+	SpawnLocation.y = 0;
+	SpawnLocation.z = 256;
 
 	// Create player and set his position
 	mPlayer = new Player(SpawnLocation, 0.5f, "Player", this->getHeight(), this->getWidth());
@@ -117,14 +117,15 @@ bool Game::gameLoop()
 	DeckenTexturePack.push_back("./terrain/res/texture/poly/blendMapDecke.png");
 
 	// Create Floor terrain
-	Terrain Boden(0, 0, 0, 5, "Boden", loader, "./terrain/res/03.png",false, BodenTexturePack);
+	Terrain Boden(0, 0, 0, 10, "Boden", loader, "./terrain/res/01.jpg",false,256,8);
 	// Create Ceiling terrain
-	Terrain Decke(0, 0, -2.7f, 15, "Decke", loader, "./terrain/res/Decke.png",true, DeckenTexturePack);
+	// Terrain Decke(0, 0, -2.7f, 15, "Decke", loader, "./terrain/res/Decke.png",true, DeckenTexturePack);
 
 	// List of all terrains
 	std::list<Terrain> allTerrain;
 	// Insert all current terrains
 	allTerrain.push_back(Boden);
+
 
 	// Create new instance of renderer
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
@@ -134,12 +135,22 @@ bool Game::gameLoop()
 	//**** LIGHT STUFF ****
 
 	// Global Sun Light
-	Light* sun = new Light(glm::vec3(0,100,0), glm::vec3(1.0f, 1.0f, 0.7f));
+	Light* middleLight = new Light(SpawnLocation + glm::vec3(0,100,0), glm::vec3(1.0f, 1.0f, 0.7f));
+	Light* topLeftCorner = new Light(SpawnLocation + glm::vec3(-256, 100, -256), glm::vec3(1.0f, 1.0f, 0.7f));
+	Light* topRightCorner = new Light(SpawnLocation + glm::vec3(-256, 100, 256), glm::vec3(1.0f, 1.0f, 0.7f));
+	Light* downLeftCorner = new Light(SpawnLocation + glm::vec3(256, 100, -256), glm::vec3(1.0f, 1.0f, 0.7f));
+	Light* downRightCorner = new Light(SpawnLocation + glm::vec3(256, 100, 256), glm::vec3(1.0f, 1.0f, 0.7f));
 
 	// Vector of all lights
 	vector<Light*> allLights;
 	// Add lights to the list of lights
-	allLights.push_back(sun);
+	allLights.push_back(middleLight);
+	allLights.push_back(topLeftCorner);
+	allLights.push_back(downLeftCorner);
+
+
+
+
 
 	//**** END LIGHT STUFF ****
 
@@ -174,7 +185,7 @@ bool Game::gameLoop()
 		this->controlSound();
 
 		// Calculating the player movement
-		mPlayer->move(&Boden,&Decke, deltaTime, false);
+		mPlayer->move(&Boden,deltaTime, false);
 		mRenderer->render(mPlayer->getViewMatrix(), allLights, Game::RED, Game::GREEN, Game::BLUE, deltaTime);
 	
 		// Swap the buffers
@@ -362,14 +373,13 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 
 	}
 
-	if (Keyboard::isKeyPressed(GLFW_KEY_F1))
+	if (Keyboard::isKeyPressed(GLFW_KEY_G))
 	{
-		bool DebugMode = !!abs(game->mRenderer->getDrawMode() - 1);
-		game->mRenderer->setDebugMode(DebugMode);
+		game->mPlayer->changePerspective();
 	}
 
 	if (Keyboard::isKeyPressed(GLFW_KEY_F1)) {
-		game->mPlayer->setPosition(game->SpawnLocation);
+		game->mPlayer->setPosition(glm::vec3(0,0,0));
 	}
 
 }

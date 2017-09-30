@@ -78,6 +78,7 @@ public:
 	void setFov(GLfloat pFov);
 	void incYPosition(GLfloat pY);
 	void invertPitch();
+	void setViewMatrix(glm::mat4 pMatrix);
 
 // All private members of the class
 private:
@@ -87,6 +88,8 @@ private:
 	glm::vec3 mUp;
 	glm::vec3 mRight;
 	glm::vec3 mWorldUp;
+	// View Matrix
+	glm::mat4 mViewMatrix;
 	// Eular Angles
 	GLfloat mYaw;
 	GLfloat mPitch;

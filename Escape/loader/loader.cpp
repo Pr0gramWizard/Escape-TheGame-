@@ -70,6 +70,14 @@ Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<int> pInd
 	return Model(vaoId, pIndices.size());
 }
 
+Model Loader::loadDataToVao(std::vector<float> pPositions) {
+	GLuint vaoID = createVao();
+	storeData(0, pPositions, 2);
+	unbindVao();
+
+	return Model(vaoID, pPositions.size() / 2);
+}
+
 
 
 // Creates a VertexArrayObject and returns the ID

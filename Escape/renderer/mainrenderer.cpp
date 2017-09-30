@@ -1,44 +1,38 @@
 #include "mainrenderer.hpp"
 
 // Shader locations
-const char* MainRenderer::ENTITY_VERTEX = "shaders/b.vert";
-const char* MainRenderer::ENTITY_FRAGMENT = "shaders/a.frag";
 const char* MainRenderer::TERRAIN_VERTEX = "shaders/terrain.vert";
 const char* MainRenderer::TERRAIN_FRAGMENT = "shaders/terrain.frag";
-const char* MainRenderer::TERRAIN_NORMAL_VERTEX = "shaders/terrain_normal.vert";
-const char* MainRenderer::TERRAIN_NORMAL_FRAGMENT = "shaders/terrain_normal.frag";
-const char* MainRenderer::TERRAIN_NORMAL_GEOMETRY = "shaders/terrain_normal.gs";
-const char* MainRenderer::TEXT_VERTEX = "shaders/text.vert";
-const char* MainRenderer::TEXT_FRAGMENT = "shaders/text.frag";
-const char* MainRenderer::OBJECT_VERTEX = "shaders/object.vert";
-const char* MainRenderer::OBJECT_FRAGMENT = "shaders/object.frag";
+const char* MainRenderer::GUI_VERTEX = "shaders/gui.vert";
+const char* MainRenderer::GUI_FRAGMENT = "shaders/gui.frag";
 
 
 MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 {
-	// Creating Entity Shader
-	EntityShader* entityshader = new EntityShader(ENTITY_VERTEX, ENTITY_FRAGMENT);
-	// Creating Entity Renderer
-	mEntityRenderer = new EntityRenderer(entityshader,pProjectionMatrix);
-
+	Loader* cLoader = new Loader();
 	// Creating terrain Shader
 	TerrainShader* terrainshader = new TerrainShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
-	// Creating Geometry Shader for the normal vectors (not used)
-	TerrainShader* normalshader = new TerrainShader(TERRAIN_NORMAL_VERTEX, TERRAIN_NORMAL_FRAGMENT, TERRAIN_NORMAL_GEOMETRY);
 	// Creating terrain renderer
 	mTerrainRenderer = new TerrainRenderer(terrainshader, pProjectionMatrix);
-	// Creating normal renderer
-	mNormalRenderer = new TerrainRenderer(normalshader, pProjectionMatrix);
 
-	// Creating Text Shader
-	TextShader* textshader = new TextShader(TEXT_VERTEX, TEXT_FRAGMENT);
-	// Creating Text Renderer
-	mTextRenderer = new TextRenderer(textshader);
+	mGuiShader = new GuiShader(GUI_VERTEX, GUI_FRAGMENT);
 
-	// Creating Object Shader (used for Stones)
-	ObjectShader* objectshader = new ObjectShader(OBJECT_VERTEX, OBJECT_FRAGMENT);
-	// Creating Object Renderer
-	mObjectRenderer = new ObjectRenderer(objectshader,pProjectionMatrix);
+	mGuiRenderer = new GuiRenderer(cLoader, mGuiShader);
+
+	GuiTexture temp(cLoader->loadTexture("health.png"), glm::vec2(0.25f, 0.25f), glm::vec2(0.1f, 0.1f));
+
+	mGuiRenderer->addGUI(temp);
+
+	mSkybox = new Skybox();
+
+	mSkybox->addTexture("skybox/res/right.jpg");
+	mSkybox->addTexture("skybox/res/left.jpg");
+	mSkybox->addTexture("skybox/res/top.jpg");
+	mSkybox->addTexture("skybox/res/bottom.jpg");
+	mSkybox->addTexture("skybox/res/back.jpg");
+	mSkybox->addTexture("skybox/res/front.jpg");
+
+	mSkybox->setCubeMapTexture(mSkybox->loadTexture());
 
 	// Setting draw mode to normal
 	this->setDrawMode(0);
@@ -59,7 +53,6 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, GLfloat
 {
 	// Preparing the scree
 	this->prepare(pRED, pGREEN, pBLUE);
-
 	// Polygon Mode
 	if (this->getDrawMode())
 	{
@@ -71,7 +64,9 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, GLfloat
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
-	
+	// mSkybox->render(pViewMatrix, mPlayer->getProjectionMatrix());
+
+
 	// Prepare terrain
 	mTerrainRenderer->startShader();
 	mTerrainRenderer->loadViewMatrix(pViewMatrix);
@@ -80,31 +75,19 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, GLfloat
 	mTerrainRenderer->loadPlayerBelowLake(false);
 	mTerrainRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
 
-	
 	// Render Terrain
 	for (Terrain &terrain : mTerrains)
 	{
-		if (terrain.getName() == "Decke") {
-			glCullFace(GL_FRONT);
-			mTerrainRenderer->loadTexture(terrain);
-			mTerrainRenderer->render(terrain);
-			if (this->getNormalMode())
-			{
-				mNormalRenderer->render(terrain);
-			}
-			glCullFace(GL_BACK);
-		}
-		else {
-			mTerrainRenderer->loadTexture(terrain);
-			mTerrainRenderer->render(terrain);
-			if (this->getNormalMode())
-			{
-				mNormalRenderer->render(terrain);
-			}
+		mTerrainRenderer->loadTexture(terrain);
+		mTerrainRenderer->render(terrain);
+		if (this->getNormalMode())
+		{
+			mNormalRenderer->render(terrain);
 		}
 	}
 
 
+	mGuiRenderer->render();
 }
 
 // Set FPS Counter
@@ -177,30 +160,6 @@ void MainRenderer::renderDebugInformation()
 	
 }
 
-// Adding things to the render list
-
-// Entity
-void MainRenderer::addToList(Entity &pEntity)
-{
-	mEntities.push_back(pEntity);
-}
-// Waterdrop
-void MainRenderer::addToList(Waterdrop &pWaterDrop)
-{
-	mWaterDrop.push_back(pWaterDrop);
-}
-// Objects
-void MainRenderer::addToList(Object &pObject)
-{
-	mObjects.push_back(pObject);
-}
-// Entity with given Rendermode
-void MainRenderer::addToList(Entity &pEntity, RenderMode pMode)
-{
-	mSpecial.push_back(pEntity);
-	mRenderMode.push_back(pMode);
-}
-
 // Terrain
 void MainRenderer::addToList(Terrain &pTerrain)
 {
@@ -246,8 +205,5 @@ bool MainRenderer::getDebugMode() const
 // Clears the whole list
 void MainRenderer::clearLists()
 {
-	mEntities.clear();
 	mTerrains.clear();
-	mSpecial.clear();
-	mRenderMode.clear();
 }

@@ -2,7 +2,7 @@
 #include "player.hpp"
 
 
-const GLfloat Player::MOVESPEED = 5.0f;
+const GLfloat Player::MOVESPEED = 15.0f;
 const GLfloat Player::STRAFEANGLE = 45.0f;
 const GLfloat Player::JUMPCOOLDOWN = 0.5f;
 
@@ -63,7 +63,7 @@ void Player::playWalkingSound(int StepNumber)
 }
 
 // Function to move the player	
-void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta, bool pWallCollision)
+void Player::move(Terrain* pFloor,float pDelta, bool pWallCollision)
 {
 
 	
@@ -160,6 +160,10 @@ void Player::move(Terrain* pFloor,Terrain* pCeiling,float pDelta, bool pWallColl
 	// Set camera's new position
 	mEye->setPosition(this->getPosition() + glm::vec3(0, this->getHeight(), 0));
 
+}
+
+void Player::changePerspective() {
+	mEye->setViewMatrix(glm::inverse(mEye->GetViewMatrix()));
 }
 
 // Sets the important moving variables

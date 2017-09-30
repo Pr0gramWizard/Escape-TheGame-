@@ -15,6 +15,41 @@ float Math::barryCentricHeight(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::ve
 	return l1 * p1.y + l2 * p2.y + l3 * p3.y;
 }
 
+//Returns a transformation matrix
+glm::mat4 Math::getTransformationMatrix(glm::vec2 pTranslation, glm::vec2 pScale)
+{
+	glm::mat4 matrix;
+
+	matrix[0][0] = 1.0f;
+	matrix[1][1] = 1.0f;
+	matrix[2][2] = 1.0f;
+	matrix[3][3] = 1.0f;
+
+	float transformZ = 1.0f;
+	float scaleZ = 1.0f;
+
+	matrix[3][0] += matrix[0][0] * pTranslation.x + matrix[1][0] * pTranslation.y + matrix[2][0] * transformZ;
+	matrix[3][1] += matrix[0][1] * pTranslation.x + matrix[1][1] * pTranslation.y + matrix[2][1] * transformZ;
+	matrix[3][2] += matrix[0][2] * pTranslation.x + matrix[1][2] * pTranslation.y + matrix[2][2] * transformZ;
+	matrix[3][3] += matrix[0][2] * pTranslation.x + matrix[1][3] * pTranslation.y + matrix[2][3] * transformZ;
+
+	matrix[0][0] = matrix[0][0] * pScale.x;
+	matrix[0][1] = matrix[0][1] * pScale.x;
+	matrix[0][2] = matrix[0][2] * pScale.x;
+	matrix[0][3] = matrix[0][3] * pScale.x;
+	matrix[1][0] = matrix[1][0] * pScale.y;
+	matrix[1][1] = matrix[1][1] * pScale.y;
+	matrix[1][2] = matrix[1][2] * pScale.y;
+	matrix[1][3] = matrix[1][3] * pScale.y;
+	matrix[2][0] = matrix[2][0] * scaleZ;
+	matrix[2][1] = matrix[2][1] * scaleZ;
+	matrix[2][2] = matrix[2][2] * scaleZ;
+	matrix[2][3] = matrix[2][3] * scaleZ;
+
+	return matrix;
+}
+
+
 // Returns a transformation matrix
 glm::mat4 Math::getTransformationMatrix(glm::vec3 pPosition, GLfloat pXRotation, GLfloat pYRotation, GLfloat pZRotation, GLfloat pScale)
 {
@@ -59,6 +94,47 @@ void Math::printMatrix(glm::mat4 pMatrix)
 			std::cout << pMatrix[i][j] << " ";
 		}
 
+		std::cout << std::endl;
+	}
+}
+
+// Returns max value
+int Math::max(int a, int b) {
+	return (a < b) ? b : a;
+}
+
+// Returns min value
+int Math::min(int a, int b) {
+	return (a < b) ? a : b;
+}
+
+// Generate random number in given interval
+int Math::getRand(int startValue, int endValue) {
+	const int range_from = startValue;
+	const int range_to = endValue;
+	std::random_device                  rand_dev;
+	std::mt19937                        generator(rand_dev());
+	std::uniform_int_distribution<int>  distr(range_from, range_to);
+
+	return distr(generator);
+}
+
+
+// Generate random value between -1 and 1
+double Math::getNoise(double x, double y) {
+	return (x < y) ? -1 : 1;
+}
+
+void Math::printNestedVector(std::vector<std::vector<int>> pVector){
+	for (unsigned int i = 0; i < pVector.size(); ++i) {
+		for (unsigned int j = 0; j < pVector.at(i).size(); ++j) {
+			if (j < pVector.at(i).size() - 1) {
+				std::cout << pVector.at(i).at(j) << ",";
+			}
+			else {
+				std::cout << pVector.at(i).at(j);
+			}
+		}
 		std::cout << std::endl;
 	}
 }

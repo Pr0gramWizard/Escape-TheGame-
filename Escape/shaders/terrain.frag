@@ -22,16 +22,20 @@ uniform sampler2D blendMap;
 void main()
 {
 
-	vec4 blendMapColor = texture(blendMap,TexCoord);
+	// vec4 blendMapColor = texture(blendMap,TexCoord);
 	
+	/*
 	float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
 	vec2 tiledCoords = TexCoord * 150;
 	vec4 backgroundTextureColor = texture(blue, tiledCoords) * backTextureAmount;
 	vec4 rTextureColor = texture(red, tiledCoords) * blendMapColor.r;
 	vec4 gTextureColor = texture(cyan, tiledCoords) * blendMapColor.g;
 	vec4 bTextureColor = texture(purple, tiledCoords) * blendMapColor.b;
+	*/
 
-	vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
+	// vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
+	vec4 totalColor = vec4(0.3,0.4,0.5,1.0);
+	
 		
 	// Ambient
     float ambientStrength = 0.1f;

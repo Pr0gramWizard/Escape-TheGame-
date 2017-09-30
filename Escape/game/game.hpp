@@ -29,27 +29,13 @@
 // Loader class
 #include "../loader/loader.hpp"
 // Renderer classes
-#include "../entity/renderer/entityRenderer.hpp"
 #include "../terrain/renderer/terrainRenderer.hpp"
 #include "../lake/renderer/lakeRenderer.hpp"
 #include "../renderer/mainrenderer.hpp"
-// ObjectLoader
-#include "../object/object.hpp"
-#include "../object/renderer/objectrenderer.hpp"
 // Math class
 #include "../math/math.hpp"
 // Lake class
 #include "../lake/lake.hpp"
-// Lake fbos
-#include "../lake/fbo/lakeFrameBuffers.hpp"
-// blur fbo
-#include "../blur/blurBuffer.hpp"
-// blur shader
-#include "../blur/shader/blurShader.hpp"
-// bloom fbo
-#include "../bloom/preBloomFBO.hpp"
-// bloom shader
-#include "../bloom/shader/finalbloomshader.hpp"
 // Text Loader class
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -57,10 +43,6 @@
 #include <irrKlang.h>
 // spot
 #include "../light/spotlight.hpp"
-// lava
-#include "../lava/shader/lavashader.hpp"
-#include "../lava/renderer/lavaRenderer.hpp"
-
 #include <stdlib.h>
 
 

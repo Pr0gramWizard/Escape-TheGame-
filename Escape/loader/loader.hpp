@@ -31,8 +31,12 @@ public:
 	Model loadDataToVao(std::vector<float> pPositions, std::vector<float> pTexCoords, std::vector<float> pNormals, std::vector<int> pIndices);
 	// Render Quad for particles
 	Model loadDataToVao(std::vector<float> pPositions, std::vector<int> pIndices);
+	// Store GUI info in VAO
+	Model loadDataToVao(std::vector<float> pPositions);
 	// Function cleans up all the mess after creating the VertexArrayObjects
 	void cleanUp();
+	// Load Texture
+	GLuint loadTexture(const char* pTextureFilePath);
 	glm::vec4 getLastVbos();
 	// All private functions
 private:
@@ -44,8 +48,6 @@ private:
 	void storeData(GLuint pAttributeLocation, std::vector<float> pData, GLuint pSize);
 	// Stores the texture in a certain location in the VertexBufferObject
 	void storeTexture(GLuint pAttributeLocation, std::vector<float> pData, GLuint pSize);
-	// Loads the texture
-	GLuint loadTexture(const char* pFileName);
 	// Deletes all VertexArrayObject
 	void deleteVaos();
 	// Deletes all VertexBufferObjects
