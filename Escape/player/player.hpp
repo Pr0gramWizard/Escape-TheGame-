@@ -58,6 +58,8 @@ public:
 	// Crouch method
 	void crouch();
 
+	void lookDown();
+
 	// Setter Functions
 	void setPosition(glm::vec3 pPosition);
 	void setHeight(GLfloat pHeight);

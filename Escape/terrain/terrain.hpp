@@ -13,19 +13,21 @@
 #include "../loader/loader.hpp"
 // Math class
 #include "../math/math.hpp"
+// Terrain Generator
+#include "generator\TerrainGenerator.hpp"
 // FileStream
 #include <fstream>
 // Standard String 
 #include <string>
 // Random 
 #include <random>
-
-
+// Algorithm
+#include <algorithm>
 
 class Terrain
 {
 public:
-	Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap, bool isCeiling, unsigned int chunkSize, unsigned int pTerrainSize);
+	Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap,unsigned int pTerrainSize);
 	Terrain(int pGridX, int pGridZ, float pOffset, const char* pName, Loader* pLoader, const char* PFilePath);
 	~Terrain();
 	
@@ -57,6 +59,7 @@ public:
 	Model* getModel();
 	GLfloat getHeight(float x, float z);
 	unsigned int getChunkSize() const;
+	void redrawTerrain(Loader* pLoader, unsigned int pTerrainSize);
 
 
 	// Setter functions
@@ -115,7 +118,6 @@ private:
 	void generateHeights(Loader* loader, const char* pHeightmap);
 	glm::vec3 computeNormalAt(int x, int z);
 	GLfloat getVertexHeight(int pVertexX, int pVertexZ);
-	void generateRandomHeights(Loader* pLoader, unsigned int size);
-	void generateChunks(unsigned int pChunksize);
+	void generateRandomHeights(unsigned int size);
 };
 

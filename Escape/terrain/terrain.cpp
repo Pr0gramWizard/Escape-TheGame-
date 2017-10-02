@@ -1,8 +1,8 @@
 #include "terrain.hpp"
 
-const int Terrain::TERRAIN_SIZE = 512;
+const int Terrain::TERRAIN_SIZE = 256;
 
-Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap, bool isCeiling, unsigned int pTerrainSize, unsigned int pChunkSize)
+Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const char* pName, Loader* pLoader, const char* pHeightmap, unsigned int pTerrainSize)
 {
 
 	mWorldX = pGridX * Terrain::TERRAIN_SIZE;
@@ -16,14 +16,15 @@ Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const ch
 	setName(pName);
 
 	// Generate heights for the terrain & set mVertices acording to heightmap 
-	generateHeights(pLoader, pHeightmap);
-	// generateRandomHeights(pLoader, pTerrainSize);
+
+	// generateHeights(pLoader, pHeightmap);
+	generateRandomHeights(pTerrainSize);
 
 	// this->setChunkSize(pChunkSize);
 	// generateChunks(mChunkSize);
 
 	// Set Model
-	mModel = generateTerrain(pLoader,isCeiling);
+	mModel = generateTerrain(pLoader,false);
 
 	// this->loadBlueTexture(pTexturePacks.at(0).c_str());
 	// this->loadRedTexture(pTexturePacks.at(1).c_str());
@@ -34,6 +35,11 @@ Terrain::Terrain(int pGridX, int pGridZ, float pOffset, int pAmplitude, const ch
 
 	std::cout << "Terrainloader was started successfully!" << std::endl;
 
+}
+
+void Terrain::redrawTerrain(Loader* pLoader, unsigned int pTerrainSize) {
+	generateRandomHeights(pTerrainSize);
+	mModel = generateTerrain(pLoader, false);
 }
 
 Terrain::Terrain(int pGridX, int pGridZ, float pOffset, const char * pName, Loader * pLoader, const char* pFilePath)
@@ -470,7 +476,7 @@ Model * Terrain::getModel()
 
 unsigned int Terrain::getChunkSize() const {
 	return mChunkSize;
-}
+	}
 
 void Terrain::setChunkSize(unsigned int pChunkSize) {
 	mChunkSize = pChunkSize;
@@ -582,98 +588,11 @@ void Terrain::generateHeights(Loader * loader, const char* pHeightmap)
 	mHeights = texture_data;
 }
 
-void Terrain::generateRandomHeights(Loader* pLoader, unsigned int size) {
-
-
-	int width = size;
-	int height = size;
-
-	std::vector<unsigned char> image;
-	image.reserve(size * size * 3);
-
-	int yOff = 0;
-
-	for (int i = 0; i < width; i++)
-	{
-		int xOff = 0;
-		for (int j = 0; j < height; j++)
-		{
-			unsigned char r = Math::getRand(0, 255);
-			unsigned char g = Math::getRand(0, 255);
-			unsigned char b = Math::getRand(0, 255);
-			r = (Math::max(Math::max(r, b), b) + Math::min(Math::min(r, b), g)) / 4;
-			b = (Math::max(Math::max(r, b), b) + Math::min(Math::min(r, b), g)) / 4;
-			g = (Math::max(Math::max(r, b), b) + Math::min(Math::min(r, b), g)) / 4;
-			image.push_back(r);
-			image.push_back(g);
-			image.push_back(b);
-		}
-	}
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
-		GL_UNSIGNED_BYTE, image.data());
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	std::vector<float> texture_data(width * height);
-	glGetTexImage(GL_TEXTURE_2D, 0, GL_RED, GL_FLOAT, &texture_data[0]);
-
-
-	// put height between -mAmplitude and +mAmplitude
-	for (unsigned int i = 0; i < texture_data.size(); ++i)
-	{
-		texture_data[i] *= 2;
-		texture_data[i] -= 1;
-		texture_data[i] *= mAmplitude;
-		// Add height offset;
-		texture_data[i] += mOffset;
-	}
-	// Set amount of vertices along a side of the terrain
-	this->setVertices(width);
-
-	mHeights = texture_data;
-
+void Terrain::generateRandomHeights(unsigned int size) {
+	TerrainGenerator* test = new TerrainGenerator(size, size, 1.0f);
+	this->setVertices(size);
+	mHeights = test->getHeightValues();
 	std::cout << "Random Terrain generated!" << std::endl;
-}
-
-void Terrain::generateChunks(unsigned int pChunkSize) {
-	if (isPowerOfTwo(pChunkSize)) {
-		std::vector<std::vector<int> > currentChunk;
-		currentChunk.reserve(4);
-		unsigned int sizeOfGrid = this->mVertices;
-		unsigned int numberOfChunks = sizeOfGrid / pChunkSize;
-		for (unsigned int i = 0; i < sizeOfGrid; i = i + numberOfChunks) {
-			for (unsigned int j = 0; j < sizeOfGrid; j = j + numberOfChunks) {
-				std::vector<int> temp;
-				temp.push_back(i);
-				temp.push_back(j);
-				currentChunk.push_back(temp);
-				temp.clear();
-				temp.push_back(i);
-				temp.push_back(j + numberOfChunks);
-				currentChunk.push_back(temp);
-				temp.clear();
-				temp.push_back(i + numberOfChunks);
-				temp.push_back(j);
-				currentChunk.push_back(temp);
-				temp.clear();
-				temp.push_back(i + numberOfChunks);
-				temp.push_back(j + numberOfChunks);
-				currentChunk.push_back(temp);
-			}
-			mChunks.push_back(currentChunk);
-			currentChunk.clear();
-		}
-
-		Math::printNestedVector(mChunks.at(0));
-		std::cout << "There are going to be " << numberOfChunks << " Chunks!" << std::endl;
-	}
-	else {
-		std::cout << "The chunksize you have choosen is not a power of 2!" << std::endl;
-	}
 }
 
 GLfloat Terrain::getHeight(float x, float z) {

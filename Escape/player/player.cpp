@@ -309,6 +309,11 @@ void Player::crouch()
 	}
 }
 
+void Player::lookDown() {
+	mEye->setUp(glm::vec3(-1 ,0, 0));
+	mEye->setFront(glm::vec3(0 ,1, 0));
+}
+
 // Sets the crouch bool
 void Player::setCrouching(bool pCrouching)
 {

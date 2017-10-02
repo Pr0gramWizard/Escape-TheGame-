@@ -4,6 +4,7 @@ in vec3 surfaceNormal;
 in vec3 viewPos;
 in vec3 fragPos;
 in vec2 TexCoord;
+in float rgbColor;
 
 layout (location = 0) out vec4 out_Color;
   
@@ -34,7 +35,7 @@ void main()
 	*/
 
 	// vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
-	vec4 totalColor = vec4(0.3,0.4,0.5,1.0);
+	vec4 totalColor = vec4(rgbColor,rgbColor,rgbColor,1.0);
 	
 		
 	// Ambient

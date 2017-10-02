@@ -1,4 +1,5 @@
 #pragma once
+#define _USE_MATH_DEFINES
 
 // OpenGLMath extra functions
 #include <gtc\matrix_transform.hpp>
@@ -10,6 +11,7 @@
 #include <vector>
 // Random 
 #include <random>
+#include <math.h>
 class Math {
 public:
 	/**
@@ -42,8 +44,16 @@ public:
 	static int getRand(int startIntervall, int endIntervall);
 
 	// Generates random value between -1 and 1
-	static double getNoise(double x, double y);
+	static float getNoise(int x, int z);
 
+	// Returns random value between -1 and 1 with averaged corners
+	static float getSmoothNoise(int x, int z);
+
+	// Returns random value between -1 and 1 with averaged corners
+	static float getInterpolatedNoise(float x, float z);
+
+	// Interpolate between two floats
+	static float interpolate(float a, float b, float blendFactor);
 	// Prints nested Vectors
 	static void printNestedVector(std::vector<std::vector<int> > pVector);
 

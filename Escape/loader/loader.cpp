@@ -196,6 +196,30 @@ GLuint Loader::loadTexture(const char * pFileName)
 
 }
 
+GLuint Loader::loadTexture(GLuint height, GLuint width, std::vector<float> pVector)
+{
+
+	GLuint TextureID;
+	// Creating new empty texture object
+	glGenTextures(1, &TextureID);
+	// Binding a 2D Texture to the object
+	glBindTexture(GL_TEXTURE_2D, TextureID);
+	// Set our texture parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// Set texture filtering
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Setting Texture
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, pVector.data());
+	// Adding Texture ID to the list
+	mTextures.push_back(TextureID);
+	// Declaration of image width/height
+
+	return TextureID;
+
+}
+
 // Delete all VertexArrayObjects
 void Loader::deleteVaos()
 {

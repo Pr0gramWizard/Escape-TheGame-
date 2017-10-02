@@ -6,9 +6,6 @@ GuiRenderer::GuiRenderer(Loader* pLoader, GuiShader* pShader){
 	std::vector<float> quadPositions = { -0.5 , 0.5 , -0.5 , -0.5 , 0.5 , 0.5 , 0.5 ,-0.5 };
 	mQuad = pLoader->loadDataToVao(quadPositions);
 	mShader = pShader;
-	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(1920.0f), 0.0f, static_cast<GLfloat>(1080.0f));
-	mShader->use();
-	mShader->loadProjectionMatrix(projection);
 }
 
 void GuiRenderer::render() {

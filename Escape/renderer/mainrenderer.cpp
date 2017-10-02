@@ -9,28 +9,23 @@ const char* MainRenderer::GUI_FRAGMENT = "shaders/gui.frag";
 
 MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 {
-	Loader* cLoader = new Loader();
 	// Creating terrain Shader
 	TerrainShader* terrainshader = new TerrainShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
 	// Creating terrain renderer
 	mTerrainRenderer = new TerrainRenderer(terrainshader, pProjectionMatrix);
 
+
+
 	mGuiShader = new GuiShader(GUI_VERTEX, GUI_FRAGMENT);
-
-	mGuiRenderer = new GuiRenderer(cLoader, mGuiShader);
-
-	GuiTexture temp(cLoader->loadTexture("health.png"), glm::vec2(0.25f, 0.25f), glm::vec2(0.1f, 0.1f));
-
-	mGuiRenderer->addGUI(temp);
 
 	mSkybox = new Skybox();
 
-	mSkybox->addTexture("skybox/res/right.jpg");
-	mSkybox->addTexture("skybox/res/left.jpg");
-	mSkybox->addTexture("skybox/res/top.jpg");
-	mSkybox->addTexture("skybox/res/bottom.jpg");
-	mSkybox->addTexture("skybox/res/back.jpg");
-	mSkybox->addTexture("skybox/res/front.jpg");
+	mSkybox->addTexture("skybox/res/right.png");
+	mSkybox->addTexture("skybox/res/left.png");
+	mSkybox->addTexture("skybox/res/top.png");
+	mSkybox->addTexture("skybox/res/bottom.png");
+	mSkybox->addTexture("skybox/res/back.png");
+	mSkybox->addTexture("skybox/res/front.png");
 
 	mSkybox->setCubeMapTexture(mSkybox->loadTexture());
 
@@ -64,8 +59,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, GLfloat
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
-	// mSkybox->render(pViewMatrix, mPlayer->getProjectionMatrix());
-
+	mSkybox->render(pViewMatrix, mPlayer->getProjectionMatrix());
 
 	// Prepare terrain
 	mTerrainRenderer->startShader();
@@ -85,9 +79,6 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, GLfloat
 			mNormalRenderer->render(terrain);
 		}
 	}
-
-
-	mGuiRenderer->render();
 }
 
 // Set FPS Counter
@@ -205,5 +196,9 @@ bool MainRenderer::getDebugMode() const
 // Clears the whole list
 void MainRenderer::clearLists()
 {
+	mTerrains.clear();
+}
+
+void MainRenderer::clearTerrainList(){
 	mTerrains.clear();
 }

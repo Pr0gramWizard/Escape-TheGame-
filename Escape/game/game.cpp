@@ -117,20 +117,14 @@ bool Game::gameLoop()
 	DeckenTexturePack.push_back("./terrain/res/texture/poly/blendMapDecke.png");
 
 	// Create Floor terrain
-	Terrain Boden(0, 0, 0, 10, "Boden", loader, "./terrain/res/01.jpg",false,256,8);
+	Boden = new Terrain(0, 0, 0, 4, "Boden", loader, "./terrain/res/01.jpg",64);
 	// Create Ceiling terrain
 	// Terrain Decke(0, 0, -2.7f, 15, "Decke", loader, "./terrain/res/Decke.png",true, DeckenTexturePack);
-
-	// List of all terrains
-	std::list<Terrain> allTerrain;
-	// Insert all current terrains
-	allTerrain.push_back(Boden);
-
 
 	// Create new instance of renderer
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	// Add terrain to render list
-	mRenderer->addToList(Boden);
+	mRenderer->addToList(*Boden);
 		
 	//**** LIGHT STUFF ****
 
@@ -147,9 +141,6 @@ bool Game::gameLoop()
 	allLights.push_back(middleLight);
 	allLights.push_back(topLeftCorner);
 	allLights.push_back(downLeftCorner);
-
-
-
 
 
 	//**** END LIGHT STUFF ****
@@ -178,15 +169,18 @@ bool Game::gameLoop()
 			lastTime += 1.0f;
 		}
 
+
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
 
 		// Controlling the sound
 		this->controlSound();
-
 		// Calculating the player movement
-		mPlayer->move(&Boden,deltaTime, false);
+		mPlayer->move(Boden,deltaTime, false);
 		mRenderer->render(mPlayer->getViewMatrix(), allLights, Game::RED, Game::GREEN, Game::BLUE, deltaTime);
+		mPlayer->setPosition(glm::vec3(128.0f, 256.0f, 128.0f));
+		mPlayer->setGravity(0.0f);
+		mPlayer->lookDown();
 	
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
@@ -375,7 +369,11 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 
 	if (Keyboard::isKeyPressed(GLFW_KEY_G))
 	{
-		game->mPlayer->changePerspective();
+		Loader* temp = new Loader();
+		game->Boden->redrawTerrain(temp, 64);
+		game->mRenderer->clearTerrainList();
+		game->mRenderer->addToList(*game->Boden);
+
 	}
 
 	if (Keyboard::isKeyPressed(GLFW_KEY_F1)) {

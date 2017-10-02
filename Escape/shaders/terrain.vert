@@ -8,6 +8,7 @@ out vec3 surfaceNormal;
 out vec3 viewPos;
 out vec3 fragPos;
 out vec2 TexCoord;
+out float rgbColor;
 
 out VS_OUT {
     vec3 normal;
@@ -20,7 +21,9 @@ uniform vec4 plane;
 
 void main()
 {
-	vec4 worldPosition = model * vec4(position,1.0);
+	vec4 worldPosition = model * vec4(position.x,0.0,position.z,1.0);
+
+	rgbColor = position.y;
 	// gl_ClipDistance[0] = dot(worldPosition, plane);
 
 	

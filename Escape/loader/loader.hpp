@@ -37,6 +37,7 @@ public:
 	void cleanUp();
 	// Load Texture
 	GLuint loadTexture(const char* pTextureFilePath);
+	GLuint loadTexture(GLuint height, GLuint width, std::vector<float> pVector);
 	glm::vec4 getLastVbos();
 	// All private functions
 private:

@@ -43,6 +43,8 @@
 #include <irrKlang.h>
 // spot
 #include "../light/spotlight.hpp"
+// Terrain Generator
+#include "../terrain/generator/TerrainGenerator.hpp"
 #include <stdlib.h>
 
 
@@ -76,6 +78,7 @@ public:
 	const static GLfloat BLUE;
 
 private:
+	Terrain* Boden;
 	// Variables
 	GLFWwindow* mWindow;
 	GLuint mWidth;

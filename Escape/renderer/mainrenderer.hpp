@@ -61,6 +61,7 @@ public:
 	void render(glm::mat4 pViewMatrix, vector<Light*> pLights, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, float pDelta);
 	void renderDebugInformation();
 	void clearLists();
+	void clearTerrainList();
 
 	// Set FPS
 	void setFPS(int pFPS);

@@ -119,10 +119,50 @@ int Math::getRand(int startValue, int endValue) {
 	return distr(generator);
 }
 
+// Interpolate between two floats
+float Math::interpolate(float a, float b, float blendFactor) {
+	double theta = blendFactor * M_PI;
+	float f = (1.0f - (float) cos(theta)) * 0.5f;
+
+	return a * (1.0f - f) + b * f;
+}
+
+float Math::getInterpolatedNoise(float x, float z) {
+	int intPartX = (int)x;
+	int intPartZ = (int)z;
+
+	float fracX = x - intPartX;
+	float fracZ = z - intPartZ;
+
+	float v1 = Math::getSmoothNoise(intPartX, intPartZ);
+	float v2 = Math::getSmoothNoise(intPartX + 1, intPartZ);
+	float v3 = Math::getSmoothNoise(intPartX, intPartZ + 1);
+	float v4 = Math::getSmoothNoise(intPartX + 1, intPartZ + 1);
+
+	float i12 = Math::interpolate(v1, v2, fracX);
+	float i34 = Math::interpolate(v3, v4, fracX);
+
+	return Math::interpolate(i12, i34, fracZ);
+}
+
 
 // Generate random value between -1 and 1
-double Math::getNoise(double x, double y) {
-	return (x < y) ? -1 : 1;
+float Math::getNoise(int x, int z) {
+	const int range_from = -1;
+	const int range_to = 1;
+	std::random_device                  rand_dev;
+	std::mt19937                        generator(x * 18289 + z * 38729 * rand_dev());
+	std::uniform_real_distribution<float>  distr(range_from, range_to);
+	return distr(generator);
+}
+
+// Generate random value between -1 and 1
+float Math::getSmoothNoise(int x, int z) {
+	float corners = (Math::getNoise(x - 1, z - 1) + Math::getNoise(x + 1, z - 1) + Math::getNoise(x - 1, z + 1) + Math::getNoise(x + 1, z + 1) / 16.0f);
+	float sides = (Math::getNoise(x - 1, z) + Math::getNoise(x + 1, z) + Math::getNoise(x, z + 1) + Math::getNoise(x , z - 1) / 8.0f);
+	float center = (Math::getNoise(x, z) / 4.0f);
+
+	return corners + sides + center;
 }
 
 void Math::printNestedVector(std::vector<std::vector<int>> pVector){
