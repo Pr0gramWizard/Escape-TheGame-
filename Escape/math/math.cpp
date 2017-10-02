@@ -123,8 +123,21 @@ int Math::getRand(int startValue, int endValue) {
 float Math::interpolate(float a, float b, float blendFactor) {
 	double theta = blendFactor * M_PI;
 	float f = (1.0f - (float) cos(theta)) * 0.5f;
-
 	return a * (1.0f - f) + b * f;
+}
+
+float Math::lerp(float a, float b, float t) {
+	return (1.0f - t) * a + t * b;
+}
+
+float Math::inverseLerp(float a, float b, float y) {
+	if (a != b) {
+		return (a - y) / (a - b);
+	}
+	else {
+		std::cout << "Inverse Lerp failed because a == b!" << std::endl;
+		return 1.0f;
+	}
 }
 
 float Math::getInterpolatedNoise(float x, float z) {

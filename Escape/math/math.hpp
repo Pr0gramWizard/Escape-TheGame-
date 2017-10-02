@@ -54,6 +54,12 @@ public:
 
 	// Interpolate between two floats
 	static float interpolate(float a, float b, float blendFactor);
+
+	// Lerp functiono
+	static float lerp(float a, float b, float t);
+
+	// Inverse Lerp
+	static float inverseLerp(float a, float b, float y);
 	// Prints nested Vectors
 	static void printNestedVector(std::vector<std::vector<int> > pVector);
 
