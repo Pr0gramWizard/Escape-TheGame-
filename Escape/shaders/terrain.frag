@@ -35,9 +35,9 @@ void main()
 	*/
 
 	// vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
-	vec4 totalColor = vec4(rgbColor,rgbColor,rgbColor,1.0);
-	
-		
+
+	vec4 totalColor = vec4(0.5f,.5f,.5f,1.0);
+			
 	// Ambient
     float ambientStrength = 0.1f;
 	vec3 result = vec3(0,0,0);

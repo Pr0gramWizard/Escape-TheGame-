@@ -3,17 +3,17 @@
 #include <iostream>
 #include <vector>
 #include <glew.h>
-#include <SOIL.h>
+#include <string>
+#include <map>
+#include <utility>
 
 #include "shader\SkyboxShader.hpp"
-
+#include "texture\SkyboxTexture.hpp"
 
 class Skybox
 {
 public:
 	Skybox();
-
-	void addTexture(const char* pTextureLocation);
 
 	void loadVAO();
 
@@ -25,21 +25,24 @@ public:
 	void setVBO(GLuint pVBO);
 	GLuint getVBO() const;
 
-	void setCubeMapTexture(GLuint pCubeMapTexture);
-	GLuint getCubeMapTexture() const;
+	void setCurrentCubeMapTexture(GLuint pCubeMapTexture);
+	GLuint getCurrentCubeMapTexture() const;
 
-	GLuint loadTexture();
+	void changeSkyboxTexture(unsigned int pRandomSkymapTexture);
+	void addTexturePack(std::string pPackFilePath);
 
 private:
-
+	// Skybox VertexArrayObject
 	GLuint mSkyBoxVAO;
+	// Skybox VertexBufferObject
 	GLuint mSkyBoxVBO;
-
-	GLuint mCubeMapTexture;
-
+	// Cubemap texture ID
+	GLuint mCurrentCubeMapTexture;
+	// Cubemap vertices
 	std::vector<GLfloat> mVertices;
-	std::vector<const GLchar*> mFaces;
-
+	// Skybo Shader
 	SkyboxShader* mShader;
+	// Texture Packs
+	std::vector<SkyboxTexture*> mTexturePacks;
 
 };

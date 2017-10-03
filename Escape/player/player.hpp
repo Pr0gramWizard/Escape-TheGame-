@@ -1,5 +1,4 @@
 #pragma once
-// Inclusion of every library
 // OpenGLMath 
 #include <glm.hpp>
 // OpenGLExtensionWrangler
@@ -58,65 +57,59 @@ public:
 	// Crouch method
 	void crouch();
 
-	void lookDown();
-
 	// Setter Functions
 	void setPosition(glm::vec3 pPosition);
 	void setHeight(GLfloat pHeight);
 	void setStrafeAngle(GLfloat pStrafeAngle);
-	void setName(const char* pName);
-	void setWindowHeight(int pHeight);
-	void setWindowWidth(int pWidth);
 	void setYRotation(GLfloat pYRot);
 	void setMovementSpeed(GLfloat pMovementSpeed);
 	void setUpSpeed(GLfloat pUpSpeed);
+	void setGravity(GLfloat pGravity);
+	void setJumpPower(GLfloat pJumpPower);
+	void setJumpCooldown(GLfloat pJumpCooldown);
+	void setClimbAngle(GLfloat pClimbAngle);
 	void setJumping(bool pJumping);
 	void setCrouching(bool pCrouching);
 	void setSprint(bool pSprint);
 	void setIsBelowLake(bool pIsBelowLake);
 	void setIsBurning(bool pIsBurning);
 	void setIsFlying(bool pIsFlying);
+	void setName(const char* pName);
+	void setWindowHeight(int pHeight);
+	void setWindowWidth(int pWidth);
 
 	// Getter Functions
 	glm::vec3 getPosition() const;
 	glm::vec3 getRotation() const;
+	glm::vec3 getCameraPosition() const;
+	glm::vec3 getViewVector() const;
+	glm::mat4 getViewMatrix() const;
+	glm::mat4 getProjectionMatrix() const;
 	GLfloat getYRotation() const;
-	bool isJumping() const;
 	GLfloat getHeight() const;
 	GLfloat getStrafeAngle() const;
-	const char* getName() const;
+	GLfloat getMovementSpeed() const;
+	GLfloat getGravity() const;
+	GLfloat getJumpPower() const;
+	GLfloat getJumpCooldown() const;
+	GLfloat getClimbAngle() const;
+	Camera* getCamera();
 	int getWindowHeight() const;
 	int getWindowWidth() const;
-	GLfloat getMovementSpeed() const;
 	bool getSprint() const;
 	bool getCrouching() const;
 	bool getJumping() const;
 	bool isBelowLake() const;
 	bool isBurning() const;
 	bool isFlying() const;
-	glm::vec3 getCameraPosition() const;
-	Camera* getCamera();
+	bool isJumping() const;
+	const char* getName() const;
 
-	GLfloat getGravity() const;
-	GLfloat getJumpPower() const;
-	GLfloat getJumpCooldown() const;
-	GLfloat getClimbAngle() const;
-	void setGravity(GLfloat pGravity);
-	void setJumpPower(GLfloat pJumpPower);
-	void setJumpCooldown(GLfloat pJumpCooldown);
-	void setClimbAngle(GLfloat pClimbAngle);
-
-	// Important World Settings
-	glm::mat4 getViewMatrix() const;
-	glm::mat4 getProjectionMatrix() const;
-	glm::vec3 getViewVector() const;
 
 	// Functions to process the users input
 	void ProcessKeyboard(Camera_Movement pDirection, GLfloat deltaTime);
 	void ProcessMouseMovement(GLfloat pXOffset, GLfloat pYOffset,GLfloat deltaTime);
 	void ProcessMouseScroll(GLfloat pYOffset);
-
-	void changePerspective();
 
 // All private member of the class
 private:
@@ -132,33 +125,37 @@ private:
 	GLfloat mUpSpeed;
 	// Current Strafe
 	GLfloat mStrafeAngle;
-	// Player name
-	const char* mName;
 	// Pointer to camera class
 	Camera* mEye;
-	// true if player is jumping
-	bool mJumping;
-	// true if player is crouching
-	bool mCrouching;
-	// Bool to check if player is sprinting
-	bool mSprinting;
+	// Player Sound (Used for walking)
+	irrklang::ISoundEngine* WalkSound;
+	// Player name
+	const char* mName;
 	// Window Height
 	int mWindowHeight;
 	// Window Width
 	int mWindowWidth;
-	// true if player is below lake
+	// Is the player currently jumping?
+	bool mJumping;
+	// Is the player currently crouching?
+	bool mCrouching;
+	// Is the player currently spriting?
+	bool mSprinting;
+	// Is the player currently in a lake?
 	bool mIsBelowLake;
-	// true if player is burning
+	// Is the player currently in lave?
 	bool mIsBurning;
-	// Player Sound (Used for walking)
-	irrklang::ISoundEngine* WalkSound;
-	// Player flying
+	// Is the player currently flying?
 	bool mIsFlying;
 
-	// Defintion of the global player constants
+	// Defintion of the local player variables
+	// Gravity effect onto the player
 	GLfloat mGravity;
+	// How high can the player jump
 	GLfloat mJumpPower;
+	// How long does the player have to wait until he can jump again
 	GLfloat mJumpCooldown;
+	// How steep is the wall that the player can walk
 	GLfloat mClimbAngle;
 
 // All private functions of the class

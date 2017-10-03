@@ -1,6 +1,4 @@
 #pragma once
-// Inclusion of libraries
-
 // Standard Input/Output Stream
 #include <iostream>
 // SOIL
@@ -15,9 +13,16 @@
 #include <mat4x4.hpp>
 // 3x1 vector
 #include <vec3.hpp>
+// Standard Library
+#include <stdlib.h>
 // Special glm functions
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
+// Text Loader class
+#include <ft2build.h>
+#include FT_FREETYPE_H
+// Audio class
+#include <irrKlang.h>
 // Keyboard class
 #include "../input/keyboard.hpp"
 // Camera class
@@ -36,16 +41,13 @@
 #include "../math/math.hpp"
 // Lake class
 #include "../lake/lake.hpp"
-// Text Loader class
-#include <ft2build.h>
-#include FT_FREETYPE_H
-// Audio class
-#include <irrKlang.h>
-// spot
+// Spotlight
 #include "../light/spotlight.hpp"
 // Terrain Generator
 #include "../terrain/generator/TerrainGenerator.hpp"
-#include <stdlib.h>
+// Skybox
+#include "../skybox/Skybox.hpp"
+
 
 
 // Declaration of game class
@@ -55,9 +57,13 @@ class Game
 public:
 	// Constructor with given Window Width, Window Height and Window Title
 	Game(GLuint pWidth, GLuint pHeigth, const char* pWindowTitle);
+	// Destructor
 	~Game();
-	bool gameLoop();
 
+	// Main Game Loop
+	bool gameLoop();
+	// Sets window centered
+	void glfwSetWindowCenter(GLFWwindow* window);
 
 	// Getter Functions
 	GLFWwindow* getWindow() const;
@@ -71,50 +77,54 @@ public:
 	void setHeight(GLuint pHeight);
 	void setTitle(const char* pTitle);
 
-public:
 	// background color
 	const static GLfloat RED;
 	const static GLfloat GREEN;
 	const static GLfloat BLUE;
 
+// Variables
 private:
-	Terrain* Boden;
-	// Variables
+	// Window instance
 	GLFWwindow* mWindow;
+	// Window width
 	GLuint mWidth;
+	// Window height
 	GLuint mHeight;
+	// Window title
 	const char* mTitle;
-	Camera* mCamera;
-	// Bool
-	GLfloat lastX = 400, lastY = 300;
+	// Mouse Coordiantes/data
+	GLfloat lastX = 400;
+	GLfloat lastY = 300;
+	bool firstMouse = true;
+	// Time variables
 	GLfloat deltaTime = 0.1f;
 	GLfloat lastFrame = 0.0f;
-	bool firstMouse = true;
 
+	// Spawn
+	glm::vec3 SpawnLocation;
+
+	// Floor terrain
+	Terrain* mFloor;
 	// Player
 	Player* mPlayer;
+	// Camera object
+	Camera* mCamera;
+	// Skybox object
+	Skybox* mSkybox;
 	// Main Renderer
 	MainRenderer* mRenderer;
 	// Sound Engine
 	irrklang::ISoundEngine* SoundEngine;
 
-	// Spawn
-	glm::vec3 SpawnLocation;
-
-	void glfwSetWindowCenter(GLFWwindow* window);
-
-
-	// Functions
+// Functions
+private:
+	// Callback functions
 	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 	static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+
+	// Setting functions
+	// Player movment
 	void do_movement();
-
-	void controlSound();
-
-
-
-
-
 };
 

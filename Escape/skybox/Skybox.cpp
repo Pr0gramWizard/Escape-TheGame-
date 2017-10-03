@@ -1,9 +1,8 @@
 #include "skybox.hpp"
 
-
-
 Skybox::Skybox()
 {
+	// Create 6 sided cube
 	mVertices = {
 		-1.0f, 1.0f, -1.0f,
 		-1.0f, -1.0f, -1.0f,
@@ -48,22 +47,29 @@ Skybox::Skybox()
 		1.0f, -1.0f, 1.0f
 	};
 
-	for (int i = 0; i < mVertices.size(); ++i)
+	for (unsigned int i = 0; i < mVertices.size(); ++i)
 	{
-		mVertices.at(i) = mVertices.at(i) * 500;
+		mVertices.at(i) = mVertices.at(i) * 1000;
 	}
 
+	// Create new shader
 	mShader = new SkyboxShader("shaders/skybox.vert", "shaders/skybox.frag");
 
+	// Create VAO
 	this->loadVAO();
-
-
-
 }
 
-void Skybox::addTexture(const char * pTextureLocation)
-{
-	mFaces.push_back(pTextureLocation);
+void Skybox::changeSkyboxTexture(unsigned int pRandomSkymapTexture) {
+	// Prevent accessing an elment out of bound
+	unsigned int arrayPosition = pRandomSkymapTexture % mTexturePacks.size();
+	// Chaning the cube map texture
+	setCurrentCubeMapTexture(mTexturePacks.at(arrayPosition)->getTextureID());
+}
+
+void Skybox::addTexturePack(std::string pPackFilePath) {
+	SkyboxTexture* newTexture = new SkyboxTexture(pPackFilePath);
+	mTexturePacks.push_back(newTexture);
+	setCurrentCubeMapTexture(newTexture->getTextureID());
 }
 
 void Skybox::loadVAO()
@@ -92,7 +98,7 @@ void Skybox::render(glm::mat4 pViewMatrix, glm::mat4 pProjectionMatrix)
 	glBindVertexArray(this->getVAO());
 	glActiveTexture(GL_TEXTURE0);
 	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "skybox"), 0);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, this->getCubeMapTexture());
+	glBindTexture(GL_TEXTURE_CUBE_MAP, this->getCurrentCubeMapTexture());
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
 	glDepthFunc(GL_LESS); // Set dep
@@ -118,41 +124,13 @@ GLuint Skybox::getVBO() const
 	return mSkyBoxVBO;
 }
 
-void Skybox::setCubeMapTexture(GLuint pCubeMapTexture)
+void Skybox::setCurrentCubeMapTexture(GLuint pCubeMapTexture)
 {
-	mCubeMapTexture = pCubeMapTexture;
+	mCurrentCubeMapTexture = pCubeMapTexture;
 }
 
-GLuint Skybox::getCubeMapTexture() const
+GLuint Skybox::getCurrentCubeMapTexture() const
 {
-	return mCubeMapTexture;
+	return mCurrentCubeMapTexture;
 }
 
-GLuint Skybox::loadTexture()
-{
-	GLuint textureID;
-	glGenTextures(1, &textureID);
-
-	int width, height;
-	unsigned char* image;
-
-	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
-	for (GLuint i = 0; i < mFaces.size(); i++)
-	{
-		image = SOIL_load_image(mFaces[i], &width, &height, 0, SOIL_LOAD_RGB);
-		if (image == 0)
-		{
-			std::cout << mFaces[i] << " konnte nicht gefunden werden!" << std::endl;
-		}
-		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-		SOIL_free_image_data(image);
-	}
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
-
-	return textureID;
-}

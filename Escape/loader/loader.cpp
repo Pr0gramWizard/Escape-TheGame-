@@ -71,10 +71,13 @@ Model Loader::loadDataToVao(std::vector<float> pPositions, std::vector<int> pInd
 }
 
 Model Loader::loadDataToVao(std::vector<float> pPositions) {
+	// Creates new VertexArrayObject
 	GLuint vaoID = createVao();
+	// Store the postion in the 2th position in the VertexBufferObject
 	storeData(0, pPositions, 2);
+	// Unbinds the current Vertex Array Object
 	unbindVao();
-
+	// Returns a model with given VertexArrayObject ID and the number of triangles
 	return Model(vaoID, pPositions.size() / 2);
 }
 

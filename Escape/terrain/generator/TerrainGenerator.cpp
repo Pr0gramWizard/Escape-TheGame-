@@ -35,7 +35,7 @@ std::vector<float> TerrainGenerator::generateHeights() {
 				float sampleX = (x / this->getNosieScale()) * frequency;
 				float sampleY = (y / this->getNosieScale()) * frequency;
 
-				float perlinValue = Math::getInterpolatedNoise(sampleX, sampleY);
+				float perlinValue = Math::getNoise(sampleX, sampleY);
 
 				noiseHeight += perlinValue * amplitude;
 				amplitude *= this->getPersistance();
@@ -48,14 +48,14 @@ std::vector<float> TerrainGenerator::generateHeights() {
 				minNoiseHeight = noiseHeight;
 			}
 
-
-
 			noiseMap.push_back(noiseHeight);
 		}
 	}
+	/*
 	for (unsigned int k = 0; k < noiseMap.size(); ++k) {
 		noiseMap[k] = Math::inverseLerp(minNoiseHeight, maxNoiseHeight, noiseMap[k]);
 	}
+	*/
 
 	return noiseMap;
 }

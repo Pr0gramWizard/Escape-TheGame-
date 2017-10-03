@@ -26,8 +26,6 @@ public:
 	// Returns a transformation matrix
 	static glm::mat4 getTransformationMatrix(glm::vec3 pPosition, GLfloat pXRotation, GLfloat pYRotation, GLfloat pZRotation, GLfloat pScale);
 
-	static glm::mat4 Math::getTransformationMatrix(glm::vec2 pTranslation, glm::vec2 pScale);
-
 	// Converts an angle from degree to radian
 	static float toRadians(float pAngle);
 
@@ -60,7 +58,5 @@ public:
 
 	// Inverse Lerp
 	static float inverseLerp(float a, float b, float y);
-	// Prints nested Vectors
-	static void printNestedVector(std::vector<std::vector<int> > pVector);
 
 };

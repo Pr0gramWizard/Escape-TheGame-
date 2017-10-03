@@ -589,7 +589,7 @@ void Terrain::generateHeights(Loader * loader, const char* pHeightmap)
 }
 
 void Terrain::generateRandomHeights(unsigned int size) {
-	TerrainGenerator* test = new TerrainGenerator(size, size, 1.0f,5,0.5f,2.0f);
+	TerrainGenerator* test = new TerrainGenerator(size, size, 1.0f,10,0.5f,2.0f);
 	this->setVertices(size);
 	mHeights = test->getHeightValues();
 	std::cout << "Random Terrain generated!" << std::endl;

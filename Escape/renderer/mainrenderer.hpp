@@ -1,73 +1,59 @@
 #pragma once
-// terrain
+// matrix
+#include <mat4x4.hpp>
+// list
+#include <list>
+// Terrain
 #include "../terrain/terrain.hpp"
-
 #include "../terrain/shader/terrainShader.hpp"
 #include "../terrain/renderer/terrainRenderer.hpp"
-//lake
+// Lake
 #include "../lake/lake.hpp"
 #include "../lake/renderer/lakeRenderer.hpp"
-
-// Text Rendering
+// Text 
 #include "../text/TextRenderer.hpp"
 #include "../text/shader/textshader.hpp"
-
-
 // Keyboard
 #include "../input/keyboard.hpp"
-
 // Player class
 #include "../player/player.hpp"
-
 // Skybox
 #include "../skybox/Skybox.hpp"
 #include "../skybox/shader/SkyboxShader.hpp"
-
 // GUI
 #include "../gui/GuiTexture.hpp"
 #include "../gui/renderer/GuiRenderer.hpp"
 #include "../gui/shader/GuiShader.hpp"
-
 // GLFW
 #include <glfw3.h>
 
-// matrix
-#include <mat4x4.hpp>
-
-// list
-#include <list>
-
+// Declaration of the Main Renderer class
 class MainRenderer
 {
 public:
-	// constructor
+	// Constructor
 	MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer);
-
-	// adds entities or terrains to render list
+	// Adds a terrain to the list
 	void addToList(Terrain &pTerrain);
+	void addToList(Skybox* pSkybox);
 
+	// Setter
 	void setDrawMode(bool pMode);
+
+	// Getter
 	bool getDrawMode() const;
 
-	void setNormalMode(bool pMode);
-	bool getNormalMode() const;
-
-	void setDebugMode(bool pMode);
-	bool getDebugMode() const;
-
-	// prepares for rendering
+	// Prepares the renderer
 	void prepare(GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE);
-	// render
+
+	// Render the scene
 	void render(glm::mat4 pViewMatrix, vector<Light*> pLights, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, float pDelta);
-	void renderDebugInformation();
+
+	// Cleanup functions
 	void clearLists();
 	void clearTerrainList();
 
-	// Set FPS
-	void setFPS(int pFPS);
-
-
-
+// Public strings of the shader locations
 public:
 	static const char* TERRAIN_VERTEX;
 	static const char* TERRAIN_FRAGMENT;
@@ -80,10 +66,6 @@ private:
 	// Renderer
 	// Terrain
 	TerrainRenderer* mTerrainRenderer;
-	// Terrain + Normal Vector
-	TerrainRenderer* mNormalRenderer;
-	// Text 
-	TextRenderer* mTextRenderer;
 	// Skybox
 	Skybox* mSkybox;
 	// Skybox Shader
@@ -95,15 +77,10 @@ private:
 	// Pointer to Player
 	Player* mPlayer;
 
-	// List of all important stuff
-	// Terrain
+	// List of all terrains
 	list<Terrain> mTerrains;
 
 	// Debug Modes
 	bool drawMode;
-	bool debugMode;
-	bool normalMode;
-	// FPS
-	int mFPS;
 };
 

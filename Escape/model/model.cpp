@@ -1,5 +1,10 @@
 #include "model.hpp"
 
+Model::Model() {
+
+}
+
+// Constructor with texture
 Model::Model(int pVaoId, int pVertices,int pTextureID)
 {
 	mVaoId = pVaoId;
@@ -9,6 +14,7 @@ Model::Model(int pVaoId, int pVertices,int pTextureID)
 	mTextureID = pTextureID;
 }
 
+// Constructor with no texture
 Model::Model(int pVaoId, int pVertices)
 {
 	mVaoId = pVaoId;
@@ -18,28 +24,18 @@ Model::Model(int pVaoId, int pVertices)
 	mTextureID = 0;
 }
 
-Model::Model()
-{
-	mVaoId = 0;
-	//Amount of vertices
-	mVertices = 0;
-	// Texture ID
-	mTextureID = 0;
-}
-
-Model::~Model()
-{
-}
-
-int Model::getVaoId() {
+// Returns the VertexArrayObject ID
+int Model::getVaoId() const {
 	return mVaoId;
 }
 
-int Model::getVerticesCount() {
+// Returns the number of vertices in the model
+int Model::getVerticesCount() const {
 	return mVertices;
 }
 
-int Model::getTextureID() {
+// Returns the texture ID
+int Model::getTextureID() const {
 	return mTextureID;
 }
 

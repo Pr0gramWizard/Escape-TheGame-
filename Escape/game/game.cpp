@@ -32,13 +32,11 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	
 	setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(),NULL,NULL));
 
-
 	//	DEBUG MODE
 	// setWindow(glfwCreateWindow(getWidth(), getHeight(), getTitle(), NULL, NULL));
 
 	// Mark context
 	glfwMakeContextCurrent(this->getWindow());
-
 
 	// Set the required callback functions
 	// Create callback to the game
@@ -77,18 +75,13 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
-	/*
-		Several predefined spawn locations
-		Mainly used for Debugging purpose
-	*/
-
 	// Spawn Location
 	SpawnLocation.x = 256;
 	SpawnLocation.y = 0;
 	SpawnLocation.z = 256;
 
 	// Create player and set his position
-	mPlayer = new Player(SpawnLocation, 0.5f, "Player", this->getHeight(), this->getWidth());
+	mPlayer = new Player(SpawnLocation, 1.0f, "Dweby the adventurer", this->getHeight(), this->getWidth());
 }
 
 
@@ -98,33 +91,22 @@ bool Game::gameLoop()
 	// Create an instance of a new loader
 	Loader* loader = new Loader();
 
-	// Create texturepacks:
-
-	// Floor texturepack
-	std::vector<std::string> BodenTexturePack;
-	BodenTexturePack.push_back("./terrain/res/texture/normal/stone.jpg");
-	BodenTexturePack.push_back("./terrain/res/texture/normal/gravel.jpg");
-	BodenTexturePack.push_back("./terrain/res/texture/normal/dirt.jpg");
-	BodenTexturePack.push_back("./terrain/res/texture/normal/mossystone.jpg");
-	BodenTexturePack.push_back("./terrain/res/texture/poly/blendBoden.png");
-
-	// Ceiling texturepack
-	std::vector<std::string> DeckenTexturePack;
-	DeckenTexturePack.push_back("./terrain/res/texture/normal/stone.jpg");
-	DeckenTexturePack.push_back("./terrain/res/texture/poly/red.jpg");
-	DeckenTexturePack.push_back("./terrain/res/texture/poly/cyan.jpg");
-	DeckenTexturePack.push_back("./terrain/res/texture/poly/purple.jpg");
-	DeckenTexturePack.push_back("./terrain/res/texture/poly/blendMapDecke.png");
-
 	// Create Floor terrain
-	Boden = new Terrain(0, 0, 0, 4, "Boden", loader, "./terrain/res/01.jpg",64);
-	// Create Ceiling terrain
-	// Terrain Decke(0, 0, -2.7f, 15, "Decke", loader, "./terrain/res/Decke.png",true, DeckenTexturePack);
+	mFloor = new Terrain(0, 0, 0, 10, "Boden", loader, "./terrain/res/01.jpg",64);
+
+	mSkybox = new Skybox();
+	mSkybox->addTexturePack("skybox/res/1/");
+	mSkybox->addTexturePack("skybox/res/2/");
+	mSkybox->addTexturePack("skybox/res/3/");
+	mSkybox->addTexturePack("skybox/res/4/");
+	mSkybox->addTexturePack("skybox/res/");
 
 	// Create new instance of renderer
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
 	// Add terrain to render list
-	mRenderer->addToList(*Boden);
+	mRenderer->addToList(*mFloor);
+	mRenderer->addToList(mSkybox);
+
 		
 	//**** LIGHT STUFF ****
 
@@ -161,26 +143,11 @@ bool Game::gameLoop()
 
 		frames++;
 
-		// FPS Counter
-		if (currentFrame - lastTime >= 1.0)
-		{
-			mRenderer->setFPS(frames);
-			frames = 0;
-			lastTime += 1.0f;
-		}
-
-
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
-
-		// Controlling the sound
-		this->controlSound();
 		// Calculating the player movement
-		mPlayer->move(Boden,deltaTime, false);
+		mPlayer->move(mFloor,deltaTime, false);
 		mRenderer->render(mPlayer->getViewMatrix(), allLights, Game::RED, Game::GREEN, Game::BLUE, deltaTime);
-		mPlayer->setPosition(glm::vec3(128.0f, 256.0f, 128.0f));
-		mPlayer->setGravity(0.0f);
-		mPlayer->lookDown();
 	
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
@@ -192,44 +159,6 @@ bool Game::gameLoop()
 	glfwTerminate();
 	return 0;
 }
-
-void Game::controlSound()
-{
-
-}
-
-// RenderQuad() Renders a 1x1 quad in NDC, best used for framebuffer color targets
-// and post-processing effects.
-GLuint quadVAO = 0;
-GLuint quadVBO;
-void RenderQuad()
-{
-	if (quadVAO == 0)
-	{
-		GLfloat quadVertices[] = {
-			// Positions        // Texture Coords
-			-1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-			-1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-			1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-			1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-		};
-		// Setup plane VAO
-		glGenVertexArrays(1, &quadVAO);
-		glGenBuffers(1, &quadVBO);
-		glBindVertexArray(quadVAO);
-		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	}
-	glBindVertexArray(quadVAO);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-	glBindVertexArray(0);
-}
-
-
 
 Game::~Game()
 {
@@ -323,10 +252,6 @@ void Game::glfwSetWindowCenter(GLFWwindow* window) {
 	}
 }
 
-
-
-
-
 // Is called whenever a key is pressed/released via GLFW
 void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -346,6 +271,7 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 
 	}
 
+	// Enable fly mode
 	if (Keyboard::isKeyPressed(GLFW_KEY_F)) {
 		game->mPlayer->setIsFlying(!game->mPlayer->isFlying());
 		std::clog << game->mPlayer->isFlying() << std::endl;
@@ -359,7 +285,7 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 		}
 	}
 
-
+	// Render scene in polygon mode
 	if (Keyboard::isKeyPressed(GLFW_KEY_Q))
 	{
 		bool DrawMode = !!abs(game->mRenderer->getDrawMode() - 1);
@@ -367,15 +293,24 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 
 	}
 
+	// Generate new terrain
 	if (Keyboard::isKeyPressed(GLFW_KEY_G))
 	{
 		Loader* temp = new Loader();
-		game->Boden->redrawTerrain(temp, 64);
+		game->mFloor->redrawTerrain(temp, 64);
 		game->mRenderer->clearTerrainList();
-		game->mRenderer->addToList(*game->Boden);
-
+		game->mRenderer->addToList(*game->mFloor);
 	}
 
+	// Generate new terrain
+	if (Keyboard::isKeyPressed(GLFW_KEY_O))
+	{
+		Skybox* gameSkybox = game->mSkybox;
+		int rndNumber = Math::getRand(1, 5);
+		gameSkybox->changeSkyboxTexture(rndNumber);
+	}
+
+	// Reset position to (0,0,0)
 	if (Keyboard::isKeyPressed(GLFW_KEY_F1)) {
 		game->mPlayer->setPosition(glm::vec3(0,0,0));
 	}

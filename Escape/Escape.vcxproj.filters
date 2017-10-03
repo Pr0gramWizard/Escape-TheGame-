@@ -25,41 +25,14 @@
     <Filter Include="Renderer">
       <UniqueIdentifier>{e701581f-adae-4875-8928-500e1b01ef85}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Light">
-      <UniqueIdentifier>{0fbbed7b-3492-4c2a-b7f8-46d733d89bbb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Lake">
-      <UniqueIdentifier>{475afe78-7e03-477e-bdef-2818caa27844}</UniqueIdentifier>
-    </Filter>
     <Filter Include="User Input">
       <UniqueIdentifier>{513d89b0-f877-4e4b-858d-0f66b1c58c42}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Lake\shader">
-      <UniqueIdentifier>{3f589645-95dc-4207-82d9-dc865f3d2893}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Lake\renderer">
-      <UniqueIdentifier>{9f5c783e-d879-4be7-ba4c-8b82424280a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Terrain">
-      <UniqueIdentifier>{cbbcbcdf-09d4-4d54-9137-a52a37f7e49d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Terrain\shader">
-      <UniqueIdentifier>{9d08be7e-2d90-4d95-8cc7-ee0d1d408417}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Terrain\renderer">
-      <UniqueIdentifier>{013682b1-9723-4292-a78d-7cb555b85c92}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Player">
-      <UniqueIdentifier>{0fdf705e-97bb-4f86-ab38-e9ea85e650ee}</UniqueIdentifier>
     </Filter>
     <Filter Include="Shader\Fragment">
       <UniqueIdentifier>{96570648-0421-429d-a13f-a53e00ba1d9e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Shader\Vertex">
       <UniqueIdentifier>{2346da93-a568-49cf-9598-b555f6e05c69}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Lake\fbo">
-      <UniqueIdentifier>{855704c1-c0e4-48ad-83d4-e8d15738020c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Text">
       <UniqueIdentifier>{c17aae93-2475-4d14-a814-937d6cec84b5}</UniqueIdentifier>
@@ -82,19 +55,46 @@
     <Filter Include="Skybox\shader">
       <UniqueIdentifier>{450f7e77-672d-4b8b-b965-707b8229875c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GUI">
+    <Filter Include="GUI %28REFACTORING%29">
       <UniqueIdentifier>{0d8497a7-c4d5-4a28-b08f-3bfc16b2e6c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GUI\texture">
+    <Filter Include="GUI %28REFACTORING%29\texture">
       <UniqueIdentifier>{b741944c-71b3-4ab5-808e-77d94eed9dc3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GUI\renderer">
+    <Filter Include="GUI %28REFACTORING%29\renderer">
       <UniqueIdentifier>{6d1ee12c-d008-4745-be0f-d3a1eb8673ce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GUI\shader">
+    <Filter Include="GUI %28REFACTORING%29\shader">
       <UniqueIdentifier>{868f2202-771e-439f-8993-8742331a12b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Terrain\generator">
+    <Filter Include="Lake %28REFACTORING%29">
+      <UniqueIdentifier>{475afe78-7e03-477e-bdef-2818caa27844}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lake %28REFACTORING%29\shader">
+      <UniqueIdentifier>{3f589645-95dc-4207-82d9-dc865f3d2893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lake %28REFACTORING%29\renderer">
+      <UniqueIdentifier>{9f5c783e-d879-4be7-ba4c-8b82424280a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lake %28REFACTORING%29\fbo">
+      <UniqueIdentifier>{855704c1-c0e4-48ad-83d4-e8d15738020c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Light %28REFACTORING%29">
+      <UniqueIdentifier>{0fbbed7b-3492-4c2a-b7f8-46d733d89bbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player %28REFACTORING%29">
+      <UniqueIdentifier>{0fdf705e-97bb-4f86-ab38-e9ea85e650ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrain %28REFACTORING%29">
+      <UniqueIdentifier>{cbbcbcdf-09d4-4d54-9137-a52a37f7e49d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrain %28REFACTORING%29\shader">
+      <UniqueIdentifier>{9d08be7e-2d90-4d95-8cc7-ee0d1d408417}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrain %28REFACTORING%29\renderer">
+      <UniqueIdentifier>{013682b1-9723-4292-a78d-7cb555b85c92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrain %28REFACTORING%29\generator">
       <UniqueIdentifier>{deb308cd-b294-49a9-9cbb-ce0992d7c8ad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -109,16 +109,16 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="lake\lake.cpp">
-      <Filter>Lake</Filter>
+      <Filter>Lake %28REFACTORING%29</Filter>
     </ClCompile>
     <ClCompile Include="lake\shader\lakeshader.cpp">
-      <Filter>Lake\shader</Filter>
+      <Filter>Lake %28REFACTORING%29\shader</Filter>
     </ClCompile>
     <ClCompile Include="lake\renderer\lakeRenderer.cpp">
-      <Filter>Lake\renderer</Filter>
+      <Filter>Lake %28REFACTORING%29\renderer</Filter>
     </ClCompile>
     <ClCompile Include="light\light.cpp">
-      <Filter>Light</Filter>
+      <Filter>Light %28REFACTORING%29</Filter>
     </ClCompile>
     <ClCompile Include="loader\loader.cpp">
       <Filter>Loader</Filter>
@@ -127,22 +127,22 @@
       <Filter>User Input</Filter>
     </ClCompile>
     <ClCompile Include="terrain\terrain.cpp">
-      <Filter>Terrain</Filter>
+      <Filter>Terrain %28REFACTORING%29</Filter>
     </ClCompile>
     <ClCompile Include="terrain\shader\terrainshader.cpp">
-      <Filter>Terrain\shader</Filter>
+      <Filter>Terrain %28REFACTORING%29\shader</Filter>
     </ClCompile>
     <ClCompile Include="terrain\renderer\terrainRenderer.cpp">
-      <Filter>Terrain\renderer</Filter>
+      <Filter>Terrain %28REFACTORING%29\renderer</Filter>
     </ClCompile>
     <ClCompile Include="math\math.cpp">
       <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="player\player.cpp">
-      <Filter>Player</Filter>
+      <Filter>Player %28REFACTORING%29</Filter>
     </ClCompile>
     <ClCompile Include="lake\fbo\lakeFrameBuffers.cpp">
-      <Filter>Lake\fbo</Filter>
+      <Filter>Lake %28REFACTORING%29\fbo</Filter>
     </ClCompile>
     <ClCompile Include="text\TextRenderer.cpp">
       <Filter>Text</Filter>
@@ -151,7 +151,7 @@
       <Filter>Text\shader</Filter>
     </ClCompile>
     <ClCompile Include="light\spotlight.cpp">
-      <Filter>Light</Filter>
+      <Filter>Light %28REFACTORING%29</Filter>
     </ClCompile>
     <ClCompile Include="model\model.cpp">
       <Filter>Model</Filter>
@@ -166,33 +166,34 @@
       <Filter>Skybox\shader</Filter>
     </ClCompile>
     <ClCompile Include="gui\GuiTexture.cpp">
-      <Filter>GUI\texture</Filter>
+      <Filter>GUI %28REFACTORING%29\texture</Filter>
     </ClCompile>
     <ClCompile Include="gui\renderer\GuiRenderer.cpp">
-      <Filter>GUI\renderer</Filter>
+      <Filter>GUI %28REFACTORING%29\renderer</Filter>
     </ClCompile>
     <ClCompile Include="gui\shader\GuiShader.cpp">
-      <Filter>GUI\shader</Filter>
+      <Filter>GUI %28REFACTORING%29\shader</Filter>
     </ClCompile>
     <ClCompile Include="terrain\generator\TerrainGenerator.cpp">
-      <Filter>Terrain\generator</Filter>
+      <Filter>Terrain %28REFACTORING%29\generator</Filter>
     </ClCompile>
+    <ClCompile Include="skybox\texture\SkyboxTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
       <Filter>Camera</Filter>
     </ClInclude>
     <ClInclude Include="lake\lake.hpp">
-      <Filter>Lake</Filter>
+      <Filter>Lake %28REFACTORING%29</Filter>
     </ClInclude>
     <ClInclude Include="lake\shader\lakeshader.hpp">
-      <Filter>Lake\shader</Filter>
+      <Filter>Lake %28REFACTORING%29\shader</Filter>
     </ClInclude>
     <ClInclude Include="lake\renderer\lakeRenderer.hpp">
-      <Filter>Lake\renderer</Filter>
+      <Filter>Lake %28REFACTORING%29\renderer</Filter>
     </ClInclude>
     <ClInclude Include="light\light.hpp">
-      <Filter>Light</Filter>
+      <Filter>Light %28REFACTORING%29</Filter>
     </ClInclude>
     <ClInclude Include="loader\loader.hpp">
       <Filter>Loader</Filter>
@@ -201,13 +202,13 @@
       <Filter>User Input</Filter>
     </ClInclude>
     <ClInclude Include="terrain\terrain.hpp">
-      <Filter>Terrain</Filter>
+      <Filter>Terrain %28REFACTORING%29</Filter>
     </ClInclude>
     <ClInclude Include="terrain\shader\terrainshader.hpp">
-      <Filter>Terrain\shader</Filter>
+      <Filter>Terrain %28REFACTORING%29\shader</Filter>
     </ClInclude>
     <ClInclude Include="terrain\renderer\terrainRenderer.hpp">
-      <Filter>Terrain\renderer</Filter>
+      <Filter>Terrain %28REFACTORING%29\renderer</Filter>
     </ClInclude>
     <ClInclude Include="math\math.hpp">
       <Filter>Math</Filter>
@@ -216,10 +217,10 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="player\player.hpp">
-      <Filter>Player</Filter>
+      <Filter>Player %28REFACTORING%29</Filter>
     </ClInclude>
     <ClInclude Include="lake\fbo\lakeFrameBuffers.hpp">
-      <Filter>Lake\fbo</Filter>
+      <Filter>Lake %28REFACTORING%29\fbo</Filter>
     </ClInclude>
     <ClInclude Include="text\TextRenderer.hpp">
       <Filter>Text</Filter>
@@ -228,7 +229,7 @@
       <Filter>Text\shader</Filter>
     </ClInclude>
     <ClInclude Include="light\spotlight.hpp">
-      <Filter>Light</Filter>
+      <Filter>Light %28REFACTORING%29</Filter>
     </ClInclude>
     <ClInclude Include="model\model.hpp">
       <Filter>Model</Filter>
@@ -243,17 +244,18 @@
       <Filter>Skybox\shader</Filter>
     </ClInclude>
     <ClInclude Include="gui\GuiTexture.hpp">
-      <Filter>GUI\texture</Filter>
+      <Filter>GUI %28REFACTORING%29\texture</Filter>
     </ClInclude>
     <ClInclude Include="gui\renderer\GuiRenderer.hpp">
-      <Filter>GUI\renderer</Filter>
+      <Filter>GUI %28REFACTORING%29\renderer</Filter>
     </ClInclude>
     <ClInclude Include="gui\shader\GuiShader.hpp">
-      <Filter>GUI\shader</Filter>
+      <Filter>GUI %28REFACTORING%29\shader</Filter>
     </ClInclude>
     <ClInclude Include="terrain\generator\TerrainGenerator.hpp">
-      <Filter>Terrain\generator</Filter>
+      <Filter>Terrain %28REFACTORING%29\generator</Filter>
     </ClInclude>
+    <ClInclude Include="skybox\texture\SkyboxTexture.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">

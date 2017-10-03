@@ -162,10 +162,6 @@ void Player::move(Terrain* pFloor,float pDelta, bool pWallCollision)
 
 }
 
-void Player::changePerspective() {
-	mEye->setViewMatrix(glm::inverse(mEye->GetViewMatrix()));
-}
-
 // Sets the important moving variables
 void Player::setMoveVariables()
 {
@@ -307,11 +303,6 @@ void Player::crouch()
 		this->setCrouching(true);
 		this->setHeight(this->getHeight() / 2.0f);
 	}
-}
-
-void Player::lookDown() {
-	mEye->setUp(glm::vec3(-1 ,0, 0));
-	mEye->setFront(glm::vec3(0 ,1, 0));
 }
 
 // Sets the crouch bool
