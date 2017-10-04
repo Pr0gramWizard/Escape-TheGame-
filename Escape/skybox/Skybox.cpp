@@ -52,6 +52,9 @@ Skybox::Skybox()
 		mVertices.at(i) = mVertices.at(i) * 1000;
 	}
 
+	mIsRotating = false;
+	mRotation = 0;
+
 	// Create new shader
 	mShader = new SkyboxShader("shaders/skybox.vert", "shaders/skybox.frag");
 
@@ -88,11 +91,18 @@ void Skybox::loadVAO()
 
 }
 
-void Skybox::render(glm::mat4 pViewMatrix, glm::mat4 pProjectionMatrix)
+void Skybox::render(glm::mat4 pViewMatrix, glm::mat4 pProjectionMatrix, GLfloat dt)
 {
 	glDepthFunc(GL_LEQUAL);  // Change depth function so depth test passes when values are equal to depth buffer's content
 	mShader->use();
-	mShader->loadViewMatrix(pViewMatrix);
+	glm::mat4 newViewMatrix = pViewMatrix;
+	float currentRotation = mRotation;
+	if (this->mIsRotating) {
+		mRotation += 1.0f * dt;
+	}		
+	newViewMatrix = glm::rotate(newViewMatrix, Math::toRadians(mRotation), glm::vec3(0, 1, 0));
+	mShader->loadViewMatrix(newViewMatrix);
+
 	mShader->loadProjectionMatrix(pProjectionMatrix);
 	// skybox cube
 	glBindVertexArray(this->getVAO());
@@ -102,6 +112,10 @@ void Skybox::render(glm::mat4 pViewMatrix, glm::mat4 pProjectionMatrix)
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
 	glDepthFunc(GL_LESS); // Set dep
+}
+
+void Skybox::toggleRotation(){
+	mIsRotating = !mIsRotating;
 }
 
 void Skybox::setVAO(GLuint pVAO)

@@ -1,11 +1,16 @@
 #pragma once
+// Standard Input/Output library
 #include <iostream>
+// String 
 #include <string>
+// Simple OpenGL Image Loading
 #include <SOIL.h>
 #include <vector>
 #include <glew.h>
 #include <glfw3.h>
 #include <gl\GL.h>
+
+// Declaration of the Skybox Texture class
 class SkyboxTexture{
 
 public:

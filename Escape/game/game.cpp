@@ -50,6 +50,8 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	// Remove cursor
 	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
+	glfwSwapInterval(0.0);
+
 	GLFWimage icons[1];
 	icons[0].pixels = SOIL_load_image("./resources/icon.png", &icons[0].width, &icons[0].height, 0, SOIL_LOAD_RGBA);
 	glfwSetWindowIcon(this->getWindow(), 1, icons);
@@ -76,12 +78,15 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	glCullFace(GL_BACK);
 
 	// Spawn Location
-	SpawnLocation.x = 256;
+	SpawnLocation.x = 0;
 	SpawnLocation.y = 0;
-	SpawnLocation.z = 256;
+	SpawnLocation.z = 0;
+
+
+	std::cout << glGetString(GL_VERSION) << std::endl;
 
 	// Create player and set his position
-	mPlayer = new Player(SpawnLocation, 1.0f, "Dweby the adventurer", this->getHeight(), this->getWidth());
+	mPlayer = new Player(SpawnLocation, 1.5f, "New Player", this->getHeight(), this->getWidth());
 }
 
 
@@ -95,10 +100,10 @@ bool Game::gameLoop()
 	mFloor = new Terrain(0, 0, 0, 10, "Boden", loader, "./terrain/res/01.jpg",64);
 
 	mSkybox = new Skybox();
-	mSkybox->addTexturePack("skybox/res/1/");
-	mSkybox->addTexturePack("skybox/res/2/");
-	mSkybox->addTexturePack("skybox/res/3/");
-	mSkybox->addTexturePack("skybox/res/4/");
+	// mSkybox->addTexturePack("skybox/res/1/");
+	// mSkybox->addTexturePack("skybox/res/2/");
+	// mSkybox->addTexturePack("skybox/res/3/");
+	// mSkybox->addTexturePack("skybox/res/4/");
 	mSkybox->addTexturePack("skybox/res/");
 
 	// Create new instance of renderer
@@ -140,8 +145,14 @@ bool Game::gameLoop()
 		GLfloat currentFrame = (GLfloat)glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-
 		frames++;
+
+		if (currentFrame - lastTime >= 1.0)
+		{
+			// std::cout << frames << " fps" << std::endl;
+			frames = 0;
+			lastTime += 1.0f;
+		}
 
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
@@ -313,6 +324,11 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 	// Reset position to (0,0,0)
 	if (Keyboard::isKeyPressed(GLFW_KEY_F1)) {
 		game->mPlayer->setPosition(glm::vec3(0,0,0));
+	}
+
+	// Reset position to (0,0,0)
+	if (Keyboard::isKeyPressed(GLFW_KEY_E)) {
+		game->mSkybox->toggleRotation();
 	}
 
 }

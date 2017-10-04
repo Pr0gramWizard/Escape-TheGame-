@@ -34,7 +34,7 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, GLfloat
 	// Preparing the scree
 	this->prepare(pRED, pGREEN, pBLUE);
 
-	mSkybox->render(pViewMatrix, mPlayer->getProjectionMatrix());
+	mSkybox->render(pViewMatrix, mPlayer->getProjectionMatrix(),pDelta);
 
 	// Polygon Mode
 	if (this->getDrawMode())
