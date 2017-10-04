@@ -5,14 +5,21 @@ const char* MainRenderer::TERRAIN_VERTEX = "shaders/terrain.vert";
 const char* MainRenderer::TERRAIN_FRAGMENT = "shaders/terrain.frag";
 const char* MainRenderer::GUI_VERTEX = "shaders/gui.vert";
 const char* MainRenderer::GUI_FRAGMENT = "shaders/gui.frag";
+const char* MainRenderer::TEXT_VERTEX = "shaders/text.vert";
+const char* MainRenderer::TEXT_FRAGMENT = "shaders/text.frag";
 
 
-MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
+MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer,int pWidth, int pHeight)
 {
 	// Creating terrain Shader
 	TerrainShader* terrainshader = new TerrainShader(TERRAIN_VERTEX, TERRAIN_FRAGMENT);
 	// Creating terrain renderer
 	mTerrainRenderer = new TerrainRenderer(terrainshader, pProjectionMatrix);
+
+	// Creating Text Shader
+	TextShader* textshader = new TextShader(TEXT_VERTEX, TEXT_FRAGMENT);
+	// Creating Text Renderer
+	mTextRenderer = new TextRenderer(textshader, pWidth, pHeight);
 
 	// Setting draw mode to normal
 	this->setDrawMode(0);
@@ -20,6 +27,14 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer)
 	// Setting player instance
 	mPlayer = pPlayer;
 
+	this->mWidth = pWidth;
+	this->mHeight = pHeight;
+
+}
+
+void MainRenderer::resizeWindow(int pWidth, int pHeight) {
+	this->mWidth = pWidth;
+	this->mHeight = pHeight;
 }
 
 // Clearing whole screen with given color
@@ -61,6 +76,52 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, GLfloat
 		mTerrainRenderer->loadTexture(terrain);
 		mTerrainRenderer->render(terrain);
 	}
+
+	this->renderDebugInformation(mWidth, mHeight);
+}
+
+void MainRenderer::setFPS(int pFps) {
+	mFps = pFps;
+}
+
+// Render Debug information
+void MainRenderer::renderDebugInformation(int pWidth, int pHeight)
+{
+	glEnable(GL_BLEND);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	std::string PlayerPosition = "Player Position: ";
+
+	float XPos = Math::round(mPlayer->getPosition().x, 2);
+	float YPos = Math::round(mPlayer->getPosition().y, 2);
+	float ZPos = Math::round(mPlayer->getPosition().z, 2);
+
+	size_t characterStartPos = 0;
+	size_t characterEndPos = 5;
+
+	PlayerPosition =	PlayerPosition 
+						+ std::to_string(XPos).substr(characterStartPos, characterEndPos) 
+						+ "," + std::to_string(YPos).substr(characterStartPos, characterEndPos - 1) 
+						+ "," + std::to_string(ZPos).substr(characterStartPos, characterEndPos);
+
+	std::string FPS = "FPS: " + std::to_string(mFps);
+
+	glm::vec3 fpsColor(1.0f,1.0f,1.0f);
+
+	if (mFps < 60) {
+		fpsColor = glm::vec3(0.8f, 0.0f, 0.0f);
+	}
+	else if (mFps < 120 && 60 < mFps) {
+		fpsColor = glm::vec3(0.8f, 0.4f, 0.0f);
+	}
+	else if(mFps > 120){
+		fpsColor = glm::vec3(0.0f, 0.8f, 0.0f);
+	}
+
+	mTextRenderer->RenderText(FPS.c_str(), 0.0f, mHeight - 20.0f, 0.5f, fpsColor);
+	mTextRenderer->RenderText(PlayerPosition.c_str(), 0.0f, mHeight - 40.0f, 0.5f, glm::vec3(1, 1, 1));
+
 }
 
 void MainRenderer::addToList(Skybox* pSkybox) {

@@ -47,6 +47,13 @@
 #include "../terrain/generator/TerrainGenerator.hpp"
 // Skybox
 #include "../skybox/Skybox.hpp"
+// Entity
+#include "../entity/entity.hpp"
+#include "../entity/shader/entityshader.hpp"
+// Object
+#include "../object/object.hpp"
+#include "../object/shader/objectshader.hpp"
+#include "../object/renderer/objectrenderer.hpp"
 
 
 

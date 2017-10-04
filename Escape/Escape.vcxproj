@@ -20,6 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera\camera.cpp" />
+    <ClCompile Include="entity\entity.cpp" />
+    <ClCompile Include="entity\renderer\entityRenderer.cpp" />
+    <ClCompile Include="entity\shader\entityshader.cpp" />
     <ClCompile Include="game\game.cpp" />
     <ClCompile Include="gui\GuiTexture.cpp" />
     <ClCompile Include="gui\renderer\GuiRenderer.cpp" />
@@ -34,7 +37,11 @@
     <ClCompile Include="loader\loader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\math.cpp" />
+    <ClCompile Include="mesh\mesh.cpp" />
     <ClCompile Include="model\model.cpp" />
+    <ClCompile Include="object\object.cpp" />
+    <ClCompile Include="object\renderer\objectrenderer.cpp" />
+    <ClCompile Include="object\shader\objectshader.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="renderer\mainrenderer.cpp" />
     <ClCompile Include="skybox\shader\SkyboxShader.cpp" />
@@ -49,6 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp" />
+    <ClInclude Include="entity\entity.hpp" />
+    <ClInclude Include="entity\renderer\entityRenderer.hpp" />
+    <ClInclude Include="entity\shader\entityshader.hpp" />
     <ClInclude Include="game\game.hpp" />
     <ClInclude Include="gui\GuiTexture.hpp" />
     <ClInclude Include="gui\renderer\GuiRenderer.hpp" />
@@ -62,7 +72,11 @@
     <ClInclude Include="light\spotlight.hpp" />
     <ClInclude Include="loader\loader.hpp" />
     <ClInclude Include="math\math.hpp" />
+    <ClInclude Include="mesh\mesh.hpp" />
     <ClInclude Include="model\model.hpp" />
+    <ClInclude Include="object\object.hpp" />
+    <ClInclude Include="object\renderer\objectrenderer.hpp" />
+    <ClInclude Include="object\shader\objectshader.hpp" />
     <ClInclude Include="player\player.hpp" />
     <ClInclude Include="renderer\mainrenderer.hpp" />
     <ClInclude Include="skybox\shader\SkyboxShader.hpp" />

@@ -2,10 +2,10 @@
 
 
 
-TextRenderer::TextRenderer(TextShader* pShader)
+TextRenderer::TextRenderer(TextShader* pShader,int pWidth, int pHeight)
 {
 	mShader = pShader;
-	prepareShader(1920,1080);
+	prepareShader(pWidth, pHeight);
 	prepareText();
 	bindVAO();
 }
@@ -73,7 +73,7 @@ void TextRenderer::prepareText()
 
 	// Load font as face
 	FT_Face face;
-	if (FT_New_Face(ft, "fonts/arial.ttf", 0, &face))
+	if (FT_New_Face(ft, "fonts/Consolas.ttf", 0, &face))
 		std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
 
 	// Set size to load glyphs as

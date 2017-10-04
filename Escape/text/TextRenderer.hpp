@@ -38,7 +38,7 @@ class TextRenderer
 {
 // Public functions
 public:
-	TextRenderer(TextShader* pShader);
+	TextRenderer(TextShader* pShader, int pWidth, int pHeight);
 	~TextRenderer();
 	void prepareShader(int pWidth, int pHeight);
 	void prepareText();

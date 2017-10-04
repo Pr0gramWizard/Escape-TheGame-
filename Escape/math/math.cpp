@@ -144,3 +144,8 @@ float Math::getSmoothNoise(int x, int z) {
 
 	return corners + sides + center;
 }
+
+// Floor float number to a given digit
+float Math::round(float x, int digit) {
+	return 	floor(x*pow(10, digit)) / pow(10, digit);
+}

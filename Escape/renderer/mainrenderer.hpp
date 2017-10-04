@@ -32,7 +32,7 @@ class MainRenderer
 {
 public:
 	// Constructor
-	MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer);
+	MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer, int pWidth, int pHeight);
 	// Adds a terrain to the list
 	void addToList(Terrain &pTerrain);
 	void addToList(Skybox* pSkybox);
@@ -49,9 +49,18 @@ public:
 	// Render the scene
 	void render(glm::mat4 pViewMatrix, vector<Light*> pLights, GLfloat pRED, GLfloat pGREEN, GLfloat pBLUE, float pDelta);
 
+	// Render debug information
+	void renderDebugInformation(int pWidth, int pHeight);
+
+	// Set FPS
+	void setFPS(int pFps);
+
 	// Cleanup functions
 	void clearLists();
 	void clearTerrainList();
+
+	// Resize function
+	void resizeWindow(int pWidth, int pHeight);
 
 // Public strings of the shader locations
 public:
@@ -61,6 +70,8 @@ public:
 	static const char* SKYBOX_FRAGMENT;
 	static const char* GUI_VERTEX;
 	static const char* GUI_FRAGMENT;
+	static const char* TEXT_VERTEX;
+	static const char* TEXT_FRAGMENT;
 
 private:
 	// Renderer
@@ -76,11 +87,17 @@ private:
 	GuiShader* mGuiShader;
 	// Pointer to Player
 	Player* mPlayer;
-
+	// Text Renderer
+	TextRenderer* mTextRenderer;
 	// List of all terrains
 	list<Terrain> mTerrains;
-
+	// FPS
+	int mFps;
 	// Debug Modes
 	bool drawMode;
+	// Window Width
+	int mWidth;
+	// Window Height
+	int mHeight;
 };
 

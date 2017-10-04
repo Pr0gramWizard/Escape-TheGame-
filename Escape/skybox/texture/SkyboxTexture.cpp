@@ -22,8 +22,7 @@ void SkyboxTexture::loadTexture() {
 			const char *finalFilePath = filePath.c_str();
 
 			image = SOIL_load_image(finalFilePath, &width, &height, 0, SOIL_LOAD_RGB);
-			if (image == 0)
-			{
+			if (image == 0){
 				std::cout << finalFilePath << " konnte nicht gefunden werden!" << std::endl;
 			}
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);

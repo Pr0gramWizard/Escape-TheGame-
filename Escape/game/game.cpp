@@ -6,9 +6,6 @@ const GLfloat Game::RED = 0.2f;
 const GLfloat Game::GREEN = 0.3f;
 const GLfloat Game::BLUE = 0.3f;
 
-// Used for post-processing effects
-void RenderQuad();
-
 // Default Constructor 
 // (Window Width, Window Height, Window Title)
 Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
@@ -50,7 +47,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	// Remove cursor
 	glfwSetInputMode(this->getWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
-	glfwSwapInterval(0.0);
+	glfwSwapInterval(0);
 
 	GLFWimage icons[1];
 	icons[0].pixels = SOIL_load_image("./resources/icon.png", &icons[0].width, &icons[0].height, 0, SOIL_LOAD_RGBA);
@@ -86,7 +83,7 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
 	// Create player and set his position
-	mPlayer = new Player(SpawnLocation, 1.5f, "New Player", this->getHeight(), this->getWidth());
+	mPlayer = new Player(SpawnLocation, 2.0f, "New Player", this->getHeight(), this->getWidth());
 }
 
 
@@ -100,14 +97,20 @@ bool Game::gameLoop()
 	mFloor = new Terrain(0, 0, 0, 10, "Boden", loader, "./terrain/res/01.jpg",64);
 
 	mSkybox = new Skybox();
-	// mSkybox->addTexturePack("skybox/res/1/");
+	mSkybox->addTexturePack("skybox/res/1/");
 	// mSkybox->addTexturePack("skybox/res/2/");
 	// mSkybox->addTexturePack("skybox/res/3/");
 	// mSkybox->addTexturePack("skybox/res/4/");
 	mSkybox->addTexturePack("skybox/res/");
 
+	Object* Cube = new Object("object/res/cube/cube.obj", glm::vec3(32,0,32),glm::vec3(0,0,0),1.0f);
+
+	Cube->loadTexture("object/res/cube/wood.jpg");
+	ObjectShader* objectshader = new ObjectShader("shaders/object.vert", "shaders/object.frag");
+	ObjectRenderer* objectrender = new ObjectRenderer(objectshader, mPlayer->getProjectionMatrix());
+
 	// Create new instance of renderer
-	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer);
+	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer,this->getWidth(), this->getHeight());
 	// Add terrain to render list
 	mRenderer->addToList(*mFloor);
 	mRenderer->addToList(mSkybox);
@@ -147,18 +150,24 @@ bool Game::gameLoop()
 		lastFrame = currentFrame;
 		frames++;
 
-		if (currentFrame - lastTime >= 1.0)
-		{
-			// std::cout << frames << " fps" << std::endl;
-			frames = 0;
-			lastTime += 1.0f;
-		}
-
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
 		// Calculating the player movement
 		mPlayer->move(mFloor,deltaTime, false);
-		mRenderer->render(mPlayer->getViewMatrix(), allLights, Game::RED, Game::GREEN, Game::BLUE, deltaTime);
+		mRenderer->render(mPlayer->getViewMatrix(), allLights, Game::RED, Game::GREEN, Game::BLUE,deltaTime);
+
+		objectrender->startShader();
+		objectrender->loadModelMatrix(Cube);
+		objectrender->loadViewMatrix(mPlayer->getViewMatrix());
+		objectrender->render(*Cube);
+		objectrender->stopShader();
+
+		if (currentFrame - lastTime >= 1.0)
+		{
+			mRenderer->setFPS(frames);
+			frames = 0;
+			lastTime += 1.0f;
+		}
 	
 		// Swap the buffers
 		glfwSwapBuffers(this->getWindow());
@@ -177,9 +186,7 @@ Game::~Game()
 }
 
 // Moves/alters the camera positions based on user input
-void Game::do_movement()
-{
-
+void Game::do_movement(){
 	// Camera controls
 	if (Keyboard::isKeyPressed(GLFW_KEY_W)) {
 		mPlayer->ProcessKeyboard(FORWARD, deltaTime);
@@ -193,7 +200,6 @@ void Game::do_movement()
 	if (Keyboard::isKeyPressed(GLFW_KEY_D)) {
 		mPlayer->ProcessKeyboard(RIGHT, deltaTime);
 	}
-
 }
 
 void Game::glfwSetWindowCenter(GLFWwindow* window) {

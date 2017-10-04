@@ -97,6 +97,33 @@
     <Filter Include="Terrain %28REFACTORING%29\generator">
       <UniqueIdentifier>{deb308cd-b294-49a9-9cbb-ce0992d7c8ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Skybox\texture">
+      <UniqueIdentifier>{1c9c6201-2424-48cd-aa8f-8985708cc81a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity">
+      <UniqueIdentifier>{967e4e67-b136-4e9b-ad10-3f8a6dda31b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mesh">
+      <UniqueIdentifier>{85eedc0f-1cf5-4cbd-9f49-10a7817480e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\shader">
+      <UniqueIdentifier>{ee35ad91-fe70-4b6f-b839-05ab34408fce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\NewFilter1">
+      <UniqueIdentifier>{ee164b2b-1ca8-4ba6-aa6e-ae7dfe0916ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\renderer">
+      <UniqueIdentifier>{10032655-a7c2-4ae2-b418-f6c66ba411bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{d2a6f79d-cf31-487b-9135-6640e142e9b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\renderer">
+      <UniqueIdentifier>{2007a20c-072d-4c1b-9d68-947c0a78e92f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\shader">
+      <UniqueIdentifier>{ac3618e9-4b27-4154-ba3c-d470549ecd98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -177,7 +204,30 @@
     <ClCompile Include="terrain\generator\TerrainGenerator.cpp">
       <Filter>Terrain %28REFACTORING%29\generator</Filter>
     </ClCompile>
-    <ClCompile Include="skybox\texture\SkyboxTexture.cpp" />
+    <ClCompile Include="skybox\texture\SkyboxTexture.cpp">
+      <Filter>Skybox\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="entity\entity.cpp">
+      <Filter>Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh\mesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="entity\shader\entityshader.cpp">
+      <Filter>Entity\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="entity\renderer\entityRenderer.cpp">
+      <Filter>Entity\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="object\object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="object\renderer\objectrenderer.cpp">
+      <Filter>Object\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="object\shader\objectshader.cpp">
+      <Filter>Object\shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -255,7 +305,30 @@
     <ClInclude Include="terrain\generator\TerrainGenerator.hpp">
       <Filter>Terrain %28REFACTORING%29\generator</Filter>
     </ClInclude>
-    <ClInclude Include="skybox\texture\SkyboxTexture.hpp" />
+    <ClInclude Include="skybox\texture\SkyboxTexture.hpp">
+      <Filter>Skybox\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="entity\entity.hpp">
+      <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh\mesh.hpp">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="entity\shader\entityshader.hpp">
+      <Filter>Entity\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="entity\renderer\entityRenderer.hpp">
+      <Filter>Entity\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="object\object.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="object\renderer\objectrenderer.hpp">
+      <Filter>Object\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="object\shader\objectshader.hpp">
+      <Filter>Object\shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">

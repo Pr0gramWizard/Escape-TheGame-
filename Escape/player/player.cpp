@@ -21,8 +21,8 @@ Player::Player(glm::vec3 pPosition, GLfloat pHeight, const char * pName, int pWi
 	this->setWindowWidth(pWindowWidth);
 	this->setIsBelowLake(false);
 	this->setIsBurning(false);
-	this->setGravity(-30.0f);
-	this->setJumpPower(6.0f);
+	this->setGravity(-20.0f);
+	this->setJumpPower(10.0f);
 	this->setJumpCooldown(0.4f);
 	this->setStrafeAngle(45.0f);
 	this->setClimbAngle(0.65f);

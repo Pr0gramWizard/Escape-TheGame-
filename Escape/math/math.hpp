@@ -59,4 +59,7 @@ public:
 	// Inverse Lerp
 	static float inverseLerp(float a, float b, float y);
 
+	// Floor to a certain digit
+	static float round(float x, int digit);
+
 };
