@@ -27,6 +27,8 @@ public:
 	~Loader();
 	// Function loads raw data to Model (with texture)
 	Model loadDataToVao(std::vector<float> pPositions, std::vector<float> pTexCoords, std::vector<float> pNormals, std::vector<int> pIndices, const char* pTextureFile);
+	// Function loads raw data to vector
+	std::vector<GLuint> loadData(std::vector<float> pPositions, std::vector<float> pTexCoords, std::vector<float> pNormals, std::vector<int> pIndices, const char* pTextureFile);
 	// Function loads raw data to Model
 	Model loadDataToVao(std::vector<float> pPositions, std::vector<float> pTexCoords, std::vector<float> pNormals, std::vector<int> pIndices);
 	// Render Quad for particles

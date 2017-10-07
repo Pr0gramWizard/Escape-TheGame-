@@ -17,6 +17,8 @@
 #include "../../entity/entity.hpp"
 // Entity shader
 #include "../../entity/shader/entityshader.hpp"
+#include <memory>
+#include "../presets/Cube.h"
 
 // Defines several possible options for render mopdes
 enum RenderMode {
@@ -44,17 +46,19 @@ public:
 
 	// List of Entities
 	void render(std::list<Entity> pEntities);
+	// Render Cube
+	void render(std::unique_ptr<Cube>& pCube);
 	// List of Entities with given RenderMode
 	void render(std::list<Entity> pEntities, RenderMode pMode);
 	// Single Entity
-	void render(Entity &pEntity);
+	void render(std::unique_ptr<Entity>& pEntity);
 	// Single Entity with given RenderMode
 	void render(Entity &pEntity, RenderMode pMode);
 
 	// Prepare methods:
 
 	// Prepare single Entity (given as direct object)
-	void prepareEntity(Entity pEntity);
+	void prepareEntity(GLuint pVaoID);
 	// Prepare single Entity (given as pointer to object)
 	void prepareEntity(Entity* pEntity);
 
@@ -69,6 +73,8 @@ public:
 	void loadModelMatrix(Entity pEntity);
 	// Load Model Matrix with given Entity (given as pointer to object)
 	void loadModelMatrix(Entity* pEntity);
+	// Load Model Matrix
+	void loadModelMatrix(glm::mat4 pViewMatrix);
 	// Load View Matrix
 	void loadViewMatrix(glm::mat4 pViewMatrix);
 	// Load lights

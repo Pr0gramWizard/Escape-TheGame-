@@ -52,7 +52,7 @@ Skybox::Skybox()
 		mVertices.at(i) = mVertices.at(i) * 1000;
 	}
 
-	mIsRotating = false;
+	mIsRotating = true;
 	mRotation = 0;
 
 	// Create new shader
@@ -86,8 +86,8 @@ void Skybox::loadVAO()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 	glBindVertexArray(0);
 
-	setVAO(mSkyBoxVAO);
-	setVBO(mSkyBoxVBO);
+	// setVAO(mSkyBoxVAO);
+	// setVBO(mSkyBoxVBO);
 
 }
 

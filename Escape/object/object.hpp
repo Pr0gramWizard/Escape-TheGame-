@@ -25,7 +25,9 @@ class Object
 public:
 	/*  Functions   */
 	// Constructor, expects a filepath to a 3D Object.
-	Object(GLchar* path, glm::vec3 pPosition,glm::vec3 pRotatio,GLfloat pScale);
+	Object(GLchar* path, std::string pTexturePath, glm::vec3 pPosition,glm::vec3 pRotatio,GLfloat pScale);
+	Object(const Object & pObject, std::string pTexturePath, glm::vec3 pPosition, float pScale, glm::vec3 pRotation);
+	Object(const Object & pObject, glm::vec3 pPosition, float pScale, glm::vec3 pRotation);
 
 	// Draws the Object, and thus all its meshes
 	void Draw(ObjectShader* shader);
@@ -36,6 +38,7 @@ public:
 	glm::mat4 getModelMatrix();
 	glm::vec3 getRotation() const;
 	GLuint getTexture() const;
+	std::vector<Mesh> getMeshes() const;
 	// Setter
 	void setPosition(glm::vec3 pPosition);
 	void setScale(GLfloat pScale);
@@ -49,9 +52,9 @@ private:
 	glm::vec3 mPosition;
 	GLfloat mScale;
 	glm::vec3 mRotation;
-	vector<Mesh> meshes;
-	string directory;
-	vector<Texture> textures_loaded;
+	std::vector<Mesh> meshes;
+	std::string directory;
+	std::vector<Texture> textures_loaded;
 	GLuint mTexture;
 
 	void loadObject(string path);
@@ -60,6 +63,6 @@ private:
 
 	// Checks all material textures of a given type and loads the textures if they're not loaded yet.
 	// The required info is returned as a Texture struct.
-	vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName);
+	std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName);
 };
 

@@ -16,8 +16,9 @@ class Entity
 {
 // All public functions of the class
 public:
+	Entity();
 	// Constructor
-	Entity(glm::vec3 pPosition, GLfloat pXRotation, GLfloat pYRotation, GLfloat pZRotation, GLfloat pScale, Model* pModel);
+	Entity(glm::vec3 pPosition, glm::vec3 pRotation, GLfloat pScale, Model* pModel);
 	// Destructor
 	~Entity();
 
@@ -31,23 +32,27 @@ public:
 	glm::mat4 getModelMatrix();
 
 	// Increases position of the entity
-	void increasePosition(GLfloat x, GLfloat y, GLfloat z);
+	void increasePosition(glm::vec3 pPosition);
 	// Increases rotation of the entity
-	void increaseRotation(GLfloat x, GLfloat y, GLfloat z, GLfloat pDeltaTime);
+	void increaseXRotation(GLfloat x, GLfloat pDeltaTime);
+	void increaseYRotation(GLfloat y,GLfloat pDeltaTime);
+	void increaseZRotation(GLfloat z, GLfloat pDeltaTime);
 
 	// Set Positon of the entity
 	void setPosition(glm::vec3 pPosition);
 	// Set Rotation of the entity
-	void setRotation(GLfloat x, GLfloat y, GLfloat z);
+	void setRotation(glm::vec3 pRotation);
+	// Set Model
+	void setModel(Model* pModel);
+	// Set Scale
+	void setScale(GLfloat pScale);
 
 // All private member of the class
 private:
 	// Entity Postion
 	glm::vec3 mPosition;
 	// Entity Rotation
-	GLfloat mXRotation;
-	GLfloat mYRotation;
-	GLfloat mZRotation;
+	glm::vec3 mRotation;
 	//  Entity Scale ( 1 = Original size)
 	GLfloat mScale;
 	// Pointer to model class

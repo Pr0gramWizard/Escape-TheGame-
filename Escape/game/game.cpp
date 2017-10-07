@@ -84,6 +84,12 @@ Game::Game(GLuint pWidth, GLuint pHeight, const char* pWindowTitle)
 
 	// Create player and set his position
 	mPlayer = new Player(SpawnLocation, 2.0f, "New Player", this->getHeight(), this->getWidth());
+	mSkybox = new Skybox();
+	// mSkybox->addTexturePack("skybox/res/1/");
+	// mSkybox->addTexturePack("skybox/res/2/");
+	// mSkybox->addTexturePack("skybox/res/3/");
+	// mSkybox->addTexturePack("skybox/res/4/");
+	mSkybox->addTexturePack("skybox/res/");
 }
 
 
@@ -96,34 +102,42 @@ bool Game::gameLoop()
 	// Create Floor terrain
 	mFloor = new Terrain(0, 0, 0, 10, "Boden", loader, "./terrain/res/01.jpg",64);
 
-	mSkybox = new Skybox();
-	mSkybox->addTexturePack("skybox/res/1/");
-	// mSkybox->addTexturePack("skybox/res/2/");
-	// mSkybox->addTexturePack("skybox/res/3/");
-	// mSkybox->addTexturePack("skybox/res/4/");
-	mSkybox->addTexturePack("skybox/res/");
+	// Object* Cube = new Object("object/res/cube/cube.obj","object/res/cube/wood.jpg", glm::vec3(0,0,0),glm::vec3(0,0,0),1.0f);
+	// Object* testCube = new Object(*Cube, glm::vec3(0.0f, 0.0f, 0.0f), 1.0f, glm::vec3(0.5f, 0.5f, 0.5f));
 
-	Object* Cube = new Object("object/res/cube/cube.obj", glm::vec3(32,0,32),glm::vec3(0,0,0),1.0f);
+	// std::unique_ptr<Entity> pEntity = std::make_unique <Entity>(glm::vec3(32.0f, 1.0f, 32.0f), 0.0f, 0.0f, 0.0f, 1.0f, &temp);
 
-	Cube->loadTexture("object/res/cube/wood.jpg");
-	ObjectShader* objectshader = new ObjectShader("shaders/object.vert", "shaders/object.frag");
-	ObjectRenderer* objectrender = new ObjectRenderer(objectshader, mPlayer->getProjectionMatrix());
 
 	// Create new instance of renderer
 	mRenderer = new MainRenderer(mPlayer->getProjectionMatrix(), mPlayer,this->getWidth(), this->getHeight());
 	// Add terrain to render list
 	mRenderer->addToList(*mFloor);
 	mRenderer->addToList(mSkybox);
+	// mRenderer->addToList(pEntity);
 
+	std::vector<std::string> cubeTextures = { "temp/darkgreen.png","temp/darkred.png"};
+//	std::cout << cubeTextures.at(0) << "," << cubeTextures.at(1) << "," << cubeTextures.at(2) << std::endl;
+
+	
+	int tSize = 16;
+	for (int i = 0; i < 3; ++i) {
+		glm::vec3 position = glm::vec3(Math::getRand(0, 128), Math::getRand(2, 6), Math::getRand(0, 128));
+		glm::vec3 rotation = glm::vec3(Math::getRand(0, 360), Math::getRand(0, 360), Math::getRand(0, 360));
+		GLfloat scale = Math::getRand(0.5f, 2.0f);
+		 int randomNumber = Math::getRand(0,1);
+		std::unique_ptr<Cube> tempCube = std::make_unique<Cube>(position,rotation, scale,cubeTextures.at(randomNumber));
+		mRenderer->addToList(tempCube);
+	}
+	
 		
 	//**** LIGHT STUFF ****
 
 	// Global Sun Light
 	Light* middleLight = new Light(SpawnLocation + glm::vec3(0,100,0), glm::vec3(1.0f, 1.0f, 0.7f));
-	Light* topLeftCorner = new Light(SpawnLocation + glm::vec3(-256, 100, -256), glm::vec3(1.0f, 1.0f, 0.7f));
-	Light* topRightCorner = new Light(SpawnLocation + glm::vec3(-256, 100, 256), glm::vec3(1.0f, 1.0f, 0.7f));
-	Light* downLeftCorner = new Light(SpawnLocation + glm::vec3(256, 100, -256), glm::vec3(1.0f, 1.0f, 0.7f));
-	Light* downRightCorner = new Light(SpawnLocation + glm::vec3(256, 100, 256), glm::vec3(1.0f, 1.0f, 0.7f));
+	Light* topLeftCorner = new Light(SpawnLocation + glm::vec3(-64, 100, -64), glm::vec3(1.0f, 1.0f, 0.7f));
+	Light* topRightCorner = new Light(SpawnLocation + glm::vec3(-64, 100, 64), glm::vec3(1.0f, 1.0f, 0.7f));
+	Light* downLeftCorner = new Light(SpawnLocation + glm::vec3(64, 100, -64), glm::vec3(1.0f, 1.0f, 0.7f));
+	Light* downRightCorner = new Light(SpawnLocation + glm::vec3(64, 100, 64), glm::vec3(1.0f, 1.0f, 0.7f));
 
 	// Vector of all lights
 	vector<Light*> allLights;
@@ -156,11 +170,6 @@ bool Game::gameLoop()
 		mPlayer->move(mFloor,deltaTime, false);
 		mRenderer->render(mPlayer->getViewMatrix(), allLights, Game::RED, Game::GREEN, Game::BLUE,deltaTime);
 
-		objectrender->startShader();
-		objectrender->loadModelMatrix(Cube);
-		objectrender->loadViewMatrix(mPlayer->getViewMatrix());
-		objectrender->render(*Cube);
-		objectrender->stopShader();
 
 		if (currentFrame - lastTime >= 1.0)
 		{

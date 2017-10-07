@@ -38,8 +38,11 @@ public:
 	// Returns min int value
 	static int min(int a, int b);
 
-	// Generates random number in given intervall
+	// Generates random int number in given intervall
 	static int getRand(int startIntervall, int endIntervall);
+
+	// Generates random float in given Intervall
+	static float getRand(float startIntervall, float endIntervall);
 
 	// Generates random value between -1 and 1
 	static float getNoise(float x, float z);

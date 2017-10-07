@@ -7,6 +7,10 @@ const char* MainRenderer::GUI_VERTEX = "shaders/gui.vert";
 const char* MainRenderer::GUI_FRAGMENT = "shaders/gui.frag";
 const char* MainRenderer::TEXT_VERTEX = "shaders/text.vert";
 const char* MainRenderer::TEXT_FRAGMENT = "shaders/text.frag";
+const char* MainRenderer::OBJECT_VERTEX = "shaders/object.vert";
+const char* MainRenderer::OBJECT_FRAGMENT = "shaders/object.frag";
+const char* MainRenderer::ENTITY_VERTEX = "shaders/entity.vert";
+const char* MainRenderer::ENTITY_FRAGMENT = "shaders/entity.frag";
 
 
 MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer,int pWidth, int pHeight)
@@ -20,6 +24,16 @@ MainRenderer::MainRenderer(glm::mat4 pProjectionMatrix, Player* pPlayer,int pWid
 	TextShader* textshader = new TextShader(TEXT_VERTEX, TEXT_FRAGMENT);
 	// Creating Text Renderer
 	mTextRenderer = new TextRenderer(textshader, pWidth, pHeight);
+
+	// Creating Object Shader
+	ObjectShader* objectshader = new ObjectShader(OBJECT_VERTEX, OBJECT_FRAGMENT);
+	// Creating Object Renderer
+	mObjectRenderer= new ObjectRenderer(objectshader, pPlayer->getProjectionMatrix());
+
+	// Creating Entity Shader
+	EntityShader* entityShader = new EntityShader(ENTITY_VERTEX, ENTITY_FRAGMENT);
+	// Creating Entity Renderer
+	mEntityRenderer = new EntityRenderer(entityShader, pPlayer->getProjectionMatrix());
 
 	// Setting draw mode to normal
 	this->setDrawMode(0);
@@ -62,19 +76,59 @@ void MainRenderer::render(glm::mat4 pViewMatrix, vector<Light*> pLights, GLfloat
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
-	// Prepare terrain
-	mTerrainRenderer->startShader();
-	mTerrainRenderer->loadViewMatrix(pViewMatrix);
-	mTerrainRenderer->loadLights(pLights, false);
-	mTerrainRenderer->loadDepthCubemapTexture(pLights);
-	mTerrainRenderer->loadPlayerBelowLake(false);
-	mTerrainRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
+	if (!mTerrains.empty()) {
+		// Prepare terrain
+		mTerrainRenderer->startShader();
+		mTerrainRenderer->loadViewMatrix(pViewMatrix);
+		mTerrainRenderer->loadLights(pLights, false);
+		mTerrainRenderer->loadDepthCubemapTexture(pLights);
+		mTerrainRenderer->loadPlayerBelowLake(false);
+		mTerrainRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
+		// Render Terrain
+		for (Terrain &terrain : mTerrains)
+		{
+			mTerrainRenderer->loadTexture(terrain);
+			mTerrainRenderer->render(terrain);
+		}
+		mTerrainRenderer->stopShader();
+	}
 
-	// Render Terrain
-	for (Terrain &terrain : mTerrains)
-	{
-		mTerrainRenderer->loadTexture(terrain);
-		mTerrainRenderer->render(terrain);
+	if (!mEntities.empty()) {
+		mEntityRenderer->startShader();
+		mEntityRenderer->loadViewMatrix(pViewMatrix);
+		mEntityRenderer->loadLights(pLights, false);
+		mEntityRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
+		for (auto& data : mEntities) {
+			data->increaseXRotation(1, pDelta);
+			data->increaseYRotation(1, pDelta);
+			data->increaseZRotation(1, pDelta);
+			mEntityRenderer->render(data);
+		}
+		mEntityRenderer->stopShader();
+	}
+
+	if (!mCubes.empty()) {
+		mEntityRenderer->startShader();
+		mEntityRenderer->loadViewMatrix(pViewMatrix);
+		mEntityRenderer->loadLights(pLights, false);
+		mEntityRenderer->loadBackgroundColor(pRED, pGREEN, pBLUE);
+		for (auto& data : mCubes) {
+			mEntityRenderer->render(data);
+		}
+		mEntityRenderer->stopShader();
+	}
+	
+	if (!mObjects.empty()) {
+		// Prepare Objects
+		mObjectRenderer->startShader();
+		mObjectRenderer->loadViewMatrix(mPlayer->getViewMatrix());
+		mObjectRenderer->loadLights(pLights, false);
+		// Render objects
+		for (Object object : mObjects) {
+			mObjectRenderer->loadModelMatrix(&object);
+			mObjectRenderer->render(object);
+		}
+		mObjectRenderer->stopShader();
 	}
 
 	this->renderDebugInformation(mWidth, mHeight);
@@ -133,6 +187,20 @@ void MainRenderer::addToList(Terrain &pTerrain){
 	mTerrains.push_back(pTerrain);
 }
 
+// Add cube to the render list
+void MainRenderer::addToList(std::unique_ptr<Cube>& pCube) {
+	mCubes.push_back(std::move(pCube));
+}
+
+// Add terrain to the render list
+void MainRenderer::addToList(Object pObject) {
+	mObjects.push_back(pObject);
+}
+
+void MainRenderer::addToList(std::unique_ptr<Entity>& pEntity){
+	mEntities.push_back(std::move(pEntity));
+}
+
 // Setting Draw Mode 
 void MainRenderer::setDrawMode(bool pMode){
 	drawMode = pMode;
@@ -145,10 +213,20 @@ bool MainRenderer::getDrawMode() const
 
 // Clears the whole list
 void MainRenderer::clearLists(){
-	mTerrains.clear();
+	clearTerrainList();
+	clearObjectList();
+	clearEntityList();
 }
 
 // Clear the list of terrains
 void MainRenderer::clearTerrainList(){
 	mTerrains.clear();
+}
+
+void MainRenderer::clearObjectList(){
+	mObjects.clear();
+}
+
+void MainRenderer::clearEntityList(){
+	mEntities.clear();
 }

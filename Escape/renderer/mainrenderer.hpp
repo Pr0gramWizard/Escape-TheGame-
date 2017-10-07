@@ -24,6 +24,14 @@
 #include "../gui/GuiTexture.hpp"
 #include "../gui/renderer/GuiRenderer.hpp"
 #include "../gui/shader/GuiShader.hpp"
+// Object
+#include "../object/object.hpp"
+#include "../object/renderer/objectrenderer.hpp"
+#include "../object/shader/objectshader.hpp"
+// Entity
+#include "../entity/entity.hpp"
+#include "../entity/renderer/entityRenderer.hpp"
+#include "../entity/shader/entityshader.hpp"
 // GLFW
 #include <glfw3.h>
 
@@ -36,6 +44,9 @@ public:
 	// Adds a terrain to the list
 	void addToList(Terrain &pTerrain);
 	void addToList(Skybox* pSkybox);
+	void addToList(Object pObject);
+	void addToList(std::unique_ptr<Entity>& pEntity);
+	void addToList(std::unique_ptr<Cube>& pCube);
 
 	// Setter
 	void setDrawMode(bool pMode);
@@ -58,6 +69,8 @@ public:
 	// Cleanup functions
 	void clearLists();
 	void clearTerrainList();
+	void clearObjectList();
+	void clearEntityList();
 
 	// Resize function
 	void resizeWindow(int pWidth, int pHeight);
@@ -72,6 +85,10 @@ public:
 	static const char* GUI_FRAGMENT;
 	static const char* TEXT_VERTEX;
 	static const char* TEXT_FRAGMENT;
+	static const char* OBJECT_VERTEX;
+	static const char* OBJECT_FRAGMENT;
+	static const char* ENTITY_VERTEX;
+	static const char* ENTITY_FRAGMENT;
 
 private:
 	// Renderer
@@ -89,8 +106,18 @@ private:
 	Player* mPlayer;
 	// Text Renderer
 	TextRenderer* mTextRenderer;
+	// Object Renderer
+	ObjectRenderer* mObjectRenderer;
+	// Entity Renderer
+	EntityRenderer* mEntityRenderer;
 	// List of all terrains
-	list<Terrain> mTerrains;
+	std::vector<Terrain> mTerrains;
+	// List of all objects
+	std::vector<Object> mObjects;
+	// List of all entites
+	std::vector<std::unique_ptr<Entity> > mEntities;
+	// List of all cubes
+	std::vector<std::unique_ptr<Cube> > mCubes;
 	// FPS
 	int mFps;
 	// Debug Modes
