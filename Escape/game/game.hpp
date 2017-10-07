@@ -54,6 +54,8 @@
 #include "../object/object.hpp"
 #include "../object/shader/objectshader.hpp"
 #include "../object/renderer/objectrenderer.hpp"
+// Cube
+#include "../entity/presets/Cube.h"
 
 
 

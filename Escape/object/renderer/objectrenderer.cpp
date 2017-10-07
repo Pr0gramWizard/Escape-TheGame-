@@ -13,7 +13,7 @@ void ObjectRenderer::render(Object &pObject)
 {
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, pObject.getTexture());
-	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "texture"), 0);
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "ourTexture"), 0);
 	pObject.Draw(mShader);
 }
 

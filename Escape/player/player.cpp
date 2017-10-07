@@ -467,13 +467,13 @@ const char * Player::getName() const
 // Returns the window height
 int Player::getWindowHeight() const
 {
-	return mWindowHeight;
+	return this->mWindowHeight;
 }
 
 // Returns the window width
 int Player::getWindowWidth() const
 {
-	return mWindowWidth;
+	return this->mWindowWidth;
 }
 
 // Returns the Y Rotation of the player

@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="camera\camera.cpp" />
     <ClCompile Include="entity\entity.cpp" />
+    <ClCompile Include="entity\presets\Cube.cpp" />
     <ClCompile Include="entity\renderer\entityRenderer.cpp" />
     <ClCompile Include="entity\shader\entityshader.cpp" />
     <ClCompile Include="game\game.cpp" />
@@ -57,6 +58,7 @@
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp" />
     <ClInclude Include="entity\entity.hpp" />
+    <ClInclude Include="entity\presets\Cube.h" />
     <ClInclude Include="entity\renderer\entityRenderer.hpp" />
     <ClInclude Include="entity\shader\entityshader.hpp" />
     <ClInclude Include="game\game.hpp" />
@@ -92,10 +94,10 @@
   <ItemGroup>
     <None Include="glew32.dll" />
     <None Include="SDL2.dll" />
-    <None Include="shaders\a.frag" />
-    <None Include="shaders\b.vert" />
     <None Include="shaders\blur.frag" />
     <None Include="shaders\blur.vert" />
+    <None Include="shaders\a.frag" />
+    <None Include="shaders\entity.vert" />
     <None Include="shaders\finalbloom.frag" />
     <None Include="shaders\finalbloom.vert" />
     <None Include="shaders\gui.frag" />

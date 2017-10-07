@@ -21,14 +21,22 @@ EntityRenderer::~EntityRenderer()
 // Render methods:
 
 // Render Entites with a given list
-void EntityRenderer::render(std::list<Entity> pEntities)
-{
-	// Looping through the list
-	for (Entity &entity : pEntities)
-	{
-		// Call render function
-		this->render(entity);
-	}
+void EntityRenderer::render(std::list<Entity> pEntities){
+
+}
+
+void EntityRenderer::render(std::unique_ptr<Cube>& pCube){
+	// Prepare the entity
+	prepareEntity(pCube->getVaoId());
+	// Load its model matrix
+	loadModelMatrix(pCube->getModelMatrix());
+	// Activate texture
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, pCube->getTextureID());
+	glUniform1i(glGetUniformLocation(mShader->getProgramID(), "ourTexture"), 0);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	// Unbind entity
+	unbindEntity();
 }
 
 // Render Entites with a given list and given RenderMode
@@ -43,16 +51,16 @@ void EntityRenderer::render(std::list<Entity> pEntities, RenderMode pMode)
 }
 
 // Render Entites with a given object
-void EntityRenderer::render(Entity& pEntity)
+void EntityRenderer::render(std::unique_ptr<Entity>& pEntity)
 {
 	// Prepare the entity
-	prepareEntity(pEntity);
+	prepareEntity(pEntity->getModel()->getVaoId());
 	// Load its model matrix
-	loadModelMatrix(pEntity);
+	loadModelMatrix(pEntity->getModelMatrix());
 	// Render the object with full polygons
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	// Draw the object
-	glDrawElements(GL_TRIANGLES, pEntity.getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, pEntity->getModel()->getVerticesCount(), GL_UNSIGNED_INT, 0);
 	// Unbind entity
 	unbindEntity();
 }
@@ -61,7 +69,7 @@ void EntityRenderer::render(Entity& pEntity)
 void EntityRenderer::render(Entity& pEntity, RenderMode pMode)
 {
 	// Prepare the entity
-	prepareEntity(pEntity);
+	// prepareEntity(pEntity);
 	// Load its model matrix
 	loadModelMatrix(pEntity);
 	// Render the object with full polygons
@@ -105,12 +113,10 @@ void EntityRenderer::unbindEntity()
 }
 
 // Preparing the entity (given as object)
-void EntityRenderer::prepareEntity(Entity pEntity)
+void EntityRenderer::prepareEntity(GLuint pVaoID)
 {
-	// Get Model of the entity
-	Model* model = pEntity.getModel();
 	// Binding the Vertex Array
-	glBindVertexArray(model->getVaoId());
+	glBindVertexArray(pVaoID);
 	// Enable attributes (position, normals, textures)
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -118,16 +124,7 @@ void EntityRenderer::prepareEntity(Entity pEntity)
 }
 
 // Preparing the entity (given as pointer to object)
-void EntityRenderer::prepareEntity(Entity * pEntity)
-{
-	// Get Model of the entity
-	Model* model = pEntity->getModel();
-	// Binding the Vertex Array
-	glBindVertexArray(model->getVaoId());
-	// Enable attributes (position, normals, textures)
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
+void EntityRenderer::prepareEntity(Entity * pEntity){
 }
 
 
@@ -135,6 +132,12 @@ void EntityRenderer::prepareEntity(Entity * pEntity)
 void EntityRenderer::loadModelMatrix(Entity pEntity)
 {
 	mShader->loadModelMatrix(pEntity.getModelMatrix());
+}
+
+// Load Model Matrix (given object)
+void EntityRenderer::loadModelMatrix(glm::mat4 pMatrix)
+{
+	mShader->loadModelMatrix(pMatrix);
 }
 
 // Load Model Matrix (given pointer to object)

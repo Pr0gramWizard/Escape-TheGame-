@@ -109,9 +109,6 @@
     <Filter Include="Entity\shader">
       <UniqueIdentifier>{ee35ad91-fe70-4b6f-b839-05ab34408fce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entity\NewFilter1">
-      <UniqueIdentifier>{ee164b2b-1ca8-4ba6-aa6e-ae7dfe0916ab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Entity\renderer">
       <UniqueIdentifier>{10032655-a7c2-4ae2-b418-f6c66ba411bf}</UniqueIdentifier>
     </Filter>
@@ -123,6 +120,12 @@
     </Filter>
     <Filter Include="Object\shader">
       <UniqueIdentifier>{ac3618e9-4b27-4154-ba3c-d470549ecd98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{fa490844-ced9-4c41-9300-dd40c6556595}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\presets">
+      <UniqueIdentifier>{e16e037e-7661-4095-9fd5-bf3c135fcc27}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -228,6 +231,9 @@
     <ClCompile Include="object\shader\objectshader.cpp">
       <Filter>Object\shader</Filter>
     </ClCompile>
+    <ClCompile Include="entity\presets\Cube.cpp">
+      <Filter>Entity\presets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\camera.hpp">
@@ -329,6 +335,9 @@
     <ClInclude Include="object\shader\objectshader.hpp">
       <Filter>Object\shader</Filter>
     </ClInclude>
+    <ClInclude Include="entity\presets\Cube.h">
+      <Filter>Entity\presets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glew32.dll">
@@ -347,12 +356,6 @@
       <Filter>Shader\Fragment</Filter>
     </None>
     <None Include="shaders\worldShader.vert">
-      <Filter>Shader\Vertex</Filter>
-    </None>
-    <None Include="shaders\a.frag">
-      <Filter>Shader\Fragment</Filter>
-    </None>
-    <None Include="shaders\b.vert">
       <Filter>Shader\Vertex</Filter>
     </None>
     <None Include="shaders\terrain.frag">
@@ -468,6 +471,12 @@
     </None>
     <None Include="shaders\gui.vert">
       <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="shaders\entity.vert">
+      <Filter>Shader\Vertex</Filter>
+    </None>
+    <None Include="shaders\a.frag">
+      <Filter>Shader\Fragment</Filter>
     </None>
   </ItemGroup>
 </Project>

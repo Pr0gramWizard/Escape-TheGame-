@@ -2,13 +2,31 @@
 
 
 
-Object::Object(GLchar * path, glm::vec3 pPosition,glm::vec3 pRotation,GLfloat pScale)
+Object::Object(GLchar* path, std::string pTexturePath, glm::vec3 pPosition, glm::vec3 pRotation, GLfloat pScale)
 {
 	this->setPosition(pPosition);
 	this->loadObject(path);
+	this->loadTexture(pTexturePath);
 	this->setScale(pScale);
 	this->setRotation(pRotation);
 }
+
+Object::Object(const Object & pObject,std::string pTexturePath, glm::vec3 pPosition, float pScale, glm::vec3 pRotation){
+	this->setPosition(pPosition);
+	this->meshes=  pObject.getMeshes();
+	this->loadTexture(pTexturePath);
+	this->setScale(pScale);
+	this->setRotation(pRotation);
+}
+
+Object::Object(const Object & pObject, glm::vec3 pPosition, float pScale, glm::vec3 pRotation) {
+	this->setPosition(pPosition);
+	this->meshes = pObject.getMeshes();
+	this->mTexture = pObject.getTexture();
+	this->setScale(pScale);
+	this->setRotation(pRotation);
+}
+
 
 
 void Object::Draw(ObjectShader* shader)
@@ -51,6 +69,10 @@ void Object::setRotation(glm::vec3 pRotation)
 GLuint Object::getTexture() const
 {
 	return mTexture;
+}
+
+std::vector<Mesh> Object::getMeshes() const{
+	return meshes;
 }
 
 void Object::loadTexture(std::string pPath)

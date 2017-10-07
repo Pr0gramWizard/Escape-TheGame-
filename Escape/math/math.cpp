@@ -73,13 +73,26 @@ int Math::min(int a, int b) {
 	return (a < b) ? a : b;
 }
 
-// Generate random number in given interval
+// Generate random int number in given interval
 int Math::getRand(int startValue, int endValue) {
+	assert(startValue < endValue);
 	const int range_from = startValue;
 	const int range_to = endValue;
 	std::random_device                  rand_dev;
 	std::mt19937                        generator(rand_dev());
 	std::uniform_int_distribution<int>  distr(range_from, range_to);
+
+	return distr(generator);
+}
+
+// Generate random float number in given interval
+float Math::getRand(float startValue, float endValue) {
+	assert(startValue < endValue);
+	const float range_from = startValue;
+	const float range_to = endValue;
+	std::random_device                  rand_dev;
+	std::mt19937                        generator(rand_dev());
+	std::uniform_real_distribution<float>  distr(range_from, range_to);
 
 	return distr(generator);
 }
@@ -147,5 +160,5 @@ float Math::getSmoothNoise(int x, int z) {
 
 // Floor float number to a given digit
 float Math::round(float x, int digit) {
-	return 	floor(x*pow(10, digit)) / pow(10, digit);
+	return 	(float)(floor(x*pow(10, digit)) / pow(10, digit));
 }
