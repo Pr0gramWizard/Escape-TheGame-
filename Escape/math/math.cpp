@@ -109,8 +109,8 @@ float Math::inverseLerp(float a, float b, float y) {
 
 // Generate random noise which is interpolated
 float Math::getInterpolatedNoise(float x, float z) {
-	int intPartX = (int)x;
-	int intPartZ = (int)z;
+	float intPartX = (int)x;
+	float intPartZ = (int)z;
 
 	float fracX = x - intPartX;
 	float fracZ = z - intPartZ;
@@ -127,17 +127,17 @@ float Math::getInterpolatedNoise(float x, float z) {
 }
 
 // Generate random value between -1 and 1
-float Math::getNoise(int x, int z) {
+float Math::getNoise(float x, float z) {
 	const float range_from = -1.0;
 	const float range_to = 1.0;
 	std::random_device                  rand_dev;
-	std::mt19937                        generator(x * 18289 + z * 38729 * rand_dev());
+	std::mt19937                        generator((unsigned int) (x * 18289 + z * 38729 * rand_dev()));
 	std::uniform_real_distribution<float>  distr(range_from, range_to);
 	return distr(generator);
 }
 
 // Generate random value between -1 and 1
-float Math::getSmoothNoise(int x, int z) {
+float Math::getSmoothNoise(float x, float z) {
 	float corners = (Math::getNoise(x - 1, z - 1) + Math::getNoise(x + 1, z - 1) + Math::getNoise(x - 1, z + 1) + Math::getNoise(x + 1, z + 1) / 16.0f);
 	float sides = (Math::getNoise(x - 1, z) + Math::getNoise(x + 1, z) + Math::getNoise(x, z + 1) + Math::getNoise(x , z - 1) / 8.0f);
 	float center = (Math::getNoise(x, z) / 4.0f);
@@ -147,5 +147,5 @@ float Math::getSmoothNoise(int x, int z) {
 
 // Floor float number to a given digit
 float Math::round(float x, int digit) {
-	return 	floor(x*pow(10, digit)) / pow(10, digit);
+	return 	(float)(floor(x*pow(10, digit)) / pow(10, digit));
 }

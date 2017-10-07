@@ -61,20 +61,7 @@ std::vector<float> TerrainGenerator::generateHeights() {
 }
 
 std::vector<float> TerrainGenerator::getRGBValues() const{
-	std::ofstream myfile;
-	myfile.open("rgbValues.log");
-	
-
-	std::vector<float> temp = mHeightValues;
-	for (unsigned int i = 0; i < mHeightValues.size(); ++i) {
-		temp[i] += 1;
-		temp[i] /= 2.0f;
-		temp[i] *= 255;
-		temp[i] = (int)temp[i];
-		myfile << temp[i] << std::endl;
-	}
-	myfile.close();
-
+	std::vector<float> temp = { 0 };
 	return temp;
 }
 

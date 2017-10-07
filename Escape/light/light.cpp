@@ -128,7 +128,7 @@ glm::vec3 Light::getAttenuation() const
 
 void Light::incDiscoTime(float pDelta)
 {
-	this->mDiscoTime += this->mDiscoFrequency * M_PI * pDelta;
+	this->mDiscoTime += (float) (this->mDiscoFrequency * M_PI * pDelta);
 }
 
 glm::vec3 Light::getDiscoColor() const

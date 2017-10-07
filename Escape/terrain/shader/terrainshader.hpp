@@ -63,7 +63,7 @@ public:
 	void loadPlane(glm::vec4 pVector);
 	void loadFogData(GLfloat pDensity, GLfloat pGradient);
 	void loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pBlue);
-	void loadPlayerBelowLake(GLfloat pPlayerBelowLake);
+	void loadPlayerBelowLake(GLboolean pPlayerBelowLake);
 	// Destructor
 	~TerrainShader();
 

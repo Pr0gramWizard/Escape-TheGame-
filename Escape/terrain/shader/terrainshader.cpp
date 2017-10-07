@@ -525,7 +525,7 @@ void TerrainShader::loadBackgroundColor(GLfloat pRed, GLfloat pGreen, GLfloat pB
 	this->loadVector(mLocation_backgroundColor, glm::vec3(pRed, pGreen, pBlue));
 }
 
-void TerrainShader::loadPlayerBelowLake(GLfloat pPlayerBelowLake)
+void TerrainShader::loadPlayerBelowLake(GLboolean pPlayerBelowLake)
 {
 	this->loadBool(mLocation_playerBelowLake, pPlayerBelowLake);
 }

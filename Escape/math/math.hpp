@@ -42,10 +42,10 @@ public:
 	static int getRand(int startIntervall, int endIntervall);
 
 	// Generates random value between -1 and 1
-	static float getNoise(int x, int z);
+	static float getNoise(float x, float z);
 
 	// Returns random value between -1 and 1 with averaged corners
-	static float getSmoothNoise(int x, int z);
+	static float getSmoothNoise(float x, float z);
 
 	// Returns random value between -1 and 1 with averaged corners
 	static float getInterpolatedNoise(float x, float z);
